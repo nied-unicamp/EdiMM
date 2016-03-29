@@ -108,8 +108,8 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 		if(substr($this->fontpath,-1)!='/' && substr($this->fontpath,-1)!='\\')
 			$this->fontpath .= '/';
 	}
-	elseif(is_dir(dirname(__FILE__).'/font'))
-		$this->fontpath = dirname(__FILE__).'/font/';
+	elseif(is_dir(dirname(__FILE__).'/../font'))
+		$this->fontpath = dirname(__FILE__).'/../font/';
 	else
 		$this->fontpath = '';
 	// Core fonts
