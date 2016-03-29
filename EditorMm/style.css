@@ -1,0 +1,46 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div.colorBackground {
+  background: green;
+}
+div#topNavi {
+  width: 100%;
+  height: 15%;
+  position: absolute;
+  top: 0;
+}
+
+div.button, div.buttonToolbar {
+  height: 100%;
+  float: left;
+}
+div.button img, div.buttonToolbar img {
+  height: 100%;
+}
+
+div#bottomLine {
+  width: 100%;
+  height: 3%;
+  position: absolute; 
+  bottom: 0;
+}
+
+div#toolbar {
+  width: 100%;
+  height: 8%;
+  background: #ededed;
+  position: absolute;
+  top: 15%;
+}
+
+div#svgDiv{
+  width: 100%;
+  height: 74%;
+  position: absolute;
+  top: 23%;
+}
