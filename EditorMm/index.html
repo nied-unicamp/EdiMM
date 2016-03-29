@@ -292,7 +292,7 @@ function startMove(event) {
     xmlString.replace("</t", "><");
 	var encoded = encodeURIComponent(xmlString);
 	xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","http://fenix.nied.unicamp.br/EditorMm/armazena.php",true);
+    xmlhttp.open("POST","http://localhost/projetos/EditorMM/armazena.php",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("id="+id+"&svg="+encoded);
  }
@@ -502,7 +502,7 @@ function startMove(event) {
 	}
    } //end-of response-Function of xmlhttp
  }
- xmlhttp.open("POST", "http://fenix.nied.unicamp.br/EditorMm/consulta.php", false);
+ xmlhttp.open("POST", "http://localhost/projetos/EditorMM/consulta.php", true);
  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
  //xmlhttp.send("id="+id);
  xmlhttp.send("id="+id);
@@ -1275,7 +1275,7 @@ var serializer = new XMLSerializer();
     var ctx=canvas.getContext("2d");
     ctx.clearRect(0, 0, w, h);
     formulario.svg.value = svg;
-    formulario.action = "http://fenix.nied.unicamp.br/EditorMm/gera_pdf.php";
+    formulario.action = "http://localhost/projetos/EditorMM/gera_pdf.php";
     formulario.submit();	
 
 }
@@ -1322,8 +1322,8 @@ function setWidth(val) {
 
 <body onload="init()">
   <div class="colorBackground" id="topNavi">
-    <div class="button" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);"  onclick="setActiveButton(this);window.location.href='index.html';"><img src="images/newIconT.png"></div>
-        <div class="button" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);serializeSVGtoXML()"><img src="images/propertyIcon.png"></div>
+		<div class="button" style="margin-left: 3%;"          onmouseover="activeButton(this);" onmouseout="deactiveButton(this);"  onclick="setActiveButton(this);window.location.href='index.html';"><img src="images/new.png"></div>
+        <div class="button" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);serializeSVGtoXML()"><img src="images/save.png"></div>
         <div class="button" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);createPDF()"><img src="images/pdf.png"></div>
    
         <select id="color" name = "color" style="padding: 0; margin: 2% 0%; height: 20%;" onchange="setColor(this.value);">
@@ -1388,23 +1388,23 @@ function setWidth(val) {
 		</select>
 		<select id="width" style="padding: 0; margin: 2% 0%; height: 20%;" onchange="setFontText(this.value);">
 			<option selected disabled>Mudar Fonte </option>
-                                <option value="monospace">Monospace</option>
-                                <option value="opendyslexic">Opendys Lexic</option>
-                                <option value="comicsans">Comic Sans</option>
-                                <option value="georgia">Georgia</option>
-                                <option value="impact">Impact</option>
-                                <option value="lucida">Lucida</option>
-                                <option value="lucidasans">Lucidasans</option>
-                                <option value="palatino">Palatino</option>
-                                <option value="tahoma">Tahoma</option>
-                                <option value="timesnewroman">Times New Roman</option>
-                                <option value="trebuchet">Trebuchet</option>
-                                <option value="verdana">Verdana</option>
-                                <option value="symbol">Symbol</option>
-                                <option value="webdings">Webdings</option>
-                                <option value="wingdings">Wingdings</option>
-                                <option value="sansserif">Sansserif</option>
-                                <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+            <option value="opendyslexic">Opendys Lexic</option>
+            <option value="comicsans">Comic Sans</option>
+            <option value="georgia">Georgia</option>
+            <option value="impact">Impact</option>
+            <option value="lucida">Lucida</option>
+            <option value="lucidasans">Lucidasans</option>
+            <option value="palatino">Palatino</option>
+            <option value="tahoma">Tahoma</option>
+            <option value="timesnewroman">Times New Roman</option>
+            <option value="trebuchet">Trebuchet</option>
+            <option value="verdana">Verdana</option>
+            <option value="symbol">Symbol</option>
+            <option value="webdings">Webdings</option>
+            <option value="wingdings">Wingdings</option>
+            <option value="sansserif">Sansserif</option>
+            <option value="serif">Serif</option>
 		</select>
 		<div class="button" style="padding: 0; margin: 2% 0%; height: 20%;"onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);setStrokeText();"><img src="images/bold.png"></div>
 		<div class="button" style="padding: 0; margin: 2% 0%; height: 20%;"onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);setDecoration();"><img src="images/underline.png"></div>
@@ -1414,14 +1414,15 @@ function setWidth(val) {
 
 
   <div id="toolbar">
-	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);writeIt();return false;"><img src="images/textIcon.png"></div>
-	<div class="buttonToolbar" id="primeButtonToolbarActive" style="margin-left: 3%; background: #a2a2a2;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);drawIt();return false;"><img src="images/editIcon.png"></div>
-	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);deleteFromSVGRect();return false;"><img src="images/deleteIcon.png"></div>
-	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);moveIt();return false;"><img src="images/watchIcon.png"></div>
-	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateCircle();return false;"><img src="images/circle2.png"></div>
-	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateRect();return false;"><img src="images/rect.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);writeIt();return false;"><img src="images/drop.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);drawIt();return false;"><img src="images/edit.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);deleteFromSVGRect();return false;"><img src="images/delete.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);moveIt();return false;"><img src="images/drag.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateCircle();return false;"><img src="images/circle.png"></div>
+	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateRect();return false;"><img src="images/square.png"></div>
 	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateEllipse();return false;"><img src="images/ellipse.png"></div>
 	<div class="buttonToolbar" style="margin-left: 3%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateLine();return false;"><img src="images/line.png"></div>
+		
 		<a href="javascript:save_image();" class="button" id="btn-download" style="padding: 0; margin: 5% 1%; height: 20%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);">Gerar Imagem</a>
 		<a href="javascript:drawGrid();" class="button" id="grid" style="padding: 0; margin: 5% 1%; height: 20%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);">Grade</a>
 		<a href="javascript:clearGrid();" class="button" id="clearGrid" style="padding: 0; margin: 5% 1%; height: 20%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);">Limpar Grade</a>

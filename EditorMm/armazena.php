@@ -5,7 +5,7 @@ $id = $_REQUEST["id"];
 $svg = $_REQUEST["svg"];
 $servername = "localhost";
 $username = "root";
-$password = "Myfen80n";
+$password = "";
 $dbname = "EditorMm";
 
 
