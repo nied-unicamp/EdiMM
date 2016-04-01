@@ -10,7 +10,7 @@ div.colorBackground {
 }
 div#topNavi {
   width: 100%;
-  height: 15%;
+  height: 10%;
   position: absolute;
   top: 0;
 }
@@ -25,22 +25,22 @@ div.button img, div.buttonToolbar img {
 
 div#bottomLine {
   width: 100%;
-  height: 3%;
+  height: 2%;
   position: absolute; 
   bottom: 0;
 }
 
 div#toolbar {
   width: 100%;
-  height: 8%;
+  height: 5%;
   background: #ededed;
   position: absolute;
-  top: 15%;
+  top: 10%;
 }
 
 div#svgDiv{
   width: 100%;
   height: 74%;
   position: absolute;
-  top: 23%;
+  top: 18%;
 }
