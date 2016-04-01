@@ -6,7 +6,7 @@ html, body {
 }
 
 div.colorBackground {
-  background: green;
+  background: CadetBlue;
 }
 div#topNavi {
   width: 100%;
@@ -33,7 +33,7 @@ div#bottomLine {
 div#toolbar {
   width: 100%;
   height: 5%;
-  background: #ededed;
+  background: LightGray;
   position: absolute;
   top: 10%;
 }
@@ -42,5 +42,22 @@ div#svgDiv{
   width: 100%;
   height: 74%;
   position: absolute;
-  top: 18%;
+  top: 20%;
+}
+
+input, select{
+	margin-right:auto; 
+	margin-left:auto;
+	text-align: center;
+	border: 2;
+	border-color: #FFFFFF;
+	padding: 0.5em;		
+	border-radius: 6px;
+	border: solid 1px rgba(255, 255, 255, 0.35);
+}	
+	
+button,.button {		
+	border: 2;
+	border-color: #FFFFFF;
+	border-radius: 6px;		
 }
