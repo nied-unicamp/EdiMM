@@ -116,11 +116,11 @@
 
     #page-content-wrapper {
         padding: 0px;
-        position: relative;
+        position: relative;	
     }
 
     #wrapper.toggled #page-content-wrapper {
-        position: relative;
+        position: fixed;
         margin-right: 0;
     }
 }
