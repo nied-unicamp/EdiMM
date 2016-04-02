@@ -23,7 +23,7 @@
             <ul class="sidebar-nav">
 				<li><img src="images/editor.png"></li> 
                 <li class="sidebar-brand"><a>Multimodalidade</a></li>                       
-            	<li><a href="javascript:window.location.href='index.html';"><img src="images/mininew.png"> Novo Arquivo </a></li>            		
+            	<li><a href="javascript:window.location.href='index.html';"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
             	<li><a href="javascript:serializeSVGtoXML();"><img src="images/minisave.png"> Salvar </a></li>  	
 				<li><a href="javascript:createPDF();"><img src="images/minipdf.png"> Salvar em PDF </a></li>
 				<li><a href="javascript:save_image();"><img src="images/image.png"> Gerar imagem </a></li>
@@ -134,18 +134,21 @@
 								
 							</div>
 
-							<div id="toolbar">
+							<nav id="nav" class="nav-primary hidden-xs nav-vertical bg-light">
+								<ul class="nav affix-top" data-spy="affix" data-offset-top="20">
+
+								<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><img src="images/expand.png" width="24"></a><li>
+								<li><a href="javascript:writeIt();" class="buttonToolbar"><img src="images/drop.png" width="24"></a></li>
+								<li><a href="javascript:drawIt();" class="buttonToolbar"><img src="images/edit.png" width="24"></a></li>								
+								<li><a href="javascript:CreateCircle();" class="buttonToolbar"><img src="images/circle.png" width="24"></a></li>
+								<li><a href="javascript:CreateRect();" class="buttonToolbar"><img src="images/square.png" width="24"></a></li>
+								<li><a href="javascript:CreateEllipse();" class="buttonToolbar"><img src="images/ellipse.png" width="24"></a></li>
+								<li><a href="javascript:CreateLine();" class="buttonToolbar"><img src="images/line.png" width="24"></a></li>									
+								<li><a href="javascript:moveIt();" class="buttonToolbar"><img src="images/drag.png" width="24"></a></li>
+								<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar"><img src="images/delete.png" width="24"></a></li>
 								
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);writeIt();return false;"><img src="images/drop.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);drawIt();return false;"><img src="images/edit.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);deleteFromSVGRect();return false;"><img src="images/delete.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);moveIt();return false;"><img src="images/drag.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateCircle();return false;"><img src="images/circle.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateRect();return false;"><img src="images/square.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateEllipse();return false;"><img src="images/ellipse.png"></div>
-								<div class="buttonToolbar" style="margin-left: 2%;" onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);CreateLine();return false;"><img src="images/line.png"></div>
-								<div><a href="#menu-toggle" class="btn btn-default" id="menu-toggle"  style="padding: 0; margin-left: 2%;"><img src="images/expand.png"></a></div>
-							</div>	
+								</ul>
+							</nav>	
 							
 							<div id="svgDiv">
 							
@@ -170,7 +173,8 @@
 								
 								<div class="hidden">	
 								<canvas id="canvas" width="2000px" height="1000px"></canvas>
-								</div> 								
+								</div>
+														
 						</div>
 					</div>
 				</div>

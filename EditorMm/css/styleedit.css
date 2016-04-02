@@ -1,48 +1,75 @@
-html, body {
+html, body , h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;
 }
 
 div.colorBackground {
   background: CadetBlue;
 }
+
 div#topNavi {
   width: 100%;
   height: 10%;
+  left: 4%;
   position: absolute;
-  top: 0;
+  top: 0%;  
 }
 
 div.button, div.buttonToolbar {
   height: 100%;
   float: left;
+  left: 4%;
+  
 }
 div.button img, div.buttonToolbar img {
   height: 100%;
+  left:4%;
+  
 }
-
+a.buttonToolbar{
+	color: #333;
+    background-color: #fff;
+    border-color: #ccc; 
+}
+.buttonToolbar {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 div#bottomLine {
   width: 100%;
   height: 2%;
+  left: 4%;
   position: absolute; 
-  bottom: 0;
-}
-
-div#toolbar {
-  width: 100%;
-  height: 5%;
-  background: LightGray;
-  position: absolute;
-  top: 10%;
+  bottom: 0%;
 }
 
 div#svgDiv{
+  top: 23%;
   width: 100%;
-  height: 74%;
-  position: absolute;
-  top: 20%;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  left:0;
 }
 
 input, select{
@@ -61,3 +88,29 @@ button,.button {
 	border-color: #FFFFFF;
 	border-radius: 6px;		
 }
+
+nav,.nav {
+	padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+	position: relative;
+    width: 65px;
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    top: 0px;
+    bottom: 0;
+    border-right: 1px solid #162636;
+	border-left: 1px solid #162636;
+}
+
+#nav.bg-light {
+	border-color: #bfc7d0;
+    background:#4F4F4F;
+}
+
+ul, ol {
+    margin-top: 10;
+    margin-bottom: 10px;
+}
+
