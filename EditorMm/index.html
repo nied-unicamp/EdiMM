@@ -23,12 +23,9 @@
             <ul class="sidebar-nav">
 				<li><img src="images/editor.png"></li> 
                 <li class="sidebar-brand"><a>Multimodalidade</a></li>                       
-            	<li><a href="javascript:window.location.href='index.html';"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
-            	<li><a href="javascript:serializeSVGtoXML();"><img src="images/minisave.png"> Salvar </a></li>  	
-				<li><a href="javascript:createPDF();"><img src="images/minipdf.png"> Salvar em PDF </a></li>
-				<li><a href="javascript:save_image();"><img src="images/image.png"> Gerar imagem </a></li>
-				<li><a href="javascript:drawGrid();"><img src="images/grid.png"> Grade </a></li>				
-				<li><a href="javascript:clearGrid();"><img src="images/paper.png"> Limpar Grade </a></li>		
+            	<li><a href="javascript:window.location.href='index.html';" target="janela"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
+            	<li><a href="javascript:serializeSVGtoXML();" target="janela"><img src="images/minisave.png"> Salvar </a></li>  	
+				<li><a href="javascript:createPDF();" target="janela"><img src="images/minipdf.png"> Salvar em PDF </a></li>				
 			</ul>			
         </div>		
         <!-- sidebar-wrapper -->
@@ -38,103 +35,9 @@
             	
                 <div class="row">
                     <div class="col-lg-15">
-   						<div class="embed-responsive embed-responsive-16by9">						
-							<div class="colorBackground" id="topNavi">
+   						<div class="embed-responsive embed-responsive-16by9">	
 						
-								<select id="color" name = "color" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setColor(this.value);">
-									<option selected disabled>Mudar Cor Desenho</option>
-									<option value="red">Red</option> 
-									<option value="green">Green</option>
-									<option value="blue">Blue</option>
-									<option value="yellow">Yellow</option>
-									<option value="brown">Brown</option>
-									<option value="purple">Purple</option>
-									<option value="orange">Orange</option>
-									<option value="black">Black</option>
-									<option value="grey">Grey</option>		
-								</select>
-								
-								<select id="width" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setWidth(this.value);">
-									<option selected disabled>Mudar Espessura Desenho</option>
-									<option value="1">1</option> 
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-								</select>
-								
-								<select id="sizeText" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setSizeText(this.value);">
-									<option selected disabled>Mudar Tamanho Texto</option>
-									<option value="10">10</option> 
-									<option value="12">12</option>
-									<option value="14">14</option>
-									<option value="16">16</option>
-									<option value="18">18</option>
-									<option value="20">20</option>
-									<option value="22">22</option>
-									<option value="24">24</option>
-									<option value="26">26</option>
-									<option value="28">28</option>
-									<option value="30">30</option> 
-									<option value="32">32</option>
-									<option value="34">34</option>
-									<option value="36">36</option>
-									<option value="38">38</option>
-									<option value="40">40</option>
-									<option value="42">42</option>
-									<option value="44">44</option>
-									<option value="46">46</option>
-									<option value="48">48</option>
-								</select>
-								
-								<select id="colorText" name = "colorText" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setFillText(this.value);">
-									<option selected disabled>Mudar Cor Texto</option>
-									<option value="red">Red</option> 
-									<option value="green">Green</option>
-									<option value="blue">Blue</option>
-									<option value="yellow">Yellow</option>
-									<option value="brown">Brown</option>
-									<option value="purple">Purple</option>
-									<option value="orange">Orange</option>
-									<option value="black">Black</option>
-									<option value="grey">Grey</option>		
-								</select>
-								
-								<select id="width" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setFontText(this.value);">
-									<option selected disabled>Mudar Fonte </option>
-									<option value="monospace">Monospace</option>
-									<option value="opendyslexic">Opendys Lexic</option>
-									<option value="comicsans">Comic Sans</option>
-									<option value="georgia">Georgia</option>
-									<option value="impact">Impact</option>
-									<option value="lucida">Lucida</option>
-									<option value="lucidasans">Lucidasans</option>
-									<option value="palatino">Palatino</option>
-									<option value="tahoma">Tahoma</option>
-									<option value="timesnewroman">Times New Roman</option>
-									<option value="trebuchet">Trebuchet</option>
-									<option value="verdana">Verdana</option>
-									<option value="symbol">Symbol</option>
-									<option value="webdings">Webdings</option>
-									<option value="wingdings">Wingdings</option>
-									<option value="sansserif">Sansserif</option>
-									<option value="serif">Serif</option>
-								</select>
-								
-								<div class="button" style="padding: 0; margin: 2% 1%; height: 20%;"onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);setStrokeText();"><img src="images/bold.png"></div>
-								<div class="button" style="padding: 0; margin: 2% 0%; height: 20%;"onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);setDecoration();"><img src="images/underline.png"></div>
-								<div class="button" style="padding: 0; margin: 2% 1%; height: 20%;"onmouseover="activeButton(this);" onmouseout="deactiveButton(this);" onclick="setActiveButton(this);setStyle();"><img src="images/italic.png"></div>
-							
-								<input type="file" name="filename" id="inputFile" style="padding: 0; margin: -4% 70%; height: 50%;" required onchange="readURL(event);">
-								
-							</div>
-
-							<nav id="nav" class="nav-primary hidden-xs nav-vertical bg-light">
+						<nav id="nav" class="nav-primary hidden-xs nav-vertical bg-light">
 								<ul class="nav affix-top" data-spy="affix" data-offset-top="20">
 
 								<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><img src="images/expand.png" width="24"></a><li>
@@ -149,20 +52,194 @@
 								
 								</ul>
 							</nav>	
+						
+							<div class="colorBackground" id="topNavi">
+							
+								<div style="padding: 0; margin: 0% 0.8%">
+							
+								<ul class="menu" >
+									<li><a href="#" class="buttonToolbar"><img src="images/colordrawing.png" width="24"></a>
+									<ul>
+									<li><a>
+										<select id="color" name = "color" style="padding: 0; margin: 0% 0%;"  onchange="setColor(this.value);">
+										<option selected disabled>Cor Desenho</option>
+										<option value="red">Red</option> 
+										<option value="green">Green</option>
+										<option value="blue">Blue</option>
+										<option value="yellow">Yellow</option>
+										<option value="brown">Brown</option>
+										<option value="purple">Purple</option>
+										<option value="orange">Orange</option>
+										<option value="black">Black</option>
+										<option value="grey">Grey</option>		
+										</select>
+									</a></li>
+									</ul>
+									</li>              
+								</ul>	
+							
+								<ul class="menu">
+									<li><a href="#" class="buttonToolbar"><img src="images/thicknessdrawing.png" width="24"></a>
+									<ul>
+									<li><a>	
+									<select id="width" style="padding: 0; margin: 0% 0%;" onchange="setWidth(this.value);">
+										<option selected disabled>Espessura Desenho</option>
+										<option value="1">1</option> 
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+									</a></li>
+									</ul>
+									</li>              
+								</ul>
+								
+								<ul class="menu">
+									<li><a href="#" class="buttonToolbar"><img src="images/sizetext.png" width="24"></a>
+									<ul>
+									<li><a>	
+									<select id="sizeText" style="padding: 0; margin: 0% 0%;" onchange="setSizeText(this.value);">
+										<option selected disabled>Tamanho Texto</option>
+										<option value="10">10</option> 
+										<option value="12">12</option>
+										<option value="14">14</option>
+										<option value="16">16</option>
+										<option value="18">18</option>
+										<option value="20">20</option>
+										<option value="22">22</option>
+										<option value="24">24</option>
+										<option value="26">26</option>
+										<option value="28">28</option>
+										<option value="30">30</option> 
+										<option value="32">32</option>
+										<option value="34">34</option>
+										<option value="36">36</option>
+										<option value="38">38</option>
+										<option value="40">40</option>
+										<option value="42">42</option>
+										<option value="44">44</option>
+										<option value="46">46</option>
+										<option value="48">48</option>
+									</select>
+									</a></li>
+									</ul>
+									</li>              
+								</ul>
+								
+								<ul class="menu">
+									<li><a href="#" class="buttonToolbar"><img src="images/colortext.png" width="24"></a>
+									<ul>
+									<li><a>	
+									<select id="colorText" name = "colorText" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setFillText(this.value);">
+										<option selected disabled>Cor Texto</option>
+										<option value="red">Red</option> 
+										<option value="green">Green</option>
+										<option value="blue">Blue</option>
+										<option value="yellow">Yellow</option>
+										<option value="brown">Brown</option>
+										<option value="purple">Purple</option>
+										<option value="orange">Orange</option>
+										<option value="black">Black</option>
+										<option value="grey">Grey</option>		
+									</select>							
+									</a></li>
+									</ul>
+									</li>              
+								</ul>
+								
+								<ul class="menu">
+									<li><a href="#" class="buttonToolbar"><img src="images/Sourceletter.png" width="24"></a>
+									<ul>
+									<li><a>	
+									<select id="width" style="padding: 0; margin: 2% 0%; height: 30%;" onchange="setFontText(this.value);">
+										<option selected disabled>Fonte </option>
+										<option value="monospace">Monospace</option>
+										<option value="opendyslexic">Opendys Lexic</option>
+										<option value="comicsans">Comic Sans</option>
+										<option value="georgia">Georgia</option>
+										<option value="impact">Impact</option>
+										<option value="lucida">Lucida</option>
+										<option value="lucidasans">Lucidasans</option>
+										<option value="palatino">Palatino</option>
+										<option value="tahoma">Tahoma</option>
+										<option value="timesnewroman">Times New Roman</option>
+										<option value="trebuchet">Trebuchet</option>
+										<option value="verdana">Verdana</option>
+										<option value="symbol">Symbol</option>
+										<option value="webdings">Webdings</option>
+										<option value="wingdings">Wingdings</option>
+										<option value="sansserif">Sansserif</option>
+										<option value="serif">Serif</option>
+									</select>
+									</a></li>
+									</ul>
+									</li>              
+								</ul>
+								
+								<div>
+									<ul class="menu">
+									<li><a href="javascript:drawGrid();" class="buttonToolbar"><img src="images/grid.png" width="24"></a>
+									<ul>
+										<li><p>Gerar Grade</p></li>  
+									</ul>
+									</li>  									
+									<li><a href="javascript:clearGrid();" class="buttonToolbar"><img src="images/paper.png" width="24"></a><ul>
+										<li><p>Limpar Grade</p></li>  
+									</ul>
+									</li> 
+									<li><a href="javascript:save_image();" class="buttonToolbar"><img src="images/image.png" width="24"></a><ul>
+										<li><p>Gerar Grade</p></li>  
+									</ul>
+									</li>             
+									</ul>
+								</div>
+								
+								<div>	
+								<ul class="menu">
+								<li><a href="javascript:setStrokeText();" class="buttonToolbar"><img src="images/bold.png" width="24"></a>
+								<ul>
+										<li><p>Negrito</p></li>  
+								</ul>
+								</li>
+								<li><a href="javascript:setDecoration();" class="buttonToolbar"><img src="images/underline.png" width="24"></a>
+								<ul>
+										<li><p>Sublinhado</p></li>  
+								</ul>
+								<li>
+								<li><a href="javascript:setStyle();" class="buttonToolbar"><img src="images/italic.png" width="24"></a>
+								<ul>
+										<li><p>Italico</p></li>  
+								</ul>
+								<li>
+								</ul>							
+								
+								</div>	
+								
+								</div>
+
+								<div style="padding: 0; margin: 6% 3%">							
+								<input type="file" name="filename" id="inputFile" required onchange="readURL(event);">							
+								</div>									
+								
+							</div>	
 							
 							<div id="svgDiv">
 							
-								<svg width="100%" height="100%" id="svgID" style="margin-left: 0px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<svg width="100%" height="100%" id="svgID" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<g id="layer1" class="layer">
 								<g id="movement" class="movementClass">
 								</g>
 								</g>
 								</svg>
 							
-							</div>
-							 
-							<div class="colorBackground" id="bottomLine"></div>
-							  
+							</div>							 
+						
 							<div class="hidden">
 							
 								<form id="formPDF" onSubmit="JavaScript:createPDF();" method="post" enctype="application/x-www-form-urlencoded">

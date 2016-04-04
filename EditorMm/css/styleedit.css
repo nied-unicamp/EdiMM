@@ -1,4 +1,4 @@
-html, body , h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+html, body{
   width: 100%;
   height: 100%;
   margin: 0;
@@ -12,21 +12,18 @@ div.colorBackground {
 
 div#topNavi {
   width: 100%;
-  height: 10%;
+  height: 20%;
   left: 4%;
-  position: absolute;
-  top: 0%;  
+  position: absolute;   
 }
 
 div.button, div.buttonToolbar {
   height: 100%;
   float: left;
-  left: 4%;
   
 }
 div.button img, div.buttonToolbar img {
   height: 100%;
-  left:4%;
   
 }
 a.buttonToolbar{
@@ -55,28 +52,22 @@ a.buttonToolbar{
     border: 1px solid transparent;
     border-radius: 4px;
 }
-div#bottomLine {
-  width: 100%;
-  height: 2%;
-  left: 4%;
-  position: absolute; 
-  bottom: 0%;
-}
 
 div#svgDiv{
   top: 23%;
   width: 100%;
   height: 100%;
   position: fixed;
-  right: 0;
-  left:0;
+  text-align: center;
+  right: 0%;
+  left:0%;
 }
 
 input, select{
 	margin-right:auto; 
 	margin-left:auto;
 	text-align: center;
-	border: 2;
+	border: 10;
 	border-color: #FFFFFF;
 	padding: 0.5em;		
 	border-radius: 6px;
@@ -109,8 +100,49 @@ nav,.nav {
     background:#4F4F4F;
 }
 
-ul, ol {
-    margin-top: 10;
-    margin-bottom: 10px;
+*{margin: 0; padding: 0;}
+  
+.menu{
+list-style:none;
+float:left;
+}
+
+.menu li{
+position:relative;
+float:left;
+
+}
+
+.menu li a{color:#000; text-decoration:none; padding:10px 25px; display:block;}
+ 
+.menu li a:hover{
+-moz-box-shadow:0 3px 10px 0 #CCC; 
+-webkit-box-shadow:0 3px 10px 0 #ccc; 
+text-shadow:0px 0px 5px #fff; 
+color:#000;
+}
+
+.menu li p{color:#fff; text-decoration:none; padding:10px 25px; display:block;}
+ 
+.menu li p:hover{
+-moz-box-shadow:0 3px 10px 0 #CCC; 
+-webkit-box-shadow:0 3px 10px 0 #ccc; 
+text-shadow:0px 0px 5px #fff; 
+color:#fff;
+}
+
+.menu li  ul{
+position:absolute;
+top:45px;
+left:0;
+text-align: center;
+display:none;
+}
+.menu li:hover ul, .menu li.over ul{display:block;}
+
+.menu li ul li{
+border:0px solid #c0c0c0; 
+display:block; 
+width:200px;
 }
 
