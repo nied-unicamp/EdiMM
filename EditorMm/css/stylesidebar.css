@@ -89,7 +89,8 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: #fff;
+
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
