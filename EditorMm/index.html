@@ -14,201 +14,174 @@
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>	
-	<script type="text/javascript" src="js/jquerymodal.js"></script>	
+	<script type="text/javascript" src="js/jquerymodal.js"></script>
 </head>
 <body onload="init()">	
 	<div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">			
-				<li><img src="images/editor.png"></li> 
-				</br>               
-				<li class="sidebar-brand"><a class="negrito">Multimodalidade</a></li> 
+            <ul class="sidebar-nav">
+				<li><img src="images/editor.png"></li> 		              
+				<li class="sidebar-brand"><a class="negrito"> Multimodalidade </a></li> 
 				<li><a href="javascript:window.location.href='index.html';" target="janela" class="negrito"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
             	<li><a href="javascript:serializeSVGtoXML();" target="janela" class="negrito"><img src="images/minisave.png"> Salvar </a></li>  	
 				<li><a href="javascript:createPDF();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>
-				</br>			
-				<li><a href="javascript:setStrokeText();" target="buttonToolbar" class="negrito"><img src="images/bold.png" width="14"> Negrito </a></li>
-				<li><a href="javascript:setDecoration();" target="buttonToolbar" class="negrito"><img src="images/underline.png" width="14"> Sublinhado </a></li>					
-				<li><a href="javascript:setStyle();" target="buttonToolbar" class="negrito"><img src="images/italic.png" width="14"> Italico </a></li>					
-			</ul>			
+				<li><a href="javascript:save_image();" target="janela" class="negrito"><img src="images/image.png" width="16"> Gerar Imagem </a></li>				
+				<li><a href="javascript:setStrokeText();" target="buttonToolbar" class="negrito"><img src="images/bold.png" width="16"> Negrito </a></li>
+				<li><a href="javascript:setDecoration();" target="buttonToolbar" class="negrito"><img src="images/underline.png" width="16"> Sublinhado </a></li>					
+				<li><a href="javascript:setStyle();" target="buttonToolbar" class="negrito"><img src="images/italic.png" width="16"> Italico </a></li>					
+			</ul>				
         </div>		
         <!-- sidebar-wrapper -->
         <!--   Page Content  -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-            	
+            <div class="container-fluid">            	
                 <div class="row">
                     <div class="col-lg-13">
-   						<div class="embed-responsive embed-responsive-16by9">	
-						
-							<nav id="nav" class="nav-primary hidden-xs nav-vertical bg-light" id="sidebar-wrapper">
-								<ul class="nav affix-top" data-spy="affix" data-offset-top="20">
-
-								<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><img src="images/expand.png" width="24"></a><li>
-								<li><a href="javascript:writeIt();" class="buttonToolbar"><img src="images/drop.png" width="24"></a></li>
-								<li><a href="javascript:drawIt();" class="buttonToolbar"><img src="images/edit.png" width="24"></a></li>								
-								<li><a href="javascript:CreateCircle();" class="buttonToolbar"><img src="images/circle.png" width="24"></a></li>
-								<li><a href="javascript:CreateRect();" class="buttonToolbar"><img src="images/square.png" width="24"></a></li>
-								<li><a href="javascript:CreateEllipse();" class="buttonToolbar"><img src="images/ellipse.png" width="24"></a></li>
-								<li><a href="javascript:CreateLine();" class="buttonToolbar"><img src="images/line.png" width="24"></a></li>								
-								<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar"><img src="images/delete.png" width="24"></a></li>
-								
+   						<div class="embed-responsive embed-responsive-16by9">							
+							<div class="container">
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar"><img src="images/expand.png" width="24"></a><li>
+									<li class="dropdown"><a data-toggle="dropdown" href="#" class="buttonToolbar"><img src="images/photos.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
+										</ul>
+									</li>
+									<li><a href="javascript:drawGrid();" class="buttonToolbar"><img src="images/grid.png" width="24"></a></li>  									
+									<li><a href="javascript:clearGrid();" class="buttonToolbar"><img src="images/paper.png" width="24"></a></li> 
+									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar"><img src="images/delete.png" width="24"></a></li>
+									<li><a href="javascript:moveIt();" class="buttonToolbar"><img src="images/drag.png" width="24"></a></li>
+									<li><a href="javascript:writeIt();" class="buttonToolbar"><img src="images/drop.png" width="24"></a></li>
+									<li><a href="javascript:drawIt();" class="buttonToolbar"><img src="images/edit.png" width="24"></a></li>								
+									<li><a href="javascript:CreateCircle();" class="buttonToolbar"><img src="images/circle.png" width="24"></a></li>
+									<li><a href="javascript:CreateRect();" class="buttonToolbar"><img src="images/square.png" width="24"></a></li>
+									<li><a href="javascript:CreateEllipse();" class="buttonToolbar"><img src="images/ellipse.png" width="24"></a></li>
+									<li><a href="javascript:CreateLine();" class="buttonToolbar"><img src="images/line.png" width="24"></a></li>								
 								</ul>
-							</nav>	
-
+							</div>	
 						
-							<div class="colorBackground" id="topNavi">
+							<div class="colorBackground" id="topNavi">	
 							
-								<div style="padding: 0; margin: 0% 7%">
+								<div style="padding: 0; margin: 0% 15% ">
 								
-								<div>
 									<ul class="menu">
-									<li><a href="javascript:drawGrid();" class="buttonToolbar"><img src="images/grid.png" width="24"></a>
-									<ul>
-										<li><p>Gerar Grade</p></li>  
-									</ul>
-									</li>  									
-									<li><a href="javascript:clearGrid();" class="buttonToolbar"><img src="images/paper.png" width="24"></a><ul>
-										<li><p>Limpar Grade</p></li>  
-									</ul>
-									</li> 
-									<li><a href="javascript:save_image();" class="buttonToolbar"><img src="images/image.png" width="24"></a><ul>
-										<li><p>Gerar Imagem</p></li>  
-									</ul>
-									</li>             
-									</ul>
-								</div>
-								
-								</div>					
-								
-								<div style="padding: 0; margin: 0% 32% ">
-								
-								<ul class="menu">
-									<li><a href="#" class="buttonToolbar"><img src="images/colordrawing.png" width="24"></a>
-									<ul>
-									<li style="padding: 0; margin: 3% -30%;"><a>
-										<select class="negrito" id="color" name = "color" style="padding: 0; margin: 3% 0%;"  onchange="setColor(this.value);">
-										<option selected disabled>Cor Desenho</option>
-										<option value="red" class="negrito">Red</option> 
-										<option value="green" class="negrito">Green</option>
-										<option value="blue" class="negrito">Blue</option>
-										<option value="yellow" class="negrito">Yellow</option>
-										<option value="brown" class="negrito">Brown</option>
-										<option value="purple" class="negrito">Purple</option>
-										<option value="orange" class="negrito">Orange</option>
-										<option value="black" class="negrito">Black</option>
-										<option value="grey" class="negrito">Grey</option>		
-										</select>
-									</a></li>
-									</ul>
-									</li>              
-								
-									<li><a href="#" class="buttonToolbar"><img src="images/thicknessdrawing.png" width="24"></a>
-									<ul>
-									<li style="padding: 0; margin: 3% -30%;"><a>	
-										<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setWidth(this.value);">
-										<option selected disabled>Espessura Desenho</option>
-										<option value="1" class="negrito">1</option> 
-										<option value="2" class="negrito">2</option>
-										<option value="3" class="negrito">3</option>
-										<option value="4" class="negrito">4</option>
-										<option value="5" class="negrito">5</option>
-										<option value="6" class="negrito">6</option>
-										<option value="7" class="negrito">7</option>
-										<option value="8" class="negrito">8</option>
-										<option value="9" class="negrito">9</option>
-										<option value="10" class="negrito">10</option>
-									</select>
-									</a></li>
-									</ul>
-									</li>              
-								
-									<li><a href="#" class="buttonToolbar"><img src="images/sizetext.png" width="24"></a>
-									<ul>
-									<li style="padding: 0; margin: 3% -30%;"><a>	
-										<select class="negrito" id="sizeText" style="padding: 0; margin: 3% 0%;" onchange="setSizeText(this.value);">
-										<option selected disabled>Tamanho Texto</option>
-										<option value="10" class="negrito">10</option> 
-										<option value="12" class="negrito">12</option>
-										<option value="14" class="negrito">14</option>
-										<option value="16" class="negrito">16</option>
-										<option value="18" class="negrito">18</option>
-										<option value="20" class="negrito">20</option>
-										<option value="22" class="negrito">22</option>
-										<option value="24" class="negrito">24</option>
-										<option value="26" class="negrito">26</option>
-										<option value="28" class="negrito">28</option>
-										<option value="30" class="negrito">30</option> 
-										<option value="32" class="negrito">32</option>
-										<option value="34" class="negrito">34</option>
-										<option value="36" class="negrito">36</option>
-										<option value="38" class="negrito">38</option>
-										<option value="40" class="negrito">40</option>
-										<option value="42" class="negrito">42</option>
-										<option value="44" class="negrito">44</option>
-										<option value="46" class="negrito">46</option>
-										<option value="48" class="negrito">48</option>
-									</select>
-									</a></li>
-									</ul>
-									</li>              
-								
-									<li><a href="#" class="buttonToolbar"><img src="images/colortext.png" width="24"></a>
-									<ul>
-									<li style="padding: 0; margin: 3% -30%;"><a>	
-										<select class="negrito" id="colorText" name = "colorText" style="padding: 0; margin: 3% 0%;" onchange="setFillText(this.value);">
-										<option selected disabled>Cor Texto</option>
-										<option value="red" class="negrito">Red</option> 
-										<option value="green" class="negrito">Green</option>
-										<option value="blue" class="negrito">Blue</option>
-										<option value="yellow" class="negrito">Yellow</option>
-										<option value="brown" class="negrito">Brown</option>
-										<option value="purple" class="negrito">Purple</option>
-										<option value="orange" class="negrito">Orange</option>
-										<option value="black" class="negrito">Black</option>
-										<option value="grey" class="negrito">Grey</option>		
-									</select>							
-									</a></li>
-									</ul>
-									</li>              
-								
-									<li><a href="#" class="buttonToolbar"><img src="images/Sourceletter.png" width="24"></a>
-									<ul>
-									<li style="padding: 0; margin: 3% -30%;"><a>	
-										<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setFontText(this.value);">
-										<option selected disabled>Fonte</option>
-										<option value="monospace" class="negrito">Monospace</option>
-										<option value="opendyslexic" class="negrito">Opendys Lexic</option>
-										<option value="comicsans" class="negrito">Comic Sans</option>
-										<option value="georgia" class="negrito">Georgia</option>
-										<option value="impact" class="negrito">Impact</option>
-										<option value="lucida" class="negrito">Lucida</option>
-										<option value="lucidasans" class="negrito">Lucidasans</option>
-										<option value="palatino" class="negrito">Palatino</option>
-										<option value="tahoma" class="negrito">Tahoma</option>
-										<option value="timesnewroman" class="negrito">Times New Roman</option>
-										<option value="trebuchet" class="negrito">Trebuchet</option>
-										<option value="verdana" class="negrito">Verdana</option>
-										<option value="symbol" class="negrito">Symbol</option>
-										<option value="webdings" class="negrito">Webdings</option>
-										<option value="wingdings" class="negrito">Wingdings</option>
-										<option value="sansserif" class="negrito">Sansserif</option>
-										<option value="serif" class="negrito">Serif</option>
-									</select>
-									</a></li>
-									</ul>
-									</li>    
+										<li><a href="#" class="buttonToolbar"><img src="images/colordrawing.png" width="24"></a>
+										<ul>
+											<li style="padding: 0; margin: 3% -30%;"><a>
+												<select class="negrito" id="color" name = "color" style="padding: 0; margin: 3% 0%;"  onchange="setColor(this.value);">
+												<option selected disabled>Cor Desenho</option>
+												<option value="red" class="negrito">Red</option> 
+												<option value="green" class="negrito">Green</option>
+												<option value="blue" class="negrito">Blue</option>
+												<option value="yellow" class="negrito">Yellow</option>
+												<option value="brown" class="negrito">Brown</option>
+												<option value="purple" class="negrito">Purple</option>
+												<option value="orange" class="negrito">Orange</option>
+												<option value="black" class="negrito">Black</option>
+												<option value="grey" class="negrito">Grey</option>		
+												</select></a>
+											</li>
+										</ul>
+										</li>              
 									
-								</ul>	
-								
-								</div>		
-								
-								<div style="padding: 0; margin: 7% 3%">							
-									<input type="file" name="filename" id="inputFile" required onchange="readURL(event);">							
-								</div>								
-								
-								</div>						
+										<li><a href="#" class="buttonToolbar"><img src="images/thicknessdrawing.png" width="24"></a>
+										<ul>
+											<li style="padding: 0; margin: 3% -30%;"><a>	
+												<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setWidth(this.value);">
+												<option selected disabled>Espessura Desenho</option>
+												<option value="1" class="negrito">1</option> 
+												<option value="2" class="negrito">2</option>
+												<option value="3" class="negrito">3</option>
+												<option value="4" class="negrito">4</option>
+												<option value="5" class="negrito">5</option>
+												<option value="6" class="negrito">6</option>
+												<option value="7" class="negrito">7</option>
+												<option value="8" class="negrito">8</option>
+												<option value="9" class="negrito">9</option>
+												<option value="10" class="negrito">10</option>
+												</select></a>
+											</li>
+										</ul>
+										</li>              
+									
+										<li><a href="#" class="buttonToolbar"><img src="images/sizetext.png" width="24"></a>
+										<ul>
+											<li style="padding: 0; margin: 3% -30%;"><a>	
+												<select class="negrito" id="sizeText" style="padding: 0; margin: 3% 0%;" onchange="setSizeText(this.value);">
+												<option selected disabled>Tamanho Texto</option>
+												<option value="10" class="negrito">10</option> 
+												<option value="12" class="negrito">12</option>
+												<option value="14" class="negrito">14</option>
+												<option value="16" class="negrito">16</option>
+												<option value="18" class="negrito">18</option>
+												<option value="20" class="negrito">20</option>
+												<option value="22" class="negrito">22</option>
+												<option value="24" class="negrito">24</option>
+												<option value="26" class="negrito">26</option>
+												<option value="28" class="negrito">28</option>
+												<option value="30" class="negrito">30</option> 
+												<option value="32" class="negrito">32</option>
+												<option value="34" class="negrito">34</option>
+												<option value="36" class="negrito">36</option>
+												<option value="38" class="negrito">38</option>
+												<option value="40" class="negrito">40</option>
+												<option value="42" class="negrito">42</option>
+												<option value="44" class="negrito">44</option>
+												<option value="46" class="negrito">46</option>
+												<option value="48" class="negrito">48</option>
+												</select></a>
+											</li>
+										</ul>
+										</li>              
+									
+										<li><a href="#" class="buttonToolbar"><img src="images/colortext.png" width="24"></a>
+										<ul>
+											<li style="padding: 0; margin: 3% -30%;"><a>	
+												<select class="negrito" id="colorText" name = "colorText" style="padding: 0; margin: 3% 0%;" onchange="setFillText(this.value);">
+												<option selected disabled>Cor Texto</option>
+												<option value="red" class="negrito">Red</option> 
+												<option value="green" class="negrito">Green</option>
+												<option value="blue" class="negrito">Blue</option>
+												<option value="yellow" class="negrito">Yellow</option>
+												<option value="brown" class="negrito">Brown</option>
+												<option value="purple" class="negrito">Purple</option>
+												<option value="orange" class="negrito">Orange</option>
+												<option value="black" class="negrito">Black</option>
+												<option value="grey" class="negrito">Grey</option>		
+												</select></a>
+											</li>
+										</ul>
+										</li>              
+									
+										<li><a href="#" class="buttonToolbar"><img src="images/Sourceletter.png" width="24"></a>
+										<ul>
+											<li style="padding: 0; margin: 3% -30%;"><a>	
+												<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setFontText(this.value);">
+												<option selected disabled>Fonte</option>
+												<option value="monospace" class="negrito">Monospace</option>
+												<option value="opendyslexic" class="negrito">Opendys Lexic</option>
+												<option value="comicsans" class="negrito">Comic Sans</option>
+												<option value="georgia" class="negrito">Georgia</option>
+												<option value="impact" class="negrito">Impact</option>
+												<option value="lucida" class="negrito">Lucida</option>
+												<option value="lucidasans" class="negrito">Lucidasans</option>
+												<option value="palatino" class="negrito">Palatino</option>
+												<option value="tahoma" class="negrito">Tahoma</option>
+												<option value="timesnewroman" class="negrito">Times New Roman</option>
+												<option value="trebuchet" class="negrito">Trebuchet</option>
+												<option value="verdana" class="negrito">Verdana</option>
+												<option value="symbol" class="negrito">Symbol</option>
+												<option value="webdings" class="negrito">Webdings</option>
+												<option value="wingdings" class="negrito">Wingdings</option>
+												<option value="sansserif" class="negrito">Sansserif</option>
+												<option value="serif" class="negrito">Serif</option>
+												</select></a>
+											</li>
+										</ul>
+										</li>  
+									</ul>	
+								</div>	
+							</div>						
 							
 							<div id="svgDiv">
 							

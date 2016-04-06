@@ -13,8 +13,8 @@ div.colorBackground {
 div#topNavi {
   width: 100%;
   height: 20%;
-  left: 4%;
-  position: absolute;   
+  position: absolute;  
+  text-align: center;  
 }
 
 div.button, div.buttonToolbar {
@@ -23,8 +23,7 @@ div.button, div.buttonToolbar {
   
 }
 div.button img, div.buttonToolbar img {
-  height: 100%;
-  
+  height: 100%;  
 }
 a.buttonToolbar{
 	color: #333;
@@ -62,6 +61,7 @@ div#svgDiv{
   right: 0%;
   left:0%;
 }
+
 fieldset { 
     display: block;
     margin-left: 2px;
@@ -72,6 +72,7 @@ fieldset {
     padding-right: 0.75em;
     border: 2px groove (internal value);
 }
+
 input, select{
 	margin-right:auto; 
 	margin-left:auto;
@@ -104,45 +105,30 @@ nav,.nav {
     z-index: 1000;
     left: 0;
     top: 0;
-    bottom: 0;
-	
+    bottom: 0;	
 }
 
-#nav.bg-light {
-	border-color: #bfc7d0;
-    background:#4F4F4F;
-	
-}
-
-*{margin: 0; padding: 0;}
-  
+*{margin: 0; padding: 0;}  
 .menu{
 list-style:none;
 float:left;
 }
-
 .menu li{
 position:relative;
 float:left;
-
 }
-
-.menu li a{color:#000; text-decoration:none; padding:10px 20px; display:block;}
- 
+.menu li a{color:#000; text-decoration:none; padding:10px 20px; display:block;} 
 .menu li a:hover{ 
 text-shadow:0px 0px 5px #fff; 
 color:#000;
 }
-
-.menu li p{color:#fff; text-decoration:none; padding:10px 20px; display:block; width:150px; margin: 0% -20%;}
- 
+.menu li p{color:#fff; text-decoration:none; padding:10px 20px; display:block; width:150px; margin: 0% -20%;} 
 .menu li p:hover{
 text-shadow:0px 0px 5px #fff; 
 color:#fff;
 width:150px;
 margin: 0% -20%
 }
-
 .menu li  ul{
 position:absolute;
 top:45px;
@@ -151,7 +137,6 @@ text-align: center;
 display:none;
 }
 .menu li:hover ul, .menu li.over ul{display:block;}
-
 .menu li ul li{
 border:0px solid #c0c0c0; 
 display:block; 
