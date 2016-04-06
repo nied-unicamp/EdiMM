@@ -15,8 +15,10 @@
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>	
 	<script type="text/javascript" src="js/jquerymodal.js"></script>
+	
 </head>
 <body onload="init()">	
+	<script type="text/javascript" src="js/jquerytooltip.js"></script>
 	<div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -41,30 +43,29 @@
    						<div class="embed-responsive embed-responsive-16by9">							
 							<div class="container">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar"><img src="images/expand.png" width="24"></a><li>
-									<li class="dropdown"><a data-toggle="dropdown" href="#" class="buttonToolbar"><img src="images/photos.png" width="24"><span class="caret"></span></a>
+									<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
+									<li class="dropdown" onmouseover="Tip('Importar fotos')" onmouseout="UnTip()"><a data-toggle="dropdown" href="#" class="buttonToolbar"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 										<ul class="dropdown-menu">
 											<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
 										</ul>
 									</li>
-									<li><a href="javascript:drawGrid();" class="buttonToolbar"><img src="images/grid.png" width="24"></a></li>  									
-									<li><a href="javascript:clearGrid();" class="buttonToolbar"><img src="images/paper.png" width="24"></a></li> 
-									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar"><img src="images/delete.png" width="24"></a></li>
-									<li><a href="javascript:moveIt();" class="buttonToolbar"><img src="images/drag.png" width="24"></a></li>
-									<li><a href="javascript:writeIt();" class="buttonToolbar"><img src="images/drop.png" width="24"></a></li>
-									<li><a href="javascript:drawIt();" class="buttonToolbar"><img src="images/edit.png" width="24"></a></li>								
-									<li><a href="javascript:CreateCircle();" class="buttonToolbar"><img src="images/circle.png" width="24"></a></li>
-									<li><a href="javascript:CreateRect();" class="buttonToolbar"><img src="images/square.png" width="24"></a></li>
-									<li><a href="javascript:CreateEllipse();" class="buttonToolbar"><img src="images/ellipse.png" width="24"></a></li>
-									<li><a href="javascript:CreateLine();" class="buttonToolbar"><img src="images/line.png" width="24"></a></li>								
+									<li><a href="javascript:drawGrid();" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
+									<li><a href="javascript:clearGrid();" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 
+									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>
+									<li><a href="javascript:moveIt();" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>
+									<li><a href="javascript:writeIt();" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
+									<li><a href="javascript:drawIt();" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
+									<li><a href="javascript:CreateCircle();" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
+									<li><a href="javascript:CreateRect();" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
+									<li><a href="javascript:CreateEllipse();" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
+									<li><a href="javascript:CreateLine();" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>								
 								</ul>
 							</div>	
 						
-							<div class="colorBackground" id="topNavi">	
-							
-								<div style="padding: 0; margin: 0% 15% ">
-								
+							<div class="colorBackground" id="topNavi">							
+								<div style="padding: 0; margin: 0% 15%">							
 									<ul class="menu">
+									
 										<li><a href="#" class="buttonToolbar"><img src="images/colordrawing.png" width="24"></a>
 										<ul>
 											<li style="padding: 0; margin: 3% -30%;"><a>
@@ -178,7 +179,8 @@
 												</select></a>
 											</li>
 										</ul>
-										</li>  
+										</li> 
+										
 									</ul>	
 								</div>	
 							</div>						
