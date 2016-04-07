@@ -8,7 +8,7 @@
     <link href="css/stylesidebar.css" rel="stylesheet">
 	
 	<!-- Bootstrap CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	
 	<!-- JS -->	
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
@@ -27,11 +27,7 @@
 				<li class="sidebar-brand"><a class="negrito"> Multimodalidade </a></li> 
 				<li><a href="javascript:window.location.href='index.html';" target="janela" class="negrito"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
             	<li><a href="javascript:serializeSVGtoXML();" target="janela" class="negrito"><img src="images/minisave.png"> Salvar </a></li>  	
-				<li><a href="javascript:createPDF();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>
-				<li><a href="javascript:save_image();" target="janela" class="negrito"><img src="images/image.png" width="16"> Gerar Imagem </a></li>				
-				<li><a href="javascript:setStrokeText();" target="buttonToolbar" class="negrito"><img src="images/bold.png" width="16"> Negrito </a></li>
-				<li><a href="javascript:setDecoration();" target="buttonToolbar" class="negrito"><img src="images/underline.png" width="16"> Sublinhado </a></li>					
-				<li><a href="javascript:setStyle();" target="buttonToolbar" class="negrito"><img src="images/italic.png" width="16"> Italico </a></li>					
+				<li><a href="javascript:createPDF();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>		
 			</ul>				
         </div>		
         <!-- sidebar-wrapper -->
@@ -44,32 +40,33 @@
 							<div class="container">
 								<ul class="nav nav-pills nav-stacked">
 									<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
-									<li class="dropdown" onmouseover="Tip('Importar fotos')" onmouseout="UnTip()"><a data-toggle="dropdown" href="#" class="buttonToolbar"><img src="images/photos.png" width="24"><span class="caret"></span></a>
+									<li><a href="javascript:save_image();" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 										<ul class="dropdown-menu">
 											<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
 										</ul>
-									</li>
-									<li><a href="javascript:drawGrid();" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
-									<li><a href="javascript:clearGrid();" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 
-									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>
-									<li><a href="javascript:moveIt();" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>
-									<li><a href="javascript:writeIt();" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
-									<li><a href="javascript:drawIt();" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
-									<li><a href="javascript:CreateCircle();" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
-									<li><a href="javascript:CreateRect();" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
-									<li><a href="javascript:CreateEllipse();" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
-									<li><a href="javascript:CreateLine();" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>								
-								</ul>
-							</div>	
-						
-							<div class="colorBackground" id="topNavi">							
-								<div style="padding: 0; margin: 0% 15%">							
-									<ul class="menu">
-									
-										<li><a href="#" class="buttonToolbar"><img src="images/colordrawing.png" width="24"></a>
-										<ul>
-											<li style="padding: 0; margin: 3% -30%;"><a>
-												<select class="negrito" id="color" name = "color" style="padding: 0; margin: 3% 0%;"  onchange="setColor(this.value);">
+									</li>								
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="javascript:setStrokeText();" class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="20"></a></li>
+											<li><a href="javascript:setDecoration();" class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="20"></a></li>					
+											<li><a href="javascript:setStyle();" class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="20"></a></li>	
+										</ul>
+									</li>						
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="javascript:writeIt();" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
+											<li><a href="javascript:drawIt();" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
+											<li><a href="javascript:CreateCircle();" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
+											<li><a href="javascript:CreateRect();" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
+											<li><a href="javascript:CreateEllipse();" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
+											<li><a href="javascript:CreateLine();" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
+										</ul>
+									</li>	
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Cor Desenho')" onmouseout="UnTip()"><img src="images/colordrawing.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+										<li>											
+											<select class="negrito" id="color" name = "color" onchange="setColor(this.value);">
 												<option selected disabled>Cor Desenho</option>
 												<option value="red" class="negrito">Red</option> 
 												<option value="green" class="negrito">Green</option>
@@ -80,15 +77,14 @@
 												<option value="orange" class="negrito">Orange</option>
 												<option value="black" class="negrito">Black</option>
 												<option value="grey" class="negrito">Grey</option>		
-												</select></a>
-											</li>
+											</select>
+											</li>	
 										</ul>
-										</li>              
-									
-										<li><a href="#" class="buttonToolbar"><img src="images/thicknessdrawing.png" width="24"></a>
-										<ul>
-											<li style="padding: 0; margin: 3% -30%;"><a>	
-												<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setWidth(this.value);">
+									</li>	
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Espessura Desenho')" onmouseout="UnTip()"><img src="images/thicknessdrawing.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+										<li>
+											<select class="negrito" id="width" name="width" onchange="setColor(this.value);">
 												<option selected disabled>Espessura Desenho</option>
 												<option value="1" class="negrito">1</option> 
 												<option value="2" class="negrito">2</option>
@@ -99,16 +95,15 @@
 												<option value="7" class="negrito">7</option>
 												<option value="8" class="negrito">8</option>
 												<option value="9" class="negrito">9</option>
-												<option value="10" class="negrito">10</option>
-												</select></a>
-											</li>
+												<option value="10" class="negrito">10</option>	
+											</select>
+											</li>	
 										</ul>
-										</li>              
-									
-										<li><a href="#" class="buttonToolbar"><img src="images/sizetext.png" width="24"></a>
-										<ul>
-											<li style="padding: 0; margin: 3% -30%;"><a>	
-												<select class="negrito" id="sizeText" style="padding: 0; margin: 3% 0%;" onchange="setSizeText(this.value);">
+									</li>	
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Tamanho Texto')" onmouseout="UnTip()"><img src="images/sizetext.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+										<li>
+											<select class="negrito" id="sizeText" name="sizeText" onchange="setColor(this.value);">
 												<option selected disabled>Tamanho Texto</option>
 												<option value="10" class="negrito">10</option> 
 												<option value="12" class="negrito">12</option>
@@ -130,15 +125,14 @@
 												<option value="44" class="negrito">44</option>
 												<option value="46" class="negrito">46</option>
 												<option value="48" class="negrito">48</option>
-												</select></a>
-											</li>
+											</select>
+											</li>	
 										</ul>
-										</li>              
-									
-										<li><a href="#" class="buttonToolbar"><img src="images/colortext.png" width="24"></a>
-										<ul>
-											<li style="padding: 0; margin: 3% -30%;"><a>	
-												<select class="negrito" id="colorText" name = "colorText" style="padding: 0; margin: 3% 0%;" onchange="setFillText(this.value);">
+									</li>		
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Cor Texto')" onmouseout="UnTip()"><img src="images/colortext.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+										<li>
+											<select class="negrito" id="colorText" name = "colorText" onchange="setColor(this.value);">
 												<option selected disabled>Cor Texto</option>
 												<option value="red" class="negrito">Red</option> 
 												<option value="green" class="negrito">Green</option>
@@ -148,17 +142,16 @@
 												<option value="purple" class="negrito">Purple</option>
 												<option value="orange" class="negrito">Orange</option>
 												<option value="black" class="negrito">Black</option>
-												<option value="grey" class="negrito">Grey</option>		
-												</select></a>
-											</li>
+												<option value="grey" class="negrito">Grey</option>
+											</select>
+											</li>	
 										</ul>
-										</li>              
-									
-										<li><a href="#" class="buttonToolbar"><img src="images/Sourceletter.png" width="24"></a>
-										<ul>
-											<li style="padding: 0; margin: 3% -30%;"><a>	
-												<select class="negrito" id="width" style="padding: 0; margin: 3% 0%;" onchange="setFontText(this.value);">
-												<option selected disabled>Fonte</option>
+									</li>
+									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Fonte Texto')" onmouseout="UnTip()"><img src="images/Sourceletter.png" width="24"><span class="caret"></span></a>
+										<ul class="dropdown-menu">
+										<li>
+											<select class="negrito" id="width" name = "width" onchange="setColor(this.value);">
+												<option selected disabled>Fonte Texto</option>
 												<option value="monospace" class="negrito">Monospace</option>
 												<option value="opendyslexic" class="negrito">Opendys Lexic</option>
 												<option value="comicsans" class="negrito">Comic Sans</option>
@@ -176,14 +169,16 @@
 												<option value="wingdings" class="negrito">Wingdings</option>
 												<option value="sansserif" class="negrito">Sansserif</option>
 												<option value="serif" class="negrito">Serif</option>
-												</select></a>
-											</li>
+											</select>
+											</li>	
 										</ul>
-										</li> 
-										
-									</ul>	
-								</div>	
-							</div>						
+									</li>
+									<li><a href="javascript:drawGrid();" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
+									<li><a href="javascript:clearGrid();" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
+									<li><a href="javascript:moveIt();" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
+									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
+								</ul>
+							</div>												
 							
 							<div id="svgDiv">
 							
@@ -205,7 +200,7 @@
 							</div>
 									
 								<div class="hidden">	
-								<canvas id="canvas" width="2000px" height="1000px"></canvas>
+								<canvas id="canvas" width="1800px" height="800px"></canvas>
 								</div>
 															
 						</div>

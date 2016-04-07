@@ -32,11 +32,11 @@ var activeButtonElement;
 
 		//http://fenix.nied.unicamp.br/EditorMm/	
 
-		var color="green", width = 3;
+		var color="CadetBlue", width = 3;
 		var font = "Arial";
 		var size = "20";
 		var colorStroke = "none";
-		var colorFill = "black";
+		var colorFill = "CadetBlue";
 		var decoration = "none";
 		var style  = "normal";
 		var isMousePressed = false;
@@ -76,8 +76,8 @@ var activeButtonElement;
 		svg.addEventListener('pointermove', drawPathLine, false);
 		svg.addEventListener('pointerup', endPath, false);
 
-		screenXCorrection = screen.width * 0.05;
-		screenYCorrection = screen.height * 0.2;
+		screenXCorrection = screen.width * 0.00;
+		screenYCorrection = screen.height * 0.0;
 			
 		id = id.replace("?", "");
 		deserializeSVGtoXML();
