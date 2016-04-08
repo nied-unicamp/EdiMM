@@ -2,23 +2,146 @@
 <html>
 <head>
 <title>Editor Multimodal</title>
+
 	<meta charset="utf-8">
+	
 	<!-- CSS -->	
 	<link href="css/styleedit.css" rel="stylesheet">		
     <link href="css/stylesidebar.css" rel="stylesheet">
 	
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+	
+	<!-- Bootstrap JS -->	
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>		
 	
 	<!-- JS -->	
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>	
+	
 	<script type="text/javascript" src="js/jquerymodal.js"></script>
 	
 </head>
-<body onload="init()">	
-	<script type="text/javascript" src="js/jquerytooltip.js"></script>
+<body onload="init()">
+
+	<script type="text/javascript" src="js/jquerytooltip.js"></script>	
+	
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<!-- Collapsed navigation -->
+			<div class="navbar-header">			  
+				<!-- Expander button -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>  
+			</div>
+
+    <!-- Expanded navigation -->
+			<div class="navbar-collapse collapse" aria-expanded="false">
+		  
+			<!-- Main navigation -->
+			<ul class="nav navbar-nav">			
+ 
+				<li style="left:12%"><a><img src="images/colordrawing.png" width="24">											
+					<select class="negrito" href="javascript:color" name="color" onchange="setColor(this.value);">
+						<option value="CadetBlue" class="negrito">Cor</option>
+						<option value="red" class="negrito">Red</option> 
+						<option value="green" class="negrito">Green</option>
+						<option value="blue" class="negrito">Blue</option>
+						<option value="yellow" class="negrito">Yellow</option>
+						<option value="brown" class="negrito">Brown</option>
+						<option value="purple" class="negrito">Purple</option>
+						<option value="orange" class="negrito">Orange</option>
+						<option value="black" class="negrito">Black</option>
+						<option value="grey" class="negrito">Grey</option>		
+					</select></a>
+				</li>
+				<li style="left:12%"><a><img src="images/thicknessdrawing.png" width="24">
+					<select class="negrito" href="javascript:width" name="width" onchange="setWidth(this.value);">
+						<option value="3" class="negrito">Espessura</option>
+						<option value="1" class="negrito">01</option> 
+						<option value="2" class="negrito">02</option>
+						<option value="3" class="negrito">03</option>
+						<option value="4" class="negrito">04</option>
+						<option value="5" class="negrito">05</option>
+						<option value="6" class="negrito">06</option>
+						<option value="7" class="negrito">07</option>
+						<option value="8" class="negrito">08</option>
+						<option value="9" class="negrito">09</option>
+						<option value="10" class="negrito">10</option>	
+					</select></a>
+				</li>										
+				<li style="left:12%"><a><img src="images/sizetext.png" width="24">
+					<select class="negrito" href="javascript:sizeText" name="sizeText" onchange="setSizeText(this.value);">
+						<option selected disabled>Tamanho Texto</option>
+						<option value="10" class="negrito">10</option> 
+						<option value="12" class="negrito">12</option>
+						<option value="14" class="negrito">14</option>
+						<option value="16" class="negrito">16</option>
+						<option value="18" class="negrito">18</option>
+						<option value="20" class="negrito">20</option>
+						<option value="22" class="negrito">22</option>
+						<option value="24" class="negrito">24</option>
+						<option value="26" class="negrito">26</option>
+						<option value="28" class="negrito">28</option>
+						<option value="30" class="negrito">30</option> 
+						<option value="32" class="negrito">32</option>
+						<option value="34" class="negrito">34</option>
+						<option value="36" class="negrito">36</option>
+						<option value="38" class="negrito">38</option>
+						<option value="40" class="negrito">40</option>
+						<option value="42" class="negrito">42</option>
+						<option value="44" class="negrito">44</option>
+						<option value="46" class="negrito">46</option>
+						<option value="48" class="negrito">48</option>
+					</select></a>
+				</li>	
+				<li style="left:12%"><a><img src="images/colortext.png" width="24">
+					<select class="negrito" href="javascript:colorText" name="colorText" onchange="setFillText(this.value);">
+						<option selected disabled>Cor Texto</option>
+						<option value="red" class="negrito">Red</option> 
+						<option value="green" class="negrito">Green</option>
+						<option value="blue" class="negrito">Blue</option>
+						<option value="yellow" class="negrito">Yellow</option>
+						<option value="brown" class="negrito">Brown</option>
+						<option value="purple" class="negrito">Purple</option>
+						<option value="orange" class="negrito">Orange</option>
+						<option value="black" class="negrito">Black</option>
+						<option value="grey" class="negrito">Grey</option>
+					</select></a>
+				</li>					
+				<li style="left:12%"><a><img src="images/Sourceletter.png" width="24">
+					<select class="negrito" href="javascript:width" name = "width" onchange="setFontText(this.value);">
+						<option selected disabled>Fonte Texto</option>
+						<option value="monospace" class="negrito">Monospace</option>
+						<option value="opendyslexic" class="negrito">Opendys Lexic</option>
+						<option value="comicsans" class="negrito">Comic Sans</option>
+						<option value="georgia" class="negrito">Georgia</option>
+						<option value="impact" class="negrito">Impact</option>
+						<option value="lucida" class="negrito">Lucida</option>
+						<option value="lucidasans" class="negrito">Lucidasans</option>
+						<option value="palatino" class="negrito">Palatino</option>
+						<option value="tahoma" class="negrito">Tahoma</option>
+						<option value="timesnewroman" class="negrito">Times New Roman</option>
+						<option value="trebuchet" class="negrito">Trebuchet</option>
+						<option value="verdana" class="negrito">Verdana</option>
+						<option value="symbol" class="negrito">Symbol</option>
+						<option value="webdings" class="negrito">Webdings</option>
+						<option value="wingdings" class="negrito">Wingdings</option>
+						<option value="sansserif" class="negrito">Sansserif</option>
+						<option value="serif" class="negrito">Serif</option>
+					</select></a>					
+				</li>
+				
+			</ul>			
+			</div>
+		</div>		
+	</div>
 	<div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -36,149 +159,41 @@
             <div class="container-fluid">            	
                 <div class="row">
                     <div class="col-lg-13">
-   						<div class="embed-responsive embed-responsive-16by9">							
+   						<div class="embed-responsive embed-responsive-16by9">													
 							<div class="container">
-								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
-									<li><a href="javascript:save_image();" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
-										</ul>
-									</li>								
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="javascript:setStrokeText();" class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="20"></a></li>
-											<li><a href="javascript:setDecoration();" class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="20"></a></li>					
-											<li><a href="javascript:setStyle();" class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="20"></a></li>	
-										</ul>
-									</li>						
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="javascript:writeIt();" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
-											<li><a href="javascript:drawIt();" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
-											<li><a href="javascript:CreateCircle();" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
-											<li><a href="javascript:CreateRect();" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
-											<li><a href="javascript:CreateEllipse();" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
-											<li><a href="javascript:CreateLine();" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
-										</ul>
-									</li>	
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Cor Desenho')" onmouseout="UnTip()"><img src="images/colordrawing.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-										<li>											
-											<select class="negrito" id="color" name = "color" onchange="setColor(this.value);">
-												<option selected disabled>Cor Desenho</option>
-												<option value="red" class="negrito">Red</option> 
-												<option value="green" class="negrito">Green</option>
-												<option value="blue" class="negrito">Blue</option>
-												<option value="yellow" class="negrito">Yellow</option>
-												<option value="brown" class="negrito">Brown</option>
-												<option value="purple" class="negrito">Purple</option>
-												<option value="orange" class="negrito">Orange</option>
-												<option value="black" class="negrito">Black</option>
-												<option value="grey" class="negrito">Grey</option>		
-											</select>
-											</li>	
-										</ul>
-									</li>	
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Espessura Desenho')" onmouseout="UnTip()"><img src="images/thicknessdrawing.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-										<li>
-											<select class="negrito" id="width" name="width" onchange="setColor(this.value);">
-												<option selected disabled>Espessura Desenho</option>
-												<option value="1" class="negrito">1</option> 
-												<option value="2" class="negrito">2</option>
-												<option value="3" class="negrito">3</option>
-												<option value="4" class="negrito">4</option>
-												<option value="5" class="negrito">5</option>
-												<option value="6" class="negrito">6</option>
-												<option value="7" class="negrito">7</option>
-												<option value="8" class="negrito">8</option>
-												<option value="9" class="negrito">9</option>
-												<option value="10" class="negrito">10</option>	
-											</select>
-											</li>	
-										</ul>
-									</li>	
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Tamanho Texto')" onmouseout="UnTip()"><img src="images/sizetext.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-										<li>
-											<select class="negrito" id="sizeText" name="sizeText" onchange="setColor(this.value);">
-												<option selected disabled>Tamanho Texto</option>
-												<option value="10" class="negrito">10</option> 
-												<option value="12" class="negrito">12</option>
-												<option value="14" class="negrito">14</option>
-												<option value="16" class="negrito">16</option>
-												<option value="18" class="negrito">18</option>
-												<option value="20" class="negrito">20</option>
-												<option value="22" class="negrito">22</option>
-												<option value="24" class="negrito">24</option>
-												<option value="26" class="negrito">26</option>
-												<option value="28" class="negrito">28</option>
-												<option value="30" class="negrito">30</option> 
-												<option value="32" class="negrito">32</option>
-												<option value="34" class="negrito">34</option>
-												<option value="36" class="negrito">36</option>
-												<option value="38" class="negrito">38</option>
-												<option value="40" class="negrito">40</option>
-												<option value="42" class="negrito">42</option>
-												<option value="44" class="negrito">44</option>
-												<option value="46" class="negrito">46</option>
-												<option value="48" class="negrito">48</option>
-											</select>
-											</li>	
-										</ul>
-									</li>		
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Cor Texto')" onmouseout="UnTip()"><img src="images/colortext.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-										<li>
-											<select class="negrito" id="colorText" name = "colorText" onchange="setColor(this.value);">
-												<option selected disabled>Cor Texto</option>
-												<option value="red" class="negrito">Red</option> 
-												<option value="green" class="negrito">Green</option>
-												<option value="blue" class="negrito">Blue</option>
-												<option value="yellow" class="negrito">Yellow</option>
-												<option value="brown" class="negrito">Brown</option>
-												<option value="purple" class="negrito">Purple</option>
-												<option value="orange" class="negrito">Orange</option>
-												<option value="black" class="negrito">Black</option>
-												<option value="grey" class="negrito">Grey</option>
-											</select>
-											</li>	
-										</ul>
-									</li>
-									<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Fonte Texto')" onmouseout="UnTip()"><img src="images/Sourceletter.png" width="24"><span class="caret"></span></a>
-										<ul class="dropdown-menu">
-										<li>
-											<select class="negrito" id="width" name = "width" onchange="setColor(this.value);">
-												<option selected disabled>Fonte Texto</option>
-												<option value="monospace" class="negrito">Monospace</option>
-												<option value="opendyslexic" class="negrito">Opendys Lexic</option>
-												<option value="comicsans" class="negrito">Comic Sans</option>
-												<option value="georgia" class="negrito">Georgia</option>
-												<option value="impact" class="negrito">Impact</option>
-												<option value="lucida" class="negrito">Lucida</option>
-												<option value="lucidasans" class="negrito">Lucidasans</option>
-												<option value="palatino" class="negrito">Palatino</option>
-												<option value="tahoma" class="negrito">Tahoma</option>
-												<option value="timesnewroman" class="negrito">Times New Roman</option>
-												<option value="trebuchet" class="negrito">Trebuchet</option>
-												<option value="verdana" class="negrito">Verdana</option>
-												<option value="symbol" class="negrito">Symbol</option>
-												<option value="webdings" class="negrito">Webdings</option>
-												<option value="wingdings" class="negrito">Wingdings</option>
-												<option value="sansserif" class="negrito">Sansserif</option>
-												<option value="serif" class="negrito">Serif</option>
-											</select>
-											</li>	
-										</ul>
-									</li>
-									<li><a href="javascript:drawGrid();" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
-									<li><a href="javascript:clearGrid();" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
-									<li><a href="javascript:moveIt();" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
-									<li><a href="javascript:deleteFromSVGRect();" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
-								</ul>
-							</div>												
+								<div id="nav">
+									<ul class="nav nav-pills nav-stacked">
+										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
+										<li><a href="javascript:save_image();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
+										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
+											</ul>
+										</li>								
+										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="20"></a></li>
+												<li><a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="20"></a></li>					
+												<li><a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="20"></a></li>	
+											</ul>
+										</li>						
+										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="javascript:writeIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
+												<li><a href="javascript:drawIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
+												<li><a href="javascript:CreateCircle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
+												<li><a href="javascript:CreateRect();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
+												<li><a href="javascript:CreateEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
+												<li><a href="javascript:CreateLine();" class="btn btn-default" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
+											</ul>
+										</li>										
+										<li><a href="javascript:drawGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
+										<li><a href="javascript:clearGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
+										<li><a href="javascript:moveIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
+										<li><a href="javascript:deleteFromSVGRect();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
+									</ul>
+								</div>												
+							</div>
 							
 							<div id="svgDiv">
 							

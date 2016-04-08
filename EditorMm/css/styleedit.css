@@ -47,31 +47,18 @@ div#svgDiv{
 }
 
 select{
-	color: #333;
-    background-color: #fff;
-    border-color: #ccc; 
-	display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+	width: 400px; text-align-last:center; 
+	background: transparent;
+	width: 155px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 30px;
 }	
 	
-nav,.nav {
+div#nav {
 	padding-left: 0;
     margin-bottom: 0;
     list-style: none;
@@ -81,6 +68,7 @@ nav,.nav {
     position: absolute;
     z-index: 1000;
     left: 0;
-    top: 0;
+    top: 0%;
     bottom: 0;	
 }
+
