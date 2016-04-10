@@ -110,6 +110,7 @@
 
     #sidebar-wrapper {
         width: 200px;
+		height: 790px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -119,6 +120,7 @@
     #page-content-wrapper {
         padding: 0px;
         position: fixed;	
+		margin-bottom: 0;
     }
 
     #wrapper.toggled #page-content-wrapper {

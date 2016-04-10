@@ -46,18 +46,6 @@ div#svgDiv{
   text-align: center;  
 }
 
-select{
-	width: 400px; text-align-last:center; 
-	background: transparent;
-	width: 155px;
-	padding: 5px;
-	font-size: 16px;
-	line-height: 1;
-	border: 0;
-	border-radius: 0;
-	height: 30px;
-}	
-	
 div#nav {
 	padding-left: 0;
     margin-bottom: 0;
@@ -71,4 +59,3 @@ div#nav {
     top: 0%;
     bottom: 0;	
 }
-

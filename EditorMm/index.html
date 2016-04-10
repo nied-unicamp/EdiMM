@@ -4,7 +4,7 @@
 <title>Editor Multimodal</title>
 
 	<meta charset="utf-8">
-	
+
 	<!-- CSS -->	
 	<link href="css/styleedit.css" rel="stylesheet">		
     <link href="css/stylesidebar.css" rel="stylesheet">
@@ -20,16 +20,14 @@
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>	
-	
 	<script type="text/javascript" src="js/jquerymodal.js"></script>
 	
 </head>
-<body onload="init()">
-
-	<script type="text/javascript" src="js/jquerytooltip.js"></script>	
-	
+<body onload="init()" >
+	<div id="wrapper">
 	<div class="navbar navbar-default navbar-static-top" role="navigation">
-		<div class="container">
+	
+		<div class="container" class="col-xs-5 selectContainer">
 			<!-- Collapsed navigation -->
 			<div class="navbar-header">			  
 				<!-- Expander button -->
@@ -40,109 +38,112 @@
 					<span class="icon-bar"></span>
 				</button>  
 			</div>
-
-    <!-- Expanded navigation -->
-			<div class="navbar-collapse collapse" aria-expanded="false">
-		  
-			<!-- Main navigation -->
-			<ul class="nav navbar-nav">			
  
-				<li style="left:12%"><a><img src="images/colordrawing.png" width="24">											
-					<select class="negrito" href="javascript:color" name="color" onchange="setColor(this.value);">
-						<option value="CadetBlue" class="negrito">Cor</option>
-						<option value="red" class="negrito">Red</option> 
-						<option value="green" class="negrito">Green</option>
-						<option value="blue" class="negrito">Blue</option>
-						<option value="yellow" class="negrito">Yellow</option>
-						<option value="brown" class="negrito">Brown</option>
-						<option value="purple" class="negrito">Purple</option>
-						<option value="orange" class="negrito">Orange</option>
-						<option value="black" class="negrito">Black</option>
-						<option value="grey" class="negrito">Grey</option>		
-					</select></a>
-				</li>
-				<li style="left:12%"><a><img src="images/thicknessdrawing.png" width="24">
-					<select class="negrito" href="javascript:width" name="width" onchange="setWidth(this.value);">
-						<option value="3" class="negrito">Espessura</option>
-						<option value="1" class="negrito">01</option> 
-						<option value="2" class="negrito">02</option>
-						<option value="3" class="negrito">03</option>
-						<option value="4" class="negrito">04</option>
-						<option value="5" class="negrito">05</option>
-						<option value="6" class="negrito">06</option>
-						<option value="7" class="negrito">07</option>
-						<option value="8" class="negrito">08</option>
-						<option value="9" class="negrito">09</option>
-						<option value="10" class="negrito">10</option>	
-					</select></a>
-				</li>										
-				<li style="left:12%"><a><img src="images/sizetext.png" width="24">
-					<select class="negrito" href="javascript:sizeText" name="sizeText" onchange="setSizeText(this.value);">
-						<option selected disabled>Tamanho Texto</option>
-						<option value="10" class="negrito">10</option> 
-						<option value="12" class="negrito">12</option>
-						<option value="14" class="negrito">14</option>
-						<option value="16" class="negrito">16</option>
-						<option value="18" class="negrito">18</option>
-						<option value="20" class="negrito">20</option>
-						<option value="22" class="negrito">22</option>
-						<option value="24" class="negrito">24</option>
-						<option value="26" class="negrito">26</option>
-						<option value="28" class="negrito">28</option>
-						<option value="30" class="negrito">30</option> 
-						<option value="32" class="negrito">32</option>
-						<option value="34" class="negrito">34</option>
-						<option value="36" class="negrito">36</option>
-						<option value="38" class="negrito">38</option>
-						<option value="40" class="negrito">40</option>
-						<option value="42" class="negrito">42</option>
-						<option value="44" class="negrito">44</option>
-						<option value="46" class="negrito">46</option>
-						<option value="48" class="negrito">48</option>
-					</select></a>
-				</li>	
-				<li style="left:12%"><a><img src="images/colortext.png" width="24">
-					<select class="negrito" href="javascript:colorText" name="colorText" onchange="setFillText(this.value);">
-						<option selected disabled>Cor Texto</option>
-						<option value="red" class="negrito">Red</option> 
-						<option value="green" class="negrito">Green</option>
-						<option value="blue" class="negrito">Blue</option>
-						<option value="yellow" class="negrito">Yellow</option>
-						<option value="brown" class="negrito">Brown</option>
-						<option value="purple" class="negrito">Purple</option>
-						<option value="orange" class="negrito">Orange</option>
-						<option value="black" class="negrito">Black</option>
-						<option value="grey" class="negrito">Grey</option>
-					</select></a>
-				</li>					
-				<li style="left:12%"><a><img src="images/Sourceletter.png" width="24">
-					<select class="negrito" href="javascript:width" name = "width" onchange="setFontText(this.value);">
-						<option selected disabled>Fonte Texto</option>
-						<option value="monospace" class="negrito">Monospace</option>
-						<option value="opendyslexic" class="negrito">Opendys Lexic</option>
-						<option value="comicsans" class="negrito">Comic Sans</option>
-						<option value="georgia" class="negrito">Georgia</option>
-						<option value="impact" class="negrito">Impact</option>
-						<option value="lucida" class="negrito">Lucida</option>
-						<option value="lucidasans" class="negrito">Lucidasans</option>
-						<option value="palatino" class="negrito">Palatino</option>
-						<option value="tahoma" class="negrito">Tahoma</option>
-						<option value="timesnewroman" class="negrito">Times New Roman</option>
-						<option value="trebuchet" class="negrito">Trebuchet</option>
-						<option value="verdana" class="negrito">Verdana</option>
-						<option value="symbol" class="negrito">Symbol</option>
-						<option value="webdings" class="negrito">Webdings</option>
-						<option value="wingdings" class="negrito">Wingdings</option>
-						<option value="sansserif" class="negrito">Sansserif</option>
-						<option value="serif" class="negrito">Serif</option>
-					</select></a>					
-				</li>
+			<!-- Expanded navigation -->	
+			<div class="navbar-collapse collapse" aria-expanded="false">		  
+			<!-- Main navigation -->
+			
+				<ul class="nav navbar-nav">
 				
-			</ul>			
-			</div>
+					<li><a><img src="images/colordrawing.png" width="24"></a></li>		
+					<li><a>						
+						<select href="javascript:color" onchange="setColor(this.value);" name="language" class="form-control">
+							<option value="CadetBlue" class="negrito">Cor</option>
+							<option value="red" class="negrito">Red</option>
+							<option value="grey" class="negrito">Grey</option>
+							<option value="blue" class="negrito">Blue</option>	
+							<option value="black" class="negrito">Black</option>											
+							<option value="green" class="negrito">Green</option>	
+							<option value="brown" class="negrito">Brown</option>							
+							<option value="yellow" class="negrito">Yellow</option>						
+							<option value="purple" class="negrito">Purple</option>
+							<option value="orange" class="negrito">Orange</option>	
+						</select></a>					
+					</li>
+					<li><a><img src="images/thicknessdrawing.png" width="24"></a></li>
+					<li><a>
+						<select href="javascript:width" onchange="setWidth(this.value);" name="language" class="form-control">
+							<option value="3" class="negrito">Espessura</option>
+							<option value="1" class="negrito">01</option> 
+							<option value="2" class="negrito">02</option>
+							<option value="3" class="negrito">03</option>
+							<option value="4" class="negrito">04</option>
+							<option value="5" class="negrito">05</option>
+							<option value="6" class="negrito">06</option>
+							<option value="7" class="negrito">07</option>
+							<option value="8" class="negrito">08</option>
+							<option value="9" class="negrito">09</option>
+							<option value="10" class="negrito">10</option>	
+						</select></a>
+					</li>
+					<li><a><img src="images/sizetext.png" width="24"></a></li>					
+					<li><a>
+						<select href="javascript:sizeText" onchange="setSizeText(this.value);" name="language" class="form-control">
+							<option selected disabled class="negrito">Tamanho Texto</option>
+							<option value="10" class="negrito">10</option> 
+							<option value="12" class="negrito">12</option>
+							<option value="14" class="negrito">14</option>
+							<option value="16" class="negrito">16</option>
+							<option value="18" class="negrito">18</option>
+							<option value="20" class="negrito">20</option>
+							<option value="22" class="negrito">22</option>
+							<option value="24" class="negrito">24</option>
+							<option value="26" class="negrito">26</option>
+							<option value="28" class="negrito">28</option>
+							<option value="30" class="negrito">30</option> 
+							<option value="32" class="negrito">32</option>
+							<option value="34" class="negrito">34</option>
+							<option value="36" class="negrito">36</option>
+							<option value="38" class="negrito">38</option>
+							<option value="40" class="negrito">40</option>
+							<option value="42" class="negrito">42</option>
+							<option value="44" class="negrito">44</option>
+							<option value="46" class="negrito">46</option>
+							<option value="48" class="negrito">48</option>
+						</select></a>
+					</li>
+					<li><a><img src="images/colortext.png" width="24"></a></li>
+					<li><a>
+						<select href="javascript:colorText" onchange="setFillText(this.value);" name="language" class="form-control">
+							<option value="CadetBlue" class="negrito">Cor Texto</option>
+							<option value="red" class="negrito">Red</option> 
+							<option value="grey" class="negrito">Grey</option>						
+							<option value="blue" class="negrito">Blue</option>	
+							<option value="black" class="negrito">Black</option>						
+							<option value="green" class="negrito">Green</option>
+							<option value="brown" class="negrito">Brown</option>						
+							<option value="yellow" class="negrito">Yellow</option>						
+							<option value="purple" class="negrito">Purple</option>
+							<option value="orange" class="negrito">Orange</option>	
+						</select></a>
+					</li>
+					<li><a><img src="images/Sourceletter.png" width="24"></a></li>
+					<li><a>
+						<select href="javascript:width" onchange="setFontText(this.value);" name="language" class="form-control">
+							<option selected disabled class="negrito">Fonte Texto</option>
+							<option value="serif" class="negrito">Serif</option>
+							<option value="impact" class="negrito">Impact</option>
+							<option value="lucida" class="negrito">Lucida</option>						
+							<option value="symbol" class="negrito">Symbol</option>
+							<option value="tahoma" class="negrito">Tahoma</option>						
+							<option value="georgia" class="negrito">Georgia</option>							
+							<option value="verdana" class="negrito">Verdana</option>
+							<option value="palatino" class="negrito">Palatino</option>						
+							<option value="sansserif" class="negrito">Sansserif</option>													
+							<option value="webdings" class="negrito">Webdings</option>
+							<option value="trebuchet" class="negrito">Trebuchet</option>												
+							<option value="wingdings" class="negrito">Wingdings</option>
+							<option value="monospace" class="negrito">Monospace</option>	
+							<option value="lucidasans" class="negrito">Lucidasans</option>											
+							<option value="comicsans" class="negrito">Comic Sans</option>
+							<option value="opendyslexic" class="negrito">Opendys Lexic</option>	
+							<option value="timesnewroman" class="negrito">Times New Roman</option>
+						</select></a>					
+					</li>				
+				</ul>
+			</div>	
 		</div>		
 	</div>
-	<div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -231,7 +232,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
+	<script type="text/javascript" src="js/jquerytooltip.js"></script>	
     <!-- Menu Toggle Script -->
     <script>    
     	$("#menu-toggle").click(function(e) {
