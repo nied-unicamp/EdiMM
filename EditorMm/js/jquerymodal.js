@@ -32,7 +32,7 @@ var activeButtonElement;
 
 		//http://fenix.nied.unicamp.br/EditorMm/	
 
-		var color="CadetBlue", width = 3;
+		var color="black", width = 3;
 		var font = "Arial";
 		var size = "20";
 		var colorStroke = "none";

@@ -5,9 +5,10 @@
 
 	<meta charset="utf-8">
 
-	<!-- CSS -->	
-	<link href="css/styleedit.css" rel="stylesheet">		
-    <link href="css/stylesidebar.css" rel="stylesheet">
+	<!-- CSS -->		
+	<link href="css/styleedit.css" rel="stylesheet">	
+    <link href="css/stylesidebar.css" rel="stylesheet">	
+	<link href="css/stylekeyboard.css" rel="stylesheet">
 	
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -19,13 +20,15 @@
 	<!-- JS -->	
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
 	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>	
-	<script type="text/javascript" src="js/jquerymodal.js"></script>
+	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>
+	<script type="text/javascript" src="js/jquerykeyboard.js"></script>	
+	<script type="text/javascript" src="js/jquerymodal.js"></script>	
 	
 </head>
-<body onload="init()" >
-
+<body onload="init()">
+	
 	<div id="wrapper">
+		
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
 	
 		<div class="container" class="col-xs-5 selectContainer">
@@ -38,6 +41,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>  
+				
 			</div>
  
 			<!-- Expanded navigation -->	
@@ -45,38 +49,24 @@
 			<!-- Main navigation -->
 			
 				<ul class="nav navbar-nav">
-				
-					<li><a><img src="images/colordrawing.png" width="24"></a></li>		
-					<li><a>						
-						<select href="javascript:color" onchange="setColor(this.value);" name="language" class="form-control">
-							<option value="CadetBlue" class="negrito">Cor Des.</option>
-							<option value="red" class="negrito">Red</option>
-							<option value="grey" class="negrito">Grey</option>
-							<option value="blue" class="negrito">Blue</option>	
-							<option value="black" class="negrito">Black</option>											
-							<option value="green" class="negrito">Green</option>	
-							<option value="brown" class="negrito">Brown</option>							
-							<option value="yellow" class="negrito">Yellow</option>						
-							<option value="purple" class="negrito">Purple</option>
-							<option value="orange" class="negrito">Orange</option>	
-						</select></a>					
-					</li>
-					<li><a><img src="images/thicknessdrawing.png" width="24"></a></li>
-					<li><a>
-						<select href="javascript:width" onchange="setWidth(this.value);" name="language" class="form-control">
-							<option value="3" class="negrito">Espessura Des.</option>
-							<option value="1" class="negrito">01</option> 
-							<option value="2" class="negrito">02</option>
-							<option value="3" class="negrito">03</option>
-							<option value="4" class="negrito">04</option>
-							<option value="5" class="negrito">05</option>
-							<option value="6" class="negrito">06</option>
-							<option value="7" class="negrito">07</option>
-							<option value="8" class="negrito">08</option>
-							<option value="9" class="negrito">09</option>
-							<option value="10" class="negrito">10</option>	
-						</select></a>
-					</li>
+					<li><fieldset class="scheduler-border">
+					<legend class="scheduler-border"><img src="images/colordrawing.png" width="24"> Cor Des.&nbsp;&nbsp;<img src="images/thicknessdrawing.png" width="24"> Espessura----</legend>	
+					<li><a>&nbsp;&nbsp;&nbsp;<input type="color" href="javascript:color" onchange="setColor(this.value);"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="24"><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="javascript:width=1"  onchange="setWidth(1);"><img src="images/line1.png" width="24"></a></li>
+							<li><a href="javascript:width=2"  onchange="setWidth(2);"><img src="images/line2.png" width="24"></a></li>
+							<li><a href="javascript:width=3"  onchange="setWidth(3);"><img src="images/line3.png" width="24"></a></li>
+							<li><a href="javascript:width=4"  onchange="setWidth(4);"><img src="images/line4.png" width="24"></a></li>
+							<li><a href="javascript:width=5"  onchange="setWidth(5);"><img src="images/line5.png" width="24"></a></li>
+							<li><a href="javascript:width=6"  onchange="setWidth(6);"><img src="images/line6.png" width="24"></a></li>
+							<li><a href="javascript:width=7"  onchange="setWidth(7);"><img src="images/line7.png" width="24"></a></li>
+							<li><a href="javascript:width=8"  onchange="setWidth(8);"><img src="images/line8.png" width="24"></a></li>
+							<li><a href="javascript:width=9"  onchange="setWidth(9);"><img src="images/line9.png" width="24"></a></li>
+							<li><a href="javascript:width=10" onchange="setWidth(10);"><img src="images/line10.png" width="24"></a></li>
+						</ul>
+					</li>	
+					</fieldset></li>
+					<!--
 					<li><a><img src="images/sizetext.png" width="24"></a></li>					
 					<li><a>
 						<select href="javascript:sizeText" onchange="setSizeText(this.value);" name="language" class="form-control">
@@ -140,7 +130,7 @@
 							<option value="opendyslexic" class="negrito">Opendys Lexic</option>	
 							<option value="timesnewroman" class="negrito">Times New Roman</option>
 						</select></a>					
-					</li>				
+					</li> -->				
 				</ul>
 			</div>	
 		</div>		
@@ -164,14 +154,15 @@
    						<div class="embed-responsive embed-responsive-16by9">													
 							<div class="container">
 								<div id="nav">
-									<ul class="nav nav-pills nav-stacked">
+									<ul class="nav nav-pills nav-stacked">									
+										
 										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
 										<li><a href="javascript:save_image();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
 											</ul>
-										</li>								
+										</li>																	
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="20"></a></li>
@@ -195,8 +186,8 @@
 										<li><a href="javascript:deleteFromSVGRect();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
 									</ul>
 								</div>												
-							</div>
-							
+							</div>			
+					
 							<div id="svgDiv">
 							
 								<svg width="100%" height="100%" id="svgID" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -241,6 +232,6 @@
         	$("#wrapper").toggleClass("toggled");
    		});   		
     </script>		
-			
+	
 </body>
 </html>
