@@ -110,7 +110,7 @@
 
     #sidebar-wrapper {
         width: 200px;
-		height: 790px;
+		height: 100%;
     }
 
     #wrapper.toggled #sidebar-wrapper {

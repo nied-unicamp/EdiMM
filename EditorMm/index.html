@@ -50,8 +50,8 @@
 			
 				<ul class="nav navbar-nav">
 					<li><fieldset class="scheduler-border">
-					<legend class="scheduler-border"><img src="images/colordrawing.png" width="24"> Cor Des.&nbsp;&nbsp;<img src="images/thicknessdrawing.png" width="24"> Espessura----</legend>	
-					<li><a>&nbsp;&nbsp;&nbsp;<input type="color" href="javascript:color" onchange="setColor(this.value);"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="24"><span class="caret"></span></a>
+					<legend class="scheduler-border"><img src="images/colordrawing.png" width="24"> Cor Des.&nbsp;&nbsp;<img src="images/thicknessdrawing.png" width="24"> Espessura-----</legend>	
+					<li><a> <input type="color" href="javascript:color" onchange="setColor(this.value);"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="24"><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="javascript:width=1"  onchange="setWidth(1);"><img src="images/line1.png" width="24"></a></li>
 							<li><a href="javascript:width=2"  onchange="setWidth(2);"><img src="images/line2.png" width="24"></a></li>
@@ -157,7 +157,7 @@
 									<ul class="nav nav-pills nav-stacked">									
 										
 										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
-										<li><a href="javascript:save_image();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
+										<li><a href="javascript:saveimagem();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
@@ -198,7 +198,7 @@
 								</svg>
 							
 							</div>							 
-						
+							
 							<div class="hidden">
 							
 								<form id="formPDF" onSubmit="JavaScript:createPDF();" method="post" enctype="application/x-www-form-urlencoded">
@@ -207,25 +207,25 @@
 							
 							</div>
 									
-								<div class="hidden">	
+							<div class="hidden">
+							
 								<canvas id="canvas" width="1800px" height="800px"></canvas>
-								</div>
-															
+								
+							</div>															
 						</div>
 					</div>
 				</div>
             </div>
         </div>
-    <!-- page-content-wrapper -->	
     </div>   	
-	<!-- wrapper -->
-    <!-- jQuery  -->
-    <script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- JS  -->	
+    <script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquerytooltip.js"></script>	
-    <!-- Menu Toggle Script -->
+	
+    <!-- Bootstrap JS -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	
     <script>    
     	$("#menu-toggle").click(function(e) {
         	e.preventDefault();
