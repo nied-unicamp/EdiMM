@@ -20,12 +20,12 @@
 		var movementLayer;
 		var viewElementG;
 		var id;
-		var screenXCorrection, screenYCorrection; //values to re-correct the drawing-position, because the offsetX and offsetY - terms of the event-Object produce mistakes, so clientX and clientY is used
+		var screenXCorrection, screenYCorrection; 
 		var xmlString;
 		var xArray = new Array();
 		var yArray = new Array();
 		var viewArray = new Array();
-		var pathsToMoveInDeleteRect = new Array();//attribute represents: 1: draw; 2: move; 3: delete; 4: move-path; 5: write
+		var pathsToMoveInDeleteRect = new Array();
 		var numberOfEventListener;
 		var deleteRect;
 		var receivedImage, addimage, startX, startY, Line, Rect, Circle, Ellipse;
@@ -118,13 +118,10 @@
 			var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 			var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 		
-				for(i=0; i<xmlArray.length; i++) {
-				//alert(xmlArray[i]);
+				for(i=0; i<xmlArray.length; i++) {			
 					switch(xmlArray[i].substr(0, 1)) {
 						case "g":
-							if(xmlArray[i].indexOf('class="layer"') != -1) {
-							//alert("teste1");
-							//layer element
+							if(xmlArray[i].indexOf('class="layer"') != -1) {						
 							var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
 
@@ -134,9 +131,7 @@
 								var attributeValue = attributeArray[j+1];
 								layerElement.setAttribute(attributeName, attributeValue);
 								}
-							} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {
-									//alert("teste2");
-									//movement element
+							} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {									
 									var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 									var attributeArray = attributeString.split('"');
 
@@ -146,9 +141,7 @@
 										var attributeValue = attributeArray[j+1];
 										movementElement.setAttribute(attributeName, attributeValue);
 										}
-									} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {
-											//alert("teste3");
-											//view element
+									} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {										
 											var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 											var attributeArray = attributeString.split('"');
 												if(viewElement.hasChildNodes && attributeArray.length>4) {												
@@ -168,8 +161,7 @@
 											}
 								 
 						break;
-						case "p":
-							//alert("teste4");
+						case "p":							
 							var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -184,8 +176,7 @@
 							movementElement.appendChild(viewElement);
 						break;
 						case "t":
-							if ((xmlArray[i].substr(0, 1) == "t")){
-							//alert("teste5");
+							if ((xmlArray[i].substr(0, 1) == "t")){							
 							var text =  document.createElementNS('http://www.w3.org/2000/svg', 'text');
 							var textArray =  xmlArray[i].split(">");
 							var attributeString = textArray[0].substr(4, textArray[0].length);							
@@ -206,10 +197,8 @@
 								}
 							}
 						break;
-						case "i":
-							//alert("teste6");
-							if ((xmlArray[i].substr(0, 1) == "i")){
-							//alert(xmlArray[i]);
+						case "i":							
+							if ((xmlArray[i].substr(0, 1) == "i")){							
 							var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
 							var attributeString = xmlArray[i].substr(5, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -226,8 +215,7 @@
 								movementElement.appendChild(viewElement);
 							}
 						break;
-						case "e":
-							//alert("teste4");
+						case "e":							
 							var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 							var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -240,8 +228,7 @@
 							viewElement.appendChild(ellipse);
 							movementElement.appendChild(viewElement);
 						break;
-						case "c":
-							//alert("teste4");
+						case "c":							
 							var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 							var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -254,8 +241,7 @@
 							viewElement.appendChild(circle);
 							movementElement.appendChild(viewElement);
 						break;
-						case "r":
-							//alert("teste4");
+						case "r":							
 							var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -268,8 +254,7 @@
 							viewElement.appendChild(rect);
 							movementElement.appendChild(viewElement);
 						break;
-						case "l":
-							//alert("teste4");
+						case "l":							
 							var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 							var attributeArray = attributeString.split('"');
@@ -292,18 +277,16 @@
 				layer = layerElement;
 				movementLayer = movementElement;
 				}
-			} //end-of response-Function of xmlhttp
+			} 
 		}
 		xmlhttp.open("POST", "http://localhost/EditorMm/dml/consulta.php", true);
-		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		//xmlhttp.send("id="+id);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
 		xmlhttp.send("id="+id);
 		}
 		
 		//============================================================================
 		
-		function removeEventListenerFromSVG(listenerNumber) {
-		//alert(listenerNumber);
+		function removeEventListenerFromSVG(listenerNumber) {		
 			switch (listenerNumber) {
 				case 1 :
 					//remove draw-Listener
@@ -359,8 +342,7 @@
 					svg.removeEventListener('mousedown', startResize, false);
 					svg.removeEventListener('mousemove', resize, false);
 					svg.removeEventListener('mouseup', endResize, false);
-				default:
-				//nothing happens
+				default:				
 				break;
 			}
 		}
@@ -406,16 +388,12 @@
 			circle.setAttribute('id', "c"+numberOfText);
 			circle.setAttribute('onmouseover', 'removeEventListenerFromSVG(5);');
 			circle.setAttribute('onmouseout', 'writeIt();');
-			circle.setAttribute('onmousedown', 'startMoveText(this);');			
+			circle.setAttribute('onmousedown', 'startMoveText(this);');		
 			
-			circle.addEventListener('mouseup', endMoveText, false);
+			circle.addEventListener('mouseup', endMoveText, false);				
 			
-			//circle.setAttribute('onmousemove', 'moveText(this);');
-			//circle.setAttribute('onmouseup', 'endMoveText();');
+			viewElementG.appendChild(circle);			
 			
-			viewElementG.appendChild(circle);
-			
-			//var style =  "font-family: "+font+";font-size: "+size+";stroke: "+colorText+";fill: "+colorFill+";";
 			text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 			text.setAttribute('x', sx);
 			text.setAttribute('y', sy);
@@ -426,13 +404,12 @@
 			text.setAttribute('stroke', colorStroke);
 			text.setAttribute('text-decoration', decoration);			 
 			
-			text.setAttribute('id', "tc"+numberOfText);
-			//text.innerHTML = "|";
+			text.setAttribute('id', "tc"+numberOfText);		
 
 			viewElementG.appendChild(text);
 			numberOfText++;
 			} else {
-			//change the button color
+			
 			}
 		}
 		
@@ -458,8 +435,7 @@
 		var temp = text.innerHTML;
 		var character;
 			switch(event.key) {
-				case 'Shift':
-					//don't do anything
+				case 'Shift':					
 				break;
 				case 'Tab':
 					temp = temp.slice(0,-2);
@@ -471,8 +447,7 @@
 				break;
 				case 'Enter':
 				break;
-				default:
-					//temp = temp.slice(0,-1);
+				default:					
 					text.innerHTML = temp + event.key;
 				break;
 			}
@@ -480,13 +455,14 @@
 		
 		function startMoveText(element) {
 			isMousePressed = true;
-			//alert(element.parentNode);
 			circleOfTextToMove = element;
 			gOfTextToMove = element.parentNode;
 		}
 		
-		function endMoveText(event) {
-			isMousePressed = false;	
+		function endMoveText(event) {			
+			createViewElementForPath();
+			viewElementG.appendChild(text);
+			isMousePressed = false;		
 		}
 		
 		//============================================================================
@@ -500,21 +476,18 @@
 	    svg.addEventListener('mouseup', endPath, false);
 		}
 		
-		function startPath(event) {
-		isMousePressed = true;
+		function startPath(event) {		
 		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-		path.setAttribute('stroke', color);
-		path.setAttribute('fill', 'none');
-
 		var sx = event.clientX;
 		var sy = event.clientY - screenYCorrection;
-
 		var startPosition = "M"+sx+" "+sy;
 		path.setAttribute('id', 'pathID');
 		path.setAttribute('d', startPosition);
+		path.setAttribute('fill', 'none');
+		path.setAttribute('stroke', color);
 		path.setAttribute('stroke-width', width);
-
-		viewElementG.appendChild(path);
+		svg.appendChild(path);
+		isMousePressed = true;
 		}
 
 		function drawPathLine(event) {
@@ -592,7 +565,7 @@
 		
 		//============================================================================
 	
-		function CreateRect() { //alert("changed");
+		function CreateRect() { 
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 7;
 		   
@@ -610,7 +583,6 @@
 		Rect.setAttribute('fill', "none");
 		Rect.setAttribute('stroke', color);
 		Rect.setAttribute('stroke-width', width);
-		//deleteRect.setAttribute('id', "deleteRect");
 		svg.appendChild(Rect);
 		isMousePressed = true;
 		}
@@ -650,7 +622,7 @@
 		
 		//============================================================================
 	
-		function CreateEllipse() { //alert("changed");
+		function CreateEllipse() { 
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 8;
 		   
@@ -839,10 +811,8 @@
 						
 							for(l=1; l<splitArray.length; l=l+2) {
 							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
-							}
+							}		
 							
-							//point in delete-rect
-                 
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
@@ -888,8 +858,7 @@
 						if(viewArray[h].getAttribute('id') != "grid"){
 							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
 								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
-								//translation right and down
-								//we add the diff between the mouseStartPosition and the PathEndPosition to the orriginal translation-Position
+								//translation right and down								
 								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 								viewArray[h].setAttribute('transform', transformString);
 								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
@@ -946,7 +915,6 @@
 		deleteRect.setAttribute('fill', "none");
 		deleteRect.setAttribute('stroke', "red");
 		deleteRect.setAttribute('stroke-width', "3");
-		//deleteRect.setAttribute('id', "deleteRect");
 		svg.appendChild(deleteRect);
 		isMousePressed = true;
 		}
@@ -980,13 +948,12 @@
 		
 		function deleteFromSVG(event) {
 		isMousePressed = false;
-		//catch deleteRect - bounds to identify the point in the field
+		
 		var leftXRect = parseInt(deleteRect.getAttribute('x'));
 		var leftYRect = parseInt(deleteRect.getAttribute('y'));
 		var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
 		var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
 
-		//catch path d-attribute
 		var viewElementArray = document.getElementsByClassName('viewelement');
 		var arrayOfPathToDelete = new Array();
 			for(h=0; h<viewElementArray.length; h++) {
@@ -994,9 +961,8 @@
 				arrayOfPathToDelete = new Array();
 				}
 			var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
-			var yTranslation = getXandYTransformValues(viewElementArray[h]).y;     
-			//alert(xTranslation);
-			//alert(yTranslation);
+			var yTranslation = getXandYTransformValues(viewElementArray[h]).y;    
+			
             var pathArray = viewElementArray[h].getElementsByTagName('path');            
 				if(pathArray.length>0){
 					for(i=0; i<pathArray.length; i++) {
@@ -1011,7 +977,7 @@
 						for(l=1; l<splitArray.length; l=l+2) {
 						yArray.push(yTranslation*1 + parseInt(splitArray[l]));
 						}
-					//point in delete-rect
+						
 					var pathIn = false;
 						for(g=0; g<xArray.length; g++) {
 							if(pathIn == false) {
@@ -1024,12 +990,11 @@
 						if(pathIn == true) {
 						arrayOfPathToDelete.push(pathArray[i]);
 						}
-
-					}//end-of-pathArray
-					//alert(arrayOfPathToDelete.length);
+					}
+					
 					for(b=0; b<arrayOfPathToDelete.length; b++) {
 					viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
-					}
+					}					
 				}else{
 				var x, y; 
 				var arrayDel = viewElementArray[h].getElementsByTagName('rect');
@@ -1071,7 +1036,7 @@
 					}
 				
 				}		 
-			} //end-of-viewElementArray
+			} 
 
 			svg.removeChild(deleteRect);
 			clearSVGFromUnusedViews();
@@ -1126,16 +1091,14 @@
 			var diffX = moveX - startX;
 			var diffY = moveY - startY;
 				if(diffX <0) {
-				//movement left
-				//image.setAttribute('x', moveX);
+				//movement left				
 				addimage.setAttribute('width', (diffX*(-1)));
 				} else {
 				//movement right
 				addimage.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				//movement up
-				//Rect.setAttribute('y', moveY);
+				//movement up				
 				addimage.setAttribute('height', (diffY*(-1)));
 				} else {
 				//movement down
@@ -1153,9 +1116,7 @@
 		//============================================================================
 
 		function save_image(){
-	
-		//var button = document.getElementById('btn-download');
-		//button.addEventListener('click', function (e) {
+		
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 
@@ -1170,25 +1131,20 @@
 		var dataURL
 		var compositeOperation  = context.globalCompositeOperation;
     
-		data = context.getImageData(0, 0, w, h);
-		//code before the pause
-		alert("Gerando Imagem");
+		data = context.getImageData(0, 0, w, h);	
+		
+		alert("Gerando Imagem");	
 	
-		//set to draw behind current content
-		context.globalCompositeOperation = "destination-over";
-        //set background color
-        context.fillStyle = backgroundColor;
-        //draw background / rect on entire canvas
+		context.globalCompositeOperation = "destination-over";     
+        context.fillStyle = backgroundColor;     
         context.fillRect(0,0,w,h);
     
 		var dataURL = canvas.toDataURL();
-		//});
+	
 		window.open(dataURL, "_self");
-		//button.href = dataURL;
+	
 		context.clearRect(0, 0, w, h);
-		context.globalCompositeOperation = compositeOperation;
-    
-		//}); 
+		context.globalCompositeOperation = compositeOperation;   
 		}
 		
 		//============================================================================
@@ -1224,14 +1180,12 @@
 		
 		data = context.getImageData(0, 0, w, h);
 		
-		alert("Gerando PDF");
-	
-		//set to draw behind current content
-		context.globalCompositeOperation = "destination-over";
-        //set background color
+		alert("Gerando PDF");	
+		
+		context.globalCompositeOperation = "destination-over";    
         context.fillStyle = backgroundColor;
-        //draw background / rect on entire canvas
         context.fillRect(0,0,w,h);
+		
 		var svg = canvas.toDataURL();
 		var formulario = document.getElementById("formPDF");
 		var ctx=canvas.getContext("2d");
@@ -1239,7 +1193,6 @@
 		formulario.svg.value = svg;
 		formulario.action = "http://localhost/EditorMm/pdf/gerarpdf.php";
 		formulario.submit();	
-
 		}
 		
 		//============================================================================
@@ -1276,8 +1229,7 @@
 			colorStroke = colorFill;
 			else
 			colorStroke = "none";
-		}
-		
+		}		
 		
 		//============================================================================
 		
