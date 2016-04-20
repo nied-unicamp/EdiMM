@@ -178,9 +178,10 @@
 										
 										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
 										<li><a href="javascript:save_image();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
+										<li><a href="javascript:download();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Download')" onmouseout="UnTip()"><img src="images/download.png" width="24"></a></li>		
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
-												<li><a href="#"><input type="file" name="filename" id="inputFile" required onchange="readURL(event);"></a></li>
+												<li><a href="#"><input type="file" name="filename" id="inputFile" onchange="readURL(event);"></a></li>
 											</ul>
 										</li>																	
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>

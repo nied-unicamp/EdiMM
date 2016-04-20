@@ -341,7 +341,7 @@
 					//remove ReadFile-Listener
 					svg.removeEventListener('mousedown', startResize, false);
 					svg.removeEventListener('mousemove', resize, false);
-					svg.removeEventListener('mouseup', endResize, false);
+					svg.removeEventListener('mouseup', endResize, false);				
 				default:				
 				break;
 			}
@@ -1055,16 +1055,17 @@
 		
 		function readURL(event) {
 			var reader = new FileReader();
-       
-			reader.onloadend = function() {
-			receivedImage = reader.result;
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 10;
+			
 			svg.addEventListener('mousedown', startResize, false);
 			svg.addEventListener('mousemove', resize, false);
 			svg.addEventListener('mouseup', endResize, false);
+			
+			reader.onloadend = function() {
+			receivedImage = reader.result;	
 			}
-			reader.readAsDataURL(event.target.files[0]);
+			reader.readAsDataURL(event.target.files[0]);			
 		}
 		
 		function startResize(event){
@@ -1081,8 +1082,7 @@
 			isMousePressed = true;	
 		}
 		
-		function resize(event) {
-   
+		function resize(event) {   
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -1111,12 +1111,11 @@
 			createViewElementForPath();
 			viewElementG.appendChild(addimage);
 			isMousePressed = false;
-		}	
+		}
 		
 		//============================================================================
 
-		function save_image(){
-		
+		function save_image(){		
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 
@@ -1149,6 +1148,33 @@
 		
 		//============================================================================
 		
+		function download() {
+		var serializer = new XMLSerializer();
+		var xmlString = serializer.serializeToString(layer);
+
+		canvg(document.getElementById('canvas'), xmlString);
+		var canvas = document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		var backgroundColor="white";
+	
+		var w = canvas.width;
+		var h = canvas.height;
+		var data;   
+		var dataURL
+		var compositeOperation  = context.globalCompositeOperation;
+    
+		data = context.getImageData(0, 0, w, h);				
+	
+		context.globalCompositeOperation = "destination-over";     
+        context.fillStyle = backgroundColor;     
+        context.fillRect(0,0,w,h);
+		
+		var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
+		window.location.href = image;
+		}
+		
+		//============================================================================
+		
 		function serializeSVGtoXML() {	
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
@@ -1162,8 +1188,7 @@
 		
 		//============================================================================
 		
-		function createPDF() {
-	
+		function createPDF() {	
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 
@@ -1195,8 +1220,7 @@
 		formulario.submit();	
 		}
 		
-		//============================================================================
-		
+		//============================================================================		
 		
 		function setColor(val) {
         color = val;
@@ -1255,4 +1279,4 @@
         size = val;
 		}
 		
-		//============================================================================
+		//============================================================================	
