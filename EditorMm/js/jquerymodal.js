@@ -33,14 +33,14 @@
 		var activeButtonElement;
 		var url = location.href;
 		var id = location.search;
-
+		
+		//============================================================================	
+		
 		if (!id){		
 		id = makeid();
 		id = id.replace(" ", "");
 		window.location.replace(url+"?"+id);		
-		}		
-		
-		//============================================================================	
+		}				
 		
 		function makeid() {
 		var text = "";
@@ -86,8 +86,7 @@
 		
 		//============================================================================
 
-		function init() {  
-		
+		function init() {
 		svg = document.getElementById('svgID');
 		layer = document.getElementsByClassName('layer')[0];
 		
@@ -279,7 +278,7 @@
 				}
 			} 
 		}
-		xmlhttp.open("POST", "http://localhost/EditorMm/dml/consulta.php", true);
+		xmlhttp.open("POST", "dml/consulta.php", true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
 		xmlhttp.send("id="+id);
 		}
@@ -1063,7 +1062,7 @@
 			svg.addEventListener('mouseup', endResize, false);
 			
 			reader.onloadend = function() {
-			receivedImage = reader.result;	
+			receivedImage = reader.result;			
 			}
 			reader.readAsDataURL(event.target.files[0]);			
 		}
@@ -1130,16 +1129,14 @@
 		var dataURL
 		var compositeOperation  = context.globalCompositeOperation;
     
-		data = context.getImageData(0, 0, w, h);	
-		
-		alert("Gerando Imagem");	
+		data = context.getImageData(0, 0, w, h);			
 	
 		context.globalCompositeOperation = "destination-over";     
         context.fillStyle = backgroundColor;     
         context.fillRect(0,0,w,h);
     
 		var dataURL = canvas.toDataURL();
-	
+		
 		window.open(dataURL, "_self");
 	
 		context.clearRect(0, 0, w, h);
@@ -1181,7 +1178,7 @@
 		xmlString.replace("</t", "><");
 		var encoded = encodeURIComponent(xmlString);
 		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST","http://localhost/EditorMm/dml/armazena.php",true);
+		xmlhttp.open("POST","dml/armazena.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("id="+id+"&svg="+encoded);
 		}
@@ -1205,18 +1202,16 @@
 		
 		data = context.getImageData(0, 0, w, h);
 		
-		alert("Gerando PDF");	
-		
 		context.globalCompositeOperation = "destination-over";    
         context.fillStyle = backgroundColor;
         context.fillRect(0,0,w,h);
 		
-		var svg = canvas.toDataURL();
+		var svg = canvas.toDataURL();		
 		var formulario = document.getElementById("formPDF");
 		var ctx=canvas.getContext("2d");
 		ctx.clearRect(0, 0, w, h);
 		formulario.svg.value = svg;
-		formulario.action = "http://localhost/EditorMm/pdf/gerarpdf.php";
+		formulario.action = "pdf/gerarpdf.php";
 		formulario.submit();	
 		}
 		
