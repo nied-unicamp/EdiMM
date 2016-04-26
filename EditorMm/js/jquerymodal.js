@@ -289,26 +289,26 @@
 			switch (listenerNumber) {
 				case 1 :
 					//remove draw-Listener
-					svg.removeEventListener('mousedown', startPath, false);
+					svg.removeEventListener('click', startPath, false);
 					svg.removeEventListener('mousemove', drawPathLine, false);
 					svg.removeEventListener('mouseup', endPath, false);
 				break;
 				case 2 :
 					//remove move-Listener
-					svg.removeEventListener('mousedown', startMove, false);
+					svg.removeEventListener('click', startMove, false);
 					svg.removeEventListener('mousemove', calcMoveingPathes, false);
 					svg.removeEventListener('mouseup', endMove, false);
 					movingText = false;
 				break;
 				case 3 :
 					//remove delete-Listener
-					svg.removeEventListener('mousedown', startDeleteRect, false);
+					svg.removeEventListener('click', startDeleteRect, false);
 					svg.removeEventListener('mousemove', drawDeleteRect, false);
 					svg.removeEventListener('mouseup', deleteFromSVG, false);
 				break;
 				case 4 :
 					//remove move-Path-Listener
-					svg.removeEventListener('mousedown', startDeleteRect, false);
+					svg.removeEventListener('click', startDeleteRect, false);
 					svg.removeEventListener('mousemove', drawDeleteRect, false);
 					svg.removeEventListener('mouseup', movePathesByRect, false);
 				case 5 :
@@ -318,27 +318,27 @@
 					window.removeEventListener('keydown', writeDown, false);
 				case 6 :
 					//remove Circle-Listener
-					svg.removeEventListener('mousedown', startCircle, false);
+					svg.removeEventListener('click', startCircle, false);
 					svg.removeEventListener('mousemove', drawCircle, false);
 					svg.removeEventListener('mouseup', endCircle, false);
 				case 7 :  
 					//remove Rect-Listener
-					svg.removeEventListener('mousedown', startRect, false);
+					svg.removeEventListener('click', startRect, false);
 					svg.removeEventListener('mousemove', drawRect, false);
 					svg.removeEventListener('mouseup', endRect, false);
 				case 8 :  
 					//remove Ellipse-Listener
-					svg.removeEventListener('mousedown', startEllipse, false);
+					svg.removeEventListener('click', startEllipse, false);
 					svg.removeEventListener('mousemove', drawEllipse, false);
 					svg.removeEventListener('mouseup', endEllipse, false);
 				case 9 :  
 					//remove Line-Listener
-					svg.removeEventListener('mousedown', startLine, false);
+					svg.removeEventListener('click', startLine, false);
 					svg.removeEventListener('mousemove', drawLine, false);
 					svg.removeEventListener('mouseup', endLine, false);
 				case 10 :  
 					//remove ReadFile-Listener
-					svg.removeEventListener('mousedown', startResize, false);
+					svg.removeEventListener('click', startResize, false);
 					svg.removeEventListener('mousemove', resize, false);
 					svg.removeEventListener('mouseup', endResize, false);				
 				default:				
@@ -349,7 +349,7 @@
 		//============================================================================
 		
 		function writeIt() { 
-			if (numberOfEventListener !=2 && movingText ==false){
+			if (numberOfEventListener !=2 && movingText == false){
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 5;
 			svg.addEventListener('click', startWrite, false);
@@ -470,7 +470,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 	    numberOfEventListener = 1;
 		
-	    svg.addEventListener('mousedown', startPath, false);
+	    svg.addEventListener('click', startPath, false);
 	    svg.addEventListener('mousemove', drawPathLine, false);
 	    svg.addEventListener('mouseup', endPath, false);
 		}
@@ -511,7 +511,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 6;
 			
-		svg.addEventListener('mousedown', startCircle, false);
+		svg.addEventListener('click', startCircle, false);
 		svg.addEventListener('mousemove', drawCircle, false);
 		svg.addEventListener('mouseup', endCircle, false);
 		}	
@@ -568,7 +568,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 7;
 		   
-		svg.addEventListener('mousedown', startRect, false);		   
+		svg.addEventListener('click', startRect, false);		   
 		svg.addEventListener('mousemove', drawRect, false);
 		svg.addEventListener('mouseup', endRect, false);
 		}
@@ -625,7 +625,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 8;
 		   
-		svg.addEventListener('mousedown', startEllipse, false);
+		svg.addEventListener('click', startEllipse, false);
 		svg.addEventListener('mousemove', drawEllipse, false);
 		svg.addEventListener('mouseup', endEllipse, false);
 		}
@@ -682,7 +682,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 9;
 			
-		svg.addEventListener('mousedown', startLine, false);
+		svg.addEventListener('click', startLine, false);
 		svg.addEventListener('mousemove', drawLine, false);
 		svg.addEventListener('mouseup', endLine, false);
 		}	
