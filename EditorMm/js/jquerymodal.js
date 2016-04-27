@@ -295,7 +295,7 @@
 				break;
 				case 2 :
 					//remove move-Listener
-					svg.removeEventListener('click', startMove, false);
+					svg.removeEventListener('mousedown', startMove, false);
 					svg.removeEventListener('mousemove', calcMoveingPathes, false);
 					svg.removeEventListener('mouseup', endMove, false);
 					movingText = false;
@@ -338,7 +338,7 @@
 					svg.removeEventListener('mouseup', endLine, false);
 				case 10 :  
 					//remove ReadFile-Listener
-					svg.removeEventListener('click', startResize, false);
+					svg.removeEventListener('mousedown', startResize, false);
 					svg.removeEventListener('mousemove', resize, false);
 					svg.removeEventListener('mouseup', endResize, false);				
 				default:				
@@ -900,7 +900,7 @@
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 3;
 		   
-		svg.addEventListener('mousedown', startDeleteRect, false);
+		svg.addEventListener('click', startDeleteRect, false);
 		svg.addEventListener('mousemove', drawDeleteRect, false);
 		svg.addEventListener('mouseup', deleteFromSVG, false);
 		}
