@@ -16,10 +16,10 @@
 	<link href="css/styleedit.css" rel="stylesheet">	
     <link href="css/stylesidebar.css" rel="stylesheet">	
 	
-	<!-- JS -->		
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>
+	<!-- JS -->			
+	<script type="text/javascript" src="js/jquerystackblur.js"></script>
+	<script type="text/javascript" src="js/jqueryrgbcolor.js"></script> 
+	<script type="text/javascript" src="js/jquerycanvg.js"></script>
 	<script type="text/javascript" src="js/jquerymodal.js"></script>	
 	
 </head>
@@ -56,10 +56,10 @@
 					</li>
 					
 					<li><a></a></li>
-					
+				
 					<li>
 						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/colordrawing.png" width="24"> Cor Des </legend>	
+						<legend class="scheduler-border"><img src="images/colordrawing.png" width="24"> Cor-Des </legend>	
 						<li><a><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>						
 						</fieldset>
 					</li>
@@ -68,8 +68,8 @@
 					
 					<li>
 						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/thicknessdrawing.png" width="24"> Espessura </legend>	
-						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="24"><span class="caret"></span></a>
+						<legend class="scheduler-border"><img src="images/thicknessdrawing.png" width="24"> Espe.Des </legend>	
+						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:width=1"  onchange="setWidth(1);"><img src="images/line1.png" width="24"></a></li>
 								<li><a href="javascript:width=2"  onchange="setWidth(2);"><img src="images/line2.png" width="24"></a></li>
@@ -86,71 +86,76 @@
 						</fieldset>
 					</li>
 					
-					<!--
-					<li><a><img src="images/sizetext.png" width="24"></a></li>					
-					<li><a>
-						<select href="javascript:sizeText" onchange="setSizeText(this.value);" name="language" class="form-control">
-							<option selected disabled class="negrito">Tamanho Texto</option>
-							<option value="10" class="negrito">10</option> 
-							<option value="12" class="negrito">12</option>
-							<option value="14" class="negrito">14</option>
-							<option value="16" class="negrito">16</option>
-							<option value="18" class="negrito">18</option>
-							<option value="20" class="negrito">20</option>
-							<option value="22" class="negrito">22</option>
-							<option value="24" class="negrito">24</option>
-							<option value="26" class="negrito">26</option>
-							<option value="28" class="negrito">28</option>
-							<option value="30" class="negrito">30</option> 
-							<option value="32" class="negrito">32</option>
-							<option value="34" class="negrito">34</option>
-							<option value="36" class="negrito">36</option>
-							<option value="38" class="negrito">38</option>
-							<option value="40" class="negrito">40</option>
-							<option value="42" class="negrito">42</option>
-							<option value="44" class="negrito">44</option>
-							<option value="46" class="negrito">46</option>
-							<option value="48" class="negrito">48</option>
-						</select></a>
-					</li>
-					<li><a><img src="images/colortext.png" width="24"></a></li>
-					<li><a>
-						<select href="javascript:colorText" onchange="setFillText(this.value);" name="language" class="form-control">
-							<option value="CadetBlue" class="negrito">Cor Texto</option>
-							<option value="red" class="negrito">Red</option> 
-							<option value="grey" class="negrito">Grey</option>						
-							<option value="blue" class="negrito">Blue</option>	
-							<option value="black" class="negrito">Black</option>						
-							<option value="green" class="negrito">Green</option>
-							<option value="brown" class="negrito">Brown</option>						
-							<option value="yellow" class="negrito">Yellow</option>						
-							<option value="purple" class="negrito">Purple</option>
-							<option value="orange" class="negrito">Orange</option>	
-						</select></a>
-					</li>
-					<li><a><img src="images/Sourceletter.png" width="24"></a></li>
-					<li><a>
-						<select href="javascript:width" onchange="setFontText(this.value);" name="language" class="form-control">
-							<option selected disabled class="negrito">Fonte Texto</option>
-							<option value="serif" class="negrito">Serif</option>
-							<option value="impact" class="negrito">Impact</option>
-							<option value="lucida" class="negrito">Lucida</option>						
-							<option value="symbol" class="negrito">Symbol</option>
-							<option value="tahoma" class="negrito">Tahoma</option>						
-							<option value="georgia" class="negrito">Georgia</option>							
-							<option value="verdana" class="negrito">Verdana</option>
-							<option value="palatino" class="negrito">Palatino</option>						
-							<option value="sansserif" class="negrito">Sansserif</option>													
-							<option value="webdings" class="negrito">Webdings</option>
-							<option value="trebuchet" class="negrito">Trebuchet</option>												
-							<option value="wingdings" class="negrito">Wingdings</option>
-							<option value="monospace" class="negrito">Monospace</option>	
-							<option value="lucidasans" class="negrito">Lucidasans</option>											
-							<option value="comicsans" class="negrito">Comic Sans</option>
-							<option value="opendyslexic" class="negrito">Opendys Lexic</option>	
-							<option value="timesnewroman" class="negrito">Times New Roman</option>
-						</select></a>					
-					</li> -->				
+					<li><a></a></li>	
+					
+					<li>
+						<fieldset class="scheduler-border">
+						<legend class="scheduler-border"><img src="images/sizetext.png" width="24"> Medi.Text </legend>	
+						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:size=10" onchange="setSizeText(10);">10</a></li>
+								<li><a href="javascript:size=12" onchange="setSizeText(12);">12</a></li>
+								<li><a href="javascript:size=14" onchange="setSizeText(14);">14</a></li>
+								<li><a href="javascript:size=16" onchange="setSizeText(16);">16</a></li>
+								<li><a href="javascript:size=18" onchange="setSizeText(18);">18</a></li>
+								<li><a href="javascript:size=20" onchange="setSizeText(20);">20</a></li>
+								<li><a href="javascript:size=22" onchange="setSizeText(22);">22</a></li>
+								<li><a href="javascript:size=24" onchange="setSizeText(24);">24</a></li>
+								<li><a href="javascript:size=26" onchange="setSizeText(26);">26</a></li>
+								<li><a href="javascript:size=28" onchange="setSizeText(28);">28</a></li>
+								<li><a href="javascript:size=30" onchange="setSizeText(30);">30</a></li>
+								<li><a href="javascript:size=32" onchange="setSizeText(32);">32</a></li>
+								<li><a href="javascript:size=34" onchange="setSizeText(34);">34</a></li>
+								<li><a href="javascript:size=36" onchange="setSizeText(36);">36</a></li>
+								<li><a href="javascript:size=38" onchange="setSizeText(38);">38</a></li>
+								<li><a href="javascript:size=40" onchange="setSizeText(40);">40</a></li>
+								<li><a href="javascript:size=42" onchange="setSizeText(42);">42</a></li>	
+								<li><a href="javascript:size=44" onchange="setSizeText(44);">44</a></li>
+								<li><a href="javascript:size=46" onchange="setSizeText(46);">46</a></li>
+								<li><a href="javascript:size=48" onchange="setSizeText(48);">48</a></li>
+							</ul>
+						</li>					
+						</fieldset>
+					</li>					
+					
+					<li><a></a></li>
+					
+					<li>
+						<fieldset class="scheduler-border">
+						<legend class="scheduler-border"><img src="images/sourceletter.png" width="24"> Font.Text </legend>	
+						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/sourcetext.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:setFontText('comicsans');">Comic Sans</a></li>
+								<li><a href="javascript:setFontText('georgia');">Georgia</a></li>
+								<li><a href="javascript:setFontText('impact');">Impact</a></li>
+								<li><a href="javascript:setFontText('lucida');">Lucida</a></li>									
+								<li><a href="javascript:setFontText('lucidasans');">Lucidasans</a></li>
+								<li><a href="javascript:setFontText('monospace');">Monospace</a></li>
+								<li><a href="javascript:setFontText('opendyslexic');">Opendys Lexic</a></li>
+								<li><a href="javascript:setFontText('palatino');">Palatino</a></li>	
+								<li><a href="javascript:setFontText('sansserif');">Sansserif</a></li>									
+								<li><a href="javascript:setFontText('serif');">Serif</a></li>
+								<li><a href="javascript:setFontText('symbol');">Symbol</a></li>
+								<li><a href="javascript:setFontText('tahoma');">Tahoma</a></li>
+								<li><a href="javascript:setFontText('timesnewroman');">Times New Roman</a></li>
+								<li><a href="javascript:setFontText('trebuchet');">Trebuchet</a></li>
+								<li><a href="javascript:setFontText('verdana');">Verdana</a></li>
+								<li><a href="javascript:setFontText('webdings');">Webdings</a></li>							
+								<li><a href="javascript:setFontText('wingdings');">Wingdings</a></li>			
+							</ul>
+						</li>					
+						</fieldset>
+					</li>	
+
+					<li><a></a></li>
+					
+					<li>
+						<fieldset class="scheduler-border">
+						<legend class="scheduler-border"><img src="images/colortext.png" width="24"> Cor-Text </legend>	
+						<li><a><input type="color" href="javascript:colorFill" onchange="setFillText(this.value);"></a></li>						
+						</fieldset>
+					</li>						
+					
 				</ul>
 			</div>	
 		</div>		
@@ -160,9 +165,9 @@
             <ul class="sidebar-nav">
 				<li><img src="images/editor.png"></li> 		              
 				<li class="sidebar-brand"><a class="negrito"> Multimodalidade </a></li> 
-				<li><a href="javascript:window.location.href='index.html';" target="janela" class="negrito"><img src="images/mininew.png"> Novo Arquivo</a></li>            		
-            	<li><a href="javascript:serializeSVGtoXML();" target="janela" class="negrito"><img src="images/minisave.png"> Salvar </a></li>  	
-				<li><a href="javascript:createPDF();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>		
+				<li><a href="javascript:window.location.href='index.html';" target="janela" class="negrito"><img src="images/mininew.png"> Novo Arquivo </a></li>            		
+            	<li><a href="javascript:saveIt();" target="janela" class="negrito"><img src="images/minisave.png"> Salvar </a></li>  	
+				<li><a href="javascript:pdfIt();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>		
 			</ul>				
         </div>		
         <!-- sidebar-wrapper -->
@@ -177,34 +182,35 @@
 									<ul class="nav nav-pills nav-stacked">									
 										
 										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
-										<li><a href="javascript:save_image();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
-										<li><a href="javascript:download();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Download')" onmouseout="UnTip()"><img src="images/download.png" width="24"></a></li>		
+										<li><a href="javascript:imageIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
+										<li><a href="javascript:downloadIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Download')" onmouseout="UnTip()"><img src="images/download.png" width="24"></a></li>		
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" id="inputFile" onchange="readURL(event);"></a></li>
 											</ul>
 										</li>																	
-										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Fonte')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Entrada de Teclado')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
-												<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="20"></a></li>
-												<li><a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="20"></a></li>					
-												<li><a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="20"></a></li>	
+												<li><a href="javascript:createWrite();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()"><img src="images/keyboard.png" width="24"></a></li>
+												<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="10"></a></li>
+												<li><a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="10"></a></li>					
+												<li><a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="10"></a></li>	
 											</ul>
 										</li>						
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
-											<ul class="dropdown-menu">
-												<li><a href="javascript:writeIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
-												<li><a href="javascript:drawIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
-												<li><a href="javascript:CreateCircle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
-												<li><a href="javascript:CreateRect();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
-												<li><a href="javascript:CreateEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
-												<li><a href="javascript:CreateLine();" class="btn btn-default" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
+											<ul class="dropdown-menu">												
+												<li><a href="javascript:createPonto();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
+												<li><a href="javascript:createDraw();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"></a></li>								
+												<li><a href="javascript:createCircle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
+												<li><a href="javascript:createRectangle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
+												<li><a href="javascript:createEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
+												<li><a href="javascript:createLine();" class="btn btn-default" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
 											</ul>
 										</li>										
 										<li><a href="javascript:drawGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
 										<li><a href="javascript:clearGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
-										<li><a href="javascript:moveIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Selecionar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
-										<li><a href="javascript:deleteFromSVGRect();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
+										<li><a href="javascript:moveIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Mover Objetos')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
+										<li><a href="javascript:deleteIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
 									</ul>
 								</div>												
 							</div>			

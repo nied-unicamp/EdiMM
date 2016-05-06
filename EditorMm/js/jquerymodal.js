@@ -1,38 +1,38 @@
-		//http://fenix.nied.unicamp.br/EditorMm/	
-		var color="black", width = 3;
+		//http://fenix.nied.unicamp.br/EditorMm/
+		var size = "20";	
 		var font = "Arial";
-		var size = "20";
-		var colorStroke = "none";
-		var colorFill = "black";
-		var decoration = "none";
 		var style  = "normal";
-		var isMousePressed = false;
-		var svg;
-		var path;
-		var text;
-		var numberOfText;
-		var textToMove;
-		var circleOfTextToMove;
-		var gOfTextToMove;
-		var startMoveX, startMoveY;
-		var pathArray;
-		var layer1Group;
-		var movementLayer;
-		var viewElementG;
-		var id;
-		var screenXCorrection, screenYCorrection; 
-		var xmlString;
+		var decoration = "none";
+		var colorFill = "black";
+		var colorStroke = "none";
+		var color = "black", width = 3;	
+				
 		var xArray = new Array();
 		var yArray = new Array();
 		var viewArray = new Array();
-		var pathsToMoveInDeleteRect = new Array();
-		var numberOfEventListener;
-		var deleteRect;
-		var receivedImage, addimage, startX, startY, Line, Rect, Circle, Ellipse;
-		var movingText = false;		
+		var pathsToMoveInDeleteRect = new Array();	
+			
+		var id;
+		var svg;			
+		var pathArray;
+		var xmlString;
+		var textToMove;	
+		var numberOfText;
+		var circleOfTextToMove;	
+		var gOfTextToMove;		
+		var viewElementG;		
+		var movementLayer;		
 		var activeButtonElement;
 		var url = location.href;
 		var id = location.search;
+		var numberOfEventListener;
+		var startMoveX, startMoveY;	
+		var screenXCorrection, screenYCorrection; 	
+		var receivedImage, image, startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text;	
+	
+		
+		var movingText = false;	
+		var isMousePressed = false;		
 		
 		//============================================================================	
 		
@@ -97,7 +97,7 @@
 			
 		id = id.replace("?", "");
 		deserializeSVGtoXML();	
-		drawIt();
+		createDraw();
 		}
 
 		function deserializeSVGtoXML() {		
@@ -288,78 +288,75 @@
 		function removeEventListenerFromSVG(listenerNumber) {		
 			switch (listenerNumber) {
 				case 1 :
-					//remove draw-Listener
-					svg.removeEventListener('mousedown', startPath, false);
-					svg.removeEventListener('mousemove', drawPathLine, false);
-					svg.removeEventListener('mouseup', endPath, false);
+					//remove Draw-Listener
+					svg.removeEventListener('mousedown', startDraw, false);
+					svg.removeEventListener('mousemove', moveDraw, false);
+					svg.removeEventListener('mouseup', endMoveDraw, false);
 				break;
 				case 2 :
-					//remove move-Listener
-					svg.removeEventListener('mousedown', startMove, false);
-					svg.removeEventListener('mousemove', calcMoveingPathes, false);
-					svg.removeEventListener('mouseup', endMove, false);
-					movingText = false;
+					//remove Move-Listener
+					svg.removeEventListener('mousedown', startMoves, false);
+					svg.removeEventListener('mousemove', moveMoves, false);
+					svg.removeEventListener('mouseup', endMoveMoves, false);
 				break;
 				case 3 :
-					//remove delete-Listener
-					svg.removeEventListener('mousedown', startDeleteRect, false);
-					svg.removeEventListener('mousemove', drawDeleteRect, false);
-					svg.removeEventListener('mouseup', deleteFromSVG, false);
+					//remove Delete-Listener
+					svg.removeEventListener('mousedown', startDelete, false);
+					svg.removeEventListener('mousemove', moveDelete, false);
+					svg.removeEventListener('mouseup', endMoveDelete, false);
 				break;
 				case 4 :
-					//remove move-Path-Listener
-					svg.removeEventListener('mousedown', startDeleteRect, false);
-					svg.removeEventListener('mousemove', drawDeleteRect, false);
-					svg.removeEventListener('mouseup', movePathesByRect, false);
-				case 5 :
-					//remove write-Listener
+					//remove Wite-Listener
 					svg.removeEventListener('click', startWrite, false);
-					svg.removeEventListener('mousemove', moveText, false);
+					svg.removeEventListener('mousemove', moveWrite, false);
 					window.removeEventListener('keydown', writeDown, false);
+				case 5 :
+					//remove Ponto-Listener
+					svg.removeEventListener('mousedown', startPonto, false);
+					svg.removeEventListener('mouseup', endMovePonto, false);
 				case 6 :
 					//remove Circle-Listener
 					svg.removeEventListener('mousedown', startCircle, false);
-					svg.removeEventListener('mousemove', drawCircle, false);
-					svg.removeEventListener('mouseup', endCircle, false);
+					svg.removeEventListener('mousemove', moveCircle, false);
+					svg.removeEventListener('mouseup', endMoveCircle, false);
 				case 7 :  
-					//remove Rect-Listener
-					svg.removeEventListener('mousedown', startRect, false);
-					svg.removeEventListener('mousemove', drawRect, false);
-					svg.removeEventListener('mouseup', endRect, false);
+					//remove Rectangle-Listener
+					svg.removeEventListener('mousedown', startRectangle, false);
+					svg.removeEventListener('mousemove', moveRectangle, false);
+					svg.removeEventListener('mouseup', endMoveRectangle, false);
 				case 8 :  
 					//remove Ellipse-Listener
 					svg.removeEventListener('mousedown', startEllipse, false);
-					svg.removeEventListener('mousemove', drawEllipse, false);
-					svg.removeEventListener('mouseup', endEllipse, false);
+					svg.removeEventListener('mousemove', moveEllipse, false);
+					svg.removeEventListener('mouseup', endMoveEllipse, false);
 				case 9 :  
 					//remove Line-Listener
 					svg.removeEventListener('mousedown', startLine, false);
-					svg.removeEventListener('mousemove', drawLine, false);
-					svg.removeEventListener('mouseup', endLine, false);
+					svg.removeEventListener('mousemove', moveLine, false);
+					svg.removeEventListener('mouseup', endMoveLine, false);
 				case 10 :  
 					//remove ReadFile-Listener
-					svg.removeEventListener('mousedown', startResize, false);
-					svg.removeEventListener('mousemove', resize, false);
-					svg.removeEventListener('mouseup', endResize, false);				
+					svg.removeEventListener('mousedown', startURL, false);
+					svg.removeEventListener('mousemove', moveURL, false);
+					svg.removeEventListener('mouseup', endMoveURL, false);				
 				default:				
 				break;
 			}
 		}
 		
+		
 		//============================================================================
 		
-		function writeIt() { 
-			if (numberOfEventListener !=2 && movingText == false){
+		function createWrite() { 				
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 5;
+			numberOfEventListener = 4;
+				
 			svg.addEventListener('click', startWrite, false);
-			svg.addEventListener('mousemove', moveText, false);
-			window.addEventListener('keydown', writeDown, false);
-			}
+			svg.addEventListener('mousemove', moveWrite, false);
+			window.addEventListener('keydown', writeDown, false);			
 		}
 		
 		function startWrite(event) {
-
 			var sx = event.clientX;
 			var sy = event.clientY - screenYCorrection; 
 			var activateExistingText = false;
@@ -374,45 +371,41 @@
 					}
 				}
 	
-			if(activateExistingText == false) {
+				if(activateExistingText == false) {
 
-			createViewElementForPath();
-			var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-			circle.setAttribute('cx', sx-3);
-			circle.setAttribute('cy', sy-3);
-			circle.setAttribute('r', 2);
-			circle.setAttribute('stroke', "black");
-			circle.setAttribute('stroke-width', 1);
-			circle.setAttribute('fill', "black");
-			circle.setAttribute('id', "c"+numberOfText);
-			circle.setAttribute('onmouseover', 'removeEventListenerFromSVG(5);');
-			circle.setAttribute('onmouseout', 'writeIt();');
-			circle.setAttribute('onmousedown', 'startMoveText(this);');		
-			
-			circle.addEventListener('mouseup', endMoveText, false);				
-			
-			viewElementG.appendChild(circle);			
-			
-			text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-			text.setAttribute('x', sx);
-			text.setAttribute('y', sy);
-			text.setAttribute('font-family', font);
-			text.setAttribute('font-size', size);
-			text.setAttribute('font-style', style);
-			text.setAttribute('fill', colorFill);
-			text.setAttribute('stroke', colorStroke);
-			text.setAttribute('text-decoration', decoration);			 
-			
-			text.setAttribute('id', "tc"+numberOfText);		
+				createViewElementForPath();
+				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+				circle.setAttribute('cx', sx-3);
+				circle.setAttribute('cy', sy-3);
+				circle.setAttribute('r', 2);
+				circle.setAttribute('stroke', "black");
+				circle.setAttribute('stroke-width', 0.1);
+				circle.setAttribute('fill', "black");
+				circle.setAttribute('id', "c"+numberOfText);				
+				
+				circle.addEventListener('mouseup', endMoveWrite, false);				
+				
+				viewElementG.appendChild(circle);			
+				
+				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+				text.setAttribute('x', sx);
+				text.setAttribute('y', sy);
+				text.setAttribute('font-family', font);
+				text.setAttribute('font-size', size);
+				text.setAttribute('font-style', style);
+				text.setAttribute('fill', colorFill);
+				text.setAttribute('stroke', colorStroke);
+				text.setAttribute('text-decoration', decoration);
+				text.setAttribute('id', "tc"+numberOfText);		
 
-			viewElementG.appendChild(text);
-			numberOfText++;
-			} else {
-			
-			}
+				viewElementG.appendChild(text);
+				numberOfText++;
+				} else {
+				
+				}
 		}
 		
-		function moveText(event) {	
+		function moveWrite(event) {	
 			if(isMousePressed == true) {
 			var sx = event.clientX;
 			var sy = event.clientY - screenYCorrection;	  
@@ -445,6 +438,7 @@
 					text.innerHTML = temp;
 				break;
 				case 'Enter':
+				
 				break;
 				default:					
 					text.innerHTML = temp + event.key;
@@ -452,34 +446,61 @@
 			}
 		}
 		
-		function startMoveText(element) {
+		function startMoveWrite(element) {
 			isMousePressed = true;
 			circleOfTextToMove = element;
 			gOfTextToMove = element.parentNode;
 		}
 		
-		function endMoveText(event) {			
+		function endMoveWrite(event) {			
+			 isMousePressed = false;	
+		}
+		
+		//============================================================================
+		
+		function createPonto() { 		
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 5;
+			
+			svg.addEventListener('mousedown', startPonto, false);
+			svg.addEventListener('mouseup', endMovePonto, false);	
+		}
+		
+		function startPonto(event) {	
+			var sx = event.clientX;
+			var sy = event.clientY - screenYCorrection;				
+			ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+			ponto.setAttribute('cx', sx-3);
+			ponto.setAttribute('cy', sy-3);
+			ponto.setAttribute('r', 2);			
+			ponto.setAttribute('fill', "none");
+			ponto.setAttribute('stroke', color);
+			ponto.setAttribute('stroke-width', width);			
+			svg.appendChild(ponto);
+			isMousePressed = true;	
+		}
+		function endMovePonto(event) {			
 			createViewElementForPath();
-			viewElementG.appendChild(text);
+			viewElementG.appendChild(ponto);
 			isMousePressed = false;		
 		}
 		
 		//============================================================================
 		
-		function drawIt() {
+		function createDraw() {
 		removeEventListenerFromSVG(numberOfEventListener);
 	    numberOfEventListener = 1;
 		
-	    svg.addEventListener('mousedown', startPath, false);
-	    svg.addEventListener('mousemove', drawPathLine, false);
-	    svg.addEventListener('mouseup', endPath, false);
+	    svg.addEventListener('mousedown', startDraw, false);
+	    svg.addEventListener('mousemove', moveDraw, false);
+	    svg.addEventListener('mouseup', endMoveDraw, false);
 		}
 		
-		function startPath(event) {		
-		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+		function startDraw(event) {	
 		var sx = event.clientX;
 		var sy = event.clientY - screenYCorrection;
-		var startPosition = "M"+sx+" "+sy;
+		var startPosition = "M"+sx+" "+sy;		
+		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 		path.setAttribute('id', 'pathID');
 		path.setAttribute('d', startPosition);
 		path.setAttribute('fill', 'none');
@@ -489,7 +510,7 @@
 		isMousePressed = true;
 		}
 
-		function drawPathLine(event) {
+		function moveDraw(event) {
 			if(isMousePressed) {      
             var sx = event.clientX;
             var sy = event.clientY - screenYCorrection;
@@ -499,7 +520,7 @@
             }
 		}
 		
-		function endPath(event) {		
+		function endMoveDraw(event) {		
 		createViewElementForPath();
 		viewElementG.appendChild(path);
 		isMousePressed = false;
@@ -507,29 +528,29 @@
 		
 		//============================================================================
 		
-		function CreateCircle(){
+		function createCircle(){
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 6;
 			
 		svg.addEventListener('mousedown', startCircle, false);
-		svg.addEventListener('mousemove', drawCircle, false);
-		svg.addEventListener('mouseup', endCircle, false);
+		svg.addEventListener('mousemove', moveCircle, false);
+		svg.addEventListener('mouseup', endMoveCircle, false);
 		}	
 		
 		function startCircle(event) {
 		startX = event.clientX;
 		startY = event.clientY-screenYCorrection;
-		Circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-		Circle.setAttribute('cx', startX);
-		Circle.setAttribute('cy', startY);
-		Circle.setAttribute('fill', "none");
-		Circle.setAttribute('stroke', color);
-		Circle.setAttribute('stroke-width', width);
-		svg.appendChild(Circle);
+		circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+		circle.setAttribute('cx', startX);
+		circle.setAttribute('cy', startY);
+		circle.setAttribute('fill', "none");
+		circle.setAttribute('stroke', color);
+		circle.setAttribute('stroke-width', width);
+		svg.appendChild(circle);
 		isMousePressed = true;
 		}
 	
-		function drawCircle(event) {
+		function moveCircle(event) {
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -539,54 +560,54 @@
 			var diffY = moveY - startY;
 				if(diffX <0) {
 				  //movement left
-				  Circle.setAttribute('cx', moveX);
-				  Circle.setAttribute('r', (diffX*(-1)));
+				  circle.setAttribute('cx', moveX);
+				  circle.setAttribute('r', (diffX*(-1)));
 				} else {
 				  //movement right
-				  Circle.setAttribute('r', diffX);
+				  circle.setAttribute('r', diffX);
 				}
 				if(diffY <0) {
 				  //movement up
-				  Circle.setAttribute('y', moveY);
-				  Circle.setAttribute('r', (diffY*(-1)));
+				  circle.setAttribute('y', moveY);
+				  circle.setAttribute('r', (diffY*(-1)));
 				} else {
 				  //movement down
-				  Circle.setAttribute('r', diffY);
+				  circle.setAttribute('r', diffY);
 				}
 			}
 		}
 
-		function endCircle(event) {
+		function endMoveCircle(event) {
 		createViewElementForPath();
-		viewElementG.appendChild(Circle);
+		viewElementG.appendChild(circle);
 		isMousePressed = false;
 		}		
 		
 		//============================================================================
 	
-		function CreateRect() { 
+		function createRectangle() { 
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 7;
 		   
-		svg.addEventListener('mousedown', startRect, false);		   
-		svg.addEventListener('mousemove', drawRect, false);
-		svg.addEventListener('mouseup', endRect, false);
+		svg.addEventListener('mousedown', startRectangle, false);		   
+		svg.addEventListener('mousemove', moveRectangle, false);
+		svg.addEventListener('mouseup', endMoveRectangle, false);
 		}
 		
-		function startRect(event) {
+		function startRectangle(event) {
 		startX = event.clientX;
 		startY = event.clientY-screenYCorrection;
-		Rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-		Rect.setAttribute('x', startX);
-		Rect.setAttribute('y', startY);
-		Rect.setAttribute('fill', "none");
-		Rect.setAttribute('stroke', color);
-		Rect.setAttribute('stroke-width', width);
-		svg.appendChild(Rect);
+		rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+		rectangle.setAttribute('x', startX);
+		rectangle.setAttribute('y', startY);
+		rectangle.setAttribute('fill', "none");
+		rectangle.setAttribute('stroke', color);
+		rectangle.setAttribute('stroke-width', width);
+		svg.appendChild(rectangle);
 		isMousePressed = true;
 		}
 		
-		function drawRect(event) {
+		function moveRectangle(event) {
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -596,54 +617,54 @@
 			var diffY = moveY - startY;
 				if(diffX <0) {
 				//movement left
-				Rect.setAttribute('x', moveX);
-				Rect.setAttribute('width', (diffX*(-1)));
+				rectangle.setAttribute('x', moveX);
+				rectangle.setAttribute('width', (diffX*(-1)));
 				} else {
 				 //movement right
-				Rect.setAttribute('width', diffX);
+				rectangle.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
 				//movement up
-				Rect.setAttribute('y', moveY);
-				Rect.setAttribute('height', (diffY*(-1)));
+				rectangle.setAttribute('y', moveY);
+				rectangle.setAttribute('height', (diffY*(-1)));
 				} else {
 				//movement down
-				Rect.setAttribute('height', diffY);
+				rectangle.setAttribute('height', diffY);
 				}
 			}
 		}
 		
-		function endRect(event) {
+		function endMoveRectangle(event) {
 		createViewElementForPath();
-		viewElementG.appendChild(Rect);
+		viewElementG.appendChild(rectangle);
 		isMousePressed = false;
 		}
 		
 		//============================================================================
 	
-		function CreateEllipse() { 
+		function createEllipse() { 
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 8;
 		   
 		svg.addEventListener('mousedown', startEllipse, false);
-		svg.addEventListener('mousemove', drawEllipse, false);
-		svg.addEventListener('mouseup', endEllipse, false);
+		svg.addEventListener('mousemove', moveEllipse, false);
+		svg.addEventListener('mouseup', endMoveEllipse, false);
 		}
 		
 		function startEllipse(event) {
 		startX = event.clientX;
 		startY = event.clientY-screenYCorrection;
-		Ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-		Ellipse.setAttribute('cx', startX);
-		Ellipse.setAttribute('cy', startY);
-		Ellipse.setAttribute('fill', "none");
-		Ellipse.setAttribute('stroke', color);
-		Ellipse.setAttribute('stroke-width', width);
-		svg.appendChild(Ellipse);
+		ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+		ellipse.setAttribute('cx', startX);
+		ellipse.setAttribute('cy', startY);
+		ellipse.setAttribute('fill', "none");
+		ellipse.setAttribute('stroke', color);
+		ellipse.setAttribute('stroke-width', width);
+		svg.appendChild(ellipse);
 		isMousePressed = true;
 		}
 	
-		function drawEllipse(event) {
+		function moveEllipse(event) {
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -653,84 +674,82 @@
 			var diffY = moveY - startY;
 				if(diffX <0) {
 				//movement left
-				Ellipse.setAttribute('cx', moveX);
-				Ellipse.setAttribute('rx', (diffX*(-1)));
+				ellipse.setAttribute('cx', moveX);
+				ellipse.setAttribute('rx', (diffX*(-1)));
 				} else {
 				//movement right
-				Ellipse.setAttribute('rx', diffX);
+				ellipse.setAttribute('rx', diffX);
 				}
 				if(diffY <0) {
 				//movement up
-				Ellipse.setAttribute('y', moveY);
-				Ellipse.setAttribute('ry', (diffY*(-1)));
+				ellipse.setAttribute('y', moveY);
+				ellipse.setAttribute('ry', (diffY*(-1)));
 				} else {
 				//movement down
-				Ellipse.setAttribute('ry', diffY);
+				ellipse.setAttribute('ry', diffY);
 				}
 			}
 		}
 		
-		function endEllipse(event) {
+		function endMoveEllipse(event) {
 		createViewElementForPath();
-		viewElementG.appendChild(Ellipse);
+		viewElementG.appendChild(ellipse);
 		isMousePressed = false;
 		}
 		
 		//============================================================================
 		
-		function CreateLine(){
+		function createLine(){
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 9;
 			
 		svg.addEventListener('mousedown', startLine, false);
-		svg.addEventListener('mousemove', drawLine, false);
-		svg.addEventListener('mouseup', endLine, false);
+		svg.addEventListener('mousemove', moveLine, false);
+		svg.addEventListener('mouseup', endMoveLine, false);
 		}	
 		
 		function startLine(event) {		
 		startX = event.clientX;
 		startY = event.clientY-screenYCorrection;
-		Line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-		Line.setAttribute('x1', startX);
-		Line.setAttribute('y1', startY);
-		Line.setAttribute('fill', "none");
-		Line.setAttribute('stroke', color);
-		Line.setAttribute('stroke-width', width);
-		svg.appendChild(Line);
+		line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+		line.setAttribute('x1', startX);
+		line.setAttribute('y1', startY);
+		line.setAttribute('fill', "none");
+		line.setAttribute('stroke', color);
+		line.setAttribute('stroke-width', width);
+		svg.appendChild(line);
 		isMousePressed = true;
 		}
 		
-		function drawLine(event) {
+		function moveLine(event) {
 			if(isMousePressed) {
-			var moveX, moveY;
-			moveX = event.clientX;
-			moveY = event.clientY-screenYCorrection;
+			var moveX = event.clientX;
+			var moveY = event.clientY-screenYCorrection;
 			var diffX = moveX ;
 			var diffY = moveY ;
     
 				if(diffX <0) {
 				//movement left
-				Line.setAttribute('x1', startX);
-				Line.setAttribute('x2', (diffX*(-1)));
+				line.setAttribute('x1', startX);
+				line.setAttribute('x2', (diffX*(-1)));
 				} else {
 				//movement right
-				Line.setAttribute('x2', diffX);
-				}
-				
+				line.setAttribute('x2', diffX);
+				}				
 				if(diffY <0) {
 				//movement up
-				Line.setAttribute('y1', startY);
-				Line.setAttribute('y2', (diffY*(-1)));
+				line.setAttribute('y1', startY);
+				line.setAttribute('y2', (diffY*(-1)));
 				} else {
 				//movement down
-				Line.setAttribute('y2', diffY);
+				line.setAttribute('y2', diffY);
 				}
 			}
 		}	
 		
-		function endLine(event) {
+		function endMoveLine(event) {
 		createViewElementForPath();
-		viewElementG.appendChild(Line);
+		viewElementG.appendChild(line);
 		isMousePressed = false;
 		}
 		
@@ -739,18 +758,18 @@
 		function drawGrid(){
 		var y;
 			for (y=30; y<960; y+=30){
-			Line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-			Line.setAttribute('x1', 0);
-			Line.setAttribute('y1', y);
-			Line.setAttribute('x2', 2000);
-			Line.setAttribute('y2', y);
-			Line.setAttribute('fill', "none");
-			Line.setAttribute('stroke', "black");
-			Line.setAttribute('stroke-width', 0.75);
-			svg.appendChild(Line);
+			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+			line.setAttribute('x1', 0);
+			line.setAttribute('y1', y);
+			line.setAttribute('x2', 2000);
+			line.setAttribute('y2', y);
+			line.setAttribute('fill', "none");
+			line.setAttribute('stroke', color);
+			line.setAttribute('stroke-width', 0.75);
+			svg.appendChild(line);
 			createViewElementForPath();
 			viewElementG.setAttribute('id', "grid");
-			viewElementG.appendChild(Line);
+			viewElementG.appendChild(line);
 			}
 		}
 		
@@ -769,16 +788,16 @@
 				
 		//============================================================================
 		
-		function moveIt() {
+		function moveIt() {	
 		removeEventListenerFromSVG(numberOfEventListener);
-
-	    svg.addEventListener('mousedown', startMove, false);
-	    svg.addEventListener('mousemove', calcMoveingPathes, false);
-	    svg.addEventListener('mouseup', endMove, false);
-	    numberOfEventListener = 2;
+	    numberOfEventListener = 2;	
+		
+	    svg.addEventListener('mousedown', startMoves, false);
+	    svg.addEventListener('mousemove', moveMoves, false);
+	    svg.addEventListener('mouseup', endMoveMoves, false);		
 		}
 		
-		function startMove(event) {
+		function startMoves(event) {
 		isMousePressed = true;
 		startMoveX = event.clientX;
 		startMoveY = event.clientY-screenYCorrection;		
@@ -789,7 +808,7 @@
 			}
 		}
 		
-		function calcMoveingPathes(event) {
+		function moveMoves(event) {
 			if(isMousePressed) {
 			var xMovement = event.clientX;
 			var yMovement = event.clientY;	 
@@ -879,7 +898,7 @@
 			}
 		}
 		
-		function endMove(event) {
+		function endMoveMoves(event) {
 		isMousePressed = false;
 		}
 		
@@ -896,16 +915,16 @@
 		
 		//============================================================================
 		
-		function deleteFromSVGRect() { 
+		function deleteIt() { 
 		removeEventListenerFromSVG(numberOfEventListener);
 		numberOfEventListener = 3;
 		   
-		svg.addEventListener('mousedown', startDeleteRect, false);
-		svg.addEventListener('mousemove', drawDeleteRect, false);
-		svg.addEventListener('mouseup', deleteFromSVG, false);
+		svg.addEventListener('mousedown', startDelete, false);
+		svg.addEventListener('mousemove', moveDelete, false);
+		svg.addEventListener('mouseup', endMoveDelete, false);
 		}
 		
-		function startDeleteRect(event) {
+		function startDelete(event) {
 		startX = event.clientX;
 		startY = event.clientY-screenYCorrection;
 		deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -918,7 +937,7 @@
 		isMousePressed = true;
 		}
 		
-		function drawDeleteRect(event) {
+		function moveDelete(event) {
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -945,7 +964,7 @@
 			}
 		}
 		
-		function deleteFromSVG(event) {
+		function endMoveDelete(event) {
 		isMousePressed = false;
 		
 		var leftXRect = parseInt(deleteRect.getAttribute('x'));
@@ -1057,9 +1076,9 @@
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 10;
 			
-			svg.addEventListener('mousedown', startResize, false);
-			svg.addEventListener('mousemove', resize, false);
-			svg.addEventListener('mouseup', endResize, false);
+			svg.addEventListener('mousedown', startURL, false);
+			svg.addEventListener('mousemove', moveURL, false);
+			svg.addEventListener('mouseup', endMoveURL, false);
 			
 			reader.onloadend = function() {
 			receivedImage = reader.result;			
@@ -1067,21 +1086,20 @@
 			reader.readAsDataURL(event.target.files[0]);			
 		}
 		
-		function startResize(event){
-			createViewElementForPath();
-			addimage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+		function startURL(event){
 			startX = event.clientX;
 			startY = event.clientY - screenYCorrection; 
-			addimage.setAttribute('x', startX);
-			addimage.setAttribute('y', startY);
-			addimage.setAttribute('width', "200px");
-			addimage.setAttribute('height', "300px"); 
-			addimage.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage);
-			viewElementG.appendChild(addimage);
+			image = document.createElementNS('http://www.w3.org/2000/svg', 'image');			
+			image.setAttribute('x', startX);
+			image.setAttribute('y', startY);
+			image.setAttribute('width', "200px");
+			image.setAttribute('height', "300px"); 
+			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage);
+			viewElementG.appendChild(image);
 			isMousePressed = true;	
 		}
 		
-		function resize(event) {   
+		function moveURL(event) {   
 			if(isMousePressed) {
 			var moveX, moveY;
 			moveX = event.clientX;
@@ -1091,30 +1109,57 @@
 			var diffY = moveY - startY;
 				if(diffX <0) {
 				//movement left				
-				addimage.setAttribute('width', (diffX*(-1)));
+				image.setAttribute('width', (diffX*(-1)));
 				} else {
 				//movement right
-				addimage.setAttribute('width', diffX);
+				image.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
 				//movement up				
-				addimage.setAttribute('height', (diffY*(-1)));
+				image.setAttribute('height', (diffY*(-1)));
 				} else {
 				//movement down
-				addimage.setAttribute('height', diffY);
+				image.setAttribute('height', diffY);
 				}
 			}
 		}
 	
-		function endResize(event) {
+		function endMoveURL(event) {
 			createViewElementForPath();
-			viewElementG.appendChild(addimage);
+			viewElementG.appendChild(image);
 			isMousePressed = false;
+		}		
+		
+		//============================================================================
+		
+		function downloadIt() {
+		var serializer = new XMLSerializer();
+		var xmlString = serializer.serializeToString(layer);
+
+		canvg(document.getElementById('canvas'), xmlString);
+		var canvas = document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		var backgroundColor="white";
+	
+		var w = canvas.width;
+		var h = canvas.height;
+		var data;   
+		var dataURL
+		var compositeOperation  = context.globalCompositeOperation;
+    
+		data = context.getImageData(0, 0, w, h);				
+	
+		context.globalCompositeOperation = "destination-over";     
+        context.fillStyle = backgroundColor;     
+        context.fillRect(0,0,w,h);
+		
+		var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
+		window.location.href = image;
 		}
 		
 		//============================================================================
 
-		function save_image(){		
+		function imageIt(){		
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 
@@ -1145,34 +1190,7 @@
 		
 		//============================================================================
 		
-		function download() {
-		var serializer = new XMLSerializer();
-		var xmlString = serializer.serializeToString(layer);
-
-		canvg(document.getElementById('canvas'), xmlString);
-		var canvas = document.getElementById("canvas");
-		var context=canvas.getContext("2d");
-		var backgroundColor="white";
-	
-		var w = canvas.width;
-		var h = canvas.height;
-		var data;   
-		var dataURL
-		var compositeOperation  = context.globalCompositeOperation;
-    
-		data = context.getImageData(0, 0, w, h);				
-	
-		context.globalCompositeOperation = "destination-over";     
-        context.fillStyle = backgroundColor;     
-        context.fillRect(0,0,w,h);
-		
-		var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
-		window.location.href = image;
-		}
-		
-		//============================================================================
-		
-		function serializeSVGtoXML() {	
+		function saveIt() {	
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 		xmlString.replace("</t", "><");
@@ -1185,7 +1203,7 @@
 		
 		//============================================================================
 		
-		function createPDF() {	
+		function pdfIt() {	
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 
@@ -1214,32 +1232,6 @@
 		formulario.action = "pdf/gerarpdf.php";
 		formulario.submit();	
 		}
-		
-		//============================================================================		
-		
-		function setColor(val) {
-        color = val;
-		}
-		
-		//============================================================================
-		
-		function setWidth(val) {
-        width = val;
-		}
-		
-		//============================================================================
-		
-		function setFillText(val) {
-        colorFill = val;
-			if(colorStroke != "none")
-			colorStroke = colorFill;
-		}			
-		
-		//============================================================================
-		
-		function setFontText(val) {
-        font = val;
-		}			
 		
 		//============================================================================
 		
@@ -1270,8 +1262,33 @@
 
 		//============================================================================
 		
+		function setFillText(val) {
+        colorFill = val;
+			if(colorStroke != "none")
+			colorStroke = colorFill;
+		}			
+		
+		//============================================================================
+		
 		function setSizeText(val) {
         size = val;
 		}
 		
 		//============================================================================	
+		
+		function setFontText(val) {
+        font = val;
+		}
+		
+		//============================================================================		
+		
+		function setColor(val) {
+        color = val;
+		}
+		
+		//============================================================================
+		
+		function setWidth(val) {
+        width = val;
+		}	
+		
