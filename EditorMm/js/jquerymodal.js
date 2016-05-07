@@ -393,7 +393,7 @@
 				text.setAttribute('font-family', font);
 				text.setAttribute('font-size', size);
 				text.setAttribute('font-style', style);
-				text.setAttribute('fill', colorFill);
+				text.setAttribute('fill', color);
 				text.setAttribute('stroke', colorStroke);
 				text.setAttribute('text-decoration', decoration);
 				text.setAttribute('id', "tc"+numberOfText);		
