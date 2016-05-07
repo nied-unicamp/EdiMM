@@ -344,6 +344,329 @@
 			}
 		}
 		
+		//============================================================================
+		
+		function createDraw() {
+		removeEventListenerFromSVG(numberOfEventListener);
+	    numberOfEventListener = 1;
+		
+	    svg.addEventListener('mousedown', startDraw, false);
+	    svg.addEventListener('mousemove', moveDraw, false);
+	    svg.addEventListener('mouseup', endMoveDraw, false);
+		}
+		
+		function startDraw(event) {	
+		var sx = event.clientX;
+		var sy = event.clientY - screenYCorrection;
+		var startPosition = "M"+sx+" "+sy;		
+		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+		path.setAttribute('id', 'pathID');
+		path.setAttribute('d', startPosition);
+		path.setAttribute('fill', 'none');
+		path.setAttribute('stroke', color);
+		path.setAttribute('stroke-width', width);
+		svg.appendChild(path);
+		isMousePressed = true;
+		}
+
+		function moveDraw(event) {
+			if(isMousePressed) {      
+            var sx = event.clientX;
+            var sy = event.clientY - screenYCorrection;
+            var dString = path.getAttribute('d');
+            dString += ' L'+sx+' '+sy;
+            path.setAttribute('d', dString);
+            }
+		}
+		
+		function endMoveDraw(event) {		
+		createViewElementForPath();
+		viewElementG.appendChild(path);
+		isMousePressed = false;
+		}
+		
+		//============================================================================
+		
+		function moveIt() {	
+		removeEventListenerFromSVG(numberOfEventListener);
+	    numberOfEventListener = 2;	
+		
+	    svg.addEventListener('mousedown', startMoves, false);
+	    svg.addEventListener('mousemove', moveMoves, false);
+	    svg.addEventListener('mouseup', endMoveMoves, false);		
+		}
+		
+		function startMoves(event) {
+		isMousePressed = true;
+		startMoveX = event.clientX;
+		startMoveY = event.clientY-screenYCorrection;		
+		viewArray = document.getElementsByClassName('viewelement');
+			for(h=0; h<viewArray.length; h++) {
+			xArray[h] = getXandYTransformValues(viewArray[h]).x;
+			yArray[h] = getXandYTransformValues(viewArray[h]).y;
+			}
+		}
+		
+		function moveMoves(event) {
+			if(isMousePressed) {
+			var xMovement = event.clientX;
+			var yMovement = event.clientY;	 
+				for(h=0; h<viewArray.length; h++) {
+				var x, y; 		
+				var pathArray = viewArray[h].getElementsByTagName('path');
+				var pathIn = false;
+					if(pathArray.length>0){
+						for(i=0; i<pathArray.length; i++) {
+						var dAttributeString = pathArray[i].getAttribute('d');
+						var splitArray = dAttributeString.split(" ");
+						var xMoveArray = new Array();
+							for(j=0; j<splitArray.length; j=j+2) {
+							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
+							}
+
+						var yMoveArray = new Array();
+						
+							for(l=1; l<splitArray.length; l=l+2) {
+							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
+							}		
+							
+							for(g=0; g<xArray.length; g++) {
+								if(pathIn == false) {
+									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
+									pathIn = true;
+									}
+								}
+							}
+						}
+					}else{
+					var arrayDel = viewArray[h].getElementsByTagName('rect');
+						if(arrayDel.length==1){
+						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+						}else{
+						arrayDel = viewArray[h].getElementsByTagName('circle');
+							if(arrayDel.length==1){
+							x = arrayDel[0].getAttribute("cx"); 
+							y = arrayDel[0].getAttribute("cy"); 
+							movingText = true;
+							}else{
+							arrayDel = viewArray[h].getElementsByTagName('line');
+								if(arrayDel.length==1){
+								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
+								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
+								}else{
+								arrayDel = viewArray[h].getElementsByTagName('ellipse');
+									if(arrayDel.length==1){
+									x = arrayDel[0].getAttribute("cx"); 
+									y = arrayDel[0].getAttribute("cy"); 
+									}else{
+									arrayDel = viewArray[h].getElementsByTagName('image');
+										if(arrayDel.length==1){
+										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);  
+										}
+									}
+								}
+				
+				
+							}	
+						}
+					}
+						if(viewArray[h].getAttribute('id') != "grid"){
+							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
+								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
+								//translation right and down								
+								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
+								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
+										//translation left and down
+										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
+										viewArray[h].setAttribute('transform', transformString);
+										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
+												//translation left and up
+												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+												viewArray[h].setAttribute('transform', transformString);
+												} else {
+												//translation right and up
+												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+												viewArray[h].setAttribute('transform', transformString);
+												} 
+							}
+						}
+				}   
+			}
+		}
+		
+		function endMoveMoves(event) {
+		isMousePressed = false;
+		}
+		
+		function getXandYTransformValues(groupElement) {
+		var transformValue = groupElement.getAttributeNode('transform').value;
+		var tempValue = transformValue.substr(10, transformValue.lastIndexOf(")"));
+		var pointArray = new Array();
+		pointArray = tempValue.split(",");
+		return {
+				x: parseInt(pointArray[0]),
+				y: parseInt(pointArray[1])
+			   };
+		}		
+		
+		//============================================================================
+		
+		function deleteIt() { 
+		removeEventListenerFromSVG(numberOfEventListener);
+		numberOfEventListener = 3;
+		   
+		svg.addEventListener('mousedown', startDelete, false);
+		svg.addEventListener('mousemove', moveDelete, false);
+		svg.addEventListener('mouseup', endMoveDelete, false);
+		}
+		
+		function startDelete(event) {
+		startX = event.clientX;
+		startY = event.clientY-screenYCorrection;
+		deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+		deleteRect.setAttribute('x', startX);
+		deleteRect.setAttribute('y', startY);
+		deleteRect.setAttribute('fill', "none");
+		deleteRect.setAttribute('stroke', "red");
+		deleteRect.setAttribute('stroke-width', "3");
+		svg.appendChild(deleteRect);
+		isMousePressed = true;
+		}
+		
+		function moveDelete(event) {
+			if(isMousePressed) {
+			var moveX, moveY;
+			moveX = event.clientX;
+			moveY = event.clientY-screenYCorrection;
+
+			var diffX = moveX - startX;
+			var diffY = moveY - startY;
+				if(diffX <0) {
+				//movement left
+				deleteRect.setAttribute('x', moveX);
+				deleteRect.setAttribute('width', (diffX*(-1)));
+				} else {
+				//movement right
+				deleteRect.setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+				//movement up
+				deleteRect.setAttribute('y', moveY);
+				deleteRect.setAttribute('height', (diffY*(-1)));
+				} else {
+				//movement down
+				deleteRect.setAttribute('height', diffY);
+				}
+			}
+		}
+		
+		function endMoveDelete(event) {
+		isMousePressed = false;
+		
+		var leftXRect = parseInt(deleteRect.getAttribute('x'));
+		var leftYRect = parseInt(deleteRect.getAttribute('y'));
+		var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
+		var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
+
+		var viewElementArray = document.getElementsByClassName('viewelement');
+		var arrayOfPathToDelete = new Array();
+			for(h=0; h<viewElementArray.length; h++) {
+				if(arrayOfPathToDelete.length!=0) {
+				arrayOfPathToDelete = new Array();
+				}
+			var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
+			var yTranslation = getXandYTransformValues(viewElementArray[h]).y;    
+			
+            var pathArray = viewElementArray[h].getElementsByTagName('path');            
+				if(pathArray.length>0){
+					for(i=0; i<pathArray.length; i++) {
+					var dAttributeString = pathArray[i].getAttribute('d');
+					var splitArray = dAttributeString.split(" ");
+					var xArray = new Array();
+						for(j=0; j<splitArray.length; j=j+2) {
+						xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
+						}
+
+					var yArray = new Array();
+						for(l=1; l<splitArray.length; l=l+2) {
+						yArray.push(yTranslation*1 + parseInt(splitArray[l]));
+						}
+						
+					var pathIn = false;
+						for(g=0; g<xArray.length; g++) {
+							if(pathIn == false) {
+								if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
+								pathIn = true;
+								}
+							}
+						}	
+						
+						if(pathIn == true) {
+						arrayOfPathToDelete.push(pathArray[i]);
+						}
+					}
+					
+					for(b=0; b<arrayOfPathToDelete.length; b++) {
+					viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
+					}					
+				}else{
+				var x, y; 
+				var arrayDel = viewElementArray[h].getElementsByTagName('rect');
+					if(arrayDel.length==1){
+					x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+					y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+					}else{
+					arrayDel = viewElementArray[h].getElementsByTagName('circle');
+						if(arrayDel.length==1){
+						x = arrayDel[0].getAttribute("cx"); 
+						y = arrayDel[0].getAttribute("cy"); 
+						}else{							
+							arrayDel = viewElementArray[h].getElementsByTagName('line');
+							if(arrayDel.length==1){
+							x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
+							y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
+							}else{
+								arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
+								if(arrayDel.length==1){
+								x = arrayDel[0].getAttribute("cx"); 
+								y = arrayDel[0].getAttribute("cy"); 
+								}else{
+									arrayDel = viewElementArray[h].getElementsByTagName('image');
+									if(arrayDel.length==1){
+									x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+									y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+									}
+								}
+							}			
+						}	
+					}
+					if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){				
+						if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1)   < rightYRect) ) {
+						var text = viewElementArray[h].getElementsByTagName('text');
+							if(text.length)
+							viewElementArray[h].removeChild(text[0]);
+							viewElementArray[h].removeChild(arrayDel[0]);
+						}
+					}
+				
+				}		 
+			} 
+
+			svg.removeChild(deleteRect);
+			clearSVGFromUnusedViews();
+		}
+		
+		function clearSVGFromUnusedViews() {
+		var tempView = movementLayer.getElementsByClassName('viewelement');
+			for(i=0; i<tempView.length; i++) {
+				if(tempView[i].childElementCount == 0) {
+				movementLayer.removeChild(tempView[i]);
+				}
+			}
+		}		
 		
 		//============================================================================
 		
@@ -483,48 +806,7 @@
 			createViewElementForPath();
 			viewElementG.appendChild(ponto);
 			isMousePressed = false;		
-		}
-		
-		//============================================================================
-		
-		function createDraw() {
-		removeEventListenerFromSVG(numberOfEventListener);
-	    numberOfEventListener = 1;
-		
-	    svg.addEventListener('mousedown', startDraw, false);
-	    svg.addEventListener('mousemove', moveDraw, false);
-	    svg.addEventListener('mouseup', endMoveDraw, false);
-		}
-		
-		function startDraw(event) {	
-		var sx = event.clientX;
-		var sy = event.clientY - screenYCorrection;
-		var startPosition = "M"+sx+" "+sy;		
-		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-		path.setAttribute('id', 'pathID');
-		path.setAttribute('d', startPosition);
-		path.setAttribute('fill', 'none');
-		path.setAttribute('stroke', color);
-		path.setAttribute('stroke-width', width);
-		svg.appendChild(path);
-		isMousePressed = true;
-		}
-
-		function moveDraw(event) {
-			if(isMousePressed) {      
-            var sx = event.clientX;
-            var sy = event.clientY - screenYCorrection;
-            var dString = path.getAttribute('d');
-            dString += ' L'+sx+' '+sy;
-            path.setAttribute('d', dString);
-            }
-		}
-		
-		function endMoveDraw(event) {		
-		createViewElementForPath();
-		viewElementG.appendChild(path);
-		isMousePressed = false;
-		}		
+		}	
 		
 		//============================================================================
 		
@@ -755,322 +1037,6 @@
 		
 		//============================================================================
 		
-		function drawGrid(){
-		var y;
-			for (y=30; y<960; y+=30){
-			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-			line.setAttribute('x1', 0);
-			line.setAttribute('y1', y);
-			line.setAttribute('x2', 2000);
-			line.setAttribute('y2', y);
-			line.setAttribute('fill', "none");
-			line.setAttribute('stroke', color);
-			line.setAttribute('stroke-width', 0.75);
-			svg.appendChild(line);
-			createViewElementForPath();
-			viewElementG.setAttribute('id', "grid");
-			viewElementG.appendChild(line);
-			}
-		}
-		
-		//============================================================================
-		
-		function clearGrid() {
-		var tempView = movementLayer.getElementsByClassName('viewelement');
-			for(j=0; j<=4; j++){
-				for(i=0; i<tempView.length; i++) {
-					if(tempView[i].getAttribute('id') == "grid") {
-					movementLayer.removeChild(tempView[i]);
-					}
-				}
-			}
-		}
-				
-		//============================================================================
-		
-		function moveIt() {	
-		removeEventListenerFromSVG(numberOfEventListener);
-	    numberOfEventListener = 2;	
-		
-	    svg.addEventListener('mousedown', startMoves, false);
-	    svg.addEventListener('mousemove', moveMoves, false);
-	    svg.addEventListener('mouseup', endMoveMoves, false);		
-		}
-		
-		function startMoves(event) {
-		isMousePressed = true;
-		startMoveX = event.clientX;
-		startMoveY = event.clientY-screenYCorrection;		
-		viewArray = document.getElementsByClassName('viewelement');
-			for(h=0; h<viewArray.length; h++) {
-			xArray[h] = getXandYTransformValues(viewArray[h]).x;
-			yArray[h] = getXandYTransformValues(viewArray[h]).y;
-			}
-		}
-		
-		function moveMoves(event) {
-			if(isMousePressed) {
-			var xMovement = event.clientX;
-			var yMovement = event.clientY;	 
-				for(h=0; h<viewArray.length; h++) {
-				var x, y; 		
-				var pathArray = viewArray[h].getElementsByTagName('path');
-				var pathIn = false;
-					if(pathArray.length>0){
-						for(i=0; i<pathArray.length; i++) {
-						var dAttributeString = pathArray[i].getAttribute('d');
-						var splitArray = dAttributeString.split(" ");
-						var xMoveArray = new Array();
-							for(j=0; j<splitArray.length; j=j+2) {
-							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
-							}
-
-						var yMoveArray = new Array();
-						
-							for(l=1; l<splitArray.length; l=l+2) {
-							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
-							}		
-							
-							for(g=0; g<xArray.length; g++) {
-								if(pathIn == false) {
-									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
-									pathIn = true;
-									}
-								}
-							}
-						}
-					}else{
-					var arrayDel = viewArray[h].getElementsByTagName('rect');
-						if(arrayDel.length==1){
-						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
-						}else{
-						arrayDel = viewArray[h].getElementsByTagName('circle');
-							if(arrayDel.length==1){
-							x = arrayDel[0].getAttribute("cx"); 
-							y = arrayDel[0].getAttribute("cy"); 
-							movingText = true;
-							}else{
-							arrayDel = viewArray[h].getElementsByTagName('line');
-								if(arrayDel.length==1){
-								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
-								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
-								}else{
-								arrayDel = viewArray[h].getElementsByTagName('ellipse');
-									if(arrayDel.length==1){
-									x = arrayDel[0].getAttribute("cx"); 
-									y = arrayDel[0].getAttribute("cy"); 
-									}else{
-									arrayDel = viewArray[h].getElementsByTagName('image');
-										if(arrayDel.length==1){
-										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);  
-										}
-									}
-								}
-				
-				
-							}	
-						}
-					}
-						if(viewArray[h].getAttribute('id') != "grid"){
-							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
-								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
-								//translation right and down								
-								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
-								viewArray[h].setAttribute('transform', transformString);
-								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
-										//translation left and down
-										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
-										viewArray[h].setAttribute('transform', transformString);
-										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
-												//translation left and up
-												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												} else {
-												//translation right and up
-												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												} 
-							}
-						}
-				}   
-			}
-		}
-		
-		function endMoveMoves(event) {
-		isMousePressed = false;
-		}
-		
-		function getXandYTransformValues(groupElement) {
-		var transformValue = groupElement.getAttributeNode('transform').value;
-		var tempValue = transformValue.substr(10, transformValue.lastIndexOf(")"));
-		var pointArray = new Array();
-		pointArray = tempValue.split(",");
-		return {
-				x: parseInt(pointArray[0]),
-				y: parseInt(pointArray[1])
-			   };
-		}
-		
-		//============================================================================
-		
-		function deleteIt() { 
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 3;
-		   
-		svg.addEventListener('mousedown', startDelete, false);
-		svg.addEventListener('mousemove', moveDelete, false);
-		svg.addEventListener('mouseup', endMoveDelete, false);
-		}
-		
-		function startDelete(event) {
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-		deleteRect.setAttribute('x', startX);
-		deleteRect.setAttribute('y', startY);
-		deleteRect.setAttribute('fill', "none");
-		deleteRect.setAttribute('stroke', "red");
-		deleteRect.setAttribute('stroke-width', "3");
-		svg.appendChild(deleteRect);
-		isMousePressed = true;
-		}
-		
-		function moveDelete(event) {
-			if(isMousePressed) {
-			var moveX, moveY;
-			moveX = event.clientX;
-			moveY = event.clientY-screenYCorrection;
-
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
-				if(diffX <0) {
-				//movement left
-				deleteRect.setAttribute('x', moveX);
-				deleteRect.setAttribute('width', (diffX*(-1)));
-				} else {
-				//movement right
-				deleteRect.setAttribute('width', diffX);
-				}
-				if(diffY <0) {
-				//movement up
-				deleteRect.setAttribute('y', moveY);
-				deleteRect.setAttribute('height', (diffY*(-1)));
-				} else {
-				//movement down
-				deleteRect.setAttribute('height', diffY);
-				}
-			}
-		}
-		
-		function endMoveDelete(event) {
-		isMousePressed = false;
-		
-		var leftXRect = parseInt(deleteRect.getAttribute('x'));
-		var leftYRect = parseInt(deleteRect.getAttribute('y'));
-		var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
-		var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
-
-		var viewElementArray = document.getElementsByClassName('viewelement');
-		var arrayOfPathToDelete = new Array();
-			for(h=0; h<viewElementArray.length; h++) {
-				if(arrayOfPathToDelete.length!=0) {
-				arrayOfPathToDelete = new Array();
-				}
-			var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
-			var yTranslation = getXandYTransformValues(viewElementArray[h]).y;    
-			
-            var pathArray = viewElementArray[h].getElementsByTagName('path');            
-				if(pathArray.length>0){
-					for(i=0; i<pathArray.length; i++) {
-					var dAttributeString = pathArray[i].getAttribute('d');
-					var splitArray = dAttributeString.split(" ");
-					var xArray = new Array();
-						for(j=0; j<splitArray.length; j=j+2) {
-						xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
-						}
-
-					var yArray = new Array();
-						for(l=1; l<splitArray.length; l=l+2) {
-						yArray.push(yTranslation*1 + parseInt(splitArray[l]));
-						}
-						
-					var pathIn = false;
-						for(g=0; g<xArray.length; g++) {
-							if(pathIn == false) {
-								if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
-								pathIn = true;
-								}
-							}
-						}	
-						
-						if(pathIn == true) {
-						arrayOfPathToDelete.push(pathArray[i]);
-						}
-					}
-					
-					for(b=0; b<arrayOfPathToDelete.length; b++) {
-					viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
-					}					
-				}else{
-				var x, y; 
-				var arrayDel = viewElementArray[h].getElementsByTagName('rect');
-					if(arrayDel.length==1){
-					x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-					y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
-					}else{
-					arrayDel = viewElementArray[h].getElementsByTagName('circle');
-						if(arrayDel.length==1){
-						x = arrayDel[0].getAttribute("cx"); 
-						y = arrayDel[0].getAttribute("cy"); 
-						}else{							
-							arrayDel = viewElementArray[h].getElementsByTagName('line');
-							if(arrayDel.length==1){
-							x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
-							y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
-							}else{
-								arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
-								if(arrayDel.length==1){
-								x = arrayDel[0].getAttribute("cx"); 
-								y = arrayDel[0].getAttribute("cy"); 
-								}else{
-									arrayDel = viewElementArray[h].getElementsByTagName('image');
-									if(arrayDel.length==1){
-									x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-									y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
-									}
-								}
-							}			
-						}	
-					}
-					if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){				
-						if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1)   < rightYRect) ) {
-						var text = viewElementArray[h].getElementsByTagName('text');
-							if(text.length)
-							viewElementArray[h].removeChild(text[0]);
-							viewElementArray[h].removeChild(arrayDel[0]);
-						}
-					}
-				
-				}		 
-			} 
-
-			svg.removeChild(deleteRect);
-			clearSVGFromUnusedViews();
-		}
-		
-		function clearSVGFromUnusedViews() {
-		var tempView = movementLayer.getElementsByClassName('viewelement');
-			for(i=0; i<tempView.length; i++) {
-				if(tempView[i].childElementCount == 0) {
-				movementLayer.removeChild(tempView[i]);
-				}
-			}
-		}
-		
-		//============================================================================
-		
 		function readURL(event) {
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
@@ -1091,11 +1057,12 @@
 			startY = event.clientY - screenYCorrection; 
 			image = document.createElementNS('http://www.w3.org/2000/svg', 'image');			
 			image.setAttribute('x', startX);
-			image.setAttribute('y', startY);
+			image.setAttribute('y', startY);			
+			image.setAttribute('fill', "none");
 			image.setAttribute('width', "200px");
 			image.setAttribute('height', "300px"); 
 			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage);
-			viewElementG.appendChild(image);
+			svg.appendChild(image);
 			isMousePressed = true;	
 		}
 		
@@ -1128,7 +1095,40 @@
 			createViewElementForPath();
 			viewElementG.appendChild(image);
 			isMousePressed = false;
-		}		
+		}
+		
+		//============================================================================
+		
+		function drawGrid(){
+		var y;
+			for (y=30; y<960; y+=30){
+			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+			line.setAttribute('x1', 0);
+			line.setAttribute('y1', y);
+			line.setAttribute('x2', 2000);
+			line.setAttribute('y2', y);
+			line.setAttribute('fill', "none");
+			line.setAttribute('stroke', color);
+			line.setAttribute('stroke-width', 0.75);
+			svg.appendChild(line);
+			createViewElementForPath();
+			viewElementG.setAttribute('id', "grid");
+			viewElementG.appendChild(line);
+			}
+		}
+		
+		//============================================================================
+		
+		function clearGrid() {
+		var tempView = movementLayer.getElementsByClassName('viewelement');
+			for(j=0; j<=4; j++){
+				for(i=0; i<tempView.length; i++) {
+					if(tempView[i].getAttribute('id') == "grid") {
+					movementLayer.removeChild(tempView[i]);
+					}
+				}
+			}
+		}
 		
 		//============================================================================
 		
