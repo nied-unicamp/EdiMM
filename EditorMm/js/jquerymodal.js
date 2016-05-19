@@ -580,7 +580,8 @@
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(pathArray[idTouch]);
-				isMousePressed = false;				
+				isMousePressed = false;	
+				saveImage();
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -615,6 +616,7 @@
 		createViewElementForPath();
 		viewElementG.appendChild(path);
 		isMousePressed = false;
+		saveImage();
         event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
@@ -1214,7 +1216,8 @@
 				default:					
 					text.innerHTML = temp + event.key;
 				break;
-			}
+			}	
+		saveImage();
 		}
 		
 		function startMoveWrite(element) {
@@ -1224,7 +1227,7 @@
 		}
 		
 		function endMoveWrite(event) {			
-			 isMousePressed = false;	
+			 isMousePressed = false;
 		}
 		
 		//============================================================================
@@ -1296,7 +1299,8 @@
 		function endMovePonto(event) {			
 			createViewElementForPath();
 			viewElementG.appendChild(ponto);
-			isMousePressed = false;	
+			isMousePressed = false;
+			saveImage();
 			event.preventDefault(); // Prevents an additional event being triggered
 		}	
 		
@@ -1394,7 +1398,8 @@
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(circleArray[idTouch]);
-				isMousePressed = false;		
+				isMousePressed = false;
+				saveImage();
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1444,6 +1449,7 @@
 		createViewElementForPath();
 		viewElementG.appendChild(circle);
 		isMousePressed = false;
+		saveImage();
 		event.preventDefault(); // Prevents an additional event being triggered
 		}			
 		
@@ -1541,6 +1547,7 @@
 				createViewElementForPath();
 				viewElementG.appendChild(rectangleArray[idTouch]);
 				isMousePressed = false;		
+				saveImage();
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1590,6 +1597,7 @@
 		createViewElementForPath();
 		viewElementG.appendChild(rectangle);
 		isMousePressed = false;
+		saveImage();
 		event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
@@ -1685,7 +1693,8 @@
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(ellipseArray[idTouch]);
-				isMousePressed = false;		
+				isMousePressed = false;
+				saveImage();
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1735,6 +1744,7 @@
 		createViewElementForPath();
 		viewElementG.appendChild(ellipse);
 		isMousePressed = false;
+		saveImage();
 		event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
@@ -1830,7 +1840,8 @@
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(lineArray[idTouch]);
-				isMousePressed = false;		
+				isMousePressed = false;	
+				saveImage();
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1880,6 +1891,7 @@
 		createViewElementForPath();
 		viewElementG.appendChild(line);
 		isMousePressed = false;
+		saveImage();
 		event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
