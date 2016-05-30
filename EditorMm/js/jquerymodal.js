@@ -96,7 +96,7 @@
 		deviceIsStylusSensitive();
 		deviceIsTouchScreen();
 		var number = numberOfEventListener;
-		switch (number) {
+			switch (number) {
 				case 1 :
 				createDraw();
 				break;

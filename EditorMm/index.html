@@ -49,16 +49,25 @@
 				<ul class="nav navbar-nav">
 				
 					<li>
-						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/monitor.png" width="24"> Opcao </legend>	
+						<fieldset class="scheduler-border" id="habOpcao">
+						<legend class="scheduler-border"><img src="images/monitor.png" width="24"> Op.Des </legend>	
 						<li><a><span id="selecionado"></span></a></li>						
 						</fieldset>
 					</li>
 					
 					<li><a></a></li>
-					
+				
 					<li>
 						<fieldset class="scheduler-border">
+						<legend class="scheduler-border"><img src="images/colortext.png" width="24"> Cores </legend>	
+						<li><a><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>						
+						</fieldset>
+					</li>				
+					
+					<li><a></a></li>						
+					
+					<li>
+						<fieldset class="scheduler-border" id="habEspess">
 						<legend class="scheduler-border"><img src="images/thicknessdrawing.png" width="24"> Espe.Des </legend>	
 						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -75,13 +84,11 @@
 							</ul>
 						</li>					
 						</fieldset>
-					</li>
-					
-					<li><a></a></li>	
+					</li>					
 					
 					<li>
-						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/sizetext.png" width="24"> Medi.Text </legend>	
+						<fieldset class="scheduler-border" id="habMedida">
+						<legend class="scheduler-border"><img src="images/sizetext.png" width="24"> Medi.Texto </legend>	
 						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:size=10" onchange="setSizeText(10);">10</a></li>
@@ -112,8 +119,8 @@
 					<li><a></a></li>
 					
 					<li>
-						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/sourceletter.png" width="24"> Font.Text </legend>	
+						<fieldset class="scheduler-border" id="habFont">
+						<legend class="scheduler-border"><img src="images/fonttext.png" width="24"> Font.Texto </legend>	
 						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/sourcetext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setFontText('comicsans');">Comic Sans</a></li>
@@ -137,15 +144,19 @@
 						</li>					
 						</fieldset>
 					</li>
-						
+					
 					<li><a></a></li>
-				
+					
 					<li>
-						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/colortext.png" width="24"> Cores </legend>	
-						<li><a><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>						
+						<fieldset class="scheduler-border" id="habEstilo">
+						<legend class="scheduler-border"><img src="images/stylestext.png" width="24"> Estilos Texto </legend>	
+						<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="10"></a>				
+						<a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="10"></a>
+						<a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="10"></a></li>
 						</fieldset>
 					</li>
+					
+					
 					
 				</ul>
 			</div>	
@@ -180,14 +191,6 @@
 												<li><a href="#"><input type="file" name="filename" id="inputFile" onchange="readURL(event);"></a></li>
 											</ul>
 										</li>																	
-										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Entrada de Teclado')" onmouseout="UnTip()"><img src="images/font.png" width="24"><span class="caret"></span></a>
-											<ul class="dropdown-menu">
-												<li><a href="javascript:createWrite();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()"><img src="images/keyboard.png" width="24"></a></li>
-												<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="10"></a></li>
-												<li><a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="10"></a></li>					
-												<li><a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="10"></a></li>	
-											</ul>
-										</li>						
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
 											<ul class="dropdown-menu">												
 												<li><a href="javascript:createPonto();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
@@ -197,12 +200,13 @@
 												<li><a href="javascript:createEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
 												<li><a href="javascript:createLine();" class="btn btn-default" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
 											</ul>
-										</li>										
+										</li>
+										<li><a href="javascript:createWrite();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/keyboard.png" width="24"></a></li>
 										<li><a href="javascript:device();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Multi Touch Screen')" onmouseout="UnTip()"><img src="images/touchScreen.png" width="24"></a></li>  										
 										<li><a href="javascript:drawGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
 										<li><a href="javascript:clearGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
 										<li><a href="javascript:moveIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Selecionar/Movimentar')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
-										<li><a href="javascript:deleteIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
+										<li><a href="javascript:deleteIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar Componente')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
 									</ul>
 								</div>												
 							</div>			
@@ -243,18 +247,45 @@
 	
 	<script>
 		$( document ).ready(function(){
+			
+			$("#habFont").hide("slow");   <!-- Esconder -->
+			$("#habEstilo").hide("slow"); <!-- Esconder -->			
+			$("#habMedida").hide("slow"); <!-- Esconder -->			
+			
+			var imagem = document.getElementById("imgdefaut");
+			$("#selecionado").html(imagem);
+		
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
 			}); 		
 			
-			var imagem = document.getElementById("imgdefaut");
-			$("#selecionado").html(imagem);
-			
 			$(".dropdown-menu li a").click(function(){
 				var img = $(this).find("img").clone();
 				$("#selecionado").html(img);
-			});		
+				
+				if($("#keyboard").val() == false){	
+					$("#habFont").hide("slow");   <!-- Esconder -->	
+					$("#habEstilo").hide("slow"); <!-- Esconder -->
+					$("#habMedida").hide("slow"); <!-- Esconder -->						
+					$("#habEspess").show("slow"); <!-- Aparecer -->	
+					$("#habOpcao").show("slow");  <!-- Aparecer -->	
+				}else{						
+					$("#habFont").show("slow");   <!-- Aparecer -->	
+					$("#habEstilo").show("slow"); <!-- Aparecer -->
+					$("#habMedida").show("slow"); <!-- Aparecer -->					
+					$("#habEspess").hide("slow"); <!-- Esconder -->	
+					$("#habOpcao").hide("slow");  <!-- Esconder -->
+				}				
+			});
+			
+			$("#keyboard").click(function(){	
+				$("#habFont").show("slow");   <!-- Aparecer -->	
+				$("#habEstilo").show("slow"); <!-- Aparecer -->
+				$("#habMedida").show("slow"); <!-- Aparecer -->
+				$("#habEspess").hide("slow"); <!-- Esconder -->	
+				$("#habOpcao").hide("slow");  <!-- Esconder -->
+			});				
 		})
 	</script>	
 	
