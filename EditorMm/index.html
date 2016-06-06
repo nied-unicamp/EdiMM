@@ -192,9 +192,9 @@
 											</ul>
 										</li>																	
 										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
-											<ul class="dropdown-menu">												
+											<ul class="dropdown-menu" id="geometricshapes">												
 												<li><a href="javascript:createPonto();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
-												<li><a href="javascript:createDraw();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()"><img src="images/edit.png" width="24"><img src="images/edit.png" width="24" id="imgdefaut"></a></li>								
+												<li><a href="javascript:createDraw();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()" id="draw"><img src="images/edit.png" width="24"><img src="images/edit.png" width="24" id="imgdefaut"></a></li>								
 												<li><a href="javascript:createCircle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
 												<li><a href="javascript:createRectangle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
 												<li><a href="javascript:createEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
@@ -263,21 +263,15 @@
 			$(".dropdown-menu li a").click(function(){
 				var img = $(this).find("img").clone();
 				$("#selecionado").html(img);
-				
-				if($("#keyboard").val() == false){	
-					$("#habFont").hide("slow");   <!-- Esconder -->	
-					$("#habEstilo").hide("slow"); <!-- Esconder -->
-					$("#habMedida").hide("slow"); <!-- Esconder -->						
-					$("#habEspess").show("slow"); <!-- Aparecer -->	
-					$("#habOpcao").show("slow");  <!-- Aparecer -->	
-				}else{						
-					$("#habFont").show("slow");   <!-- Aparecer -->	
-					$("#habEstilo").show("slow"); <!-- Aparecer -->
-					$("#habMedida").show("slow"); <!-- Aparecer -->					
-					$("#habEspess").hide("slow"); <!-- Esconder -->	
-					$("#habOpcao").hide("slow");  <!-- Esconder -->
-				}				
 			});
+			
+			$("#geometricshapes").click(function(){				
+				$("#habFont").hide("slow");   <!-- Esconder -->	
+				$("#habEstilo").hide("slow"); <!-- Esconder -->
+				$("#habMedida").hide("slow"); <!-- Esconder -->						
+				$("#habEspess").show("slow"); <!-- Aparecer -->	
+				$("#habOpcao").show("slow");  <!-- Aparecer -->					
+			});	
 			
 			$("#keyboard").click(function(){	
 				$("#habFont").show("slow");   <!-- Aparecer -->	
