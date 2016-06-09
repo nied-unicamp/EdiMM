@@ -1,2 +1,2 @@
 # EditorMm
-Editor para realizar Multimodalidades
+Editor Multimodal
