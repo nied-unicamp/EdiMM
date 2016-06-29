@@ -1769,11 +1769,11 @@
 				svg.addEventListener('touchend', endMoveMultiTouchLine, false);	
 			} 					
 			//Sera usado mouse
-			//alert("Usando mouse");  
-			svg.addEventListener('mousedown', startLine, false);
+			//alert("Usando mouse");
+			svg.addEventListener('mousedown', startLine, moveLine, false);
 			svg.addEventListener('mousemove', moveLine, false);
 			svg.addEventListener('mouseup', endMoveLine, false);
-		}
+		}	
 
 		function startMultiTouchLine(event) {
 			var touches = event.changedTouches;
@@ -1847,17 +1847,24 @@
 		}
 		
 		function startLine(event) {		
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-		line.setAttribute('x1', startX);
-		line.setAttribute('y1', startY);
-		line.setAttribute('fill', "none");
-		line.setAttribute('stroke', color);
-		line.setAttribute('stroke-width', width);
-		svg.appendChild(line);
-		isMousePressed = true;
-		event.preventDefault(); // Prevents an additional event being triggered
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			var diffX = startX;
+			var diffY = startY;
+		
+			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+			line.setAttribute('x1', startX);
+			line.setAttribute('x2', (diffX*(-1)));
+			line.setAttribute('x2', diffX);
+			line.setAttribute('y1', startY);
+			line.setAttribute('y2', (diffY*(-1)));
+			line.setAttribute('y2', diffY);
+			line.setAttribute('fill', "none");
+			line.setAttribute('stroke', color);
+			line.setAttribute('stroke-width', width);
+			svg.appendChild(line);
+			isMousePressed = true;
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function moveLine(event) {
