@@ -1287,7 +1287,7 @@
 			ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 			ponto.setAttribute('cx', sx-3);
 			ponto.setAttribute('cy', sy-3);
-			ponto.setAttribute('r', 2);
+			ponto.setAttribute('r', 1);
 			ponto.setAttribute('fill', "none");
 			ponto.setAttribute('stroke', color);
 			ponto.setAttribute('stroke-width', width);
@@ -1371,7 +1371,7 @@
 
 					if(diffX <0) {
 					  //movement left
-					  circleArray[idTouch].setAttribute('cx', moveX);
+					  circleArray[idTouch].setAttribute('x', moveX);
 					  circleArray[idTouch].setAttribute('r', (diffX*(-1)));
 					} else {
 					  //movement right
@@ -1427,15 +1427,16 @@
 
 				if(diffX <0) {
 				  //movement left
-				  circle.setAttribute('cx', moveX);
+				  circle.setAttribute('x', moveX);
 				  circle.setAttribute('r', (diffX*(-1)));
+
 				} else {
 				  //movement right
 				  circle.setAttribute('r', diffX);
 				}
 				if(diffY <0) {
 				  //movement up
-				  circle.setAttribute('y', moveY);
+				  circle.setAttribute('x', moveY);
 				  circle.setAttribute('r', (diffY*(-1)));
 				} else {
 				  //movement down
@@ -1667,7 +1668,7 @@
 
 					if(diffX <0) {
 					//movement left
-					ellipseArray[idTouch].setAttribute('cx', moveX);
+					ellipseArray[idTouch].setAttribute('x', moveX);
 					ellipseArray[idTouch].setAttribute('rx', (diffX*(-1)));
 					} else {
 					//movement right
@@ -1722,7 +1723,7 @@
 
 				if(diffX <0) {
 				//movement left
-				ellipse.setAttribute('cx', moveX);
+				ellipse.setAttribute('x', moveX);
 				ellipse.setAttribute('rx', (diffX*(-1)));
 				} else {
 				//movement right
