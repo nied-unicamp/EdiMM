@@ -1923,10 +1923,10 @@
 			svg.addEventListener('mouseup', endMoveURL, false);
 			
 			reader.onloadend = function() {
-			receivedImage = reader.result;			
+				receivedImage = reader.result;			
 			}
 			
-			reader.readAsDataURL(event.target.files[0]);			
+			reader.readAsDataURL(event.target.files[0]);
 		}
 		
 		function startMultiTouchURL(event) {
@@ -2048,24 +2048,41 @@
 		}	
 		
 		//============================================================================
-		
+		var clearG = 0;
 		function drawGrid(){
-		var y;
-			for (y=30; y<960; y+=30){
-			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-			line.setAttribute('x1', 0);
-			line.setAttribute('y1', y);
-			line.setAttribute('x2', 2000);
-			line.setAttribute('y2', y);
-			line.setAttribute('fill', "none");
-			line.setAttribute('stroke', color);
-			line.setAttribute('stroke-width', 0.75);
-			svg.appendChild(line);
-			createViewElementForPath();
-			viewElementG.setAttribute('id', "grid");
-			viewElementG.appendChild(line);
+			var y;
+			
+			if (clearG == 0) {
+				for (y=30; y<960; y+=30){
+					line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+					line.setAttribute('x1', 0);
+					line.setAttribute('y1', y);
+					line.setAttribute('x2', 2000);
+					line.setAttribute('y2', y);
+					line.setAttribute('fill', "none");
+					line.setAttribute('stroke', color);
+					line.setAttribute('stroke-width', 0.75);
+					svg.appendChild(line);
+					createViewElementForPath();
+					viewElementG.setAttribute('id', "grid");
+					viewElementG.appendChild(line);
+				}
+				clearG = 1;
 			}
-		}
+
+			else if (clearG == 1) {
+				var tempView = movementLayer.getElementsByClassName('viewelement');
+				for(j=0; j<=4; j++){
+					for(i=0; i<tempView.length; i++) {
+						if(tempView[i].getAttribute('id') == "grid") {
+							movementLayer.removeChild(tempView[i]);
+						}
+					}
+				}
+			clearG = 0;
+			}
+		}	
+	
 		
 		//============================================================================
 		
