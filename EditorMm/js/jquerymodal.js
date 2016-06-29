@@ -1271,7 +1271,7 @@
 				ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				ponto.setAttribute('cx', sx-3);
 				ponto.setAttribute('cy', sy-3);
-				ponto.setAttribute('r', 2);
+				ponto.setAttribute('r', 1);
 				ponto.setAttribute('fill', "none");
 				ponto.setAttribute('stroke', color);
 				ponto.setAttribute('stroke-width', width);
