@@ -19,6 +19,7 @@
 		var pathsToMoveInDeleteRect = new Array();	
 		var touchesInAction = {};
 		
+		var clearG = 0;
 		var id;
 		var svg;	
 		var xmlString;
@@ -91,7 +92,14 @@
 		viewElementG.setAttribute('transform', "translate(0,0)");
 		movementLayer.appendChild(viewElementG);
 		}
+		
+		function desabilitado() {
+		removeEventListenerFromSVG(numberOfEventListener);
+		numberOfEventListener = 0;
+		}	
+		
 		//============================================================================
+		
 		function device() {
 		deviceIsStylusSensitive();
 		deviceIsTouchScreen();
@@ -415,6 +423,14 @@
 				case 4 :
 					//remove Wite-Listener
 					svg.removeEventListener('click', startWrite, false);
+					svg.removeEventListener('pointermove', moveWrite, false);
+					window.removeEventListener('keydown', writeDown, false);
+					
+					svg.removeEventListener('click', startMultiTouchWrite, false);
+					svg.removeEventListener('touchmove', moveMultiTouchWrite, false);
+					window.removeEventListener('keydown', endMoveMultiTouchWrite, false);	
+					
+					svg.removeEventListener('click', startWrite, false);
 					svg.removeEventListener('mousemove', moveWrite, false);
 					window.removeEventListener('keydown', writeDown, false);
 				break;
@@ -423,7 +439,7 @@
 					svg.removeEventListener('pointerdown', startPonto, false);
 					svg.removeEventListener('pointerup', endMovePonto, false);
 					
-					svg.removeEventListener('touchstart', startTouchPonto, false);
+					svg.removeEventListener('touchstart', startMultiTouchPonto, false);
 					svg.removeEventListener('touchend', endMovePonto, false);	
 					
 					svg.removeEventListener('mousedown', startPonto, false);
@@ -910,7 +926,7 @@
 		   
 			svg.addEventListener('mousedown', startDelete, false);
 			svg.addEventListener('mousemove', moveDelete, false);
-			svg.addEventListener('mouseup', endMoveDelete, false);
+			svg.addEventListener('mouseup', endMoveDelete, false);			
 		}
 		
 		function startTouchDelete(event) {
@@ -931,7 +947,7 @@
 				deleteRect.setAttribute('y', startY);
 				deleteRect.setAttribute('fill', "none");
 				deleteRect.setAttribute('stroke', "red");
-				deleteRect.setAttribute('stroke-width', "3");
+				deleteRect.setAttribute('stroke-width', "1");
 				svg.appendChild(deleteRect);
 				isMousePressed = true;
 			}	
@@ -978,10 +994,10 @@
 		deleteRect.setAttribute('y', startY);
 		deleteRect.setAttribute('fill', "none");
 		deleteRect.setAttribute('stroke', "red");
-		deleteRect.setAttribute('stroke-width', "3");
+		deleteRect.setAttribute('stroke-width', "1");
 		svg.appendChild(deleteRect);
 		isMousePressed = true;
-		event.preventDefault(); // Prevents an additional event being triggered
+		event.preventDefault(); // Prevents an additional event being triggered		
 		}
 		
 		function moveDelete(event) {
@@ -1008,7 +1024,7 @@
 				deleteRect.setAttribute('height', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
-			}
+			}		
 		}
 		
 		function endMoveDelete(event) {
@@ -1102,8 +1118,6 @@
 				
 				}		 
 			} 
-
-			svg.removeChild(deleteRect);
 			clearSVGFromUnusedViews();
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1115,6 +1129,7 @@
 				movementLayer.removeChild(tempView[i]);
 				}
 			}
+		svg.removeChild(deleteRect);
 		event.preventDefault(); // Prevents an additional event being triggered
 		}		
 		
@@ -1122,11 +1137,146 @@
 		
 		function createWrite() { 				
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 4;
-				
+			numberOfEventListener = 4;				
+			
+			if (stylusIsEnabled) {
+				//sera usado o pointer
+				//alert("Usando pointer");
+				svg.addEventListener('click', startWrite, false);
+				svg.addEventListener('pointermove', moveWrite, false);
+				window.addEventListener('keydown', writeDown, false);
+			}
+			if (touchIsEnabled) {
+				//sera usado o touch
+				//alert("Usando touch");
+				svg.addEventListener('click', startMultiTouchWrite, false);
+				svg.addEventListener('touchmove', moveMultiTouchWrite, false);
+				window.addEventListener('keydown', endMoveMultiTouchWrite, false);	
+			}
+			
 			svg.addEventListener('click', startWrite, false);
 			svg.addEventListener('mousemove', moveWrite, false);
-			window.addEventListener('keydown', writeDown, false);			
+			window.addEventListener('keydown', writeDown, false);
+			
+		}
+		
+		function startMultiTouchWrite(event) {
+			var touches = event.changedTouches;
+
+			for(var j = 0; j < touches.length; j++) {
+				/* store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = {
+					identifier : touches[j].identifier,
+					pageX : touches[j].pageX,
+					pageY : touches[j].pageY
+				};
+
+				var sx = touches[j].pageX;
+				var sy = touches[j].pageY - screenYCorrection;			
+				var activateExistingText = false;
+				var texts = document.getElementsByTagName('text');
+			
+				for(var i=0; i<texts.length; i++) {
+				var tx = parseInt(texts[i].getAttribute('x'));
+				var ty = parseInt(texts[i].getAttribute('y'));
+					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
+					activateExistingText = true;
+					text = texts[i];
+					}
+				}
+	
+				if(activateExistingText == false) {
+
+				createViewElementForPath();
+				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+				circle.setAttribute('cx', sx-3);
+				circle.setAttribute('cy', sy-3);
+				circle.setAttribute('r', 2);
+				circle.setAttribute('stroke', "black");
+				circle.setAttribute('stroke-width', 0.1);
+				circle.setAttribute('fill', "black");
+				circle.setAttribute('id', "c"+numberOfText);				
+				
+				circle.addEventListener('mouseup', endMoveWrite, false);				
+				
+				viewElementG.appendChild(circle);			
+				
+				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+				text.setAttribute('x', sx);
+				text.setAttribute('y', sy);
+				text.setAttribute('font-family', font);
+				text.setAttribute('font-size', size);
+				text.setAttribute('font-style', style);
+				text.setAttribute('fill', color);
+				text.setAttribute('stroke', colorStroke);
+				text.setAttribute('text-decoration', decoration);
+				text.setAttribute('id', "tc"+numberOfText);		
+
+				viewElementG.appendChild(text);
+				numberOfText++;
+				} else {
+				
+				}
+			}						
+			event.preventDefault(); // Prevents an additional event being triggered
+		}	
+
+		function moveMultiTouchWrite(event) {
+			var touches = event.changedTouches;
+			
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;				
+				/* access stored touch info on touchend */
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var sx = touches[j].clientX;
+				var sy = touches[j].clientY - screenYCorrection;				
+				
+				var movementTextStartX = parseInt(circleOfTextToMove.getAttribute('cx'));
+				var movementTextStartY = parseInt(circleOfTextToMove.getAttribute('cy'));
+
+				var tempX;
+				var tempY;
+
+				tempX = (sx - movementTextStartX);
+				tempY = (sy - movementTextStartY);
+
+				gOfTextToMove.setAttribute('transform', "translate("+tempX+","+tempY+")");				
+			
+			}			
+			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */			
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		
+		function endMoveMultiTouchWrite(event) {	
+		var touches = event.changedTouches;
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;	
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+				var temp = text.innerHTML;
+				var character;
+					switch(event.key) {
+						case 'Shift':					
+						break;
+						case 'Tab':
+							temp = temp.slice(0,-2);
+							text.innerHTML = temp;
+						break;
+						case 'Backspace':
+							temp = temp.slice(0,-1);
+							text.innerHTML = temp;
+						break;
+						case 'Enter':
+						
+						break;
+						default:					
+							text.innerHTML = temp + event.key;
+						break;
+					}	
+				pressedKey = String.fromCharCode(event.which || event.keyCode);
+				text.innerHTML = temp + pressedKey;				
+				saveImage();
+			}
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function startWrite(event) {
@@ -1176,7 +1326,7 @@
 				} else {
 				
 				}
-		}
+		}	
 		
 		function moveWrite(event) {	
 			if(isMousePressed == true) {
@@ -1216,7 +1366,9 @@
 				default:					
 					text.innerHTML = temp + event.key;
 				break;
-			}	
+			}			
+		pressedKey = String.fromCharCode(event.which || event.keyCode);
+		text.innerHTML = temp + pressedKey;
 		saveImage();
 		}
 		
@@ -1246,7 +1398,7 @@
 			if (touchIsEnabled) {
 				//sera usado o touch
 				//alert("Usando touch");
-				svg.addEventListener('touchstart', startTouchPonto, false);
+				svg.addEventListener('touchstart', startMultiTouchPonto, false);
 				svg.addEventListener('touchend', endMovePonto, false);	
 			} 			
 			//Sera usado mouse
@@ -1255,7 +1407,7 @@
 			svg.addEventListener('mouseup', endMovePonto, false);	
 		}
 		
-		function startTouchPonto(event) {
+		function startMultiTouchPonto(event) {
 			var touches = event.changedTouches;
 
 			for(var j = 0; j < touches.length; j++) {
@@ -1271,7 +1423,7 @@
 				ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				ponto.setAttribute('cx', sx-3);
 				ponto.setAttribute('cy', sy-3);
-				ponto.setAttribute('r', 2);			
+				ponto.setAttribute('r', 1);			
 				ponto.setAttribute('fill', "none");
 				ponto.setAttribute('stroke', color);
 				ponto.setAttribute('stroke-width', width);			
@@ -1287,7 +1439,7 @@
 			ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 			ponto.setAttribute('cx', sx-3);
 			ponto.setAttribute('cy', sy-3);
-			ponto.setAttribute('r', 2);			
+			ponto.setAttribute('r', 1);			
 			ponto.setAttribute('fill', "none");
 			ponto.setAttribute('stroke', color);
 			ponto.setAttribute('stroke-width', width);			
@@ -1371,8 +1523,7 @@
 				
 					if(diffX <0) {
 					  //movement left
-					  circleArray[idTouch].setAttribute('cx', moveX);
-					  circleArray[idTouch].setAttribute('r', (diffX*(-1)));
+					  circleArray[idTouch].setAttribute('r', diffX);
 					} else {
 					  //movement right
 					  circleArray[idTouch].setAttribute('r', diffX);
@@ -1427,8 +1578,7 @@
 			
 				if(diffX <0) {
 				  //movement left
-				  circle.setAttribute('cx', moveX);
-				  circle.setAttribute('r', (diffX*(-1)));
+				  circle.setAttribute('r', diffX);				 
 				} else {
 				  //movement right
 				  circle.setAttribute('r', diffX);
@@ -1440,7 +1590,7 @@
 				} else {
 				  //movement down
 				  circle.setAttribute('r', diffY);
-				}			
+				}
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
@@ -1787,16 +1937,23 @@
 				};
 
 				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;	
-				var idTouch = touches[j].identifier;
+				startY = touches[j].pageY - screenYCorrection;
+				var diffX = startX;
+				var diffY = startY;	
+				
+				var idTouch = touches[j].identifier;	
 				lineArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 				lineArray[idTouch].setAttribute('x1', startX);
+				lineArray[idTouch].setAttribute('x2', (diffX*(-1)));
+				lineArray[idTouch].setAttribute('x2', diffX);
 				lineArray[idTouch].setAttribute('y1', startY);
+				lineArray[idTouch].setAttribute('y2', (diffY*(-1)));
+				lineArray[idTouch].setAttribute('y2', diffY);
 				lineArray[idTouch].setAttribute('fill', "none");
 				lineArray[idTouch].setAttribute('stroke', color);
-				lineArray[idTouch].setAttribute('stroke-width', width);
+				lineArray[idTouch].setAttribute('stroke-width', width);				
 				svg.appendChild(lineArray[idTouch]);
-				isMousePressed = true;
+				isMousePressed = true;					
 			}						
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1847,17 +2004,24 @@
 		}
 		
 		function startLine(event) {		
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-		line.setAttribute('x1', startX);
-		line.setAttribute('y1', startY);
-		line.setAttribute('fill', "none");
-		line.setAttribute('stroke', color);
-		line.setAttribute('stroke-width', width);
-		svg.appendChild(line);
-		isMousePressed = true;
-		event.preventDefault(); // Prevents an additional event being triggered
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			var diffX = startX;
+			var diffY = startY;
+		
+			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+			line.setAttribute('x1', startX);
+			line.setAttribute('x2', (diffX*(-1)));
+			line.setAttribute('x2', diffX);
+			line.setAttribute('y1', startY);
+			line.setAttribute('y2', (diffY*(-1)));
+			line.setAttribute('y2', diffY);
+			line.setAttribute('fill', "none");
+			line.setAttribute('stroke', color);
+			line.setAttribute('stroke-width', width);
+			svg.appendChild(line);
+			isMousePressed = true;
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function moveLine(event) {
@@ -2051,19 +2215,25 @@
 		
 		function drawGrid(){
 		var y;
-			for (y=30; y<960; y+=30){
-			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-			line.setAttribute('x1', 0);
-			line.setAttribute('y1', y);
-			line.setAttribute('x2', 2000);
-			line.setAttribute('y2', y);
-			line.setAttribute('fill', "none");
-			line.setAttribute('stroke', color);
-			line.setAttribute('stroke-width', 0.75);
-			svg.appendChild(line);
-			createViewElementForPath();
-			viewElementG.setAttribute('id', "grid");
-			viewElementG.appendChild(line);
+			if (clearG == 0) {
+				for (y=30; y<960; y+=30){
+					line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+					line.setAttribute('x1', 0);
+					line.setAttribute('y1', y);
+					line.setAttribute('x2', 2000);
+					line.setAttribute('y2', y);
+					line.setAttribute('fill', "none");
+					line.setAttribute('stroke', color);
+					line.setAttribute('stroke-width', 0.75);
+					svg.appendChild(line);
+					createViewElementForPath();
+					viewElementG.setAttribute('id', "grid");
+					viewElementG.appendChild(line);
+				}
+				clearG = 1;
+ 			}			
+			else if (clearG == 1) {				
+		
 			}
 		}
 		
@@ -2076,6 +2246,7 @@
 					if(tempView[i].getAttribute('id') == "grid") {
 					movementLayer.removeChild(tempView[i]);
 					}
+				clearG=0;
 				}
 			}
 		}

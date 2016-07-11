@@ -101,20 +101,20 @@
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 200px;
-    }
-
-    #wrapper.toggled {
         padding-left: 0;
     }
 
+    #wrapper.toggled {
+        padding-left: 200px;
+    }
+
     #sidebar-wrapper {
-        width: 200px;
+        width: 0;
 		height: 100%;
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 0;
+        width: 200px;
     }
 
     #page-content-wrapper {

@@ -49,79 +49,50 @@
 				<ul class="nav navbar-nav">
 				
 					<li>
-						<fieldset class="scheduler-border" id="habOpcao">
-						<legend class="scheduler-border"><img src="images/monitor.png" width="24"> Op.Des </legend>	
-						<li><a><span id="selecionado"></span></a></li>						
+						<fieldset class="scheduler-border" id ="habOpcao">
+						<legend class="scheduler-border"></legend>
+						<li><a class="buttonToolbar" onmouseover="Tip('Selecionado')" onmouseout="UnTip()" ><span id="selecionado"></span></a></li>
 						</fieldset>
 					</li>
 					
-					<li><a></a></li>
-				
 					<li>
-						<fieldset class="scheduler-border">
-						<legend class="scheduler-border"><img src="images/colortext.png" width="24"> Cores </legend>	
-						<li><a><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>						
+						<fieldset class="scheduler-border" id="habEstilo">
+						<legend class="scheduler-border"></legend>	
+						<li><a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/bold.png" width="10"></a>				
+						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/underline.png" width="10"></a>
+						<a class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()" id="italico"><img src="images/italic.png" width="10"></a></li>
 						</fieldset>
+					</li>						
+					
+					<li>						
+						<li><a data-toggle="dropdown"  onmouseover="Tip('Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:setSizeText(10);">10</a></li>
+								<li><a href="javascript:setSizeText(12);">12</a></li>
+								<li><a href="javascript:setSizeText(14);">14</a></li>
+								<li><a href="javascript:setSizeText(16);">16</a></li>
+								<li><a href="javascript:setSizeText(18);">18</a></li>
+								<li><a href="javascript:setSizeText(20);">20</a></li>
+								<li><a href="javascript:setSizeText(22);">22</a></li>
+								<li><a href="javascript:setSizeText(24);">24</a></li>
+								<li><a href="javascript:setSizeText(26);">26</a></li>
+								<li><a href="javascript:setSizeText(28);">28</a></li>
+								<li><a href="javascript:setSizeText(30);">30</a></li>
+								<li><a href="javascript:setSizeText(32);">32</a></li>
+								<li><a href="javascript:setSizeText(34);">34</a></li>
+								<li><a href="javascript:setSizeText(36);">36</a></li>
+								<li><a href="javascript:setSizeText(38);">38</a></li>
+								<li><a href="javascript:setSizeText(40);">40</a></li>
+								<li><a href="javascript:setSizeText(42);">42</a></li>	
+								<li><a href="javascript:setSizeText(44);">44</a></li>
+								<li><a href="javascript:setSizeText(46);">46</a></li>
+								<li><a href="javascript:setSizeText(48);">48</a></li>
+							</ul>
+						</li>							
 					</li>				
 					
-					<li><a></a></li>						
-					
-					<li>
-						<fieldset class="scheduler-border" id="habEspess">
-						<legend class="scheduler-border"><img src="images/thicknessdrawing.png" width="24"> Espe.Des </legend>	
-						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/linewidth.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:width=1"  onchange="setWidth(1);"><img src="images/line1.png" width="24"></a></li>
-								<li><a href="javascript:width=2"  onchange="setWidth(2);"><img src="images/line2.png" width="24"></a></li>
-								<li><a href="javascript:width=3"  onchange="setWidth(3);"><img src="images/line3.png" width="24"></a></li>
-								<li><a href="javascript:width=4"  onchange="setWidth(4);"><img src="images/line4.png" width="24"></a></li>
-								<li><a href="javascript:width=5"  onchange="setWidth(5);"><img src="images/line5.png" width="24"></a></li>
-								<li><a href="javascript:width=6"  onchange="setWidth(6);"><img src="images/line6.png" width="24"></a></li>
-								<li><a href="javascript:width=7"  onchange="setWidth(7);"><img src="images/line7.png" width="24"></a></li>
-								<li><a href="javascript:width=8"  onchange="setWidth(8);"><img src="images/line8.png" width="24"></a></li>
-								<li><a href="javascript:width=9"  onchange="setWidth(9);"><img src="images/line9.png" width="24"></a></li>
-								<li><a href="javascript:width=10" onchange="setWidth(10);"><img src="images/line10.png" width="24"></a></li>
-							</ul>
-						</li>					
-						</fieldset>
-					</li>					
-					
-					<li>
-						<fieldset class="scheduler-border" id="habMedida">
-						<legend class="scheduler-border"><img src="images/sizetext.png" width="24"> Medi.Texto </legend>	
-						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:size=10" onchange="setSizeText(10);">10</a></li>
-								<li><a href="javascript:size=12" onchange="setSizeText(12);">12</a></li>
-								<li><a href="javascript:size=14" onchange="setSizeText(14);">14</a></li>
-								<li><a href="javascript:size=16" onchange="setSizeText(16);">16</a></li>
-								<li><a href="javascript:size=18" onchange="setSizeText(18);">18</a></li>
-								<li><a href="javascript:size=20" onchange="setSizeText(20);">20</a></li>
-								<li><a href="javascript:size=22" onchange="setSizeText(22);">22</a></li>
-								<li><a href="javascript:size=24" onchange="setSizeText(24);">24</a></li>
-								<li><a href="javascript:size=26" onchange="setSizeText(26);">26</a></li>
-								<li><a href="javascript:size=28" onchange="setSizeText(28);">28</a></li>
-								<li><a href="javascript:size=30" onchange="setSizeText(30);">30</a></li>
-								<li><a href="javascript:size=32" onchange="setSizeText(32);">32</a></li>
-								<li><a href="javascript:size=34" onchange="setSizeText(34);">34</a></li>
-								<li><a href="javascript:size=36" onchange="setSizeText(36);">36</a></li>
-								<li><a href="javascript:size=38" onchange="setSizeText(38);">38</a></li>
-								<li><a href="javascript:size=40" onchange="setSizeText(40);">40</a></li>
-								<li><a href="javascript:size=42" onchange="setSizeText(42);">42</a></li>	
-								<li><a href="javascript:size=44" onchange="setSizeText(44);">44</a></li>
-								<li><a href="javascript:size=46" onchange="setSizeText(46);">46</a></li>
-								<li><a href="javascript:size=48" onchange="setSizeText(48);">48</a></li>
-							</ul>
-						</li>					
-						</fieldset>
-					</li>					
-					
-					<li><a></a></li>
-					
-					<li>
-						<fieldset class="scheduler-border" id="habFont">
-						<legend class="scheduler-border"><img src="images/fonttext.png" width="24"> Font.Texto </legend>	
-						<li><a data-toggle="dropdown" class="btn btn-default" class="buttonToolbar"><img src="images/sourcetext.png" width="22"><span class="caret"></span></a>
+					<li>					
+						<li><a data-toggle="dropdown" onmouseover="Tip('Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/stylestext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setFontText('comicsans');">Comic Sans</a></li>
 								<li><a href="javascript:setFontText('georgia');">Georgia</a></li>
@@ -141,23 +112,57 @@
 								<li><a href="javascript:setFontText('webdings');">Webdings</a></li>							
 								<li><a href="javascript:setFontText('wingdings');">Wingdings</a></li>			
 							</ul>
-						</li>					
-						</fieldset>
-					</li>
-					
-					<li><a></a></li>
+						</li>							
+					</li>							
 					
 					<li>
-						<fieldset class="scheduler-border" id="habEstilo">
-						<legend class="scheduler-border"><img src="images/stylestext.png" width="24"> Estilos Texto </legend>	
-						<li><a href="javascript:setStrokeText();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Negrito')" onmouseout="UnTip()"><img src="images/bold.png" width="10"></a>				
-						<a href="javascript:setDecoration();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Sublinhado')" onmouseout="UnTip()"><img src="images/underline.png" width="10"></a>
-						<a href="javascript:setStyle();" class="btn btn-default"  class="buttonToolbar" onmouseover="Tip('Texto Italico')" onmouseout="UnTip()"><img src="images/italic.png" width="10"></a></li>
-						</fieldset>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/linewidth.png" width="25"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:setWidth(1);"><img src="images/line1.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(2);"><img src="images/line2.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(3);"><img src="images/line3.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(4);"><img src="images/line4.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(5);"><img src="images/line5.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(6);"><img src="images/line6.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(7);"><img src="images/line7.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(8);"><img src="images/line8.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(9);"><img src="images/line9.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(10);"><img src="images/line10.png" width="24"></a></li>
+							</ul>
+						</li>	
+					</li>								
+					
+					<li>						
+						<li><a data-toggle="dropdown" onmouseover="Tip('Arquivo')" onmouseout="UnTip()"><img src="images/save.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="javascript:imageIt();" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="22"></a></li>	
+								<li><a href="javascript:pdfIt();" onmouseover="Tip('Gerar PDF')" onmouseout="UnTip()"><img src="images/pdf.png" width="22"></a></li>								
+								<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Arquivo')" onmouseout="UnTip()"><img src="images/salvararquivo.png" width="22"></a></li>
+								<li><a href="javascript:downloadIt();" onmouseover="Tip('Fazer Download')" onmouseout="UnTip()"><img src="images/download.png" width="22"></a></li>		
+							</ul>
+						</li>						
 					</li>
 					
+					<li>						
+						<li><a data-toggle="dropdown" onmouseover="Tip('Layout')" onmouseout="UnTip()"><img src="images/monitor.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">																	
+								<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/newfile.png" width="22"></a></li>						
+								<li><a href="javascript:drawGrid();" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="22"></a></li>  									
+								<li><a href="javascript:clearGrid();" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="22"></a></li> 									
+							</ul>
+						</li>						
+					</li>	
 					
+					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()"><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>	
 					
+					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/drag.png" width="22"></a></li>		
+
+					<li><a onmouseover="Tip('Apagar Componente')" onmouseout="UnTip()" id="delete"><img src="images/delete.png" width="22"></a></li>	
+					
+					<li><a onmouseover="Tip('Multi Touch Screen')" onmouseout="UnTip()" id="touch"><img src="images/touchScreen.png" width="22"></a></li> 	
+					
+					<li><a onmouseover="Tip('Equipe')" onmouseout="UnTip()" id="menu-toggle"><img src="images/expand.png" width="22"></a></li>	
+									
 				</ul>
 			</div>	
 		</div>		
@@ -166,10 +171,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
 				<li><img src="images/editor.png"></li> 		              
-				<li class="sidebar-brand"><a class="negrito"> Multimodalidade </a></li> 
-				<li><a href="javascript:window.location.href='index.html';" target="janela" class="negrito"><img src="images/mininew.png"> Novo Arquivo </a></li>            		
-            	<li><a href="javascript:saveIt();" target="janela" class="negrito"><img src="images/minisave.png"> Salvar </a></li>  	
-				<li><a href="javascript:pdfIt();" target="janela" class="negrito"><img src="images/minipdf.png"> Salvar em PDF </a></li>		
+				<li class="sidebar-brand"><a class="negrito"> Editor Multimodal </a></li>				
 			</ul>				
         </div>		
         <!-- sidebar-wrapper -->
@@ -181,32 +183,23 @@
    						<div class="embed-responsive embed-responsive-16by9">													
 							<div class="container">
 								<div id="nav">
-									<ul class="nav nav-pills nav-stacked">									
-										
-										<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle" class="buttonToolbar" onmouseover="Tip('Maximizar/Minimizar')" onmouseout="UnTip()"><img src="images/expand.png" width="24"></a><li>
-										<li><a href="javascript:imageIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="24"></a></li>		
-										<li><a href="javascript:downloadIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Download')" onmouseout="UnTip()"><img src="images/download.png" width="24"></a></li>		
-										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="24"><span class="caret"></span></a>
-											<ul class="dropdown-menu">
-												<li><a href="#"><input type="file" name="filename" id="inputFile" onchange="readURL(event);"></a></li>
-											</ul>
-										</li>																	
-										<li><a data-toggle="dropdown" href="#" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="24"><span class="caret"></span></a>
+									<ul class="nav nav-pills nav-stacked">	
+										<li><a class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/text.png" width="20"></a></li>
+										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/thicknessdrawing.png" width="20"></a></li>						
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">												
-												<li><a href="javascript:createPonto();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Pontos')" onmouseout="UnTip()"><img src="images/drop.png" width="24"></a></li>
-												<li><a href="javascript:createDraw();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Desenhar')" onmouseout="UnTip()" id="draw"><img src="images/edit.png" width="24"><img src="images/edit.png" width="24" id="imgdefaut"></a></li>								
-												<li><a href="javascript:createCircle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Circulo')" onmouseout="UnTip()"><img src="images/circle.png" width="24"></a></li>
-												<li><a href="javascript:createRectangle();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Quadrado/Retangulo')" onmouseout="UnTip()"><img src="images/square.png" width="24"></a></li>
-												<li><a href="javascript:createEllipse();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Ellipse')" onmouseout="UnTip()"><img src="images/ellipse.png" width="24"></a></li>
-												<li><a href="javascript:createLine();" class="btn btn-default" class="buttonToolbar"  onmouseover="Tip('Linha')" onmouseout="UnTip()"><img src="images/line.png" width="24"></a></li>	
+												<li><a href="javascript:createPonto();" onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/drop.png" width="15"></a></li>
+												<li><a href="javascript:createCircle();"  onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/circle.png" width="15"></a></li>
+												<li><a href="javascript:createRectangle();"  onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/square.png" width="15"></a></li>
+												<li><a href="javascript:createEllipse();"  onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/ellipse.png" width="15"></a></li>
+												<li><a href="javascript:createLine();"   onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/line.png" width="15"></a></li>	
 											</ul>
 										</li>
-										<li><a href="javascript:createWrite();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/keyboard.png" width="24"></a></li>
-										<li><a href="javascript:device();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Multi Touch Screen')" onmouseout="UnTip()"><img src="images/touchScreen.png" width="24"></a></li>  										
-										<li><a href="javascript:drawGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="24"></a></li>  									
-										<li><a href="javascript:clearGrid();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="24"></a></li> 									
-										<li><a href="javascript:moveIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Mover Componente')" onmouseout="UnTip()"><img src="images/drag.png" width="24"></a></li>		
-										<li><a href="javascript:deleteIt();" class="btn btn-default" class="buttonToolbar" onmouseover="Tip('Apagar Componente')" onmouseout="UnTip()"><img src="images/delete.png" width="24"></a></li>									
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="20"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="#"><input type="file" name="filename" onchange="readURL(event);" id="inputFile"></a></li>
+											</ul>
+										</li>
 									</ul>
 								</div>												
 							</div>			
@@ -246,32 +239,265 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	
 	<script>
+	
+		var key=false;
+		var draw=false;	
+
+		var move=false;
+		var del=false;		
+	
+		var touch=false;
+		var menu=false;
+		
+		var negrito=false;
+		var sublinhado=false;
+		var italico=false;
+		
 		$( document ).ready(function(){
 			
 			$("#habFont").hide("slow");   <!-- Esconder -->
 			$("#habEstilo").hide("slow"); <!-- Esconder -->			
 			$("#habMedida").hide("slow"); <!-- Esconder -->			
+			$("#habOpcao").hide("slow");  <!-- Esconder -->
 			
-			var imagem = document.getElementById("imgdefaut");
-			$("#selecionado").html(imagem);
+			//var imagem = document.getElementById("imgdefaut");
+			//$("#selecionado").html(imagem);			
 		
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
-			}); 		
+			}); 
+
+			$("#inputFile").click(function(){	
+				$("#habOpcao").hide("slow");  <!-- Esconder -->	
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;	
+				
+				document.getElementById("negrito").className = "buttonToolbar";
+				negrito=false;					
+				document.getElementById("sublinhado").className = "buttonToolbar";
+				sublinhado=false;					
+				document.getElementById("italico").className = "buttonToolbar";
+				italico=false;	
+			});	
 			
-			$(".dropdown-menu li a").click(function(){
+			$("#drop").click(function(){
 				var img = $(this).find("img").clone();
 				$("#selecionado").html(img);
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
 			});
 			
-			$("#geometricshapes").click(function(){				
-				$("#habFont").hide("slow");   <!-- Esconder -->	
-				$("#habEstilo").hide("slow"); <!-- Esconder -->
-				$("#habMedida").hide("slow"); <!-- Esconder -->						
-				$("#habEspess").show("slow"); <!-- Aparecer -->	
-				$("#habOpcao").show("slow");  <!-- Aparecer -->					
+			$("#circle").click(function(){
+				var img = $(this).find("img").clone();
+				$("#selecionado").html(img);
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#square").click(function(){
+				var img = $(this).find("img").clone();
+				$("#selecionado").html(img);
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#ellipse").click(function(){
+				var img = $(this).find("img").clone();
+				$("#selecionado").html(img);
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#line").click(function(){
+				var img = $(this).find("img").clone();
+				$("#selecionado").html(img);
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
 			});	
+			
+	//======================================================================================
+	
+			$("#menu-toggle").click(function(){
+				if(menu==false){
+					document.getElementById("menu-toggle").className = "buttonToolbar";					
+					document.getElementById("menu-toggle").href = "#menu-toggle";
+					menu=true;
+				}else{
+					document.getElementById("menu-toggle").className = "desabilitado";
+					document.getElementById("menu-toggle").href = "javascript:desabilitado();";					
+					menu=false;
+				}
+			});
+			
+			$("#touch").click(function(){
+				if(touch==false){
+					document.getElementById("touch").className = "buttonToolbar";					
+					document.getElementById("touch").href = "javascript:device();";
+					touch=true;
+				}else{
+					document.getElementById("touch").className = "desabilitado";
+					document.getElementById("touch").href = "javascript:desabilitado();";					
+					touch=false;
+				}
+			});
+			
+	//======================================================================================	
+	
+			$("#negrito").click(function(){
+				if(negrito==false){
+					document.getElementById("negrito").className = "habilitado";					
+					document.getElementById("negrito").href = "javascript:setStrokeText();";
+					negrito=true;
+				}else{
+					document.getElementById("negrito").className = "buttonToolbar";				
+					negrito=false;
+				}
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("delete").className = "desabilitado";
+				del=false;	
+				
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#sublinhado").click(function(){
+				if(sublinhado==false){
+					document.getElementById("sublinhado").className = "habilitado";					
+					document.getElementById("sublinhado").href = "javascript:setDecoration();";
+					sublinhado=true;
+				}else{
+					document.getElementById("sublinhado").className = "buttonToolbar";				
+					sublinhado=false;
+				}
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("delete").className = "desabilitado";
+				del=false;	
+				
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#italico").click(function(){
+				if(italico==false){
+					document.getElementById("italico").className = "habilitado";					
+					document.getElementById("italico").href = "javascript:setStyle();";
+					italico=true;
+				}else{
+					document.getElementById("italico").className = "buttonToolbar";				
+					italico=false;
+				}
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("delete").className = "desabilitado";
+				del=false;	
+				
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#move").click(function(){
+				if(move==false){
+					document.getElementById("move").className = "buttonToolbar";					
+					document.getElementById("move").href = "javascript:moveIt();";	
+					move=true;
+				}else{
+					document.getElementById("move").className = "desabilitado";
+					document.getElementById("move").href = "javascript:desabilitado();";					
+					move=false;
+				}
+				
+				$("#habOpcao").hide("slow");  <!-- Esconder -->	
+				
+				document.getElementById("negrito").className = "buttonToolbar";
+				negrito=false;					
+				document.getElementById("sublinhado").className = "buttonToolbar";
+				sublinhado=false;					
+				document.getElementById("italico").className = "buttonToolbar";
+				italico=false;	
+				
+				document.getElementById("delete").className = "desabilitado";
+				del=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+			
+			$("#delete").click(function(){
+				if(del==false){
+					document.getElementById("delete").className = "buttonToolbar";					
+					document.getElementById("delete").href = "javascript:deleteIt();";					
+					del=true;
+				}else{
+					document.getElementById("delete").className = "desabilitado";
+					document.getElementById("delete").href = "javascript:desabilitado();";					
+					del=false;
+				}
+				
+				$("#habOpcao").hide("slow");  <!-- Esconder -->	
+				
+				document.getElementById("negrito").className = "buttonToolbar";
+				negrito=false;					
+				document.getElementById("sublinhado").className = "buttonToolbar";
+				sublinhado=false;					
+				document.getElementById("italico").className = "buttonToolbar";
+				italico=false;	
+				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+			});
+		
+	//======================================================================================
 			
 			$("#keyboard").click(function(){	
 				$("#habFont").show("slow");   <!-- Aparecer -->	
@@ -279,8 +505,68 @@
 				$("#habMedida").show("slow"); <!-- Aparecer -->
 				$("#habEspess").hide("slow"); <!-- Esconder -->	
 				$("#habOpcao").hide("slow");  <!-- Esconder -->
-			});				
-		})
+
+				if(key==false){
+					document.getElementById("keyboard").className = "habilitado";					
+					document.getElementById("keyboard").href = "javascript:createWrite();";	
+					key=true;
+				}else{
+					document.getElementById("keyboard").className = "buttonToolbar";
+					document.getElementById("keyboard").href = "javascript:desabilitado();";					
+					key=false;
+				}
+				
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;
+				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("delete").className = "desabilitado";
+				del=false;				
+			});	
+			
+			$("#draw").click(function(){				
+				$("#habFont").hide("slow");   <!-- Esconder -->	
+				$("#habEstilo").hide("slow"); <!-- Esconder -->
+				$("#habMedida").hide("slow"); <!-- Esconder -->	
+				$("#habOpcao").hide("slow");  <!-- Esconder -->					
+				$("#habEspess").show("slow"); <!-- Aparecer -->		
+
+				if(draw==false){
+					document.getElementById("draw").className = "habilitado";					
+					document.getElementById("draw").href = "javascript:createDraw();";	
+					draw=true;
+				}else{
+					document.getElementById("draw").className = "buttonToolbar";
+					document.getElementById("draw").href = "javascript:desabilitado();";					
+					draw=false;
+				}
+				
+				document.getElementById("negrito").className = "buttonToolbar";
+				negrito=false;					
+				document.getElementById("sublinhado").className = "buttonToolbar";
+				sublinhado=false;					
+				document.getElementById("italico").className = "buttonToolbar";
+				italico=false;	
+				
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;
+				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("del").className = "desabilitado";
+				del=false;
+				
+			});
+
+			$("#geometricshapes").click(function(){				
+				$("#habFont").hide("slow");   <!-- Esconder -->	
+				$("#habEstilo").hide("slow"); <!-- Esconder -->
+				$("#habMedida").hide("slow"); <!-- Esconder -->						
+				$("#habEspess").show("slow"); <!-- Aparecer -->	
+				$("#habOpcao").show("slow");  <!-- Aparecer -->			
+			});	
+		})	
 	</script>	
 	
 </body>
