@@ -59,6 +59,10 @@ a.habilitado{
 	
 }
 
+.negrito {
+ font-weight: bold;
+}
+
 a.buttonToolbar{
 	color: #333;
     background-color: #fff;

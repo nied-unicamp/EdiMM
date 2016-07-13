@@ -56,6 +56,13 @@
 					</li>
 					
 					<li>
+						<fieldset class="scheduler-border" id ="habEspessSpan">
+						<legend class="scheduler-border"></legend>
+						<li><a class="buttonToolbar" onmouseover="Tip('Espessura Utilizada')" onmouseout="UnTip()" ><span id="linha"></span></a></li>
+						</fieldset>
+					</li>
+					
+					<li>
 						<fieldset class="scheduler-border" id="habEstilo">
 						<legend class="scheduler-border"></legend>	
 						<li><a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/bold.png" width="10"></a>				
@@ -64,70 +71,86 @@
 						</fieldset>
 					</li>						
 					
+					<li>
+						<fieldset class="scheduler-border" id ="habMedidaSpan">
+						<legend class="scheduler-border"></legend>
+						<li><a class="buttonToolbar" onmouseover="Tip('Medida Utilizada')" onmouseout="UnTip()" ><span id="medida" class="negrito"></span></a></li>
+						</fieldset>
+					</li>
+					
 					<li>						
-						<li><a data-toggle="dropdown"  onmouseover="Tip('Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:setSizeText(10);">10</a></li>
-								<li><a href="javascript:setSizeText(12);">12</a></li>
-								<li><a href="javascript:setSizeText(14);">14</a></li>
-								<li><a href="javascript:setSizeText(16);">16</a></li>
-								<li><a href="javascript:setSizeText(18);">18</a></li>
-								<li><a href="javascript:setSizeText(20);">20</a></li>
-								<li><a href="javascript:setSizeText(22);">22</a></li>
-								<li><a href="javascript:setSizeText(24);">24</a></li>
-								<li><a href="javascript:setSizeText(26);">26</a></li>
-								<li><a href="javascript:setSizeText(28);">28</a></li>
-								<li><a href="javascript:setSizeText(30);">30</a></li>
-								<li><a href="javascript:setSizeText(32);">32</a></li>
-								<li><a href="javascript:setSizeText(34);">34</a></li>
-								<li><a href="javascript:setSizeText(36);">36</a></li>
-								<li><a href="javascript:setSizeText(38);">38</a></li>
-								<li><a href="javascript:setSizeText(40);">40</a></li>
-								<li><a href="javascript:setSizeText(42);">42</a></li>	
-								<li><a href="javascript:setSizeText(44);">44</a></li>
-								<li><a href="javascript:setSizeText(46);">46</a></li>
-								<li><a href="javascript:setSizeText(48);">48</a></li>
+								<li><a href="javascript:setSizeText(10);" id="tamanho10">10</a></li>
+								<li><a href="javascript:setSizeText(12);" id="tamanho12">12</a></li>
+								<li><a href="javascript:setSizeText(14);" id="tamanho14">14</a></li>
+								<li><a href="javascript:setSizeText(16);" id="tamanho16">16</a></li>
+								<li><a href="javascript:setSizeText(18);" id="tamanho18">18</a></li>
+								<li><a href="javascript:setSizeText(20);" id="tamanho20">20</a></li>
+								<li><a href="javascript:setSizeText(22);" id="tamanho22">22</a></li>
+								<li><a href="javascript:setSizeText(24);" id="tamanho24">24</a></li>
+								<li><a href="javascript:setSizeText(26);" id="tamanho26">26</a></li>
+								<li><a href="javascript:setSizeText(28);" id="tamanho28">28</a></li>
+								<li><a href="javascript:setSizeText(30);" id="tamanho30">30</a></li>
+								<li><a href="javascript:setSizeText(32);" id="tamanho32">32</a></li>
+								<li><a href="javascript:setSizeText(34);" id="tamanho34">34</a></li>
+								<li><a href="javascript:setSizeText(36);" id="tamanho36">36</a></li>
+								<li><a href="javascript:setSizeText(38);" id="tamanho38">38</a></li>
+								<li><a href="javascript:setSizeText(40);" id="tamanho40">40</a></li>
+								<li><a href="javascript:setSizeText(42);" id="tamanho42">42</a></li>	
+								<li><a href="javascript:setSizeText(44);" id="tamanho44">44</a></li>
+								<li><a href="javascript:setSizeText(46);" id="tamanho46">46</a></li>
+								<li><a href="javascript:setSizeText(48);" id="tamanho48">48</a></li>
 							</ul>
 						</li>							
-					</li>				
+					</li>
+
+					<li>
+						<fieldset class="scheduler-border" id ="habFontSpan">
+						<legend class="scheduler-border"></legend>
+						<li><a class="buttonToolbar" onmouseover="Tip('Fonte Utilizada')" onmouseout="UnTip()" ><span id="font" class="negrito"></span></a></li>
+						</fieldset>
+					</li>					
 					
 					<li>					
-						<li><a data-toggle="dropdown" onmouseover="Tip('Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/stylestext.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:setFontText('comicsans');">Comic Sans</a></li>
-								<li><a href="javascript:setFontText('georgia');">Georgia</a></li>
-								<li><a href="javascript:setFontText('impact');">Impact</a></li>
-								<li><a href="javascript:setFontText('lucida');">Lucida</a></li>									
-								<li><a href="javascript:setFontText('lucidasans');">Lucidasans</a></li>
-								<li><a href="javascript:setFontText('monospace');">Monospace</a></li>
-								<li><a href="javascript:setFontText('opendyslexic');">Opendys Lexic</a></li>
-								<li><a href="javascript:setFontText('palatino');">Palatino</a></li>	
-								<li><a href="javascript:setFontText('sansserif');">Sansserif</a></li>									
-								<li><a href="javascript:setFontText('serif');">Serif</a></li>
-								<li><a href="javascript:setFontText('symbol');">Symbol</a></li>
-								<li><a href="javascript:setFontText('tahoma');">Tahoma</a></li>
-								<li><a href="javascript:setFontText('timesnewroman');">Times New Roman</a></li>
-								<li><a href="javascript:setFontText('trebuchet');">Trebuchet</a></li>
-								<li><a href="javascript:setFontText('verdana');">Verdana</a></li>
-								<li><a href="javascript:setFontText('webdings');">Webdings</a></li>							
-								<li><a href="javascript:setFontText('wingdings');">Wingdings</a></li>			
+						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/stylestext.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">								
+								<li><a href="javascript:setFontText('arial');" id="arial">Arial</a></li>
+								<li><a href="javascript:setFontText('comicsans');" id="comicsans">Comic Sans</a></li>
+								<li><a href="javascript:setFontText('georgia');" id="georgia">Georgia</a></li>
+								<li><a href="javascript:setFontText('impact');" id="impact">Impact</a></li>
+								<li><a href="javascript:setFontText('lucida');" id="lucida">Lucida</a></li>									
+								<li><a href="javascript:setFontText('lucidasans');" id="lucidasans">Lucidasans</a></li>
+								<li><a href="javascript:setFontText('monospace');" id="monospace">Monospace</a></li>
+								<li><a href="javascript:setFontText('opendyslexic');" id="opendyslexic">Opendys Lexic</a></li>
+								<li><a href="javascript:setFontText('palatino');" id="palatino">Palatino</a></li>	
+								<li><a href="javascript:setFontText('sansserif');" id="sansserif">Sansserif</a></li>									
+								<li><a href="javascript:setFontText('serif');" id="serif">Serif</a></li>
+								<li><a href="javascript:setFontText('symbol');" id="symbol">Symbol</a></li>
+								<li><a href="javascript:setFontText('tahoma');" id="tahoma">Tahoma</a></li>
+								<li><a href="javascript:setFontText('timesnewroman');" id="timesnewroman">Times New Roman</a></li>
+								<li><a href="javascript:setFontText('trebuchet');" id="trebuchet">Trebuchet</a></li>
+								<li><a href="javascript:setFontText('verdana');" id="verdana">Verdana</a></li>
+								<li><a href="javascript:setFontText('webdings');" id="webdings">Webdings</a></li>							
+								<li><a href="javascript:setFontText('wingdings');" id="wingdings">Wingdings</a></li>			
 							</ul>
 						</li>							
 					</li>							
 					
 					<li>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/linewidth.png" width="25"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/linewidth.png" width="25"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:setWidth(1);"><img src="images/line1.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(2);"><img src="images/line2.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(3);"><img src="images/line3.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(4);"><img src="images/line4.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(5);"><img src="images/line5.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(6);"><img src="images/line6.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(7);"><img src="images/line7.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(8);"><img src="images/line8.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(9);"><img src="images/line9.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(10);"><img src="images/line10.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(1);" id="line01"><img src="images/line1.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(2);" id="line02"><img src="images/line2.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(3);" id="line03"><img src="images/line3.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(3);" id="line03"><img src="images/line3.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(4);" id="line04"><img src="images/line4.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(5);" id="line05"><img src="images/line5.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(6);" id="line06"><img src="images/line6.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(7);" id="line07"><img src="images/line7.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(8);" id="line08"><img src="images/line8.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(9);" id="line09"><img src="images/line9.png" width="24"></a></li>
+								<li><a href="javascript:setWidth(10);" id="line10"><img src="images/line10.png" width="24"></a></li>
 							</ul>
 						</li>	
 					</li>								
@@ -188,11 +211,11 @@
 										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/thicknessdrawing.png" width="20"></a></li>						
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">												
-												<li><a href="javascript:createPonto();" onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/drop.png" width="15"></a></li>
-												<li><a href="javascript:createCircle();"  onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/circle.png" width="15"></a></li>
-												<li><a href="javascript:createRectangle();"  onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/square.png" width="15"></a></li>
-												<li><a href="javascript:createEllipse();"  onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/ellipse.png" width="15"></a></li>
-												<li><a href="javascript:createLine();"   onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/line.png" width="15"></a></li>	
+												<li><a onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/drop.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/circle.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/square.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/ellipse.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/line.png" width="15"></a></li>	
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="20"><span class="caret"></span></a>
@@ -233,339 +256,12 @@
 	
 	<!-- JS -->
 	<script type="text/javascript" src="js/jquerytooltip.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>	
+    <script type="text/javascript" src="js/jqueryready.js"></script>
 	
     <!-- Bootstrap JS -->
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>	
 	
-	<script>
-	
-		var key=false;
-		var draw=false;	
-
-		var move=false;
-		var del=false;		
-	
-		var touch=false;
-		var menu=false;
-		
-		var negrito=false;
-		var sublinhado=false;
-		var italico=false;
-		
-		$( document ).ready(function(){
-			
-			$("#habFont").hide("slow");   <!-- Esconder -->
-			$("#habEstilo").hide("slow"); <!-- Esconder -->			
-			$("#habMedida").hide("slow"); <!-- Esconder -->			
-			$("#habOpcao").hide("slow");  <!-- Esconder -->
-			
-			//var imagem = document.getElementById("imgdefaut");
-			//$("#selecionado").html(imagem);			
-		
-			$("#menu-toggle").click(function(e) {
-				e.preventDefault();
-				$("#wrapper").toggleClass("toggled");
-			}); 
-
-			$("#inputFile").click(function(){	
-				$("#habOpcao").hide("slow");  <!-- Esconder -->	
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;	
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
-			});	
-			
-			$("#drop").click(function(){
-				var img = $(this).find("img").clone();
-				$("#selecionado").html(img);
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#circle").click(function(){
-				var img = $(this).find("img").clone();
-				$("#selecionado").html(img);
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#square").click(function(){
-				var img = $(this).find("img").clone();
-				$("#selecionado").html(img);
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#ellipse").click(function(){
-				var img = $(this).find("img").clone();
-				$("#selecionado").html(img);
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#line").click(function(){
-				var img = $(this).find("img").clone();
-				$("#selecionado").html(img);
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});	
-			
-	//======================================================================================
-	
-			$("#menu-toggle").click(function(){
-				if(menu==false){
-					document.getElementById("menu-toggle").className = "buttonToolbar";					
-					document.getElementById("menu-toggle").href = "#menu-toggle";
-					menu=true;
-				}else{
-					document.getElementById("menu-toggle").className = "desabilitado";					
-					menu=false;
-				}
-			});
-			
-			$("#touch").click(function(){
-				if(touch==false){
-					document.getElementById("touch").className = "buttonToolbar";					
-					document.getElementById("touch").href = "javascript:device();";
-					touch=true;
-				}else{
-					document.getElementById("touch").className = "desabilitado";				
-					touch=false;
-				}
-			});
-			
-	//======================================================================================	
-	
-			$("#negrito").click(function(){
-				if(negrito==false){
-					document.getElementById("negrito").className = "habilitado";					
-					document.getElementById("negrito").href = "javascript:setStrokeText();";
-					negrito=true;
-				}else{
-					document.getElementById("negrito").className = "buttonToolbar";				
-					negrito=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#sublinhado").click(function(){
-				if(sublinhado==false){
-					document.getElementById("sublinhado").className = "habilitado";					
-					document.getElementById("sublinhado").href = "javascript:setDecoration();";
-					sublinhado=true;
-				}else{
-					document.getElementById("sublinhado").className = "buttonToolbar";				
-					sublinhado=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#italico").click(function(){
-				if(italico==false){
-					document.getElementById("italico").className = "habilitado";					
-					document.getElementById("italico").href = "javascript:setStyle();";
-					italico=true;
-				}else{
-					document.getElementById("italico").className = "buttonToolbar";				
-					italico=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#move").click(function(){
-				if(move==false){
-					document.getElementById("move").className = "buttonToolbar";					
-					document.getElementById("move").href = "javascript:moveIt();";	
-					move=true;
-				}else{
-					document.getElementById("move").className = "desabilitado";
-					document.getElementById("move").href = "javascript:desabilitado();";					
-					move=false;
-				}
-				
-				$("#habOpcao").hide("slow");  <!-- Esconder -->	
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
-				
-				document.getElementById("delete").className = "desabilitado";
-				del=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-			
-			$("#delete").click(function(){
-				if(del==false){
-					document.getElementById("delete").className = "buttonToolbar";					
-					document.getElementById("delete").href = "javascript:deleteIt();";					
-					del=true;
-				}else{
-					document.getElementById("delete").className = "desabilitado";
-					document.getElementById("delete").href = "javascript:desabilitado();";					
-					del=false;
-				}
-				
-				$("#habOpcao").hide("slow");  <!-- Esconder -->	
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
-				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-			});
-		
-	//======================================================================================
-			
-			$("#keyboard").click(function(){	
-				$("#habFont").show("slow");   <!-- Aparecer -->	
-				$("#habEstilo").show("slow"); <!-- Aparecer -->
-				$("#habMedida").show("slow"); <!-- Aparecer -->
-				$("#habEspess").hide("slow"); <!-- Esconder -->	
-				$("#habOpcao").hide("slow");  <!-- Esconder -->
-
-				if(key==false){
-					document.getElementById("keyboard").className = "habilitado";					
-					document.getElementById("keyboard").href = "javascript:createWrite();";	
-					key=true;
-				}else{
-					document.getElementById("keyboard").className = "buttonToolbar";
-					document.getElementById("keyboard").href = "javascript:desabilitado();";					
-					key=false;
-				}
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;				
-			});	
-			
-			$("#draw").click(function(){				
-				$("#habFont").hide("slow");   <!-- Esconder -->	
-				$("#habEstilo").hide("slow"); <!-- Esconder -->
-				$("#habMedida").hide("slow"); <!-- Esconder -->	
-				$("#habOpcao").hide("slow");  <!-- Esconder -->					
-				$("#habEspess").show("slow"); <!-- Aparecer -->		
-
-				if(draw==false){
-					document.getElementById("draw").className = "habilitado";					
-					document.getElementById("draw").href = "javascript:createDraw();";	
-					draw=true;
-				}else{
-					document.getElementById("draw").className = "buttonToolbar";
-					document.getElementById("draw").href = "javascript:desabilitado();";					
-					draw=false;
-				}
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
-				
-				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("del").className = "desabilitado";
-				del=false;
-				
-			});
-
-			$("#geometricshapes").click(function(){				
-				$("#habFont").hide("slow");   <!-- Esconder -->	
-				$("#habEstilo").hide("slow"); <!-- Esconder -->
-				$("#habMedida").hide("slow"); <!-- Esconder -->						
-				$("#habEspess").show("slow"); <!-- Aparecer -->	
-				$("#habOpcao").show("slow");  <!-- Aparecer -->			
-			});	
-		})	
-	</script>	
 	
 </body>
 </html>
