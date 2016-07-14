@@ -71,13 +71,6 @@
     color: #fff;
 }
 
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    font-size:20px;
-    background: rgb(128,128,128);
-}
-
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;

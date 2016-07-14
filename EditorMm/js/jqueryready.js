@@ -27,7 +27,7 @@
 			
 			$("#font").html("Arial");
 			
-			document.getElementById("draw").className = "habilitado";
+			document.getElementById("draw").className = "btn btn-default";
 			
 			$("#arial").click(function(){
 				$("#habFontSpan").show("slow"); <!-- Aparecer -->			
@@ -287,56 +287,35 @@
 	
 			$("#negrito").click(function(){
 				if(negrito==false){
-					document.getElementById("negrito").className = "habilitado";					
+					document.getElementById("negrito").className = "btn btn-default";					
 					document.getElementById("negrito").href = "javascript:setStrokeText();";
 					negrito=true;
 				}else{
 					document.getElementById("negrito").className = "buttonToolbar";				
 					negrito=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
+				}	
 			});
 			
 			$("#sublinhado").click(function(){
 				if(sublinhado==false){
-					document.getElementById("sublinhado").className = "habilitado";					
+					document.getElementById("sublinhado").className = "btn btn-default";					
 					document.getElementById("sublinhado").href = "javascript:setDecoration();";
 					sublinhado=true;
 				}else{
 					document.getElementById("sublinhado").className = "buttonToolbar";				
 					sublinhado=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
+				}					
 			});
 			
 			$("#italico").click(function(){
 				if(italico==false){
-					document.getElementById("italico").className = "habilitado";					
+					document.getElementById("italico").className = "btn btn-default";					
 					document.getElementById("italico").href = "javascript:setStyle();";
 					italico=true;
 				}else{
 					document.getElementById("italico").className = "buttonToolbar";				
 					italico=false;
-				}
-				document.getElementById("move").className = "desabilitado";
-				move=false;
-				document.getElementById("delete").className = "desabilitado";
-				del=false;	
-				
-				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
+				}					
 			});
 		
 	//======================================================================================
@@ -350,7 +329,7 @@
 				document.getElementById("line").className = "desabilitado";	
 				
 				if(move==false){
-					document.getElementById("move").className = "buttonToolbar";					
+					document.getElementById("move").className = "btn btn-default";					
 					document.getElementById("move").href = "javascript:moveIt();";	
 					move=true;
 				}else{
@@ -359,15 +338,14 @@
 					move=false;
 				}
 				
-				$("#habOpcao").hide("slow");  	   <!-- Esconder -->					
+				$("#habOpcao").hide("slow");       <!-- Esconder -->
+				$("#habMedida").hide("slow");      <!-- Esconder -->
+				$("#habFont").hide("slow");        <!-- Esconder -->	
+				$("#habEstilo").hide("slow");      <!-- Esconder -->
 				$("#habEspessSpan").hide("slow");  <!-- Esconder -->
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
+				$("#habMedidaSpan").hide("slow");  <!-- Esconder -->
+				$("#habFontSpan").hide("slow");    <!-- Esconder -->				
+				$("#habEspess").hide("slow");      <!-- Esconder -->
 				
 				document.getElementById("delete").className = "desabilitado";
 				del=false;
@@ -386,7 +364,7 @@
 				document.getElementById("line").className = "desabilitado";	
 				
 				if(del==false){
-					document.getElementById("delete").className = "buttonToolbar";					
+					document.getElementById("delete").className = "btn btn-default";					
 					document.getElementById("delete").href = "javascript:deleteIt();";					
 					del=true;
 				}else{
@@ -395,15 +373,14 @@
 					del=false;
 				}
 				
-				$("#habOpcao").hide("slow");  <!-- Esconder -->					
+				$("#habOpcao").hide("slow");       <!-- Esconder -->
+				$("#habMedida").hide("slow");      <!-- Esconder -->
+				$("#habFont").hide("slow");        <!-- Esconder -->	
+				$("#habEstilo").hide("slow");      <!-- Esconder -->
 				$("#habEspessSpan").hide("slow");  <!-- Esconder -->
-				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
+				$("#habMedidaSpan").hide("slow");  <!-- Esconder -->
+				$("#habFontSpan").hide("slow");    <!-- Esconder -->				
+				$("#habEspess").hide("slow");      <!-- Esconder -->
 				
 				document.getElementById("move").className = "desabilitado";
 				move=false;
@@ -418,7 +395,7 @@
 				$("#wrapper").toggleClass("toggled");
 				
 				if(menu==false){
-					document.getElementById("menu-toggle").className = "buttonToolbar";					
+					document.getElementById("menu-toggle").className = "btn btn-default";					
 					document.getElementById("menu-toggle").href = "#menu-toggle";
 					menu=true;
 				}else{
@@ -429,7 +406,7 @@
 				
 			$("#touch").click(function(){
 				if(touch==false){
-					document.getElementById("touch").className = "buttonToolbar";					
+					document.getElementById("touch").className = "btn btn-default";					
 					document.getElementById("touch").href = "javascript:device();";
 					touch=true;
 				}else{
@@ -458,7 +435,7 @@
 				document.getElementById("line").className = "desabilitado";	
 				
 				if(key==false){
-					document.getElementById("keyboard").className = "habilitado";					
+					document.getElementById("keyboard").className = "btn btn-default";					
 					document.getElementById("keyboard").href = "javascript:createWrite();";	
 					key=true;
 				}else{
@@ -468,8 +445,7 @@
 				}
 				
 				document.getElementById("draw").className = "buttonToolbar";				
-				draw=false;
-				
+				draw=false;				
 				document.getElementById("move").className = "desabilitado";
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
@@ -493,7 +469,7 @@
 				document.getElementById("line").className = "desabilitado";	
 				
 				if(draw==false){
-					document.getElementById("draw").className = "habilitado";					
+					document.getElementById("draw").className = "btn btn-default";					
 					document.getElementById("draw").href = "javascript:createDraw();";	
 					draw=true;
 				}else{
@@ -502,16 +478,8 @@
 					draw=false;
 				}
 				
-				document.getElementById("negrito").className = "buttonToolbar";
-				negrito=false;					
-				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
-				document.getElementById("italico").className = "buttonToolbar";
-				italico=false;	
-				
 				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;
-				
+				key=false;				
 				document.getElementById("move").className = "desabilitado";
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
@@ -538,8 +506,7 @@
 				document.getElementById("square").className = "desabilitado";
 				document.getElementById("ellipse").className = "desabilitado";				
 				document.getElementById("line").className = "desabilitado";
-				
-				document.getElementById("drop").className = "habilitado";				
+							
 				document.getElementById("drop").href = "javascript:createPonto();";	
 				
 				document.getElementById("delete").className = "desabilitado";
@@ -559,9 +526,8 @@
 				document.getElementById("drop").className = "desabilitado";
 				document.getElementById("square").className = "desabilitado";
 				document.getElementById("ellipse").className = "desabilitado";				
-				document.getElementById("line").className = "desabilitado";
-				
-				document.getElementById("circle").className = "habilitado";				
+				document.getElementById("line").className = "desabilitado";				
+								
 				document.getElementById("circle").href = "javascript:createCircle();";	
 				
 				document.getElementById("delete").className = "desabilitado";
@@ -582,8 +548,7 @@
 				document.getElementById("drop").className = "desabilitado";
 				document.getElementById("ellipse").className = "desabilitado";				
 				document.getElementById("line").className = "desabilitado";
-				
-				document.getElementById("square").className = "habilitado";				
+								
 				document.getElementById("square").href = "javascript:createRectangle();";	
 				
 				document.getElementById("delete").className = "desabilitado";
@@ -604,8 +569,7 @@
 				document.getElementById("drop").className = "desabilitado";
 				document.getElementById("square").className = "desabilitado";				
 				document.getElementById("line").className = "desabilitado";
-				
-				document.getElementById("ellipse").className = "habilitado";				
+								
 				document.getElementById("ellipse").href = "javascript:createEllipse();";	
 				
 				document.getElementById("delete").className = "desabilitado";
@@ -626,8 +590,7 @@
 				document.getElementById("drop").className = "desabilitado";
 				document.getElementById("square").className = "desabilitado";				
 				document.getElementById("ellipse").className = "desabilitado";	
-				
-				document.getElementById("line").className = "habilitado";				
+							
 				document.getElementById("line").href = "javascript:createLine();";	
 				
 				document.getElementById("delete").className = "desabilitado";
