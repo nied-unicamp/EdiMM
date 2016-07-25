@@ -509,7 +509,7 @@
 					
 					svg.removeEventListener('touchstart', startMultiTouchURL, false);
 					svg.removeEventListener('touchmove', moveMultiTouchURL, false);
-					svg.removeEventListener('touchend', endMoveMultiTouchImage, false);
+					svg.removeEventListener('touchend', endMoveMultiTouchURL, false);
 					
 					svg.removeEventListener('mousedown', startURL, false);
 					svg.removeEventListener('mousemove', moveURL, false);
@@ -1817,7 +1817,7 @@
 				
 					if(diffX <0) {
 					//movement left
-					ellipseArray[idTouch].setAttribute('cx', moveX);
+					ellipseArray[idTouch].setAttribute('x', moveX);
 					ellipseArray[idTouch].setAttribute('rx', (diffX*(-1)));
 					} else {
 					//movement right
@@ -1872,7 +1872,7 @@
 			
 				if(diffX <0) {
 				//movement left
-				ellipse.setAttribute('cx', moveX);
+				ellipse.setAttribute('x', moveX);
 				ellipse.setAttribute('rx', (diffX*(-1)));
 				} else {
 				//movement right
@@ -2078,7 +2078,7 @@
 				//alert("Usando touch");
 				svg.addEventListener('touchstart', startMultiTouchURL, false);
 				svg.addEventListener('touchmove', moveMultiTouchURL, false);
-				svg.addEventListener('touchend', endMoveMultiTouchImage, false);	
+				svg.addEventListener('touchend', endMoveMultiTouchURL, false);	
 			} 					
 			//Sera usado mouse
 			//alert("Usando mouse"); 
@@ -2150,7 +2150,7 @@
 			event.preventDefault(); // Prevents an additional event being triggered
 		}	
 	
-		function endMoveMultiTouchImage(event) {	
+		function endMoveMultiTouchURL(event) {	
 		var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
