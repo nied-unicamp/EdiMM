@@ -66,22 +66,15 @@
 						<fieldset class="scheduler-border" id="habEstilo">
 						<legend class="scheduler-border"></legend>	
 						<li>
-						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/bold.png" width="10"></a>				
-						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/underline.png" width="10"></a>
-						<a class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()" id="italico"><img src="images/italic.png" width="10"></a>
+						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/1bold.png" width="10"></a>				
+						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/1underline.png" width="10"></a>
+						<a class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
 						</li>
 						</fieldset>
 					</li>						
 					
-					<li>
-						<fieldset class="scheduler-border" id ="habMedidaSpan">
-						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Medida Utilizada')" onmouseout="UnTip()" ><span id="medida" class="font"></span></a></li>
-						</fieldset>
-					</li>
-					
 					<li>						
-						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/measuretext.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setSizeText(10);" id="tamanho10">10</a></li>
 								<li><a href="javascript:setSizeText(12);" id="tamanho12">12</a></li>
@@ -106,16 +99,17 @@
 							</ul>
 						</li>							
 					</li>
-
+					
 					<li>
-						<fieldset class="scheduler-border" id ="habFontSpan">
+						<fieldset class="scheduler-border" id ="habMedidaSpan">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Fonte Utilizada')" onmouseout="UnTip()" ><span id="font" class="font"></span></a></li>
+						<li><a class="buttonToolbar" onmouseover="Tip('Medida Utilizada')" onmouseout="UnTip()" ><span id="medida" class="font"></span></a></li>
 						</fieldset>
-					</li>					
+					</li>
+								
 					
 					<li>					
-						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/stylestext.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">								
 								<li><a href="javascript:setFontText('arial');" id="arial">Arial</a></li>
 								<li><a href="javascript:setFontText('comicsans');" id="comicsans">Comic Sans</a></li>
@@ -137,10 +131,17 @@
 								<li><a href="javascript:setFontText('wingdings');" id="wingdings">Wingdings</a></li>			
 							</ul>
 						</li>							
-					</li>							
+					</li>	
+
+					<li>
+						<fieldset class="scheduler-border" id ="habFontSpan">
+						<legend class="scheduler-border"></legend>
+						<li><a class="buttonToolbar" onmouseover="Tip('Fonte Utilizada')" onmouseout="UnTip()" ><span id="font" class="font"></span></a></li>
+						</fieldset>
+					</li>	
 					
 					<li>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/linewidth.png" width="25"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/3linewidth.png" width="25"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setWidth(1);" id="line01"><img src="images/line1.png" width="24"></a></li>
 								<li><a href="javascript:setWidth(2);" id="line02"><img src="images/line2.png" width="24"></a></li>
@@ -157,36 +158,42 @@
 						</li>	
 					</li>								
 					
+					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()" id="paletaCores"><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>	
+					
+					<li><a></a></li>
+					
+					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/3move.png" width="22"></a></li>		
+
+					<li><a onmouseover="Tip('Excluir Componente')" onmouseout="UnTip()" id="delete"><img src="images/3delete.png" width="22"></a></li>						
+					
+					<li><a onmouseover="Tip('Equipe')" onmouseout="UnTip()" id="menu-toggle"><img src="images/3team.png" width="22"></a></li>	
+					
+					<li><a></a></li>
+					
 					<li>						
-						<li><a data-toggle="dropdown" onmouseover="Tip('Arquivo')" onmouseout="UnTip()"><img src="images/save.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Arquivo')" onmouseout="UnTip()"><img src="images/3savefile.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:imageIt();" onmouseover="Tip('Gerar Imagem')" onmouseout="UnTip()"><img src="images/image.png" width="22"></a></li>	
-								<li><a href="javascript:pdfIt();" onmouseover="Tip('Gerar PDF')" onmouseout="UnTip()"><img src="images/pdf.png" width="22"></a></li>								
-								<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Arquivo')" onmouseout="UnTip()"><img src="images/salvararquivo.png" width="22"></a></li>
-								<li><a href="javascript:downloadIt();" onmouseover="Tip('Fazer Download')" onmouseout="UnTip()"><img src="images/download.png" width="22"></a></li>		
+								<li><a href="javascript:imageIt();" onmouseover="Tip('Salvar imagem')" onmouseout="UnTip()"><img src="images/5image.png" width="22"></a></li>	
+								<li><a href="javascript:pdfIt();" onmouseover="Tip('Salvar em PDF')" onmouseout="UnTip()"><img src="images/5pdf.png" width="22"></a></li>								
+								<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a></li>
+								<li><a href="javascript:downloadIt();" onmouseover="Tip('Fazer Download')" onmouseout="UnTip()"><img src="images/5download.png" width="22"></a></li>		
 							</ul>
 						</li>						
 					</li>
 					
 					<li>						
-						<li><a data-toggle="dropdown" onmouseover="Tip('Layout')" onmouseout="UnTip()"><img src="images/monitor.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Layout')" onmouseout="UnTip()"><img src="images/3layout.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">																	
-								<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/newfile.png" width="22"></a></li>						
-								<li><a href="javascript:drawGrid();" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/grid.png" width="22"></a></li>  									
-								<li><a href="javascript:clearGrid();" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/paper.png" width="22"></a></li> 									
+								<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/4newfile.png" width="22"></a></li>						
+								<li><a href="javascript:drawGrid();" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/4drawgrid.png" width="22"></a></li>  									
+								<li><a href="javascript:clearGrid();" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/4cleargrid.png" width="22"></a></li> 									
 							</ul>
 						</li>						
 					</li>	
-					
-					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()"><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>	
-					
-					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/drag.png" width="22"></a></li>		
 
-					<li><a onmouseover="Tip('Apagar Componente')" onmouseout="UnTip()" id="delete"><img src="images/delete.png" width="22"></a></li>	
+					<li><a></a></li>	
 					
-					<li><a onmouseover="Tip('Multi Touch Screen')" onmouseout="UnTip()" id="touch"><img src="images/touchScreen.png" width="22"></a></li> 	
-					
-					<li><a onmouseover="Tip('Equipe')" onmouseout="UnTip()" id="menu-toggle"><img src="images/expand.png" width="22"></a></li>	
+					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 						
 									
 				</ul>
 			</div>	
@@ -195,7 +202,7 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-				<li><img src="images/editor.png"></li> 		              
+				<li><img src="images/6editor.png"></li> 		              
 				<li class="sidebar-brand"><a class="font"> EDITOR MULTIMODAL </a></li>								
 			</ul>				
         </div>		
@@ -209,18 +216,18 @@
 							<div class="container">
 								<div id="nav">
 									<ul class="nav nav-pills nav-stacked">	
-										<li><a class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/text.png" width="20"></a></li>
-										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/thicknessdrawing.png" width="20"></a></li>						
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/geometric.png" width="20"><span class="caret"></span></a>
+										<li><a class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/6text.png" width="20"></a></li>
+										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>						
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/6geometric.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">												
-												<li><a onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/drop.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/circle.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/square.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/ellipse.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/line.png" width="15"></a></li>	
+												<li><a onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/2drop.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/2circle.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/2square.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/2ellipse.png" width="15"></a></li>
+												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/2line.png" width="15"></a></li>	
 											</ul>
 										</li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/photos.png" width="20"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/6photos.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURL(event);" id="inputFile"></a></li>
 											</ul>
@@ -262,8 +269,7 @@
     <script type="text/javascript" src="js/jqueryready.js"></script>
 	
     <!-- Bootstrap JS -->
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>	
-	
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>		
 	
 </body>
 </html>

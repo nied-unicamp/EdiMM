@@ -2213,7 +2213,7 @@
 		
 		//============================================================================
 		
-		function drawGrid(){
+		function drawGrid(){		
 		var y;
 			if (clearG == 0) {
 				for (y=30; y<960; y+=30){
@@ -2234,7 +2234,8 @@
  			}			
 			else if (clearG == 1) {				
 		
-			}
+			}			
+			saveImage();			
 		}
 		
 		//============================================================================
@@ -2248,7 +2249,8 @@
 					}
 				clearG=0;
 				}
-			}
+			}			
+			saveImage();			
 		}
 		
 		//============================================================================
@@ -2306,12 +2308,14 @@
 		window.open(dataURL, "_self");
 	
 		context.clearRect(0, 0, w, h);
-		context.globalCompositeOperation = compositeOperation;   
+		context.globalCompositeOperation = compositeOperation; 
+
+		saveImage();
 		}
 		
 		//============================================================================
 		
-		function saveIt() {	
+		function saveIt() {			
 		var serializer = new XMLSerializer();
 		var xmlString = serializer.serializeToString(layer);
 		xmlString.replace("</t", "><");
@@ -2320,6 +2324,8 @@
 		xmlhttp.open("POST","dml/armazena.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("id="+id+"&svg="+encoded);
+		alert('Arquivo Salvo. Codigo de Acesso: '+id);
+		saveImage();
 		}
 		
 		//============================================================================

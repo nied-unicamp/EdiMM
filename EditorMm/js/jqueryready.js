@@ -338,6 +338,7 @@
 					move=false;
 				}
 				
+				$("#paletaCores").hide("slow");    <!-- Esconder -->
 				$("#habOpcao").hide("slow");       <!-- Esconder -->
 				$("#habMedida").hide("slow");      <!-- Esconder -->
 				$("#habFont").hide("slow");        <!-- Esconder -->	
@@ -373,6 +374,7 @@
 					del=false;
 				}
 				
+				$("#paletaCores").hide("slow");    <!-- Esconder -->
 				$("#habOpcao").hide("slow");       <!-- Esconder -->
 				$("#habMedida").hide("slow");      <!-- Esconder -->
 				$("#habFont").hide("slow");        <!-- Esconder -->	
@@ -423,7 +425,8 @@
 				$("#habEstilo").show("slow"); 	   <!-- Aparecer -->
 				$("#habMedida").show("slow"); 	   <!-- Aparecer -->
 				$("#habFontSpan").show("slow");    <!-- Aparecer -->				
-				$("#habMedidaSpan").show("slow");  <!-- Aparecer -->								
+				$("#habMedidaSpan").show("slow");  <!-- Aparecer -->
+				$("#paletaCores").show("slow");    <!-- Aparecer -->				
 				$("#habEspessSpan").hide("slow");  <!-- Esconder -->
 				$("#habEspess").hide("slow"); 	   <!-- Esconder -->	
 				$("#habOpcao").hide("slow");  	   <!-- Esconder -->
@@ -458,7 +461,8 @@
 				$("#habMedida").hide("slow");	   <!-- Esconder -->	
 				$("#habOpcao").hide("slow"); 	   <!-- Esconder -->	
 				$("#habMedidaSpan").hide("slow");  <!-- Esconder -->
-				$("#habFontSpan").hide("slow");    <!-- Esconder -->						
+				$("#habFontSpan").hide("slow");    <!-- Esconder -->
+				$("#paletaCores").show("slow");    <!-- Aparecer -->
 				$("#habEspessSpan").show("slow");  <!-- Aparecer -->
 				$("#habEspess").show("slow"); 	   <!-- Aparecer -->
 				
