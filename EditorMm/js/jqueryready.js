@@ -497,7 +497,7 @@
 				$("#habMedida").hide("slow"); 	  <!-- Esconder -->	
 				$("#habMedidaSpan").hide("slow"); <!-- Esconder -->				
 				$("#habFontSpan").hide("slow");   <!-- Esconder -->
-				$("#paletaCores").show("slow");    <!-- Aparecer -->
+				$("#paletaCores").show("slow");   <!-- Aparecer -->
 				$("#habEspess").show("slow"); 	  <!-- Aparecer -->	
 				$("#habOpcao").show("slow"); 	  <!-- Aparecer -->	
 				$("#habEspessSpan").show("slow"); <!-- Aparecer -->

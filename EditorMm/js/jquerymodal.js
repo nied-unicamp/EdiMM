@@ -2324,7 +2324,7 @@
 		xmlhttp.open("POST","dml/armazena.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send("id="+id+"&svg="+encoded);
-		alert('Arquivo Salvo. Codigo de Acesso: '+id);
+		alert('Salvo com Sucesso. Codigo de Acesso: '+id);
 		saveImage();
 		}
 		
