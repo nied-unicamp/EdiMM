@@ -46,23 +46,23 @@
 		//============================================================================	
 		
 		if (!id){		
-		id = makeid();
-		id = id.replace(" ", "");
-		window.location.replace(url+"?"+id);		
+			id = makeid();
+			id = id.replace(" ", "");
+			window.location.replace(url+"?"+id);		
 		}				
 		
 		function makeid() {
-		var text = "";
-		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-			for( var i=0; i < 6; i++ )
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
-		return text;
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+				for( var i=0; i < 6; i++ )
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+			return text;
 		}	
 		
 		//============================================================================			
 		
 		function activeButton(element) {
-		element.style.background="#a2a2a2";
+			element.style.background="#a2a2a2";
 		}
 		
 		//============================================================================	
@@ -81,63 +81,63 @@
 				activeButtonElement.style.background="none";
 				}
 			}
-		activeButtonElement = element;
+			activeButtonElement = element;
 		}	
 		
 		//============================================================================
 					
 		function createViewElementForPath() {
-		viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-		viewElementG.setAttribute('class', "viewelement");
-		viewElementG.setAttribute('transform', "translate(0,0)");
-		movementLayer.appendChild(viewElementG);
+			viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+			viewElementG.setAttribute('class', "viewelement");
+			viewElementG.setAttribute('transform', "translate(0,0)");
+			movementLayer.appendChild(viewElementG);
 		}
 		
 		function desabilitado() {
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 0;
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 0;
 		}	
 		
 		//============================================================================
 		
 		function device() {
-		deviceIsStylusSensitive();
-		deviceIsTouchScreen();
-		var number = numberOfEventListener;
-			switch (number) {
-				case 1 :
-				createDraw();
-				break;
-				case 2 :
-				moveIt();
-				break;
-				case 3 :
-				deleteIt();
-				break;
-				case 4 :
-				createWrite();
-				break;
-				case 5 :
-				createPonto();
-				break;
-				case 6 :
-				createCircle();
-				break;
-				case 7 :  
-				createRectangle();
-				break;
-				case 8 :  
-				createEllipse();
-				break;
-				case 9 :  
-				createLine();
-				break;
-				case 10 :  
-				readURL(event);			
-				default:
-				createDraw();
-				break;
-			}	
+			deviceIsStylusSensitive();
+			deviceIsTouchScreen();
+			var number = numberOfEventListener;
+				switch (number) {
+					case 1 :
+					createDraw();
+					break;
+					case 2 :
+					moveIt();
+					break;
+					case 3 :
+					deleteIt();
+					break;
+					case 4 :
+					createWrite();
+					break;
+					case 5 :
+					createPonto();
+					break;
+					case 6 :
+					createCircle();
+					break;
+					case 7 :  
+					createRectangle();
+					break;
+					case 8 :  
+					createEllipse();
+					break;
+					case 9 :  
+					createLine();
+					break;
+					case 10 :  
+					readURL(event);			
+					default:
+					createDraw();
+					break;
+				}	
 		}		
 		
 		function deviceIsTouchScreen() {
@@ -150,7 +150,8 @@
 				
 			}else{			
 			touchIsEnabled=false;
-			}		
+			}
+			saveImage();
 		}
 
 		function deviceIsStylusSensitive() {
@@ -161,217 +162,224 @@
 			}else{
 			stylusIsEnabled=false;
 			}	
+			saveImage();
 		}
 		
 		//============================================================================
 		
 		function saveImage() {			
-				var serializer = new XMLSerializer();
-				var xmlString = serializer.serializeToString(layer);
+			var serializer = new XMLSerializer();
+			var xmlString = serializer.serializeToString(layer);
 
-				canvg(document.getElementById('canvas'), xmlString);
-				var canvas = document.getElementById("canvas");
-				var context=canvas.getContext("2d");
-				var backgroundColor="white";
+			canvg(document.getElementById('canvas'), xmlString);
+			var canvas = document.getElementById("canvas");
+			var context=canvas.getContext("2d");
 		}
 		
 		//============================================================================
 
 		function init() {
-		svg = document.getElementById('svgID');
-		layer = document.getElementsByClassName('layer')[0];
-		
-		movementLayer = document.getElementById('movement');
+			svg = document.getElementById('svgID');
+			layer = document.getElementsByClassName('layer')[0];
+			movementLayer = document.getElementById('movement');
 
-		screenXCorrection = screen.width * 0.0;
-		screenYCorrection = screen.height * 0.0;
+			screenXCorrection = screen.width * 0.0;
+			screenYCorrection = screen.height * 0.0;				
 			
-		id = id.replace("?", "");
-		deserializeSVGtoXML();	
-		createDraw();
+			id = id.replace("?", "");
+			deserializeSVGtoXML();
+			createDraw();
+			saveImage();
 		}
 		
 		function deserializeSVGtoXML() {		
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange=function() {
-			if(xmlhttp.readyState==4 && xmlhttp.status==200) {
-			var xmlString = xmlhttp.responseText;
-			var x;
-			xmlString = xmlString.replace("<html>", "");
-			xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
-			xmlString = xmlString.replace("</head> <body>", "");
-			xmlString = xmlString.trim();
-			xmlString = xmlString.substring(1, xmlString.length);
-			xmlArray = xmlString.split("><");
-		
-			var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-			var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-			var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-		
-				for(i=0; i<xmlArray.length; i++) {			
-					switch(xmlArray[i].substr(0, 1)) {
-						case "g":
-							if(xmlArray[i].indexOf('class="layer"') != -1) {						
-							var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function() {
+				if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+				var xmlString = xmlhttp.responseText;
+				var x;
+				xmlString = xmlString.replace("<html>", "");
+				xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
+				xmlString = xmlString.replace("</head> <body>", "");
+				xmlString = xmlString.trim();
+				xmlString = xmlString.substring(1, xmlString.length);
+				xmlArray = xmlString.split("><");
+			
+				var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+				var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+				var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+			
+					for(i=0; i<xmlArray.length; i++) {			
+						switch(xmlArray[i].substr(0, 1)) {
+							case "g":
+								if(xmlArray[i].indexOf('class="layer"') != -1) {						
+								var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
 
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								layerElement.setAttribute(attributeName, attributeValue);
-								}
-							} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {									
-									var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-									var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									layerElement.setAttribute(attributeName, attributeValue);
+									}
+								} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {									
+										var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+										var attributeArray = attributeString.split('"');
 
-										for(j=0; j<attributeArray.length-1; j=j+2) {
-										var attributeName = attributeArray[j].trim();
-										attributeName = attributeName.substring(0, attributeName.length-1);
-										var attributeValue = attributeArray[j+1];
-										movementElement.setAttribute(attributeName, attributeValue);
-										}
-									} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {										
-											var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-											var attributeArray = attributeString.split('"');
-												if(viewElement.hasChildNodes && attributeArray.length>4) {												
-												viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-												viewElement = viewElementTemp;
-												movementElement.appendChild(viewElement);
-												}
-												 
-												if(attributeArray.length>4){
-													for(j=0; j<attributeArray.length-1; j=j+2) {
-													var attributeName = attributeArray[j].trim();
-													attributeName = attributeName.substring(0, attributeName.length-1);
-													var attributeValue = attributeArray[j+1];
-													viewElement.setAttribute(attributeName, attributeValue);
+											for(j=0; j<attributeArray.length-1; j=j+2) {
+											var attributeName = attributeArray[j].trim();
+											attributeName = attributeName.substring(0, attributeName.length-1);
+											var attributeValue = attributeArray[j+1];
+											movementElement.setAttribute(attributeName, attributeValue);
+											}
+										} else  if(xmlArray[i].indexOf('class="viewelement"') != -1) {										
+												var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+												var attributeArray = attributeString.split('"');
+													if(viewElement.hasChildNodes && attributeArray.length>4) {												
+													viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+													viewElement = viewElementTemp;
+													movementElement.appendChild(viewElement);
+													}
+													 
+													if(attributeArray.length>4){
+														for(j=0; j<attributeArray.length-1; j=j+2) {
+														var attributeName = attributeArray[j].trim();
+														attributeName = attributeName.substring(0, attributeName.length-1);
+														var attributeValue = attributeArray[j+1];
+														viewElement.setAttribute(attributeName, attributeValue);
+														}
 													}
 												}
-											}
-								 
-						break;
-						case "p":							
-							var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
+									 
+							break;
+							case "p":							
+								var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
 
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								path.setAttribute(attributeName, attributeValue);
-								}
-							viewElement.appendChild(path);
-							movementElement.appendChild(viewElement);
-						break;
-						case "t":
-							if ((xmlArray[i].substr(0, 1) == "t")){							
-							var text =  document.createElementNS('http://www.w3.org/2000/svg', 'text');
-							var textArray =  xmlArray[i].split(">");
-							var attributeString = textArray[0].substr(4, textArray[0].length);							
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								text.setAttribute(attributeName, attributeValue);
-								}
-								if ((typeof textArray[1] != 'undefined')){
-								var aux = textArray[1].substr(0, textArray[1].length -6);
-								aux = aux.replace("|", "");	
-								var textNode = document.createTextNode(aux);
-								text.appendChild(textNode);
-								viewElement.appendChild(text);
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									path.setAttribute(attributeName, attributeValue);
+									}
+								viewElement.appendChild(path);
 								movementElement.appendChild(viewElement);
+							break;
+							case "t":
+								if ((xmlArray[i].substr(0, 1) == "t")){							
+								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+								var textArray =  xmlArray[i].split(">");
+								var attributeString = textArray[0].substr(4, textArray[0].length);							
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									text.setAttribute(attributeName, attributeValue);
+									}
+									if ((typeof textArray[1] != 'undefined')){
+									var aux = textArray[1].substr(0, textArray[1].length -6);
+									aux = aux.replace("|", "");	
+									var textNode = document.createTextNode(aux);
+									text.appendChild(textNode);
+									viewElement.appendChild(text);
+									movementElement.appendChild(viewElement);
+									}
 								}
-							}
-						break;
-						case "i":							
-							if ((xmlArray[i].substr(0, 1) == "i")){							
-							var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-							var attributeString = xmlArray[i].substr(5, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-3; j=j+2) {	
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-									if (attributeName == 'xlink:href')
-									image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
-									else
-									image.setAttributeNS(null, attributeName, attributeValue);
-								}
+							break;
+							case "i":							
+								if ((xmlArray[i].substr(0, 1) == "i")){							
+								var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+								var imageArray = xmlArray[i].split(">");
+								var attributeString = imageArray[0].substr(5, imageArray[0].length);
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {	
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+										if (attributeName == 'xlink:href'){
+										image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
+										}
+										else{
+										image.setAttribute(null, attributeName, attributeValue);	
+										}										
+									image.setAttribute(attributeName, attributeValue);	
+									}
 								viewElement.appendChild(image);
+								movementElement.appendChild(viewElement);	
+								}
+							break;							
+							case "e":							
+								var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+								var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									ellipse.setAttribute(attributeName, attributeValue);
+									}
+								viewElement.appendChild(ellipse);
 								movementElement.appendChild(viewElement);
-							}
-						break;
-						case "e":							
-							var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-							var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								ellipse.setAttribute(attributeName, attributeValue);
-								}
-							viewElement.appendChild(ellipse);
-							movementElement.appendChild(viewElement);
-						break;
-						case "c":							
-							var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-							var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								circle.setAttribute(attributeName, attributeValue);
-								}
-							viewElement.appendChild(circle);
-							movementElement.appendChild(viewElement);
-						break;
-						case "r":							
-							var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								rect.setAttribute(attributeName, attributeValue);
-								}
-							viewElement.appendChild(rect);
-							movementElement.appendChild(viewElement);
-						break;
-						case "l":							
-							var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-							var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
-							var attributeArray = attributeString.split('"');
-								for(j=0; j<attributeArray.length-1; j=j+2) {
-								var attributeName = attributeArray[j].trim();
-								attributeName = attributeName.substring(0, attributeName.length-1);
-								var attributeValue = attributeArray[j+1];
-								line.setAttribute(attributeName, attributeValue);
-								}
-							viewElement.appendChild(line);
-							movementElement.appendChild(viewElement);
-						break;
-						case "/":
-						break;
+							break;
+							case "c":							
+								var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+								var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									circle.setAttribute(attributeName, attributeValue);
+									}
+								viewElement.appendChild(circle);
+								movementElement.appendChild(viewElement);
+							break;
+							case "r":							
+								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									rect.setAttribute(attributeName, attributeValue);
+									}
+								viewElement.appendChild(rect);
+								movementElement.appendChild(viewElement);
+							break;
+							case "l":							
+								var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									line.setAttribute(attributeName, attributeValue);
+									}
+								viewElement.appendChild(line);
+								movementElement.appendChild(viewElement);
+							break;
+							case "/":
+							break;
+							default:
+							saveImage();
+							break;
+						}	
+					}    
+					if (viewElement){
+					layerElement.appendChild(movementElement);
+					svg.replaceChild(layerElement, layer);
+					layer = layerElement;
+					movementLayer = movementElement;
 					}
-				}    
-				if (viewElement){
-				layerElement.appendChild(movementElement);
-				svg.replaceChild(layerElement, layer);
-				layer = layerElement;
-				movementLayer = movementElement;
-				}
-			} 
-		}
-		xmlhttp.open("POST", "dml/consulta.php", true);
-		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
-		xmlhttp.send("id="+id);
+				} 
+			}
+			xmlhttp.open("POST", "dml/consulta.php", true);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");		
+			xmlhttp.send("id="+id);
 		}
 		
 		//============================================================================
@@ -575,46 +583,46 @@
 		}
 		
 		function moveMultiTouchDraw(event) {
-		var touches = event.changedTouches;
-			for(var j = 0; j < touches.length; j++) {
-				var idTouch = touches[j].identifier;	
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-				var sx = touches[j].clientX;
-				var sy = touches[j].clientY - screenYCorrection;
-				var dString = pathArray[idTouch].getAttribute('d');
-				dString += ' L'+sx+' '+sy;
-				pathArray[idTouch].setAttribute('d', dString);
-			}			
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */			
-			event.preventDefault(); // Prevents an additional event being triggered		
+			var touches = event.changedTouches;
+				for(var j = 0; j < touches.length; j++) {
+					var idTouch = touches[j].identifier;	
+					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+					var sx = touches[j].clientX;
+					var sy = touches[j].clientY - screenYCorrection;
+					var dString = pathArray[idTouch].getAttribute('d');
+					dString += ' L'+sx+' '+sy;
+					pathArray[idTouch].setAttribute('d', dString);
+				}			
+				/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */			
+				event.preventDefault(); // Prevents an additional event being triggered		
 		}
 		
 		function endMoveMultiTouchDraw(event) {	
-		var touches = event.changedTouches;
-			for(var j = 0; j < touches.length; j++) {
-				var idTouch = touches[j].identifier;	
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(pathArray[idTouch]);
-				isMousePressed = false;	
-				saveImage();
-			}
-			event.preventDefault(); // Prevents an additional event being triggered
+			var touches = event.changedTouches;
+				for(var j = 0; j < touches.length; j++) {
+					var idTouch = touches[j].identifier;	
+					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+					createViewElementForPath();
+					viewElementG.appendChild(pathArray[idTouch]);
+					isMousePressed = false;	
+					saveImage();
+				}
+				event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function startDraw(event) {	
-		var sx = event.clientX;
-		var sy = event.clientY - screenYCorrection;
-		var startPosition = "M"+sx+" "+sy;		
-		path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-		path.setAttribute('id', 'pathID');
-		path.setAttribute('d', startPosition);
-		path.setAttribute('fill', 'none');
-		path.setAttribute('stroke', color);
-		path.setAttribute('stroke-width', width);
-		svg.appendChild(path);
-		isMousePressed = true;
-        event.preventDefault(); // Prevents an additional event being triggered
+			var sx = event.clientX;
+			var sy = event.clientY - screenYCorrection;
+			var startPosition = "M"+sx+" "+sy;		
+			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			path.setAttribute('id', 'pathID');
+			path.setAttribute('d', startPosition);
+			path.setAttribute('fill', 'none');
+			path.setAttribute('stroke', color);
+			path.setAttribute('stroke-width', width);
+			svg.appendChild(path);
+			isMousePressed = true;
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function moveDraw(event) {
@@ -629,18 +637,18 @@
 		}
 
 		function endMoveDraw(event) {		
-		createViewElementForPath();
-		viewElementG.appendChild(path);
-		isMousePressed = false;
-		saveImage();
-        event.preventDefault(); // Prevents an additional event being triggered
+			createViewElementForPath();
+			viewElementG.appendChild(path);
+			isMousePressed = false;
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		//============================================================================
 		
 		function moveIt() {	
-		removeEventListenerFromSVG(numberOfEventListener);
-	    numberOfEventListener = 2;	
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 2;	
 		
 			if (stylusIsEnabled) {
 				//sera usado o pointer
@@ -783,15 +791,15 @@
 		}		
 		
 		function startMoves(event) {
-		isMousePressed = true;
-		startMoveX = event.clientX;
-		startMoveY = event.clientY-screenYCorrection;		
-		viewArray = document.getElementsByClassName('viewelement');
-			for(h=0; h<viewArray.length; h++) {
-			xArray[h] = getXandYTransformValues(viewArray[h]).x;
-			yArray[h] = getXandYTransformValues(viewArray[h]).y;
-			}		
-		event.preventDefault(); // Prevents an additional event being triggered
+			isMousePressed = true;
+			startMoveX = event.clientX;
+			startMoveY = event.clientY-screenYCorrection;		
+			viewArray = document.getElementsByClassName('viewelement');
+				for(h=0; h<viewArray.length; h++) {
+				xArray[h] = getXandYTransformValues(viewArray[h]).x;
+				yArray[h] = getXandYTransformValues(viewArray[h]).y;
+				}		
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function moveMoves(event) {
@@ -886,28 +894,28 @@
 		}
 		
 		function endMoveMoves(event) {
-		isMousePressed = false;		
-		saveImage();
-		event.preventDefault(); // Prevents an additional event being triggered
+			isMousePressed = false;		
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function getXandYTransformValues(groupElement) {
-		var transformValue = groupElement.getAttributeNode('transform').value;
-		var tempValue = transformValue.substr(10, transformValue.lastIndexOf(")"));
-		var pointArray = new Array();
-		pointArray = tempValue.split(",");
-		return {
-				x: parseInt(pointArray[0]),
-				y: parseInt(pointArray[1])
-			   };		
-		event.preventDefault(); // Prevents an additional event being triggered
+			var transformValue = groupElement.getAttributeNode('transform').value;
+			var tempValue = transformValue.substr(10, transformValue.lastIndexOf(")"));
+			var pointArray = new Array();
+			pointArray = tempValue.split(",");
+			return {
+					x: parseInt(pointArray[0]),
+					y: parseInt(pointArray[1])
+				   };		
+			event.preventDefault(); // Prevents an additional event being triggered
 		}		
 		
 		//============================================================================
 		
 		function deleteIt() { 
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 3;
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 3;
 		
 			if (stylusIsEnabled) {
 				//sera usado o pointer
@@ -987,17 +995,17 @@
 		}		
 		
 		function startDelete(event) {
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-		deleteRect.setAttribute('x', startX);
-		deleteRect.setAttribute('y', startY);
-		deleteRect.setAttribute('fill', "none");
-		deleteRect.setAttribute('stroke', "red");
-		deleteRect.setAttribute('stroke-width', "1");
-		svg.appendChild(deleteRect);
-		isMousePressed = true;
-		event.preventDefault(); // Prevents an additional event being triggered		
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			deleteRect.setAttribute('x', startX);
+			deleteRect.setAttribute('y', startY);
+			deleteRect.setAttribute('fill', "none");
+			deleteRect.setAttribute('stroke', "red");
+			deleteRect.setAttribute('stroke-width', "1");
+			svg.appendChild(deleteRect);
+			isMousePressed = true;
+			event.preventDefault(); // Prevents an additional event being triggered		
 		}
 		
 		function moveDelete(event) {
@@ -1028,109 +1036,109 @@
 		}
 		
 		function endMoveDelete(event) {
-		isMousePressed = false;
-		
-		var leftXRect = parseInt(deleteRect.getAttribute('x'));
-		var leftYRect = parseInt(deleteRect.getAttribute('y'));
-		var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
-		var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
-
-		var viewElementArray = document.getElementsByClassName('viewelement');
-		var arrayOfPathToDelete = new Array();
-			for(h=0; h<viewElementArray.length; h++) {
-				if(arrayOfPathToDelete.length!=0) {
-				arrayOfPathToDelete = new Array();
-				}
-			var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
-			var yTranslation = getXandYTransformValues(viewElementArray[h]).y;    
+			isMousePressed = false;
 			
-            var pathArray = viewElementArray[h].getElementsByTagName('path');            
-				if(pathArray.length>0){
-					for(i=0; i<pathArray.length; i++) {
-					var dAttributeString = pathArray[i].getAttribute('d');
-					var splitArray = dAttributeString.split(" ");
-					var xArray = new Array();
-						for(j=0; j<splitArray.length; j=j+2) {
-						xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
-						}
+			var leftXRect = parseInt(deleteRect.getAttribute('x'));
+			var leftYRect = parseInt(deleteRect.getAttribute('y'));
+			var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
+			var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
 
-					var yArray = new Array();
-						for(l=1; l<splitArray.length; l=l+2) {
-						yArray.push(yTranslation*1 + parseInt(splitArray[l]));
-						}
-						
-					var pathIn = false;
-						for(g=0; g<xArray.length; g++) {
-							if(pathIn == false) {
-								if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
-								pathIn = true;
-								}
-							}
-						}	
-						
-						if(pathIn == true) {
-						arrayOfPathToDelete.push(pathArray[i]);
-						}
+			var viewElementArray = document.getElementsByClassName('viewelement');
+			var arrayOfPathToDelete = new Array();
+				for(h=0; h<viewElementArray.length; h++) {
+					if(arrayOfPathToDelete.length!=0) {
+					arrayOfPathToDelete = new Array();
 					}
-					
-					for(b=0; b<arrayOfPathToDelete.length; b++) {
-					viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
-					}					
-				}else{
-				var x, y; 
-				var arrayDel = viewElementArray[h].getElementsByTagName('rect');
-					if(arrayDel.length==1){
-					x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-					y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
-					}else{
-					arrayDel = viewElementArray[h].getElementsByTagName('circle');
-						if(arrayDel.length==1){
-						x = arrayDel[0].getAttribute("cx"); 
-						y = arrayDel[0].getAttribute("cy"); 
-						}else{							
-							arrayDel = viewElementArray[h].getElementsByTagName('line');
-							if(arrayDel.length==1){
-							x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
-							y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
-							}else{
-								arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
-								if(arrayDel.length==1){
-								x = arrayDel[0].getAttribute("cx"); 
-								y = arrayDel[0].getAttribute("cy"); 
-								}else{
-									arrayDel = viewElementArray[h].getElementsByTagName('image');
-									if(arrayDel.length==1){
-									x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
-									y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+				var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
+				var yTranslation = getXandYTransformValues(viewElementArray[h]).y;    
+				
+				var pathArray = viewElementArray[h].getElementsByTagName('path');            
+					if(pathArray.length>0){
+						for(i=0; i<pathArray.length; i++) {
+						var dAttributeString = pathArray[i].getAttribute('d');
+						var splitArray = dAttributeString.split(" ");
+						var xArray = new Array();
+							for(j=0; j<splitArray.length; j=j+2) {
+							xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
+							}
+
+						var yArray = new Array();
+							for(l=1; l<splitArray.length; l=l+2) {
+							yArray.push(yTranslation*1 + parseInt(splitArray[l]));
+							}
+							
+						var pathIn = false;
+							for(g=0; g<xArray.length; g++) {
+								if(pathIn == false) {
+									if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
+									pathIn = true;
 									}
 								}
-							}			
-						}	
-					}
-					if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){				
-						if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1)   < rightYRect) ) {
-						var text = viewElementArray[h].getElementsByTagName('text');
-							if(text.length)
-							viewElementArray[h].removeChild(text[0]);
-							viewElementArray[h].removeChild(arrayDel[0]);
+							}	
+							
+							if(pathIn == true) {
+							arrayOfPathToDelete.push(pathArray[i]);
+							}
 						}
-					}
-				
-				}		 
-			} 
-			clearSVGFromUnusedViews();
-			event.preventDefault(); // Prevents an additional event being triggered
+						
+						for(b=0; b<arrayOfPathToDelete.length; b++) {
+						viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
+						}					
+					}else{
+					var x, y; 
+					var arrayDel = viewElementArray[h].getElementsByTagName('rect');
+						if(arrayDel.length==1){
+						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+						}else{
+						arrayDel = viewElementArray[h].getElementsByTagName('circle');
+							if(arrayDel.length==1){
+							x = arrayDel[0].getAttribute("cx"); 
+							y = arrayDel[0].getAttribute("cy"); 
+							}else{							
+								arrayDel = viewElementArray[h].getElementsByTagName('line');
+								if(arrayDel.length==1){
+								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
+								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
+								}else{
+									arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
+									if(arrayDel.length==1){
+									x = arrayDel[0].getAttribute("cx"); 
+									y = arrayDel[0].getAttribute("cy"); 
+									}else{
+										arrayDel = viewElementArray[h].getElementsByTagName('image');
+										if(arrayDel.length==1){
+										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2); 
+										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2); 
+										}
+									}
+								}			
+							}	
+						}
+						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){				
+							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1)   < rightYRect) ) {
+							var text = viewElementArray[h].getElementsByTagName('text');
+								if(text.length)
+								viewElementArray[h].removeChild(text[0]);
+								viewElementArray[h].removeChild(arrayDel[0]);
+							}
+						}
+					
+					}		 
+				} 
+				clearSVGFromUnusedViews();
+				event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function clearSVGFromUnusedViews() {
-		var tempView = movementLayer.getElementsByClassName('viewelement');
-			for(i=0; i<tempView.length; i++) {
-				if(tempView[i].childElementCount == 0) {
-				movementLayer.removeChild(tempView[i]);
+			var tempView = movementLayer.getElementsByClassName('viewelement');
+				for(i=0; i<tempView.length; i++) {
+					if(tempView[i].childElementCount == 0) {
+					movementLayer.removeChild(tempView[i]);
+					}
 				}
-			}
-		svg.removeChild(deleteRect);
-		event.preventDefault(); // Prevents an additional event being triggered
+			svg.removeChild(deleteRect);
+			event.preventDefault(); // Prevents an additional event being triggered
 		}		
 		
 		//============================================================================
@@ -1157,7 +1165,6 @@
 			svg.addEventListener('click', startWrite, false);
 			svg.addEventListener('mousemove', moveWrite, false);
 			window.addEventListener('keydown', writeDown, false);
-			
 		}
 		
 		function startMultiTouchWrite(event) {
@@ -1248,7 +1255,7 @@
 		}
 		
 		function endMoveMultiTouchWrite(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -1256,21 +1263,17 @@
 				var character;
 					switch(event.key) {
 						case 'Shift':					
-						break;
-						case 'Tab':
+						break;				
+						case 'Backspace':
 							temp = temp.slice(0,-2);
 							text.innerHTML = temp;
 						break;
-						case 'Backspace':
-							temp = temp.slice(0,-1);
-							text.innerHTML = temp;
-						break;
 						case 'Enter':
-						
+							
 						break;
-						default:					
-							text.innerHTML = temp + event.key;
-						break;
+						default:
+							text.innerHTML = temp + event.key;					
+						break;	
 					}	
 				pressedKey = String.fromCharCode(event.which || event.keyCode);
 				text.innerHTML = temp + pressedKey;				
@@ -1284,14 +1287,13 @@
 			var sy = event.clientY - screenYCorrection; 
 			var activateExistingText = false;
 			var texts = document.getElementsByTagName('text');
-			
 				for(var i=0; i<texts.length; i++) {
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
 					activateExistingText = true;
 					text = texts[i];
-					}
+					}								
 				}
 	
 				if(activateExistingText == false) {
@@ -1347,29 +1349,25 @@
 		}  
 		
 		function writeDown(event) {
-		var temp = text.innerHTML;
-		var character;
-			switch(event.key) {
-				case 'Shift':					
-				break;
-				case 'Tab':
-					temp = temp.slice(0,-2);
-					text.innerHTML = temp;
-				break;
-				case 'Backspace':
-					temp = temp.slice(0,-1);
-					text.innerHTML = temp;
-				break;
-				case 'Enter':
-				
-				break;
-				default:					
-					text.innerHTML = temp + event.key;
-				break;
-			}			
-		pressedKey = String.fromCharCode(event.which || event.keyCode);
-		text.innerHTML = temp + pressedKey;
-		saveImage();
+			var temp = text.innerHTML;
+			var character;
+				switch(event.key) {
+					case 'Shift':					
+					break;				
+					case 'Backspace':
+						temp = temp.slice(0,-2);
+						text.innerHTML = temp;
+					break;
+					case 'Enter':
+						
+					break;
+					default:
+						text.innerHTML = temp + event.key;					
+					break;				
+				}
+			pressedKey = String.fromCharCode(event.which || event.keyCode);
+			text.innerHTML = temp + pressedKey;
+			saveImage();
 		}
 		
 		function startMoveWrite(element) {
@@ -1459,9 +1457,9 @@
 		//============================================================================
 		
 		function createCircle() {
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 6;
-		
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 6;
+			
 			if (stylusIsEnabled) {
 				//sera usado o pointer
 				//alert("Usando pointer");
@@ -1543,7 +1541,7 @@
 		}
 		
 		function endMoveMultiTouchCircle(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -1556,17 +1554,17 @@
 		}
 		
 		function startCircle(event) {
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-		circle.setAttribute('cx', startX);
-		circle.setAttribute('cy', startY);
-		circle.setAttribute('fill', "none");
-		circle.setAttribute('stroke', color);
-		circle.setAttribute('stroke-width', width);
-		svg.appendChild(circle);
-		isMousePressed = true;	
-		event.preventDefault(); // Prevents an additional event being triggered
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+			circle.setAttribute('cx', startX);
+			circle.setAttribute('cy', startY);
+			circle.setAttribute('fill', "none");
+			circle.setAttribute('stroke', color);
+			circle.setAttribute('stroke-width', width);
+			svg.appendChild(circle);
+			isMousePressed = true;	
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 	
 		function moveCircle(event) {
@@ -1596,18 +1594,18 @@
 		}
 
 		function endMoveCircle(event) {
-		createViewElementForPath();
-		viewElementG.appendChild(circle);
-		isMousePressed = false;
-		saveImage();
-		event.preventDefault(); // Prevents an additional event being triggered
+			createViewElementForPath();
+			viewElementG.appendChild(circle);
+			isMousePressed = false;
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}			
 		
 		//============================================================================
 	
 		function createRectangle() { 
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 7;
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 7;
 		
 			if (stylusIsEnabled) {
 				//sera usado o pointer
@@ -1690,7 +1688,7 @@
 		}
 
 		function endMoveMultiTouchRectangle(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -1703,17 +1701,17 @@
 		}
 		
 		function startRectangle(event) {
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-		rectangle.setAttribute('x', startX);
-		rectangle.setAttribute('y', startY);
-		rectangle.setAttribute('fill', "none");
-		rectangle.setAttribute('stroke', color);
-		rectangle.setAttribute('stroke-width', width);
-		svg.appendChild(rectangle);
-		isMousePressed = true;			
-		event.preventDefault(); // Prevents an additional event being triggered
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rectangle.setAttribute('x', startX);
+			rectangle.setAttribute('y', startY);
+			rectangle.setAttribute('fill', "none");
+			rectangle.setAttribute('stroke', color);
+			rectangle.setAttribute('stroke-width', width);
+			svg.appendChild(rectangle);
+			isMousePressed = true;			
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		function moveRectangle(event) {
@@ -1744,18 +1742,18 @@
 		}
 		
 		function endMoveRectangle(event) {
-		createViewElementForPath();
-		viewElementG.appendChild(rectangle);
-		isMousePressed = false;
-		saveImage();
-		event.preventDefault(); // Prevents an additional event being triggered
+			createViewElementForPath();
+			viewElementG.appendChild(rectangle);
+			isMousePressed = false;
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		//============================================================================
 	
 		function createEllipse() { 
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 8;
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 8;
 		
 			if (stylusIsEnabled) {
 				//sera usado o pointer
@@ -1837,7 +1835,7 @@
 		}
 		
 		function endMoveMultiTouchEllipse(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -1850,17 +1848,17 @@
 		}
 		
 		function startEllipse(event) {
-		startX = event.clientX;
-		startY = event.clientY-screenYCorrection;
-		ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-		ellipse.setAttribute('cx', startX);
-		ellipse.setAttribute('cy', startY);
-		ellipse.setAttribute('fill', "none");
-		ellipse.setAttribute('stroke', color);
-		ellipse.setAttribute('stroke-width', width);
-		svg.appendChild(ellipse);
-		isMousePressed = true;
-		event.preventDefault(); // Prevents an additional event being triggered
+			startX = event.clientX;
+			startY = event.clientY-screenYCorrection;
+			ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+			ellipse.setAttribute('cx', startX);
+			ellipse.setAttribute('cy', startY);
+			ellipse.setAttribute('fill', "none");
+			ellipse.setAttribute('stroke', color);
+			ellipse.setAttribute('stroke-width', width);
+			svg.appendChild(ellipse);
+			isMousePressed = true;
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 	
 		function moveEllipse(event) {
@@ -1891,18 +1889,18 @@
 		}
 		
 		function endMoveEllipse(event) {
-		createViewElementForPath();
-		viewElementG.appendChild(ellipse);
-		isMousePressed = false;
-		saveImage();
-		event.preventDefault(); // Prevents an additional event being triggered
+			createViewElementForPath();
+			viewElementG.appendChild(ellipse);
+			isMousePressed = false;
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		//============================================================================
 		
 		function createLine() {
-		removeEventListenerFromSVG(numberOfEventListener);
-		numberOfEventListener = 9;
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 9;
 		
 			if (stylusIsEnabled) {
 				//sera usado o pointer
@@ -1991,7 +1989,7 @@
 		}
 
 		function endMoveMultiTouchLine(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -2052,11 +2050,11 @@
 		}	
 		
 		function endMoveLine(event) {
-		createViewElementForPath();
-		viewElementG.appendChild(line);
-		isMousePressed = false;
-		saveImage();
-		event.preventDefault(); // Prevents an additional event being triggered
+			createViewElementForPath();
+			viewElementG.appendChild(line);
+			isMousePressed = false;
+			saveImage();
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		
 		//============================================================================
@@ -2151,7 +2149,7 @@
 		}	
 	
 		function endMoveMultiTouchURL(event) {	
-		var touches = event.changedTouches;
+			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;	
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
@@ -2213,8 +2211,9 @@
 		
 		//============================================================================
 		
-		function drawGrid(){		
-		var y;
+		function drawGrid(){
+			clearGrid();		
+			var y;
 			if (clearG == 0) {
 				for (y=30; y<960; y+=30){
 					line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -2241,7 +2240,7 @@
 		//============================================================================
 		
 		function clearGrid() {
-		var tempView = movementLayer.getElementsByClassName('viewelement');
+			var tempView = movementLayer.getElementsByClassName('viewelement');
 			for(j=0; j<=4; j++){
 				for(i=0; i<tempView.length; i++) {
 					if(tempView[i].getAttribute('id') == "grid") {
@@ -2256,108 +2255,110 @@
 		//============================================================================
 		
 		function downloadIt() {			
-				var serializer = new XMLSerializer();
-				var xmlString = serializer.serializeToString(layer);
+			var serializer = new XMLSerializer();
+			var xmlString = serializer.serializeToString(layer);
 
-				canvg(document.getElementById('canvas'), xmlString);
-				var canvas = document.getElementById("canvas");
-				var context=canvas.getContext("2d");
-				var backgroundColor="white";
+			canvg(document.getElementById('canvas'), xmlString);
+			var canvas = document.getElementById("canvas");
+			var context=canvas.getContext("2d");
+			var backgroundColor="white";
+				
+			var w = canvas.width;
+			var h = canvas.height;
+			var data;   
+			var dataURL;
+			var compositeOperation  = context.globalCompositeOperation;
+
+			data = context.getImageData(0, 0, w, h);				
+				
+			context.globalCompositeOperation = "destination-over";     
+			context.fillStyle = backgroundColor;     
+			context.fillRect(0,0,w,h);			
+						
+			var images = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 				
+			window.location.href = images;	
+		}
+		
+		//============================================================================
+
+		function imageIt() {			
+			saveIt();
+			var serializer = new XMLSerializer();
+			var xmlString = serializer.serializeToString(layer);
+
+			canvg(document.getElementById('canvas'), xmlString);
+			var canvas = document.getElementById("canvas");
+			var context=canvas.getContext("2d");
+			var backgroundColor="white";
+		
+			var w = canvas.width;
+			var h = canvas.height;
+			var data;   
+			var dataURL;
+			var compositeOperation  = context.globalCompositeOperation;
+		
+			data = context.getImageData(0, 0, w, h);			
+		
+			context.globalCompositeOperation = "destination-over";     
+			context.fillStyle = backgroundColor;     
+			context.fillRect(0,0,w,h);
+		
+			var dataURL = canvas.toDataURL();
 			
-				var w = canvas.width;
-				var h = canvas.height;
-				var data;   
-				var dataURL;
-				var compositeOperation  = context.globalCompositeOperation;
-
-				data = context.getImageData(0, 0, w, h);				
+			window.open(dataURL, "_blank");
+		
+			context.clearRect(0, 0, w, h);
+			context.globalCompositeOperation = compositeOperation;
+		}
+		
+		//============================================================================
+		
+		function saveIt() {
+			var serializer = new XMLSerializer();
+			var xmlString = serializer.serializeToString(layer);			
 			
-				context.globalCompositeOperation = "destination-over";     
-				context.fillStyle = backgroundColor;     
-				context.fillRect(0,0,w,h);			
-					
-				var images = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 				
-				window.location.href = images;	
-		}
-		
-		//============================================================================
-
-		function imageIt() {		
-		var serializer = new XMLSerializer();
-		var xmlString = serializer.serializeToString(layer);
-
-		canvg(document.getElementById('canvas'), xmlString);
-		var canvas = document.getElementById("canvas");
-		var context=canvas.getContext("2d");
-		var backgroundColor="white";
-	
-		var w = canvas.width;
-		var h = canvas.height;
-		var data;   
-		var dataURL;
-		var compositeOperation  = context.globalCompositeOperation;
-    
-		data = context.getImageData(0, 0, w, h);			
-	
-		context.globalCompositeOperation = "destination-over";     
-        context.fillStyle = backgroundColor;     
-        context.fillRect(0,0,w,h);
-    
-		var dataURL = canvas.toDataURL();
-		
-		window.open(dataURL, "_self");
-	
-		context.clearRect(0, 0, w, h);
-		context.globalCompositeOperation = compositeOperation; 
-
-		saveImage();
+			saveImage();
+			
+			xmlString.replace("</t", "><");
+			var encoded = encodeURIComponent(xmlString);
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("POST","dml/armazena.php",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("id="+id+"&svg="+encoded);
+			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id);
 		}
 		
 		//============================================================================
 		
-		function saveIt() {			
-		var serializer = new XMLSerializer();
-		var xmlString = serializer.serializeToString(layer);
-		xmlString.replace("</t", "><");
-		var encoded = encodeURIComponent(xmlString);
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST","dml/armazena.php",true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send("id="+id+"&svg="+encoded);
-		alert('Salvo com Sucesso. Codigo de Acesso: '+id);
-		saveImage();
-		}
-		
-		//============================================================================
-		
-		function pdfIt() {	
-		var serializer = new XMLSerializer();
-		var xmlString = serializer.serializeToString(layer);
+		function pdfIt() {
+			saveIt();
+			var serializer = new XMLSerializer();
+			var xmlString = serializer.serializeToString(layer);
 
-		canvg(document.getElementById('canvas'), xmlString);
-		var canvas = document.getElementById("canvas");
-		var context=canvas.getContext("2d");
-		var backgroundColor="white";
-		
-		var w = canvas.width;
-		var h = canvas.height;
-		var data;   
-		var dataURL;
-		var compositeOperation  = context.globalCompositeOperation;
-		
-		data = context.getImageData(0, 0, w, h);
-		
-		context.globalCompositeOperation = "destination-over";    
-        context.fillStyle = backgroundColor;
-        context.fillRect(0,0,w,h);
-		
-		var svg = canvas.toDataURL();		
-		var formulario = document.getElementById("formPDF");
-		var ctx=canvas.getContext("2d");
-		ctx.clearRect(0, 0, w, h);
-		formulario.svg.value = svg;
-		formulario.action = "pdf/gerarpdf.php";
-		formulario.submit();	
+			canvg(document.getElementById('canvas'), xmlString);
+			var canvas = document.getElementById("canvas");
+			var context=canvas.getContext("2d");
+			var backgroundColor="white";
+			
+			var w = canvas.width;
+			var h = canvas.height;
+			var data;   
+			var dataURL;
+			var compositeOperation  = context.globalCompositeOperation;
+			
+			data = context.getImageData(0, 0, w, h);
+			
+			context.globalCompositeOperation = "destination-over";    
+			context.fillStyle = backgroundColor;
+			context.fillRect(0,0,w,h);
+			
+			var svg = canvas.toDataURL();		
+			var formulario = document.getElementById("formPDF");
+			var ctx=canvas.getContext("2d");
+			ctx.clearRect(0, 0, w, h);
+			formulario.svg.value = svg;
+			formulario.action = "pdf/gerarpdf.php";
+			formulario.submit();			
 		}
 		
 		//============================================================================
@@ -2367,6 +2368,7 @@
 			colorStroke = colorFill;
 			else
 			colorStroke = "none";
+			text.setAttribute('stroke', colorStroke);
 		}		
 		
 		//============================================================================
@@ -2375,7 +2377,8 @@
 			if (decoration == "underline")
 			decoration = "none";
 			else
-			decoration = "underline";
+			decoration = "underline";			
+			text.setAttribute('text-decoration', decoration);
 		}
 		
 		//============================================================================
@@ -2384,13 +2387,14 @@
 			if (style == "italic")
 			style = "normal";
 			else
-			style = "italic";
+			style = "italic";			
+			text.setAttribute('font-style', style);
 		}		
 
 		//============================================================================
 		
 		function setFillText(val) {
-        colorFill = val;
+			colorFill = val;
 			if(colorStroke != "none")
 			colorStroke = colorFill;
 		}			
@@ -2398,24 +2402,24 @@
 		//============================================================================
 		
 		function setSizeText(val) {
-        size = val;
+			size = val;
 		}
 		
 		//============================================================================	
 		
 		function setFontText(val) {
-        font = val;
+			font = val;
 		}
 		
 		//============================================================================		
 		
 		function setColor(val) {
-        color = val;
+			color = val;
 		}
 		
 		//============================================================================
 		
 		function setWidth(val) {
-        width = val;
+			width = val;
 		}	
 		

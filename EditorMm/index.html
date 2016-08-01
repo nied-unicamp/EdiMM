@@ -173,9 +173,8 @@
 					<li>						
 						<li><a data-toggle="dropdown" onmouseover="Tip('Arquivo')" onmouseout="UnTip()"><img src="images/3savefile.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:imageIt();" onmouseover="Tip('Salvar imagem')" onmouseout="UnTip()"><img src="images/5image.png" width="22"></a></li>	
-								<li><a href="javascript:pdfIt();" onmouseover="Tip('Salvar em PDF')" onmouseout="UnTip()"><img src="images/5pdf.png" width="22"></a></li>								
-								<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a></li>
+								<li><a href="javascript:imageIt();" onmouseover="Tip('Salvar em PNG')" onmouseout="UnTip()"><img src="images/5image.png" width="22"></a></li>
+								<li><a href="javascript:pdfIt();" onmouseover="Tip('Salvar em PDF')" onmouseout="UnTip()"><img src="images/5pdf.png" width="22"></a></li>	
 								<li><a href="javascript:downloadIt();" onmouseover="Tip('Fazer Download')" onmouseout="UnTip()"><img src="images/5download.png" width="22"></a></li>		
 							</ul>
 						</li>						
@@ -184,14 +183,19 @@
 					<li>						
 						<li><a data-toggle="dropdown" onmouseover="Tip('Layout')" onmouseout="UnTip()"><img src="images/3layout.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">																	
-								<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/4newfile.png" width="22"></a></li>						
 								<li><a href="javascript:drawGrid();" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/4drawgrid.png" width="22"></a></li>  									
 								<li><a href="javascript:clearGrid();" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/4cleargrid.png" width="22"></a></li> 									
 							</ul>
 						</li>						
-					</li>	
+					</li>				
+								
+					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 					
+
+					<li><a></a></li>	
+
+					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a></li>
 					
-					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 						
+					<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/4newfile.png" width="22"></a></li>
 									
 				</ul>
 			</div>	
@@ -201,7 +205,26 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
 				<li><img src="images/7editor.png"></li> 		              
-				<li class="sidebar-brand"><a class="font"> EDITOR MULTIMODAL </a></li>								
+				<li class="sidebar-brand"><a class="font"> EDITOR MULTIMODAL </a></li>	
+				<li><a  class="font" target="janela"> COORDENADORES: </a></li>
+				<p>
+				<li><a href="http://lattes.cnpq.br/7823448102676358" class="font" target="janela">Andre Constantino da Silva</a></li>			
+				<li><a href="http://lattes.cnpq.br/2727662627646050" class="font" target="janela">Fernanda Maria Pereira Freire</a></li>				
+				<li><a href="http://lattes.cnpq.br/0131332176384646" class="font" target="janela">Flavia Linhalis Arantes</a></li>	
+				<br>
+				<li><a  class="font" target="janela"> DESENVOLVEDORES: </a></li>
+				<p>
+				<li><a class="font" target="janela">Giovani Oliveira Coutinho</a></li>				
+				<li><a class="font" target="janela">Giullianna Ferreira</a></li>								
+				<li><a class="font" target="janela">Josenilton Santos</a></li>				
+				<li><a class="font" target="janela">Lucas Vascon</a></li>			
+				<li><a href="http://lattes.cnpq.br/3570056077397807" class="font" target="janela">Samuel Gomes de Lima</a></li>	
+				<br>
+				<li><a  class="font" target="janela"> COLABORADORES: </a></li>
+				<p>
+				<li><a class="font" target="janela">Jan Breuer</a></li>						
+				<li><a class="font" target="janela">Renato Oliveira</a></li>
+				
 			</ul>				
         </div>		
         <!-- sidebar-wrapper -->
@@ -267,7 +290,7 @@
     <script type="text/javascript" src="js/jqueryready.js"></script>
 	
     <!-- Bootstrap JS -->
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>		
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>	
 	
 </body>
 </html>
