@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 26/07/2016 às 06h58min
+-- Tempo de Geração: 01/08/2016 às 06h02min
 -- Versão do Servidor: 5.5.16
 -- Versão do PHP: 5.3.8
 
@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `svgtable` (
-  `id` longtext NOT NULL,
-  `tag_svg` longtext NOT NULL
+  `id` varchar(100) NOT NULL,
+  `tag_svg` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
