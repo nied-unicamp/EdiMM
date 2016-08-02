@@ -189,7 +189,6 @@
 			id = id.replace("?", "");
 			deserializeSVGtoXML();
 			createDraw();
-			saveImage();
 		}
 		
 		function deserializeSVGtoXML() {		
@@ -2255,7 +2254,6 @@
 		//============================================================================
 		
 		function downloadIt() {
-			save();
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2282,8 +2280,7 @@
 		
 		//============================================================================
 
-		function imageIt() {			
-			save();
+		function imageIt() {		
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
