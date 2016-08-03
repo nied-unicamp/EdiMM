@@ -189,7 +189,6 @@
 			id = id.replace("?", "");
 			deserializeSVGtoXML();
 			createDraw();
-			saveImage();
 		}
 		
 		function deserializeSVGtoXML() {		
@@ -2255,7 +2254,6 @@
 		//============================================================================
 		
 		function downloadIt() {
-			save();
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2282,8 +2280,7 @@
 		
 		//============================================================================
 
-		function imageIt() {			
-			save();
+		function imageIt() {		
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2329,24 +2326,9 @@
 			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id);
 		}
 		
-		function save() {
-			var serializer = new XMLSerializer();
-			var xmlString = serializer.serializeToString(layer);			
-			
-			saveImage();
-			
-			xmlString.replace("</t", "><");
-			var encoded = encodeURIComponent(xmlString);
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST","dml/armazena.php",true);
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("id="+id+"&svg="+encoded);
-		}
-		
 		//============================================================================
 		
 		function pdfIt() {
-			save();
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
