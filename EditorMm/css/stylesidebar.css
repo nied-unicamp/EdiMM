@@ -97,8 +97,6 @@
 
     #wrapper.toggled {
         padding-left: 350px;
-		position: absolute;
-		height: 110%;
     }
 
     #sidebar-wrapper {
@@ -108,8 +106,6 @@
 
     #wrapper.toggled #sidebar-wrapper {
         width: 350px;
-		position: absolute;
-		height: 110%;
     }
 
     #page-content-wrapper {
