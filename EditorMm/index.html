@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>Editor Multimodal</title>
-
-	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -68,7 +68,7 @@
 						<li>
 						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/1bold.png" width="10"></a>				
 						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/1underline.png" width="10"></a>
-						<a class="buttonToolbar" onmouseover="Tip('Italico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
+						<a class="buttonToolbar" onmouseover="Tip('Itálico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
 						</li>
 						</fieldset>
 					</li>						
@@ -166,37 +166,36 @@
 
 					<li><a onmouseover="Tip('Excluir Componente')" onmouseout="UnTip()" id="delete"><img src="images/3delete.png" width="22"></a></li>						
 					
-					<li><a onmouseover="Tip('Equipe')" onmouseout="UnTip()" id="menu-toggle"><img src="images/3team.png" width="22"></a></li>	
 					
-					<li><a></a></li>
-					
-					<li>						
-						<li><a data-toggle="dropdown" onmouseover="Tip('Arquivo')" onmouseout="UnTip()"><img src="images/3savefile.png" width="22"><span class="caret"></span></a>
+					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a>					
+						<li><a data-toggle="dropdown" onmouseover="Tip('Opções')" onmouseout="UnTip()" id="display"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:imageIt();" onmouseover="Tip('Salvar em PNG')" onmouseout="UnTip()"><img src="images/5image.png" width="22"></a></li>
-								<li><a href="javascript:pdfIt();" onmouseover="Tip('Salvar em PDF')" onmouseout="UnTip()"><img src="images/5pdf.png" width="22"></a></li>	
-								<li><a href="javascript:downloadIt();" onmouseover="Tip('Fazer Download')" onmouseout="UnTip()"><img src="images/5download.png" width="22"></a></li>		
-							</ul>
-						</li>						
-					</li>
+								<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.png" width="22"> Salvar em PNG </a></li>
+								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.png" width="22"> Salvar em PDF </a></li>	
+								<li><a href="javascript:downloadIt();" class="fontnormal"><img src="images/5download.png" width="22"> Download </a></li>		
+							</ul>	
+						</li>							
+					</li>					
 					
 					<li>						
-						<li><a data-toggle="dropdown" onmouseover="Tip('Layout')" onmouseout="UnTip()"><img src="images/3layout.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">																	
-								<li><a href="javascript:drawGrid();" onmouseover="Tip('Gerar Grade')" onmouseout="UnTip()"><img src="images/4drawgrid.png" width="22"></a></li>  									
-								<li><a href="javascript:clearGrid();" onmouseover="Tip('Limpar Grade')" onmouseout="UnTip()"><img src="images/4cleargrid.png" width="22"></a></li> 									
+						<li><a data-toggle="dropdown" onmouseover="Tip('Configuração')" onmouseout="UnTip()"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">	
+								<li><a tabindex="-1" href="#" id="menu-toggle" class="fontnormal"><img src="images/3team.png" width="22"> Sobre </a></li>
+								<li><a tabindex="-1" href="javascript:window.location.href='index.html';" class="fontnormal"><img src="images/4newfile.png" width="22"> Novo Arquivo </a></li>					
+								<li class="divider"></li>
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3layout.png" width="22"> Layout </a>
+									<ul class="dropdown-menu">	
+										<li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img src="images/4drawgrid.png" width="22"> Gerar Grade </a></li>  									
+										<li><a tabindex="-1" href="javascript:clearGrid();" class="fontnormal"><img src="images/4cleargrid.png" width="22"> Limpar Grade </a></li> 									
+									</ul>
+								</li>
 							</ul>
 						</li>						
-					</li>				
-								
-					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 					
-
-					<li><a></a></li>	
-
-					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a></li>
+					</li>							
 					
-					<li><a href="javascript:window.location.href='index.html';" onmouseover="Tip('Novo Arquivo')" onmouseout="UnTip()"><img src="images/4newfile.png" width="22"></a></li>
-									
+					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 
+					
 				</ul>
 			</div>	
 		</div>		
@@ -204,11 +203,11 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">					
-				<li><a class="font" target="janela">Andre Constantino da Silva, researcher (2015-current), Instituto Federal de Sao Paulo - campus Hortolandia (IFSP, Brazil), andre.constantino@gmail.com</a></li>			
+				<li><a class="font" target="janela">André Constantino da Silva, researcher (2015-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), andre.constantino@gmail.com</a></li>			
 				<p>		
 				<li><a class="font" target="janela">Fernanda Maria Pereira Freire, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ffreire@unicamp.br </a></li>			
 				<p>
-				<li><a class="font" target="janela">Flavia Linhalis Arantes, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), farantes@unicamp.br</a></li>	
+				<li><a class="font" target="janela">Flávia Linhalis Arantes, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), farantes@unicamp.br</a></li>	
 				<p>					
 				<li><a class="font" target="janela">Jan Breuer, researcher and developer (2015), Siegen University (SIEGEN, Germany), jan.breuer@uni-siegen.de</a></li>
 				<p>
@@ -216,17 +215,17 @@
 				<p>
 				<li><a class="font" target="janela">Giullianna Ferreira, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), gi.ferreiracontato@gmail.com</a></li>					
 				<p>
-				<li><a class="font" target="janela">Josenilton Santos de Jesus, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), josephnewton001@gmail.com</a></li>	
+				<li><a class="font" target="janela">Josénilton Santos de Jesus, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), josephnewton001@gmail.com</a></li>	
 				<p>
 				<li><a class="font" target="janela">Lucas Eduardo de Lima Vascon, web designer and tester (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), lucasvascon@outlook.com</a></li>
 				<p>				
-				<li><a class="font" target="janela">Paulo Sergio Pereira Junior, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), paulosergio.pjr@hotmail.com </a></li>
+				<li><a class="font" target="janela">Paulo Sérgio Pereira Junior, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), paulosergio.pjr@hotmail.com </a></li>
 				<p>				
 				<li><a class="font" target="janela">Renato Oliveira, developer (2015), Universidade Estadual de Campinas (UNICAMP, Brazil), renato.oliveira2808@gmail.com</a></li>
 				<p>
 				<li><a class="font" target="janela">Ricardo Vicente, visual designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ricardo_9_s@hotmail.com</a></li>	
 				<p>
-				<li><a class="font" target="janela">Samuel Gomes de Lima, developer and committer (2016-current), Instituto Federal de Sao Paulo - campus Hortolandia (IFSP, Brazil), samuel_smgl@hotmail.com</a></li>					
+				<li><a class="font" target="janela">Samuel Gomes de Lima, developer and committer (2016-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), samuel_smgl@hotmail.com</a></li>					
 			</ul>				
         </div>		
         <!-- sidebar-wrapper -->

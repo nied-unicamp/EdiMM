@@ -5,7 +5,6 @@
 		var del=false;		
 	
 		var touch=false;
-		var menu=false;
 		
 		var negrito=false;
 		var sublinhado=false;
@@ -395,15 +394,6 @@
 			$("#menu-toggle").click(function(e) {
 				e.preventDefault();
 				$("#wrapper").toggleClass("toggled");
-				
-				if(menu==false){
-					document.getElementById("menu-toggle").className = "btn btn-default";					
-					document.getElementById("menu-toggle").href = "#menu-toggle";
-					menu=true;
-				}else{
-					document.getElementById("menu-toggle").className = "desabilitado";					
-					menu=false;
-				}
 			}); 
 				
 			$("#touch").click(function(){

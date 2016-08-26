@@ -54,7 +54,7 @@
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 350px;
+    width: 360px;
     margin: 0;
     padding: 0;
 }
@@ -96,7 +96,7 @@
     }
 
     #wrapper.toggled {
-        padding-left: 350px;
+        padding-left: 380px;
     }
 
     #sidebar-wrapper {
@@ -105,7 +105,7 @@
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 350px;
+        width: 380px;
     }
 
     #page-content-wrapper {

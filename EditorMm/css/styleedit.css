@@ -32,6 +32,21 @@ div#nav {
 	
 }
 
+.display {	 
+	height: 100%;
+    font-size: 70px;  
+	bottom: 0;	
+}
+
+.fontnormal {
+	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714px;
+}
+
 .font {
 	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 	font-size: 13px;
