@@ -2,79 +2,80 @@
 <html>
 <head>
 <title>Editor Multimodal</title>
+	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	
+	<meta http-equiv="Content-Type" content="text/html">
+
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet">
-	
-	 <!-- Bootstrap JS -->	
+
+	 <!-- Bootstrap JS -->
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
-	<!-- CSS -->		
-	<link href="css/styleedit.css" rel="stylesheet">	
-    <link href="css/stylesidebar.css" rel="stylesheet">	
-	
-	<!-- JS -->			
+	<!-- CSS -->
+	<link href="css/styleedit.css" rel="stylesheet">
+    <link href="css/stylesidebar.css" rel="stylesheet">
+
+	<!-- JS -->
 	<script type="text/javascript" src="js/jquerystackblur.js"></script>
-	<script type="text/javascript" src="js/jqueryrgbcolor.js"></script> 
+	<script type="text/javascript" src="js/jqueryrgbcolor.js"></script>
 	<script type="text/javascript" src="js/jquerycanvg.js"></script>
-	<script type="text/javascript" src="js/jquerymodal.js"></script>	
-	
+	<script type="text/javascript" src="js/jquerymodal.js"></script>
+
 </head>
 <body onload="init()">
-	
+
 	<div id="wrapper">
-		
+
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
-	
+
 		<div class="container" class="col-xs-5 selectContainer">
 			<!-- Collapsed navigation -->
-			<div class="navbar-header">			  
+			<div class="navbar-header">
 				<!-- Expander button -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-				</button>  
-				
+				</button>
+
 			</div>
- 
-			<!-- Expanded navigation -->	
-			<div class="navbar-collapse collapse" aria-expanded="false">		  
+
+			<!-- Expanded navigation -->
+			<div class="navbar-collapse collapse" aria-expanded="false">
 			<!-- Main navigation -->
-			
+
 				<ul class="nav navbar-nav">
-				
+
 					<li>
-						<fieldset class="scheduler-border" id ="habOpcao">
+						<fieldset class="scheduler-border" id ="habOpcao" style="display: none;">
 						<legend class="scheduler-border"></legend>
 						<li><a class="buttonToolbar" onmouseover="Tip('Selecionado')" onmouseout="UnTip()" ><span id="selecionado"></span></a></li>
 						</fieldset>
 					</li>
-					
+
 					<li>
 						<fieldset class="scheduler-border" id ="habEspessSpan">
 						<legend class="scheduler-border"></legend>
 						<li><a class="buttonToolbar" onmouseover="Tip('Espessura Utilizada')" onmouseout="UnTip()" ><span id="linha"></span></a></li>
 						</fieldset>
 					</li>
-					
+
 					<li>
-						<fieldset class="scheduler-border" id="habEstilo">
-						<legend class="scheduler-border"></legend>	
+						<fieldset class="scheduler-border" id="habEstilo" style="display: none;">
+						<legend class="scheduler-border"></legend>
 						<li>
-						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/1bold.png" width="10"></a>				
+						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/1bold.png" width="10"></a>
 						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/1underline.png" width="10"></a>
-						<a class="buttonToolbar" onmouseover="Tip('Itálico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
+						<a class="buttonToolbar" onmouseover="Tip('Itï¿½lico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
 						</li>
 						</fieldset>
-					</li>						
-					
-					<li>						
-						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
+					</li>
+
+					<li>
+						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida" style="display: none;"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setSizeText(10);" id="tamanho10">10</a></li>
 								<li><a href="javascript:setSizeText(12);" id="tamanho12">12</a></li>
@@ -92,54 +93,54 @@
 								<li><a href="javascript:setSizeText(36);" id="tamanho36">36</a></li>
 								<li><a href="javascript:setSizeText(38);" id="tamanho38">38</a></li>
 								<li><a href="javascript:setSizeText(40);" id="tamanho40">40</a></li>
-								<li><a href="javascript:setSizeText(42);" id="tamanho42">42</a></li>	
+								<li><a href="javascript:setSizeText(42);" id="tamanho42">42</a></li>
 								<li><a href="javascript:setSizeText(44);" id="tamanho44">44</a></li>
 								<li><a href="javascript:setSizeText(46);" id="tamanho46">46</a></li>
 								<li><a href="javascript:setSizeText(48);" id="tamanho48">48</a></li>
 							</ul>
-						</li>							
+						</li>
 					</li>
-					
+
 					<li>
-						<fieldset class="scheduler-border" id ="habMedidaSpan">
+						<fieldset class="scheduler-border" id ="habMedidaSpan" style="display: none;">
 						<legend class="scheduler-border"></legend>
 						<li><a class="buttonToolbar" onmouseover="Tip('Medida Utilizada')" onmouseout="UnTip()" ><span id="medida" class="font"></span></a></li>
 						</fieldset>
 					</li>
-								
-					
-					<li>					
-						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">								
+
+
+					<li>
+						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont" style="display: none;"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
 								<li><a href="javascript:setFontText('arial');" id="arial">Arial</a></li>
 								<li><a href="javascript:setFontText('comicsans');" id="comicsans">Comic Sans</a></li>
 								<li><a href="javascript:setFontText('georgia');" id="georgia">Georgia</a></li>
 								<li><a href="javascript:setFontText('impact');" id="impact">Impact</a></li>
-								<li><a href="javascript:setFontText('lucida');" id="lucida">Lucida</a></li>									
+								<li><a href="javascript:setFontText('lucida');" id="lucida">Lucida</a></li>
 								<li><a href="javascript:setFontText('lucidasans');" id="lucidasans">Lucidasans</a></li>
 								<li><a href="javascript:setFontText('monospace');" id="monospace">Monospace</a></li>
 								<li><a href="javascript:setFontText('opendyslexic');" id="opendyslexic">Opendys Lexic</a></li>
-								<li><a href="javascript:setFontText('palatino');" id="palatino">Palatino</a></li>	
-								<li><a href="javascript:setFontText('sansserif');" id="sansserif">Sansserif</a></li>									
+								<li><a href="javascript:setFontText('palatino');" id="palatino">Palatino</a></li>
+								<li><a href="javascript:setFontText('sansserif');" id="sansserif">Sansserif</a></li>
 								<li><a href="javascript:setFontText('serif');" id="serif">Serif</a></li>
 								<li><a href="javascript:setFontText('symbol');" id="symbol">Symbol</a></li>
 								<li><a href="javascript:setFontText('tahoma');" id="tahoma">Tahoma</a></li>
 								<li><a href="javascript:setFontText('timesnewroman');" id="timesnewroman">Times New Roman</a></li>
 								<li><a href="javascript:setFontText('trebuchet');" id="trebuchet">Trebuchet</a></li>
 								<li><a href="javascript:setFontText('verdana');" id="verdana">Verdana</a></li>
-								<li><a href="javascript:setFontText('webdings');" id="webdings">Webdings</a></li>							
-								<li><a href="javascript:setFontText('wingdings');" id="wingdings">Wingdings</a></li>			
+								<li><a href="javascript:setFontText('webdings');" id="webdings">Webdings</a></li>
+								<li><a href="javascript:setFontText('wingdings');" id="wingdings">Wingdings</a></li>
 							</ul>
-						</li>							
-					</li>	
+						</li>
+					</li>
 
 					<li>
-						<fieldset class="scheduler-border" id ="habFontSpan">
+						<fieldset class="scheduler-border" id ="habFontSpan" style="display: none;">
 						<legend class="scheduler-border"></legend>
 						<li><a class="buttonToolbar" onmouseover="Tip('Fonte Utilizada')" onmouseout="UnTip()" ><span id="font" class="font"></span></a></li>
 						</fieldset>
-					</li>	
-					
+					</li>
+
 					<li>
 						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/3linewidth.png" width="25"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -155,143 +156,144 @@
 								<li><a href="javascript:setWidth(9);" id="line09"><img src="images/line9.png" width="24"></a></li>
 								<li><a href="javascript:setWidth(10);" id="line10"><img src="images/line10.png" width="24"></a></li>
 							</ul>
-						</li>	
-					</li>								
-					
-					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()" id="paletaCores"><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>	
-					
-					<li><a></a></li>
-					
-					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/3move.png" width="22"></a></li>		
+						</li>
+					</li>
 
-					<li><a onmouseover="Tip('Excluir Componente')" onmouseout="UnTip()" id="delete"><img src="images/3delete.png" width="22"></a></li>						
-					
-					
-					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a>					
-						<li><a data-toggle="dropdown" onmouseover="Tip('Opções')" onmouseout="UnTip()" id="display"><span class="caret"></span></a>
+					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()" id="paletaCores"><input type="color" href="javascript:color" onchange="setColor(this.value);"></a></li>
+
+					<li><a></a></li>
+
+					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/3move.png" width="22"></a></li>
+
+					<li><a onmouseover="Tip('Excluir Componente')" onmouseout="UnTip()" id="delete"><img src="images/3delete.png" width="22"></a></li>
+
+
+					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a>
+						<li><a data-toggle="dropdown" onmouseover="Tip('OpÃ§Ãµes')" onmouseout="UnTip()" id="display"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.png" width="22"> Salvar em PNG </a></li>
-								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.png" width="22"> Salvar em PDF </a></li>	
-								<li><a href="javascript:downloadIt();" class="fontnormal"><img src="images/5download.png" width="22"> Download </a></li>		
-							</ul>	
-						</li>							
-					</li>					
-					
-					<li>						
-						<li><a data-toggle="dropdown" onmouseover="Tip('Configuração')" onmouseout="UnTip()"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">	
+								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.png" width="22"> Salvar em PDF </a></li>
+								<li><a href="javascript:downloadIt();" class="fontnormal"><img src="images/5download.png" width="22"> Download </a></li>
+							</ul>
+						</li>
+					</li>
+
+					<li>
+						<li><a data-toggle="dropdown" onmouseover="Tip('ConfiguraÃ§Ã£o')" onmouseout="UnTip()"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu">
 								<li><a tabindex="-1" href="#" id="menu-toggle" class="fontnormal"><img src="images/3team.png" width="22"> Sobre </a></li>
-								<li><a tabindex="-1" href="javascript:window.location.href='index.html';" class="fontnormal"><img src="images/4newfile.png" width="22"> Novo Arquivo </a></li>					
+								<li><a tabindex="-1" href="javascript:window.location.href='index.html';" class="fontnormal"><img src="images/4newfile.png" width="22"> Novo Arquivo </a></li>
 								<li class="divider"></li>
 								<li class="dropdown-submenu">
 									<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3layout.png" width="22"> Layout </a>
-									<ul class="dropdown-menu">	
-										<li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img src="images/4drawgrid.png" width="22"> Gerar Grade </a></li>  									
-										<li><a tabindex="-1" href="javascript:clearGrid();" class="fontnormal"><img src="images/4cleargrid.png" width="22"> Limpar Grade </a></li> 									
+									<ul class="dropdown-menu">
+										<li><a tabindex="-1" href="javascript:drawLine();" class="fontnormal"><img src="images/4drawgrid.png" width="22"> Gerar Linhas </a></li>
+                                        <li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img src="images/*.png" width="22"> Grade Milimetrada </a></li>
+										<li><a tabindex="-1" href="javascript:clear();" class="fontnormal"><img src="images/4cleargrid.png" width="22"> Limpar </a></li>
 									</ul>
 								</li>
 							</ul>
-						</li>						
-					</li>							
-					
-					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li> 
-					
+						</li>
+					</li>
+
+					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li>
+
 				</ul>
-			</div>	
-		</div>		
+			</div>
+		</div>
 		</div>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">					
-				<li><a class="font" target="janela">André Constantino da Silva, researcher (2015-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), andre.constantino@gmail.com</a></li>			
-				<p>		
-				<li><a class="font" target="janela">Fernanda Maria Pereira Freire, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ffreire@unicamp.br </a></li>			
+            <ul class="sidebar-nav">
+				<li><a class="font" target="janela">Andrï¿½ Constantino da Silva, researcher (2015-current), Instituto Federal de Sï¿½o Paulo - campus Hortolï¿½ndia (IFSP, Brazil), andre.constantino@gmail.com</a></li>
 				<p>
-				<li><a class="font" target="janela">Flávia Linhalis Arantes, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), farantes@unicamp.br</a></li>	
-				<p>					
+				<li><a class="font" target="janela">Fernanda Maria Pereira Freire, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ffreire@unicamp.br </a></li>
+				<p>
+				<li><a class="font" target="janela">Flï¿½via Linhalis Arantes, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), farantes@unicamp.br</a></li>
+				<p>
 				<li><a class="font" target="janela">Jan Breuer, researcher and developer (2015), Siegen University (SIEGEN, Germany), jan.breuer@uni-siegen.de</a></li>
 				<p>
 				<li><a class="font" target="janela">Giovani Oliveira Coutinho, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), giocoutinho26@gmail.com</a></li>
 				<p>
-				<li><a class="font" target="janela">Giullianna Ferreira, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), gi.ferreiracontato@gmail.com</a></li>					
+				<li><a class="font" target="janela">Giullianna Ferreira, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), gi.ferreiracontato@gmail.com</a></li>
 				<p>
-				<li><a class="font" target="janela">Josénilton Santos de Jesus, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), josephnewton001@gmail.com</a></li>	
+				<li><a class="font" target="janela">Josï¿½nilton Santos de Jesus, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), josephnewton001@gmail.com</a></li>
 				<p>
 				<li><a class="font" target="janela">Lucas Eduardo de Lima Vascon, web designer and tester (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), lucasvascon@outlook.com</a></li>
-				<p>				
-				<li><a class="font" target="janela">Paulo Sérgio Pereira Junior, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), paulosergio.pjr@hotmail.com </a></li>
-				<p>				
+				<p>
+				<li><a class="font" target="janela">Paulo Sï¿½rgio Pereira Junior, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), paulosergio.pjr@hotmail.com </a></li>
+				<p>
 				<li><a class="font" target="janela">Renato Oliveira, developer (2015), Universidade Estadual de Campinas (UNICAMP, Brazil), renato.oliveira2808@gmail.com</a></li>
 				<p>
-				<li><a class="font" target="janela">Ricardo Vicente, visual designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ricardo_9_s@hotmail.com</a></li>	
+				<li><a class="font" target="janela">Ricardo Vicente, visual designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ricardo_9_s@hotmail.com</a></li>
 				<p>
-				<li><a class="font" target="janela">Samuel Gomes de Lima, developer and committer (2016-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), samuel_smgl@hotmail.com</a></li>					
-			</ul>				
-        </div>		
+				<li><a class="font" target="janela">Samuel Gomes de Lima, developer and committer (2016-current), Instituto Federal de Sï¿½o Paulo - campus Hortolï¿½ndia (IFSP, Brazil), samuel_smgl@hotmail.com</a></li>
+			</ul>
+        </div>
         <!-- sidebar-wrapper -->
         <!--   Page Content  -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">            	
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-13">
-   						<div class="embed-responsive embed-responsive-16by9">													
+   						<div class="embed-responsive embed-responsive-16by9">
 							<div class="container">
 								<div id="nav">
-									<ul class="nav nav-pills nav-stacked">	
+									<ul class="nav nav-pills nav-stacked">
 										<li><a class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/6text.png" width="20"></a></li>
-										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>						
+										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/6geometric.png" width="20"><span class="caret"></span></a>
-											<ul class="dropdown-menu" id="geometricshapes">												
+											<ul class="dropdown-menu" id="geometricshapes">
 												<li><a onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/2drop.png" width="15"></a></li>
 												<li><a onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/2circle.png" width="15"></a></li>
 												<li><a onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/2square.png" width="15"></a></li>
 												<li><a onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/2ellipse.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/2line.png" width="15"></a></li>	
+												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/2line.png" width="15"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/6photos.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURL(event);" id="inputFile"></a></li>
 											</ul>
-										</li>									
+										</li>
 									</ul>
-								</div>												
-							</div>			
-					
+								</div>
+							</div>
+
 							<div id="svgDiv">
-							
+
 								<svg width="100%" height="100%" id="svgID" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<g id="layer1" class="layer">
 								<g id="movement" class="movementClass">
 								</g>
 								</g>
 								</svg>
-							
-							</div>							 
-							
+
+							</div>
+
 							<div class="hidden">
-							
+
 								<form id="formPDF" onSubmit="JavaScript:createPDF();" method="post" enctype="application/x-www-form-urlencoded">
-								<input type='text' name='svg' />								
+								<input type='text' name='svg' />
 								</form>
-							
+
 								<canvas id="canvas" width="1800px" height="800px"></canvas>
-								
-							</div>												
+
+							</div>
 						</div>
 					</div>
 				</div>
             </div>
         </div>
-    </div>   	
-	
+    </div>
+
 	<!-- JS -->
 	<script type="text/javascript" src="js/jquerytooltip.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>	
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jqueryready.js"></script>
-	
+
     <!-- Bootstrap JS -->
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>	
-	
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>
