@@ -1197,7 +1197,7 @@
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circle.setAttribute('cx', sx-3);
 				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 2);
+				circle.setAttribute('r', 1);
 				circle.setAttribute('stroke', "black");
 				circle.setAttribute('stroke-width', 0.1);
 				circle.setAttribute('fill', "black");
@@ -1301,7 +1301,7 @@
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circle.setAttribute('cx', sx-3);
 				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 2);
+				circle.setAttribute('r', 1);
 				circle.setAttribute('stroke', "black");
 				circle.setAttribute('stroke-width', 0.1);
 				circle.setAttribute('fill', "black");
