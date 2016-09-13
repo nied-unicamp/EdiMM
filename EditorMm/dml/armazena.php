@@ -5,7 +5,7 @@
 <body>
 	<?php
 	$id = $_REQUEST["id"];
-	$svg = $_REQUEST["svg"];
+	$tag_svg = $_REQUEST["tag_svg"];
 	$servername = "localhost";
 	$username = "root";
 	$password = "Myfen80n";
@@ -18,20 +18,37 @@
 		if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 		} 
+	
+	
+	$sql = "SELECT `id` FROM `SVGTABLE` WHERE `id`='".$id."'";
+	
+	$result = $conn->query($sql);
 
-	$sql = "DELETE FROM `SVGTABLE` WHERE `id`='".$id."'";
-	$conn->query($sql);
+	$row = $result->fetch_assoc();
+		
+			if($row["id"] == $id){
+				
+			$sql = "UPDATE `SVGTABLE` SET `tag_svg` ='".$tag_svg."' WHERE `id`='".$id."'";
+			
+			}else{
+			
+			$sql = "INSERT INTO `SVGTABLE`(`id`, `tag_svg`) VALUES ('".$id."','".$tag_svg."')";
+			
+			}
+		
 
-	$sql = "INSERT INTO `SVGTABLE`(`id`, `tag_svg`) VALUES ('".$id."','".$svg."')";
-	//$sql = "INSERT INTO `SVGTABLE`(`tag_svg`) VALUES ('".$svg."')";
-
-		if ($conn->query($sql) === TRUE) {
+	if ($conn->query($sql) === TRUE) {
+	
 		echo "New record created successfully";
-		} else {
+		
+	} else {
+	
 		echo "Error: " . $sql . "<br>" . $conn->error;
-		}
+		
+	}
 		
 	$conn->close();
+	
 	?>
 </body>
 </html>
