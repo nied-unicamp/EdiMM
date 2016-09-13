@@ -36,7 +36,7 @@
 		var startMoveX, startMoveY;	
 		var screenXCorrection, screenYCorrection; 
 		var image, receivedImage;
-		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text;	
+		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs;	
 		
 		var movingText = false;	
 		var isMousePressed = false;		
@@ -174,6 +174,8 @@
 			canvg(document.getElementById('canvas'), xmlString);
 			var canvas = document.getElementById("canvas");
 			var context=canvas.getContext("2d");
+			
+			return context;
 		}
 		
 		//============================================================================
@@ -251,22 +253,53 @@
 												}
 									 
 							break;
-							case "p":							
-								var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+							case "d":							
+								var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
-									path.setAttribute(attributeName, attributeValue);
+									defs.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(path);
+								viewElement.appendChild(defs);
 								movementElement.appendChild(viewElement);
 							break;
+							case "p":							
+								if ((xmlArray[i].substr(0, 7) == "pattern")) {							
+									var pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+											var attributeString = xmlArray[i].substr(7, xmlArray[i].length);									
+											var attributeArray = attributeString.split('"');
+											for(j=0; j<attributeArray.length-1; j=j+2) {
+												var attributeName = attributeArray[j].trim();
+												attributeName = attributeName.substring(0, attributeName.length-1);									
+												var attributeValue = attributeArray[j+1];									
+												pattern.setAttribute(attributeName, attributeValue);
+											}
+											viewElement.appendChild(pattern);
+											movementElement.appendChild(viewElement);
+									
+									//viewElement.appendChild(pattern);
+									//movementElement.appendChild(viewElement);
+								}
+								else if ((xmlArray[i].substr(0, 4) == "path")) {	
+											//adiciona a path caso exista
+											var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+											var attributeString = xmlArray[i].substr(4, xmlArray[i].length);									
+											var attributeArray = attributeString.split('"');
+											for(j=0; j<attributeArray.length-1; j=j+2) {
+												var attributeName = attributeArray[j].trim();
+												attributeName = attributeName.substring(0, attributeName.length-1);									
+												var attributeValue = attributeArray[j+1];									
+												path.setAttribute(attributeName, attributeValue);
+											}
+											viewElement.appendChild(path);
+											movementElement.appendChild(viewElement);
+								}
+							break;
 							case "t":
-								if ((xmlArray[i].substr(0, 1) == "t")){							
+								if ((xmlArray[i].substr(0, 4) == "text")){							
 								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 								var textArray =  xmlArray[i].split(">");
 								var attributeString = textArray[0].substr(4, textArray[0].length);							
@@ -288,7 +321,7 @@
 								}
 							break;
 							case "i":							
-								if ((xmlArray[i].substr(0, 1) == "i")){							
+								if ((xmlArray[i].substr(0, 5) == "image")){							
 								var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
 								var imageArray = xmlArray[i].split(">");
 								var attributeString = imageArray[0].substr(5, imageArray[0].length);
@@ -1316,10 +1349,10 @@
 				text.setAttribute('y', sy);
 				text.setAttribute('font-family', font);
 				text.setAttribute('font-size', size);
-				text.setAttribute('font-style', style);
-				text.setAttribute('fill', color);
+				text.setAttribute('font-style', style);				
+				text.setAttribute('text-decoration', decoration);				
 				text.setAttribute('stroke', colorStroke);
-				text.setAttribute('text-decoration', decoration);
+				text.setAttribute('fill', color);
 				text.setAttribute('id', "tc"+numberOfText);		
 
 				viewElementG.appendChild(text);
@@ -2494,7 +2527,7 @@
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("POST","dml/armazena.php",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("id="+id+"&svg="+encoded);
+			xmlhttp.send("id="+id+"&tag_svg="+encoded);
 			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id);
 		}
 		
