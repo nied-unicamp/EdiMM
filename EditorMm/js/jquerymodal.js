@@ -1362,6 +1362,43 @@
 				}
 		}	
 		
+        // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
+        
+        function startBoxText(){
+            $(function(){
+	            var paper = Raphael(document.getElementById('movement'), 940, 560);
+    
+                // A bunch of texts
+                var elements = [
+                    paper.text(250, 250, 'Text Test').attr({'text-anchor': 'start', 'font-size': '20px'})
+                ];
+
+                for(var i = 0, nbElements = elements.length; i < nbElements; i++){
+                    var element = elements[i];
+
+                    // Initialize inline text editing for this element
+                    paper.inlineTextEditing(element);
+
+                    element.click(function(){
+                        // Start text editing and retrieve input field
+                        var input = this.inlineTextEditing.startEditing();
+
+                        (function(element){
+                            input.blur(function(e){
+                                // Apply new text and remove inline text editing on blur
+                                element.inlineTextEditing.stopEditing();
+                            })
+                        })(this);
+                    });
+                }
+
+                });
+            
+        }
+
+
+
+
 		function moveWrite(event) {	
 			if(isMousePressed == true) {
 			var sx = event.clientX;

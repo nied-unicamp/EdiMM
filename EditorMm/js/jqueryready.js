@@ -443,8 +443,8 @@
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
 				del=false;				
-			});	
-			
+			});
+            
 			$("#draw").click(function(){				
 				$("#habFont").hide("slow");   	   <!-- Esconder -->	
 				$("#habEstilo").hide("slow"); 	   <!-- Esconder -->
