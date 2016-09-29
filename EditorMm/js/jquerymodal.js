@@ -1370,7 +1370,7 @@
     
                 // A bunch of texts
                 var elements = [
-                    paper.text(250, 250, 'Text Test').attr({'text-anchor': 'start', 'font-size': '20px'})
+                    paper.text(250, 250, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})
                 ];
 
                 for(var i = 0, nbElements = elements.length; i < nbElements; i++){
