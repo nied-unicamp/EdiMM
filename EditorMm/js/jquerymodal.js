@@ -1376,7 +1376,11 @@
 	            var paper = Raphael(document.getElementById('movement'), 940, 1080);
                 // A bunch of texts
                 var elements = [
+<<<<<<< HEAD
                     paper.text(sx, sy, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})
+=======
+                    paper.text(250, 250, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})
+>>>>>>> eb65313ea68e600f16359d549f872698b719d152
                 ];
 
                 for(var i = 0, nbElements = elements.length; i < nbElements; i++){
