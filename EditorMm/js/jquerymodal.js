@@ -1365,15 +1365,15 @@
         // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
         
         function startBox(){
-            svg.addEventListener('click', startBoxText, false);
+            svg.addEventListener('click', startBoxText, true);
         }
         
         function startBoxText(event){
             var sx = event.clientX;
 			var sy = event.clientY - screenYCorrection;
             
-            $(function(paper){
-	            var paper = Raphael(document.getElementById('movement'), 1080, 940);
+            $(function(){
+	            var paper = Raphael(document.getElementById('movement'), 940, 1080);
                 // A bunch of texts
                 var elements = [
                     paper.text(sx, sy, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})
