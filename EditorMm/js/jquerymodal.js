@@ -1365,7 +1365,7 @@
         // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
         
         function startBox(){
-            svg.addEventListener('click', startBoxText, true);
+            svg.addEventListener('click', startBoxText, false);
         }
         
         function startBoxText(event){
@@ -1401,8 +1401,6 @@
             });
             
         }
-
-
 
 
 		function moveWrite(event) {	
