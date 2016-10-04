@@ -1372,8 +1372,9 @@
             var sx = event.clientX;
 			var sy = event.clientY - screenYCorrection;
             
-            $(function(){
-	            var paper = Raphael(document.getElementById('movement'), 940, 1080);
+           $(function(){
+                var paper = Raphael(document.getElementById('movement'), 940, 560);
+
                 // A bunch of texts
                 var elements = [
                     paper.text(sx, sy, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})

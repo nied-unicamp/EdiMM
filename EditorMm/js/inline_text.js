@@ -103,7 +103,7 @@
 					left: x+'px',
 					top: y+'px',
 					width: width+'px',
-					height: height+'px',
+					//height: height+'px',
 					color: subject.attrs.fill,
 
 					'-moz-transform-origin': sOrigin,
