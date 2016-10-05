@@ -1,10 +1,20 @@
 		//http://fenix.nied.unicamp.br/EditorMm/
+		
 		var size = "20";	
 		var font = "Arial";
+		
+		var cor = "black";
 		var style  = "normal";
 		var decoration = "none";
-		var colorFill = "black";
+		var colorFill = "black";		
 		var colorStroke = "none";
+		var colorElement = "none";
+		var tracejado = "none";
+		var styleBoxText  = "normal";
+		var decorationBoxText = "none";
+		var colorFillBoxText = "black";		
+		var colorStrokeBoxText = "none";
+		
 		var color = "black", width = 3;	
 				
 		var xArray = new Array();
@@ -90,6 +100,7 @@
 			viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 			viewElementG.setAttribute('class', "viewelement");
 			viewElementG.setAttribute('transform', "translate(0,0)");
+			
 			movementLayer.appendChild(viewElementG);
 		}
 		
@@ -133,7 +144,10 @@
 					createLine();
 					break;
 					case 10 :  
-					readURL(event);			
+					readURL(event);	
+					break;
+					case 11 :  
+					createBoxText();
 					default:
 					createDraw();
 					break;
@@ -553,11 +567,117 @@
 					
 					svg.removeEventListener('mousedown', startURL, false);
 					svg.removeEventListener('mousemove', moveURL, false);
-					svg.removeEventListener('mouseup', endMoveURL, false);				
+					svg.removeEventListener('mouseup', endMoveURL, false);
+				break;
+				case 11 :  
+					//remove ReadBoxText-Listener
+					svg.removeEventListener('pointerdown', startBoxText, false);
+					svg.removeEventListener('pointerup', endMoveBoxText, false);
+					
+					svg.removeEventListener('touchstart', startMultiTouchBoxText, false);
+					svg.removeEventListener('touchend', endMoveBoxText, false);
+					
+					svg.removeEventListener('mousedown', startBoxText, false);
+					svg.removeEventListener('mouseup', endMoveBoxText, false);						
 				default:				
 				break;
 			}
 		}
+		
+		//============================================================================		
+		 		 
+        // function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
+		 		 
+        function createBoxText(){
+	        removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 11;		
+			
+			if (stylusIsEnabled) {
+				//sera usado o pointer
+				//alert("Usando pointer");
+				svg.addEventListener('pointerdown', startBoxText, false);
+				svg.addEventListener('pointerup', endMoveBoxText, false);
+
+			}
+			if (touchIsEnabled) {
+				//sera usado o touch
+				//alert("Usando multi touch");
+				svg.addEventListener('touchstart', startMultiTouchBoxText, false);
+				svg.addEventListener('touchend', endMoveBoxText, false);	
+			} 
+			
+			svg.addEventListener('mousedown', startBoxText, false);
+			svg.addEventListener('mouseup', endMoveBoxText, false);
+        }	
+
+		function startBoxText(event){	
+				
+				var sx = event.clientX;
+				var sy = event.clientY - screenYCorrection;
+			
+	            var paper = Raphael(document.getElementById('svgID'), 740, 540);	
+				
+                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				
+				// Initialize text editing for the text element
+				paper.inlineTextEditing(text);
+				
+				// Start inline editing on click
+				text.click(function(){
+					// Retrieve created <input type=text> field
+					var input = this.inlineTextEditing.startEditing();
+				
+					input.addEventListener("blur", function(e){
+						// Stop inline editing after blur on the text field
+						text.inlineTextEditing.stopEditing();
+					}, true);
+				});					
+				isMousePressed = true;				
+				event.preventDefault(); // Prevents an additional event being triggered
+        }
+
+		function startMultiTouchBoxText(event){					
+			var touches = event.changedTouches;
+			for(var j = 0; j < touches.length; j++) {
+				/* store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = {
+					identifier : touches[j].identifier,
+					pageX : touches[j].pageX,
+					pageY : touches[j].pageY
+				};
+
+				var sx = touches[j].clientX;
+				var sy = touches[j].clientY - screenYCorrection;
+			
+	            var paper = Raphael(document.getElementById('svgID'), 740, 540);	
+				
+                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				
+				// Initialize text editing for the text element
+				paper.inlineTextEditing(text);
+				
+				// Start inline editing on click
+				text.click(function(){
+					// Retrieve created <input type=text> field
+					var input = this.inlineTextEditing.startEditing();
+				
+					input.addEventListener("blur", function(e){
+						// Stop inline editing after blur on the text field
+						text.inlineTextEditing.stopEditing();
+					}, true);
+				});
+					
+				isMousePressed = true;
+			}	
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		
+		function endMoveBoxText(event) {
+			desabilitado();		
+			createViewElementForPath();		
+			isMousePressed = false;
+			saveImage();			
+		}		
 		
 		//============================================================================
 		
@@ -607,7 +727,8 @@
 				pathArray[idTouch].setAttribute('d', startPosition);
 				pathArray[idTouch].setAttribute('fill', 'none');
 				pathArray[idTouch].setAttribute('stroke', color);
-				pathArray[idTouch].setAttribute('stroke-width', width);
+				pathArray[idTouch].setAttribute('stroke-width', width);					
+				pathArray[idTouch].setAttribute('stroke-dasharray', tracejado);
 				svg.appendChild(pathArray[idTouch]);
 				isMousePressed = true;
 			}			
@@ -651,7 +772,8 @@
 			path.setAttribute('d', startPosition);
 			path.setAttribute('fill', 'none');
 			path.setAttribute('stroke', color);
-			path.setAttribute('stroke-width', width);
+			path.setAttribute('stroke-width', width);				
+			path.setAttribute('stroke-dasharray', tracejado);
 			svg.appendChild(path);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -789,9 +911,7 @@
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);  
 										}
 									}
-								}
-				
-				
+								}		
 							}	
 						}
 					}
@@ -1226,7 +1346,8 @@
 	
 				if(activateExistingText == false) {
 
-				createViewElementForPath();
+				createViewElementForPath();		
+				
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circle.setAttribute('cx', sx-3);
 				circle.setAttribute('cy', sy-3);
@@ -1234,11 +1355,9 @@
 				circle.setAttribute('stroke', "black");
 				circle.setAttribute('stroke-width', 0.1);
 				circle.setAttribute('fill', "black");
-				circle.setAttribute('id', "c"+numberOfText);				
-				
-				circle.addEventListener('mouseup', endMoveWrite, false);				
-				
-				viewElementG.appendChild(circle);			
+				circle.setAttribute('id', "c"+numberOfText);	
+				circle.addEventListener('mouseup', endMoveWrite, false);
+				viewElementG.appendChild(circle);
 				
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 				text.setAttribute('x', sx);
@@ -1330,36 +1449,33 @@
 	
 				if(activateExistingText == false) {
 
-				createViewElementForPath();
+				createViewElementForPath();	
+				
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circle.setAttribute('cx', sx-3);
 				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 1);
+				circle.setAttribute('r', 0);
 				circle.setAttribute('stroke', "black");
-				circle.setAttribute('stroke-width', 0.1);
+				circle.setAttribute('stroke-width', 0.0);
 				circle.setAttribute('fill', "black");
-				circle.setAttribute('id', "c"+numberOfText);				
-				
-				circle.addEventListener('mouseup', endMoveWrite, false);				
-				
-				viewElementG.appendChild(circle);			
+				circle.setAttribute('id', "c"+numberOfText);
+				circle.addEventListener('mouseup', endMoveWrite, false);	
+				viewElementG.appendChild(circle);
 				
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 				text.setAttribute('x', sx);
 				text.setAttribute('y', sy);
 				text.setAttribute('font-family', font);
 				text.setAttribute('font-size', size);
-				text.setAttribute('font-style', style);				
-				text.setAttribute('text-decoration', decoration);				
-				text.setAttribute('stroke', colorStroke);
-				text.setAttribute('fill', color);
+				text.setAttribute('font-style', style);	
+				text.setAttribute('fill', color);								
+				text.setAttribute('stroke', colorStroke);					
+				text.setAttribute('text-decoration', decoration);
 				text.setAttribute('id', "tc"+numberOfText);		
 
 				viewElementG.appendChild(text);
 				numberOfText++;
-				} else {
-				
-				}
+				} 
 		}	
 		
         // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
@@ -1433,7 +1549,7 @@
 						text.innerHTML = temp;
 					break;
 					case 'Enter':
-						
+					
 					break;
 					default:
 						text.innerHTML = temp + event.key;					
@@ -1496,7 +1612,7 @@
 				ponto.setAttribute('cx', sx-3);
 				ponto.setAttribute('cy', sy-3);
 				ponto.setAttribute('r', 1);			
-				ponto.setAttribute('fill', "none");
+				ponto.setAttribute('fill', colorElement);
 				ponto.setAttribute('stroke', color);
 				ponto.setAttribute('stroke-width', width);			
 				svg.appendChild(ponto);
@@ -1512,7 +1628,7 @@
 			ponto.setAttribute('cx', sx-3);
 			ponto.setAttribute('cy', sy-3);
 			ponto.setAttribute('r', 1);			
-			ponto.setAttribute('fill', "none");
+			ponto.setAttribute('fill', colorElement);
 			ponto.setAttribute('stroke', color);
 			ponto.setAttribute('stroke-width', width);			
 			svg.appendChild(ponto);
@@ -1573,9 +1689,10 @@
 				circleArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circleArray[idTouch].setAttribute('cx', startX);
 				circleArray[idTouch].setAttribute('cy', startY);
-				circleArray[idTouch].setAttribute('fill', "none");
+				circleArray[idTouch].setAttribute('fill', colorElement);
 				circleArray[idTouch].setAttribute('stroke', color);
 				circleArray[idTouch].setAttribute('stroke-width', width);
+				circleArray[idTouch].setAttribute('stroke-dasharray', tracejado);
 				svg.appendChild(circleArray[idTouch]);
 				isMousePressed = true;
 			}						
@@ -1595,7 +1712,8 @@
 				
 					if(diffX <0) {
 					  //movement left
-					  circleArray[idTouch].setAttribute('r', diffX);
+					  circleArray[idTouch].setAttribute('y', diffX);				
+					  circleArray[idTouch].setAttribute('r', (diffX*(-1)));
 					} else {
 					  //movement right
 					  circleArray[idTouch].setAttribute('r', diffX);
@@ -1633,9 +1751,10 @@
 			circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 			circle.setAttribute('cx', startX);
 			circle.setAttribute('cy', startY);
-			circle.setAttribute('fill', "none");
+			circle.setAttribute('fill', colorElement);
 			circle.setAttribute('stroke', color);
 			circle.setAttribute('stroke-width', width);
+			circle.setAttribute('stroke-dasharray', tracejado);
 			svg.appendChild(circle);
 			isMousePressed = true;	
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1650,14 +1769,15 @@
 			
 				if(diffX <0) {
 				  //movement left
-				  circle.setAttribute('r', diffX);				 
+				  circle.setAttribute('y', diffX);				
+				  circle.setAttribute('r', (diffX*(-1)));
 				} else {
 				  //movement right
 				  circle.setAttribute('r', diffX);
 				}
 				if(diffY <0) {
 				  //movement up
-				  circle.setAttribute('y', moveY);
+				  circle.setAttribute('y', diffY);
 				  circle.setAttribute('r', (diffY*(-1)));
 				} else {
 				  //movement down
@@ -1719,9 +1839,10 @@
 				rectangleArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 				rectangleArray[idTouch].setAttribute('x', startX);
 				rectangleArray[idTouch].setAttribute('y', startY);
-				rectangleArray[idTouch].setAttribute('fill', "none");
+				rectangleArray[idTouch].setAttribute('fill', colorElement);
 				rectangleArray[idTouch].setAttribute('stroke', color);
-				rectangleArray[idTouch].setAttribute('stroke-width', width);
+				rectangleArray[idTouch].setAttribute('stroke-width', width);				
+				rectangleArray[idTouch].setAttribute('stroke-dasharray', tracejado);
 				svg.appendChild(rectangleArray[idTouch]);
 				isMousePressed = true;
 			}			
@@ -1779,10 +1900,11 @@
 			startY = event.clientY-screenYCorrection;
 			rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 			rectangle.setAttribute('x', startX);
-			rectangle.setAttribute('y', startY);
-			rectangle.setAttribute('fill', "none");
+			rectangle.setAttribute('y', startY);			
+			rectangle.setAttribute('fill', colorElement);
 			rectangle.setAttribute('stroke', color);
-			rectangle.setAttribute('stroke-width', width);
+			rectangle.setAttribute('stroke-width', width);	
+			rectangle.setAttribute('stroke-dasharray', tracejado);
 			svg.appendChild(rectangle);
 			isMousePressed = true;			
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1867,9 +1989,10 @@
 				ellipseArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 				ellipseArray[idTouch].setAttribute('cx', startX);
 				ellipseArray[idTouch].setAttribute('cy', startY);
-				ellipseArray[idTouch].setAttribute('fill', "none");
+				ellipseArray[idTouch].setAttribute('fill', colorElement);
 				ellipseArray[idTouch].setAttribute('stroke', color);
 				ellipseArray[idTouch].setAttribute('stroke-width', width);
+				ellipseArray[idTouch].setAttribute('stroke-dasharray', tracejado);
 				svg.appendChild(ellipseArray[idTouch]);
 				isMousePressed = true;
 			}						
@@ -1927,9 +2050,10 @@
 			ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 			ellipse.setAttribute('cx', startX);
 			ellipse.setAttribute('cy', startY);
-			ellipse.setAttribute('fill', "none");
+			ellipse.setAttribute('fill', colorElement);
 			ellipse.setAttribute('stroke', color);
 			ellipse.setAttribute('stroke-width', width);
+			ellipse.setAttribute('stroke-dasharray', tracejado);
 			svg.appendChild(ellipse);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2021,9 +2145,10 @@
 				lineArray[idTouch].setAttribute('y1', startY);
 				lineArray[idTouch].setAttribute('y2', (diffY*(-1)));
 				lineArray[idTouch].setAttribute('y2', diffY);
-				lineArray[idTouch].setAttribute('fill', "none");
+				lineArray[idTouch].setAttribute('fill', colorElement);
 				lineArray[idTouch].setAttribute('stroke', color);
-				lineArray[idTouch].setAttribute('stroke-width', width);				
+				lineArray[idTouch].setAttribute('stroke-width', width);	
+				lineArray[idTouch].setAttribute('stroke-dasharray', tracejado);
 				svg.appendChild(lineArray[idTouch]);
 				isMousePressed = true;					
 			}						
@@ -2088,9 +2213,10 @@
 			line.setAttribute('y1', startY);
 			line.setAttribute('y2', (diffY*(-1)));
 			line.setAttribute('y2', diffY);
-			line.setAttribute('fill', "none");
+			line.setAttribute('fill', colorElement);
 			line.setAttribute('stroke', color);
 			line.setAttribute('stroke-width', width);
+			line.setAttribute('stroke-dasharray', tracejado);
 			svg.appendChild(line);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2611,28 +2737,21 @@
 			if(colorStroke != colorFill)
 			colorStroke = colorFill;
 			else
-			colorStroke = "none";
-			text.setAttribute('stroke', colorStroke);
-		}		
-		
-		//============================================================================
+			colorStroke = "none";			
+		}				
 		
 		function setDecoration() {
 			if (decoration == "underline")
 			decoration = "none";
 			else
-			decoration = "underline";			
-			text.setAttribute('text-decoration', decoration);
-		}
-		
-		//============================================================================
+			decoration = "underline";
+		}		
 
 		function setStyle() {
 			if (style == "italic")
 			style = "normal";
 			else
-			style = "italic";			
-			text.setAttribute('font-style', style);
+			style = "italic";		
 		}		
 
 		//============================================================================
@@ -2655,15 +2774,86 @@
 			font = val;
 		}
 		
-		//============================================================================		
-		
-		function setColor(val) {
-			color = val;
-		}
-		
 		//============================================================================
 		
 		function setWidth(val) {
 			width = val;
 		}	
 		
+		//============================================================================		
+		
+		function setColor(val) {
+			cor = val;	
+			verificaCheckBordas(); 
+			verificaCheckFundo();
+		}
+
+		function setColorElement() {
+			verificaCheckBordas(); 
+			verificaCheckFundo();
+		}	
+		
+		//============================================================================			
+		
+<<<<<<< HEAD
+		function verificaCheckBordas() {
+		
+		var bordas = document.getElementsByName("bordas"); 
+		
+			for (var i=0;i<bordas.length;i++){ 
+
+				if (bordas[i].checked == true){ 					
+					
+					color = cor;
+										
+				}				
+				if (bordas[i].checked == false){ 
+								
+									
+				}
+			}		
+		}
+		
+		function verificaCheckFundo() {
+
+		var fundo = document.getElementsByName("fundo");		
+			
+			for (var i=0;i<fundo.length;i++){ 
+
+				if (fundo[i].checked == true){ 
+					
+					colorElement = cor;
+					
+				}
+				if (fundo[i].checked == false){ 
+								
+					colorElement = "none";					
+										
+				}
+			}
+		}
+		
+		function verificaCheckTracejado() {
+
+		var LinhaTrace = document.getElementsByName("tracejado");		
+			
+			for (var i=0;i<LinhaTrace.length;i++){ 
+
+				if (LinhaTrace[i].checked == true){ 
+					
+					tracejado = '20,20';
+					
+				}
+				if (LinhaTrace[i].checked == false){ 
+								
+					tracejado = "none";					
+										
+				}
+			}
+		}
+=======
+		function setWidth(val) {
+			width = val;
+		}	
+		
+>>>>>>> origin/master

@@ -1,4 +1,5 @@
 		var key=false;
+		var keybox=false;
 		var draw=false;	
 		
 		var move=false;
@@ -298,7 +299,7 @@
 			$("#sublinhado").click(function(){
 				if(sublinhado==false){
 					document.getElementById("sublinhado").className = "btn btn-default";					
-					document.getElementById("sublinhado").href = "javascript:setDecoration();";
+					document.getElementById("sublinhado").href = "javascript:setDecoration();";			
 					sublinhado=true;
 				}else{
 					document.getElementById("sublinhado").className = "buttonToolbar";				
@@ -309,7 +310,7 @@
 			$("#italico").click(function(){
 				if(italico==false){
 					document.getElementById("italico").className = "btn btn-default";					
-					document.getElementById("italico").href = "javascript:setStyle();";
+					document.getElementById("italico").href = "javascript:setStyle();";			
 					italico=true;
 				}else{
 					document.getElementById("italico").className = "buttonToolbar";				
@@ -437,14 +438,52 @@
 					key=false;
 				}
 				
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;				
 				document.getElementById("move").className = "desabilitado";
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
 				del=false;				
+<<<<<<< HEAD
+			});	
+			
+			$("#keybox").click(function(){
+			
+				$("#habFont").show("slow");   	   <!-- Aparecer -->	
+				$("#habEstilo").show("slow"); 	   <!-- Aparecer -->
+				$("#habMedida").show("slow"); 	   <!-- Aparecer -->
+				$("#habFontSpan").show("slow");    <!-- Aparecer -->				
+				$("#habMedidaSpan").show("slow");  <!-- Aparecer -->
+				$("#paletaCores").show("slow");    <!-- Aparecer -->				
+				$("#habEspessSpan").hide("slow");  <!-- Esconder -->
+				$("#habEspess").hide("slow"); 	   <!-- Esconder -->	
+				$("#habOpcao").hide("slow");  	   <!-- Esconder -->
+				
+				document.getElementById("circle").className = "desabilitado";
+				document.getElementById("drop").className = "desabilitado";
+				document.getElementById("square").className = "desabilitado";				
+				document.getElementById("ellipse").className = "desabilitado";	
+				document.getElementById("line").className = "desabilitado";
+
+				document.getElementById("keyboard").className = "buttonToolbar";
+				key=false;	
+				document.getElementById("draw").className = "buttonToolbar";				
+				draw=false;				
+				document.getElementById("move").className = "desabilitado";
+				move=false;
+				document.getElementById("delete").className = "desabilitado";
+				del=false;					
+								
+				document.getElementById("keybox").href = "javascript:createBoxText();";								
+								
+			});
+			
+=======
 			});
             
+>>>>>>> origin/master
 			$("#draw").click(function(){				
 				$("#habFont").hide("slow");   	   <!-- Esconder -->	
 				$("#habEstilo").hide("slow"); 	   <!-- Esconder -->
@@ -473,7 +512,9 @@
 				}
 				
 				document.getElementById("keyboard").className = "buttonToolbar";
-				key=false;				
+				key=false;	
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;				
 				document.getElementById("move").className = "desabilitado";
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
@@ -491,7 +532,7 @@
 				$("#habEspess").show("slow"); 	  <!-- Aparecer -->	
 				$("#habOpcao").show("slow"); 	  <!-- Aparecer -->	
 				$("#habEspessSpan").show("slow"); <!-- Aparecer -->
-			});	
+			});
 			
 			$("#drop").click(function(){
 				var img = $(this).find("img").clone();
@@ -510,6 +551,8 @@
 				move=false;
 				document.getElementById("keyboard").className = "buttonToolbar";
 				key=false;
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;	
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;
 			});
@@ -531,6 +574,8 @@
 				move=false;
 				document.getElementById("keyboard").className = "buttonToolbar";
 				key=false;
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;	
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;
 			});
@@ -552,6 +597,8 @@
 				move=false;
 				document.getElementById("keyboard").className = "buttonToolbar";
 				key=false;
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;	
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;
 			});
@@ -573,6 +620,8 @@
 				move=false;
 				document.getElementById("keyboard").className = "buttonToolbar";
 				key=false;
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;	
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;
 			});
@@ -594,6 +643,8 @@
 				move=false;
 				document.getElementById("keyboard").className = "buttonToolbar";
 				key=false;
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;	
 				document.getElementById("draw").className = "buttonToolbar";				
 				draw=false;
 			});
@@ -614,7 +665,9 @@
 				document.getElementById("negrito").className = "buttonToolbar";
 				negrito=false;					
 				document.getElementById("sublinhado").className = "buttonToolbar";
-				sublinhado=false;					
+				sublinhado=false;	
+				document.getElementById("keybox").className = "buttonToolbar";
+				keybox=false;					
 				document.getElementById("italico").className = "buttonToolbar";
 				italico=false;	
 			});	
