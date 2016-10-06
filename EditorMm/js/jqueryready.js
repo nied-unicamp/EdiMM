@@ -446,7 +446,7 @@
 				move=false;
 				document.getElementById("delete").className = "desabilitado";
 				del=false;				
-<<<<<<< HEAD
+
 			});	
 			
 			$("#keybox").click(function(){
@@ -479,11 +479,7 @@
 				document.getElementById("keybox").href = "javascript:createBoxText();";								
 								
 			});
-			
-=======
-			});
             
->>>>>>> origin/master
 			$("#draw").click(function(){				
 				$("#habFont").hide("slow");   	   <!-- Esconder -->	
 				$("#habEstilo").hide("slow"); 	   <!-- Esconder -->

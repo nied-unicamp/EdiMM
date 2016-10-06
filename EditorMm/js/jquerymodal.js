@@ -1480,7 +1480,7 @@
 		
         // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
         
-        function startBox(){
+        /*function startBox(){
             svg.addEventListener('click', startBoxText, false);
         }
         
@@ -1517,7 +1517,7 @@
 
             });
             
-        }
+        } */
 
 
 		function moveWrite(event) {	
@@ -2795,7 +2795,6 @@
 		
 		//============================================================================			
 		
-<<<<<<< HEAD
 		function verificaCheckBordas() {
 		
 		var bordas = document.getElementsByName("bordas"); 
@@ -2851,9 +2850,7 @@
 				}
 			}
 		}
-=======
+
 		function setWidth(val) {
 			width = val;
 		}	
-		
->>>>>>> origin/master
