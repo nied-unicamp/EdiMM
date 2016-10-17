@@ -102,9 +102,8 @@
 					background: 'none',
 					left: x+'px',
 					top: y+'px',
-					border: "2px dotted #CCCCCC",
 					width: width+'px',
-					//height: height+'px',
+					height: height+'px',
 					color: subject.attrs.fill,
 
 					'-moz-transform-origin': sOrigin,
@@ -180,9 +179,8 @@
 
 				this.input.parentNode.appendChild(tmp);
 
-				//comentando isso a caixa de texto inicia com tamanho fixo e pode ser ajustada pelo usuario
-				//this.input.style.width = tmp.offsetWidth + "px";
-				//this.input.style.height = tmp.offsetHeight + "px";
+				this.input.style.width = tmp.offsetWidth + "px";
+				this.input.style.height = tmp.offsetHeight + "px";
 
 				tmp.parentNode.removeChild(tmp);
 			}

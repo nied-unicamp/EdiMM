@@ -8,7 +8,7 @@
 	$tag_svg = $_REQUEST["tag_svg"];
 	$servername = "localhost";
 	$username = "root";
-	$password = "Myfen80n";
+	$password = "";
 	$dbname = "EditorMm";
 
 	// Create connection

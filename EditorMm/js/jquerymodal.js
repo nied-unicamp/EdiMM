@@ -10,10 +10,6 @@
 		var colorStroke = "none";
 		var colorElement = "none";
 		var tracejado = "none";
-		var styleBoxText  = "normal";
-		var decorationBoxText = "none";
-		var colorFillBoxText = "black";		
-		var colorStrokeBoxText = "none";
 		
 		var color = "black", width = 3;	
 				
@@ -148,6 +144,7 @@
 					break;
 					case 11 :  
 					createBoxText();
+					break;
 					default:
 					createDraw();
 					break;
@@ -578,106 +575,12 @@
 					svg.removeEventListener('touchend', endMoveBoxText, false);
 					
 					svg.removeEventListener('mousedown', startBoxText, false);
-					svg.removeEventListener('mouseup', endMoveBoxText, false);						
+					svg.removeEventListener('mouseup', endMoveBoxText, false);
+				break;					
 				default:				
 				break;
 			}
 		}
-		
-		//============================================================================		
-		 		 
-        // function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
-		 		 
-        function createBoxText(){
-	        removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 11;		
-			
-			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
-				svg.addEventListener('pointerdown', startBoxText, false);
-				svg.addEventListener('pointerup', endMoveBoxText, false);
-
-			}
-			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando multi touch");
-				svg.addEventListener('touchstart', startMultiTouchBoxText, false);
-				svg.addEventListener('touchend', endMoveBoxText, false);	
-			} 
-			
-			svg.addEventListener('mousedown', startBoxText, false);
-			svg.addEventListener('mouseup', endMoveBoxText, false);
-        }	
-
-		function startBoxText(event){	
-				
-				var sx = event.clientX;
-				var sy = event.clientY - screenYCorrection;
-			
-	            var paper = Raphael(document.getElementById('svgID'), 1000, 1000);	
-				
-                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
-				
-				// Initialize text editing for the text element
-				paper.inlineTextEditing(text);
-				
-				// Start inline editing on click
-				text.click(function(){
-					// Retrieve created <input type=text> field
-					var input = this.inlineTextEditing.startEditing();
-				
-					input.addEventListener("blur", function(e){
-						// Stop inline editing after blur on the text field
-						text.inlineTextEditing.stopEditing();
-					}, true);
-				});					
-				isMousePressed = true;				
-				event.preventDefault(); // Prevents an additional event being triggered
-        }
-
-		function startMultiTouchBoxText(event){					
-			var touches = event.changedTouches;
-			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
-					identifier : touches[j].identifier,
-					pageX : touches[j].pageX,
-					pageY : touches[j].pageY
-				};
-
-				var sx = touches[j].clientX;
-				var sy = touches[j].clientY - screenYCorrection;
-			
-	            var paper = Raphael(document.getElementById('svgID'), 740, 540);	
-				
-                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
-				
-				// Initialize text editing for the text element
-				paper.inlineTextEditing(text);
-				
-				// Start inline editing on click
-				text.click(function(){
-					// Retrieve created <input type=text> field
-					var input = this.inlineTextEditing.startEditing();
-				
-					input.addEventListener("blur", function(e){
-						// Stop inline editing after blur on the text field
-						text.inlineTextEditing.stopEditing();
-					}, true);
-				});
-					
-				isMousePressed = true;
-			}	
-			event.preventDefault(); // Prevents an additional event being triggered
-		}
-		
-		function endMoveBoxText(event) {
-			desabilitado();		
-			createViewElementForPath();		
-			isMousePressed = false;
-			saveImage();			
-		}		
 		
 		//============================================================================
 		
@@ -1351,9 +1254,9 @@
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 				circle.setAttribute('cx', sx-3);
 				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 1);
+				circle.setAttribute('r', 0);
 				circle.setAttribute('stroke', "black");
-				circle.setAttribute('stroke-width', 0.1);
+				circle.setAttribute('stroke-width', 0.0);
 				circle.setAttribute('fill', "black");
 				circle.setAttribute('id', "c"+numberOfText);	
 				circle.addEventListener('mouseup', endMoveWrite, false);
@@ -1478,48 +1381,6 @@
 				} 
 		}	
 		
-        // function uses Raphael.js to create a text box, this a call of the function 'inline_text.js'
-        
-        /*function startBox(){
-            svg.addEventListener('click', startBoxText, false);
-        }
-        
-        function startBoxText(event){
-            var sx = event.clientX;
-			var sy = event.clientY - screenYCorrection;
-            
-           $(function(){
-                var paper = Raphael(document.getElementById('movement'), 940, 560);
-
-                // A bunch of texts
-                var elements = [
-                    paper.text(sx, sy, 'Text Test').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color})
-                ];
-
-                for(var i = 0, nbElements = elements.length; i < nbElements; i++){
-                    var element = elements[i];
-
-                    // Initialize inline text editing for this element
-                    paper.inlineTextEditing(element);
-
-                    element.mouseover(function(){
-                        // Start text editing and retrieve input field
-                        var input = this.inlineTextEditing.startEditing();
-
-                        (function(element){
-                            input.blur(function(e){
-                                // Apply new text and remove inline text editing on blur
-                                element.inlineTextEditing.stopEditing();
-                            })
-                        })(this);
-                    });
-                }
-
-            });
-            
-        } */
-
-
 		function moveWrite(event) {	
 			if(isMousePressed == true) {
 			var sx = event.clientX;
@@ -2410,6 +2271,102 @@
 		}	
 		
 		//============================================================================		
+		 		 
+        // function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
+		 		 
+        function createBoxText(){
+	        removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 11;		
+			
+			if (stylusIsEnabled) {
+				//sera usado o pointer
+				//alert("Usando pointer");
+				svg.addEventListener('pointerdown', startBoxText, false);
+				svg.addEventListener('pointerup', endMoveBoxText, false);
+
+			}
+			if (touchIsEnabled) {
+				//sera usado o touch
+				//alert("Usando multi touch");
+				svg.addEventListener('touchstart', startMultiTouchBoxText, false);
+				svg.addEventListener('touchend', endMoveBoxText, false);	
+			} 
+			
+			svg.addEventListener('mousedown', startBoxText, false);
+			svg.addEventListener('mouseup', endMoveBoxText, false);
+        }	
+
+		function startMultiTouchBoxText(event){					
+			var touches = event.changedTouches;
+			for(var j = 0; j < touches.length; j++) {
+				/* store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = {
+					identifier : touches[j].identifier,
+					pageX : touches[j].pageX,
+					pageY : touches[j].pageY
+				};
+
+				var sx = touches[j].clientX;
+				var sy = touches[j].clientY - screenYCorrection;
+			
+	            var paper = Raphael(movementLayer, 1800, 800);	
+				
+                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				
+				// Initialize text editing for the text element
+				paper.inlineTextEditing(text);
+				
+				// Start inline editing on click
+				text.click(function(){
+					// Retrieve created <input type=text> field
+					var input = this.inlineTextEditing.startEditing();
+				
+					input.addEventListener("blur", function(e){
+						// Stop inline editing after blur on the text field
+						text.inlineTextEditing.stopEditing();
+					}, true);
+				});
+					
+				isMousePressed = true;
+			}	
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		
+		function startBoxText(event){	
+				
+				var sx = event.clientX;
+				var sy = event.clientY - screenYCorrection;
+			
+	            var paper = Raphael(movementLayer, 1800, 800);	
+				
+                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				
+				// Initialize text editing for the text element
+				paper.inlineTextEditing(text);
+				
+				// Start inline editing on click
+				text.click(function(){
+					// Retrieve created <input type=text> field
+					var input = this.inlineTextEditing.startEditing();
+				
+					input.addEventListener("blur", function(e){
+						// Stop inline editing after blur on the text field
+						text.inlineTextEditing.stopEditing();
+					}, true);
+				});					
+				isMousePressed = true;				
+				event.preventDefault(); // Prevents an additional event being triggered
+        }
+		
+		function endMoveBoxText(event) {
+			desabilitado();		
+			createViewElementForPath();		
+			isMousePressed = false;
+			saveImage();			
+		}		
+		
+		//============================================================================		
+		
 		function drawLine(){
 			clearLayout();			
 			if (clearG == 0) {				
@@ -2850,7 +2807,3 @@
 				}
 			}
 		}
-
-		function setWidth(val) {
-			width = val;
-		}	
