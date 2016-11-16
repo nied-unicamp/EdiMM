@@ -1,2 +1,0 @@
-# EditorMm
-Editor Multimodal
