@@ -24,7 +24,7 @@
 		subject.inlineTextEditing = {
 			paper : paper,
 			input: null,
-
+			cont: 0,
 			/**
 			 * Start text editing by hiding the current element and adding a text field at the same position
 			 * @return jQuery input element
@@ -102,9 +102,10 @@
 					background: 'none',
 					left: x+'px',
 					top: y+'px',
-					width: width+'px',
-					height: height+'px',
+					//width: width+'px',
+					//height: height+'px',
 					color: subject.attrs.fill,
+					border: 'dashed 2px black;',
 
 					'-moz-transform-origin': sOrigin,
 					'-ms-transform-origin': sOrigin,
@@ -139,15 +140,26 @@
 					sStyles += z + ':' + oStyles[z] + ';';
 				}
 
+
 				// Create an input element with theses styles
 				this.input = document.createElement("textarea");
-				this.input.value = subject.attrs.text ? subject.attrs.text.replace(/\'/g,"\\\'") : '';
-				this.input.setAttribute("style", sStyles);
 
+				// condition to put textarea clear
+				if (this.cont == 0) {
+					this.input.value = "";
+					this.cont = 1;
+				} else {
+					this.input.value = subject.attrs.text ? subject.attrs.text.replace(/\'/g,"\\\'") : '';
+				}
+
+				this.input.setAttribute("style", sStyles);
+				this.input.setAttribute("rows", 4);
+				this.input.setAttribute("cols", 30);
 				this.input.addEventListener('keyup', this._handleKeyDown.bind(this));
 
 				// Add the input in the container and apply focus on it
 				container.appendChild(this.input);
+
 				this.input.focus();
 
 				return this.input;

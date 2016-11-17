@@ -2341,7 +2341,7 @@
 				// rectangle to move a textbox
 				var r = paper.rect(sx, sy);
                 var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
-
+				
 				// Initialize text editing for the text element
 				paper.inlineTextEditing(text);
 
