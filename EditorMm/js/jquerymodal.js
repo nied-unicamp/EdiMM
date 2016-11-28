@@ -1,62 +1,90 @@
-		//http://fenix.nied.unicamp.br/EditorMm/
+/*!
+Editor for multisemiotic text production, dealing with multidevice and multimodal interaction
 
-		var size = "20";
-		var font = "Arial";
+Copyright (C) see <link para equipe>
 
-		var cor = "black";
-		var style  = "normal";
-		var decoration = "none";
-		var colorFill = "black";
-		var colorStroke = "none";
-		var colorElement = "none";
-		var tracejado = "none";
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
-		var color = "black", width = 3;
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-		var xArray = new Array();
-		var yArray = new Array();
-		var lineArray = new Array();
-		var viewArray = new Array();
-		var pathArray = new Array();
-		var circleArray = new Array();
-		var ellipseArray = new Array();
-		var rectangleArray = new Array();
-		var imageArray = new Array();
-		var pathsToMoveInDeleteRect = new Array();
-		var touchesInAction = {};
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.
+*/	
+		//http://fenix.nied.unicamp.br/EditorMm/	
+		
+		var sizeLetter = "20"; // Initialization sizeLetter
+		var fontLetter = "Arial"; // Initialization fontLetter
 
-		var clearG = 0;
-		var id;
-		var svg;
-		var xmlString;
-		var textToMove;
-		var numberOfText;
-		var circleOfTextToMove;
-		var gOfTextToMove;
-		var viewElementG;
-		var movementLayer;
-		var activeButtonElement;
-		var url = location.href;
-		var id = location.search;
-		var numberOfEventListener;
+		var styleLetter  = "normal"; // Initialization styleLetter
+		var decorationLetter = "none"; // Initialization decorationLetter
+		var colorStrokeLetter = "none"; // Initialization colorStrokeLetter
+		
+		var colorElement = "none"; // Initialization colorElement			
+		var dashedElement = "none"; // Initialization dashedElement
+		var colorFillElement = "black"; // Initialization colorFillElement		
+		var colorBootElement = "black"; // Initialization colorBootElement		
+		
+		var colorBoot = "black", widthBoot = 3; // Initialization of element colorBoot and widthBoot
+
+		var xArray = new Array(); // Vector initialization responsible for the X axis
+		var yArray = new Array(); // Vector initialization responsible for the Y axis
+		
+		var lineArray = new Array(); // Vector initialization responsible for lines  
+		var viewArray = new Array(); // Vector initialization responsible for view
+		var pathArray = new Array(); // Vector initialization responsible for path		
+		var imageArray = new Array(); // Vector initialization responsible for image		
+		var circleArray = new Array(); // Vector initialization responsible for circle
+		var ellipseArray = new Array(); // Vector initialization responsible for ellipse		
+		var rectangleArray = new Array(); // Vector initialization responsible for rectangle		
+		var touchesInAction = new Array(); // Vector initialization responsible for touchEvents
+		var pathsToMoveInDeleteRect = new Array(); // Vector initialization responsible for DeleteRect
+		
+		var clearGrid = 0; //Initialization responsible clearGrid
+		
+		var svg; //Initialization responsible svg
+		var xmlString; //Initialization responsible xmlString
+		
+		var numberToText; // Initialization numberToText attribute		
+		var moveToText; // Initialization moveToText attribute
+		var circleTextToMove; // Initialization circleTextToMove attribute
+		
+		var viewElementG; // Initialization viewElementG attribute
+		var movementLayer; // Initialization movementLayer attribute
+		var activeButtonElement; // Initialization activeButtonElement attribute
+		
+		var url = location.href; // Initialization url attribute 
+		var id = location.search; // Initialization id attribute
+				
+		// Initialization of function attribute responsible for the x-axis and y-axis
+		var numberOfEventListener;		
 		var startMoveX, startMoveY;
 		var screenXCorrection, screenYCorrection;
-		var image, receivedImage;
-		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs;
+		
+		// Initialization of function attribute
+		var image, receivedImage; 
+		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs; 
 
-		var movingText = false;
-		var isMousePressed = false;
-		var stylusIsEnabled = false;
-		var touchIsEnabled = false;
+		var movingText = false;	// Boolean attribute movingText receives false value 
+		var touchIsEnabled = false; // Boolean attribute touchIsEnabled receives false value 
+		var isMousePressed = false; // Boolean attribute isMousePressed receives false value 
+		var stylusIsEnabled = false; // Boolean attribute stylusIsEnabled receives false value 
 
 		//============================================================================
-
-		if (!id){
+		// Generate Random ID
+		if (!id){ 
 			id = makeid();
 			id = id.replace(" ", "");
 			window.location.replace(url+"?"+id);
 		}
-
+		
+		//============================================================================
+		// Function resposable by burying the possible characters
 		function makeid() {
 			var text = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -65,14 +93,14 @@
 			return text;
 		}
 
-		//============================================================================
-
+		//============================================================================		
+		// Responsible function activate background elements
 		function activeButton(element) {
 			element.style.background="#a2a2a2";
 		}
 
 		//============================================================================
-
+		// Responsible function disable background elements
 		function deactiveButton(element) {
 			if(activeButtonElement !== element) {
 			element.style.background="none";
@@ -80,7 +108,7 @@
 		}
 
 		//============================================================================
-
+		// Activate elements
 		function setActiveButton(element) {
 			if(activeButtonElement != undefined) {
 				if(activeButtonElement !== element) {
@@ -91,7 +119,7 @@
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the main viewElementG element that will aggregate the others
 		function createViewElementForPath() {
 			viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 			viewElementG.setAttribute('class', "viewelement");
@@ -99,17 +127,19 @@
 
 			movementLayer.appendChild(viewElementG);
 		}
-
-		function desabilitado() {
+		
+		//============================================================================
+		// Function responsible for disabling boxtext
+		function disabledBoxText() {
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 0;
 		}
 
 		//============================================================================
-
+		// Function responsible for managing functions related to touch on the screen
 		function device() {
-			deviceIsStylusSensitive();
-			deviceIsTouchScreen();
+			deviceIsStylusSensitive(); //Flame function deviceIsStylusSensitive
+			deviceIsTouchScreen(); //Flame function deviceIsTouchScreen
 			var number = numberOfEventListener;
 				switch (number) {
 					case 1 :
@@ -150,9 +180,11 @@
 					break;
 				}
 		}
-
+		
+		//============================================================================
+		// Function responsible for activating touchIsEnabled
 		function deviceIsTouchScreen() {
-			if (touchIsEnabled==false){
+			if (touchIsEnabled==false){ // Compare ball values for touchIsEnabled
 				if (window.ontouchstart !== "undefined")
 					touchIsEnabled = true;
 
@@ -162,22 +194,23 @@
 			}else{
 			touchIsEnabled=false;
 			}
-			saveImage();
-		}
-
+			saveImage(); // Save layout
+		}		
+		//============================================================================
+		// Function responsible for activating stylusIsEnabled
 		function deviceIsStylusSensitive() {
-			if (stylusIsEnabled==false){
+			if (stylusIsEnabled==false){ // Compare ball values for stylusIsEnabled
 				if(window.onponterstart !== "undefined")
 					stylusIsEnabled = true;
 
 			}else{
 			stylusIsEnabled=false;
 			}
-			saveImage();
+			saveImage(); // Save layout
 		}
 
 		//============================================================================
-
+		// Responsible function saving the screen layout
 		function saveImage() {
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
@@ -190,44 +223,51 @@
 		}
 
 		//============================================================================
-
+		// Responsible function initialize svgID and layer and movement
 		function init() {
-			svg = document.getElementById('svgID');
+			svg = document.getElementById('svgID'); 
 			layer = document.getElementsByClassName('layer')[0];
 			movementLayer = document.getElementById('movement');
 
-			screenXCorrection = screen.width * 0.0;
-			screenYCorrection = screen.height * 0.0;
+			screenXCorrection = screen.width * 0.0; //Points the angle x of the touch on the screen
+			screenYCorrection = screen.height * 0.0; //Points the angle y of the touch on the screen
 
-			id = id.replace("?", "");
-			deserializeSVGtoXML();
-			createDraw();
+			id = id.replace("?", ""); // ID will receive the input paramera after ?
+			deserializeSVGtoXML(); // Responsible function for bringing the data after the input parameter through the URL
+			createDraw(); // Free drawing function as default on startup
 		}
-
-		function deserializeSVGtoXML() {
+		//============================================================================
+		// Responsible function for bringing the data stored after the input parameter		
+		function deserializeSVGtoXML() {		
+			// Start jquery function
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function() {
 				if(xmlhttp.readyState==4 && xmlhttp.status==200) {
 				var xmlString = xmlhttp.responseText;
 				var x;
+				
+				// Attributes that will transform HTML tags into XML
 				xmlString = xmlString.replace("<html>", "");
 				xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
 				xmlString = xmlString.replace("</head> <body>", "");
 				xmlString = xmlString.trim();
 				xmlString = xmlString.substring(1, xmlString.length);
 				xmlArray = xmlString.split("><");
-
+				
+				// Attributes receive the element g from the layout
 				var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 				var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 				var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
+				
+					// Repeating loop that will scan all elements whose names are described in the XML paramentros
 					for(i=0; i<xmlArray.length; i++) {
-						switch(xmlArray[i].substr(0, 1)) {
+						switch(xmlArray[i].substr(0, 1)) {	// Specific elements within the "g" tag will be searched recursively
 							case "g":
 								if(xmlArray[i].indexOf('class="layer"') != -1) {
 								var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-
+								
+									// Repeating loop responsible for scanning attributeArray in class layer
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
@@ -237,7 +277,8 @@
 								} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {
 										var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 										var attributeArray = attributeString.split('"');
-
+										
+											// Repeating loop responsible for scanning attributeArray in class movementClass
 											for(j=0; j<attributeArray.length-1; j=j+2) {
 											var attributeName = attributeArray[j].trim();
 											attributeName = attributeName.substring(0, attributeName.length-1);
@@ -252,7 +293,8 @@
 													viewElement = viewElementTemp;
 													movementElement.appendChild(viewElement);
 													}
-
+													
+													// Repeating loop responsible for scanning attributeArray in class viewelement
 													if(attributeArray.length>4){
 														for(j=0; j<attributeArray.length-1; j=j+2) {
 														var attributeName = attributeArray[j].trim();
@@ -263,8 +305,8 @@
 													}
 												}
 
-							break;
-							case "d":
+							break;										
+							case "d": // Search for the element with the defs tag
 								var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
@@ -277,8 +319,8 @@
 								viewElement.appendChild(defs);
 								movementElement.appendChild(viewElement);
 							break;
-							case "p":
-								if ((xmlArray[i].substr(0, 7) == "pattern")) {
+							case "p": // Search for the element with the pattern or path
+								/*if ((xmlArray[i].substr(0, 7) == "pattern")) {
 									var pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
 											var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 											var attributeArray = attributeString.split('"');
@@ -294,8 +336,8 @@
 									//viewElement.appendChild(pattern);
 									//movementElement.appendChild(viewElement);
 								}
-								else if ((xmlArray[i].substr(0, 4) == "path")) {
-											//adiciona a path caso exista
+								else*/								
+								if ((xmlArray[i].substr(0, 4) == "path")) { // Search for the element with the path
 											var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 											var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 											var attributeArray = attributeString.split('"');
@@ -309,7 +351,7 @@
 											movementElement.appendChild(viewElement);
 								}
 							break;
-							case "t":
+							case "t": // Search for the element with the defs text
 								if ((xmlArray[i].substr(0, 4) == "text")){
 								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 								var textArray =  xmlArray[i].split(">");
@@ -331,7 +373,7 @@
 									}
 								}
 							break;
-							case "i":
+							case "i": // Search for the element with the defs image
 								if ((xmlArray[i].substr(0, 5) == "image")){
 								var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
 								var imageArray = xmlArray[i].split(">");
@@ -353,7 +395,7 @@
 								movementElement.appendChild(viewElement);
 								}
 							break;
-							case "e":
+							case "e": // Search for the element with the defs ellipse
 								var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 								var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
@@ -366,7 +408,7 @@
 								viewElement.appendChild(ellipse);
 								movementElement.appendChild(viewElement);
 							break;
-							case "c":
+							case "c": // Search for the element with the defs circle
 								var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 								var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
@@ -379,7 +421,7 @@
 								viewElement.appendChild(circle);
 								movementElement.appendChild(viewElement);
 							break;
-							case "r":
+							case "r": // Search for the element with the defs rect
 								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
@@ -392,7 +434,7 @@
 								viewElement.appendChild(rect);
 								movementElement.appendChild(viewElement);
 							break;
-							case "l":
+							case "l": // Search for the element with the defs line
 								var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
@@ -405,30 +447,30 @@
 								viewElement.appendChild(line);
 								movementElement.appendChild(viewElement);
 							break;
-							case "/":
+							case "/": 
 							break;
 							default:
-							saveImage();
+							saveImage(); // Save layout
 							break;
 						}
 					}
 					if (viewElement){
-					layerElement.appendChild(movementElement);
-					svg.replaceChild(layerElement, layer);
-					layer = layerElement;
-					movementLayer = movementElement;
+					layerElement.appendChild(movementElement); // layerElement receives the movementElement
+					svg.replaceChild(layerElement, layer); // layer receives the layerElement and layer
+					layer = layerElement; // layer receives the layerElement
+					movementLayer = movementElement; // movementLayer receives the movementElement
 					}
 				}
 			}
-			xmlhttp.open("POST", "dml/consulta.php", true);
-			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xmlhttp.send("id="+id);
+			xmlhttp.open("POST", "dml/consulta.php", true); // Call the consulta.php file located in the DML folder with POST method
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // Make the page request
+			xmlhttp.send("id="+id); // The ID receives the parameter in the URL to be queried
 		}
 
 		//============================================================================
-
-		function removeEventListenerFromSVG(listenerNumber) {
-			switch (listenerNumber) {
+		// Responsible role to manage the removal of property events
+		function removeEventListenerFromSVG(listenerNumber) { // Past parameter through the different functions
+			switch (listenerNumber) { // Manage the last number in the paramenter
 				case 1 :
 					//remove Draw-Listener
 					svg.removeEventListener('pointerdown', startDraw, false);
@@ -582,166 +624,172 @@
 			}
 		}
 
-		//============================================================================
-
+		//============================================================================		
+		// Function responsible for creating the draw element
 		function createDraw() {
-			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 1;
+			removeEventListenerFromSVG(numberOfEventListener); 
+			numberOfEventListener = 1; // Pass number 1 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startDraw, false);
 				svg.addEventListener('pointermove', moveDraw, false);
 				svg.addEventListener('pointerup', endMoveDraw, false);
 
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando multi touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchDraw, false);
 				svg.addEventListener('touchmove', moveMultiTouchDraw, false);
 				svg.addEventListener('touchend', endMoveMultiTouchDraw, false);
 			}
 
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startDraw, false);
 			svg.addEventListener('mousemove', moveDraw, false);
 			svg.addEventListener('mouseup', endMoveDraw, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchDraw(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
+			// Loop responsible for assigning the path element while keeping it pressed is true
 			for(var j = 0; j < touches.length; j++) {
 				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				touchesInAction[ "$" + touches[j].identifier ] = {  /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				var sx = touches[j].pageX;
-				var sy = touches[j].pageY - screenYCorrection;
-				var startPosition = "M"+sx+" "+sy;
-				var idTouch = touches[j].identifier;
+				var sx = touches[j].pageX; // Specifies the x-axis on the screen
+				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
+				var startPosition = "M"+sx+" "+sy; // Receives the parameters responsible for the position of the elemen
+				var idTouch = touches[j].identifier; // Array to store multitouch 
 				pathArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-				pathArray[idTouch].setAttribute('id', 'pathID');
-				pathArray[idTouch].setAttribute('d', startPosition);
-				pathArray[idTouch].setAttribute('fill', 'none');
-				pathArray[idTouch].setAttribute('stroke', color);
-				pathArray[idTouch].setAttribute('stroke-width', width);
-				pathArray[idTouch].setAttribute('stroke-dasharray', tracejado);
-				svg.appendChild(pathArray[idTouch]);
-				isMousePressed = true;
+				pathArray[idTouch].setAttribute('id', 'pathID'); // Add an ID to the element
+				pathArray[idTouch].setAttribute('d', startPosition); // Add the position of the element
+				pathArray[idTouch].setAttribute('fill', 'none'); // Add background color to element
+				pathArray[idTouch].setAttribute('stroke', colorBoot); // Add a color to the element
+				pathArray[idTouch].setAttribute('stroke-width', widthBoot); // Add a thickness to the element
+				pathArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashes to element
+				svg.appendChild(pathArray[idTouch]); // Add element to svg
+				isMousePressed = true; // The screen-pressed touch 
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Touch Event 
 		function moveMultiTouchDraw(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
+				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(var j = 0; j < touches.length; j++) {
 					var idTouch = touches[j].identifier;
-					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-					var sx = touches[j].clientX;
-					var sy = touches[j].clientY - screenYCorrection;
+					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+					var sx = touches[j].clientX; // Specifies the x-axis on the screen
+					var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 					var dString = pathArray[idTouch].getAttribute('d');
 					dString += ' L'+sx+' '+sy;
-					pathArray[idTouch].setAttribute('d', dString);
+					pathArray[idTouch].setAttribute('d', dString);// Receive the ID in the related Array touch screen
 				}
 				/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 				event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event 
 		function endMoveMultiTouchDraw(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
+				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(var j = 0; j < touches.length; j++) {
 					var idTouch = touches[j].identifier;
-					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-					createViewElementForPath();
-					viewElementG.appendChild(pathArray[idTouch]);
-					isMousePressed = false;
-					saveImage();
+					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+					createViewElementForPath(); // Call function createViewElementForPath
+					viewElementG.appendChild(pathArray[idTouch]); // Add element to viewElementG
+					isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+					saveImage(); // Save layout
 				}
 				event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startDraw(event) {
-			var sx = event.clientX;
-			var sy = event.clientY - screenYCorrection;
-			var startPosition = "M"+sx+" "+sy;
+			var sx = event.clientX; // Specifies the x-axis on the screen
+			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+			var startPosition = "M"+sx+" "+sy; // Receives the parameters responsible for the position of the elemen
 			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-			path.setAttribute('id', 'pathID');
-			path.setAttribute('d', startPosition);
-			path.setAttribute('fill', 'none');
-			path.setAttribute('stroke', color);
-			path.setAttribute('stroke-width', width);
-			path.setAttribute('stroke-dasharray', tracejado);
-			svg.appendChild(path);
-			isMousePressed = true;
+			path.setAttribute('id', 'pathID'); // Add an ID to the element
+			path.setAttribute('d', startPosition); // Add the position of the element
+			path.setAttribute('fill', 'none'); // Add background color to element
+			path.setAttribute('stroke', colorBoot); // Add a color to the element
+			path.setAttribute('stroke-width', widthBoot); // Add a thickness to the element
+			path.setAttribute('stroke-dasharray', dashedElement); // Add dashes to element
+			svg.appendChild(path); // Add element to svg
+			isMousePressed = true; // The screen-pressed touch
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveDraw(event) {
-			if(isMousePressed) {
-            var sx = event.clientX;
-            var sy = event.clientY - screenYCorrection;
+			if(isMousePressed) { // If responsible for assigning the path element while keeping it pressed is true
+            var sx = event.clientX; // Specifies the x-axis on the screen
+            var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
             var dString = path.getAttribute('d');
             dString += ' L'+sx+' '+sy;
-            path.setAttribute('d', dString);
+            path.setAttribute('d', dString); // Draw the element in svg
 			event.preventDefault(); // Prevents an additional event being triggered
             }
 		}
-
+		// End Mouse Event
 		function endMoveDraw(event) {
-			createViewElementForPath();
-			viewElementG.appendChild(path);
-			isMousePressed = false;
-			saveImage();
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(path); // Add element to viewElementG
+			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for moving elements
 		function moveIt() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 2;
+			numberOfEventListener = 2; // Pass number 2 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startMoves, false);
 				svg.addEventListener('pointermove', moveMoves, false);
 				svg.addEventListener('pointerup', endMoveMoves, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startTouchMoves, false);
 				svg.addEventListener('touchmove', moveTouchMoves, false);
 				svg.addEventListener('touchend', endMoveMoves, false);
 			}
 
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startMoves, false);
 			svg.addEventListener('mousemove', moveMoves, false);
 			svg.addEventListener('mouseup', endMoveMoves, false);
 		}
-
+		// Start Touch Event 
 		function startTouchMoves(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
+				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				isMousePressed = true;
-				startMoveX = touches[j].pageX;
-				startMoveY = touches[j].pageY - screenYCorrection;
-				viewArray = document.getElementsByClassName('viewelement');
-
+				isMousePressed = true; // The screen-pressed touch
+				startMoveX = touches[j].pageX; // Specifies the x-axis on the screen
+				startMoveY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
+				viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
+					
+					// Loop responsible for assigning the path element while keeping it pressed is true
 					for(h=0; h<viewArray.length; h++) {
 					xArray[h] = getXandYTransformValues(viewArray[h]).x;
 					yArray[h] = getXandYTransformValues(viewArray[h]).y;
@@ -749,30 +797,36 @@
 			}
 			event.preventDefault();// Prevents an additional event being triggered
 		}
-
+		// Move Touch Event 
 		function moveTouchMoves(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
+			// Loop responsible for moving element
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var xMovement = touches[j].clientX;
-				var yMovement = touches[j].clientY;
-
+				var xMovement = touches[j].clientX; // Specifies the x-axis on the screen
+				var yMovement = touches[j].clientY; // Specifies the y-axis on the screen
+				// Loop responsible for moving the element to the desired area
 				for(h=0; h<viewArray.length; h++) {
 				var x, y;
 				var pathArray = viewArray[h].getElementsByTagName('path');
 				var pathIn = false;
-					if(pathArray.length>0){
+					// Assigns the selected element to be moved
+					if(pathArray.length>0){ // Moves the pathArray element
+						// Loop responsible for moving element path
 						for(i=0; i<pathArray.length; i++) {
+						
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						var xMoveArray = new Array();
+						
+						var xMoveArray = new Array(); // Stores x-axis to screen touch
+						
 							for(j=0; j<splitArray.length; j=j+2) {
 							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
-						var yMoveArray = new Array();
+						var yMoveArray = new Array(); // Stores y-axis to screen touch
 
 							for(l=1; l<splitArray.length; l=l+2) {
 							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
@@ -788,27 +842,27 @@
 						}
 					}else{
 					var arrayDel = viewArray[h].getElementsByTagName('rect');
-						if(arrayDel.length==1){
+						if(arrayDel.length==1){ // Moves the rect element
 						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 						}else{
-						arrayDel = viewArray[h].getElementsByTagName('circle');
+						arrayDel = viewArray[h].getElementsByTagName('circle'); // Moves the circle element
 							if(arrayDel.length==1){
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
 							movingText = true;
 							}else{
-							arrayDel = viewArray[h].getElementsByTagName('line');
+							arrayDel = viewArray[h].getElementsByTagName('line'); // Moves the line element
 								if(arrayDel.length==1){
 								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
 								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
 								}else{
-								arrayDel = viewArray[h].getElementsByTagName('ellipse');
+								arrayDel = viewArray[h].getElementsByTagName('ellipse'); // Moves the ellipse element
 									if(arrayDel.length==1){
 									x = arrayDel[0].getAttribute("cx");
 									y = arrayDel[0].getAttribute("cy");
 									}else{
-									arrayDel = viewArray[h].getElementsByTagName('image');
+									arrayDel = viewArray[h].getElementsByTagName('image'); // Moves the image element
 										if(arrayDel.length==1){
 										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
@@ -818,22 +872,22 @@
 							}
 						}
 					}
-						if(viewArray[h].getAttribute('id') != "grid"){
+						if(viewArray[h].getAttribute('id') != "grid"){ 
 							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
 								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
-								//translation right and down
+								//Translation right and down
 								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 								viewArray[h].setAttribute('transform', transformString);
 								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
-										//translation left and down
+										//Translation left and down
 										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 										viewArray[h].setAttribute('transform', transformString);
 										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
-												//translation left and up
+												//Translation left and up
 												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
 												viewArray[h].setAttribute('transform', transformString);
 												} else {
-												//translation right and up
+												//Translation right and up
 												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
 												viewArray[h].setAttribute('transform', transformString);
 												}
@@ -844,37 +898,45 @@
 			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startMoves(event) {
-			isMousePressed = true;
-			startMoveX = event.clientX;
-			startMoveY = event.clientY-screenYCorrection;
-			viewArray = document.getElementsByClassName('viewelement');
+			isMousePressed = true; // The screen-pressed touch
+			startMoveX = event.clientX; // Specifies the x-axis on the screen
+			startMoveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
+			viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
+	
+				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(h=0; h<viewArray.length; h++) {
 				xArray[h] = getXandYTransformValues(viewArray[h]).x;
 				yArray[h] = getXandYTransformValues(viewArray[h]).y;
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event 
 		function moveMoves(event) {
+			// It will be redirected while the element is pressed
 			if(isMousePressed) {
-			var xMovement = event.clientX;
-			var yMovement = event.clientY;
+			var xMovement = event.clientX; // Specifies the x-axis on the screen
+			var yMovement = event.clientY; // Specifies the y-axis on the screen
+				// Loop responsible for moving the element to the desired area
 				for(h=0; h<viewArray.length; h++) {
 				var x, y;
 				var pathArray = viewArray[h].getElementsByTagName('path');
 				var pathIn = false;
-					if(pathArray.length>0){
+					// Assigns the selected element to be moved
+					if(pathArray.length>0){ // Moves the pathArray element
+						// Loop responsible for moving element path
 						for(i=0; i<pathArray.length; i++) {
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						var xMoveArray = new Array();
+						
+						var xMoveArray = new Array(); // Stores x-axis to screen touch
+						
 							for(j=0; j<splitArray.length; j=j+2) {
 							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
-						var yMoveArray = new Array();
+						var yMoveArray = new Array(); // Stores y-axis to screen touch
 
 							for(l=1; l<splitArray.length; l=l+2) {
 							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
@@ -890,54 +952,52 @@
 						}
 					}else{
 					var arrayDel = viewArray[h].getElementsByTagName('rect');
-						if(arrayDel.length==1){
+						if(arrayDel.length==1){ // Moves the rect element
 						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 						}else{
 						arrayDel = viewArray[h].getElementsByTagName('circle');
-							if(arrayDel.length==1){
+							if(arrayDel.length==1){ // Moves the circle element
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
 							movingText = true;
 							}else{
 							arrayDel = viewArray[h].getElementsByTagName('line');
-								if(arrayDel.length==1){
+								if(arrayDel.length==1){ // Moves the line element
 								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
 								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
 								}else{
 								arrayDel = viewArray[h].getElementsByTagName('ellipse');
-									if(arrayDel.length==1){
+									if(arrayDel.length==1){ // Moves the ellipse element
 									x = arrayDel[0].getAttribute("cx");
 									y = arrayDel[0].getAttribute("cy");
 									}else{
 									arrayDel = viewArray[h].getElementsByTagName('image');
-										if(arrayDel.length==1){
+										if(arrayDel.length==1){ // Moves the image element
 										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 										}
 									}
 								}
-
-
 							}
 						}
 					}
 						if(viewArray[h].getAttribute('id') != "grid"){
 							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
 								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
-								//translation right and down
+								//Translation right and down
 								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 								viewArray[h].setAttribute('transform', transformString);
 								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
-										//translation left and down
+										//Translation left and down
 										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 										viewArray[h].setAttribute('transform', transformString);
 										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
-												//translation left and up
+												//Translation left and up
 												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
 												viewArray[h].setAttribute('transform', transformString);
 												} else {
-												//translation right and up
+												//Translation right and up
 												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
 												viewArray[h].setAttribute('transform', transformString);
 												}
@@ -947,13 +1007,13 @@
 				event.preventDefault();	// Prevents an additional event being triggered
 			}
 		}
-
+		// End event
 		function endMoveMoves(event) {
-			isMousePressed = false;
-			saveImage();
+			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Group the elements to be redirected
 		function getXandYTransformValues(groupElement) {
 			var transformValue = groupElement.getAttributeNode('transform').value;
 			var tempValue = transformValue.substr(10, transformValue.lastIndexOf(")"));
@@ -966,158 +1026,167 @@
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
-		//============================================================================
-
+		//============================================================================	
+		// Function responsible for deleting elements
 		function deleteIt() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 3;
+			numberOfEventListener = 3; // Pass number 3 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// the pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startDelete, false);
 				svg.addEventListener('pointermove', moveDelete, false);
 				svg.addEventListener('pointerup', endMoveDelete, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startTouchDelete, false);
 				svg.addEventListener('touchmove', moveTouchDelete, false);
 				svg.addEventListener('touchend', endMoveDelete, false);
 			}
-
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startDelete, false);
 			svg.addEventListener('mousemove', moveDelete, false);
 			svg.addEventListener('mouseup', endMoveDelete, false);
 		}
-
+		// Start Touch Event
 		function startTouchDelete(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
+				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				deleteRect.setAttribute('x', startX);
-				deleteRect.setAttribute('y', startY);
-				deleteRect.setAttribute('fill', "none");
-				deleteRect.setAttribute('stroke', "red");
-				deleteRect.setAttribute('stroke-width', "1");
-				svg.appendChild(deleteRect);
-				isMousePressed = true;
+				deleteRect.setAttribute('x', startX); // Add the position x of the element
+				deleteRect.setAttribute('y', startY); // Add the position y of the element
+				deleteRect.setAttribute('fill', "none"); // Add background color to element
+				deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
+				deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
+				svg.appendChild(deleteRect); // Add element to svg
+				isMousePressed = true; // The screen-pressed touch
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
-		}
-
+		}		
+		// Move Touch Event
 		function moveTouchDelete(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
 						if(diffX <0) {
-						//movement left
+						// Movement left
 						deleteRect.setAttribute('x', moveX);
 						deleteRect.setAttribute('width', (diffX*(-1)));
 						} else {
-						//movement right
+						// Movement right
 						deleteRect.setAttribute('width', diffX);
 						}
 						if(diffY <0) {
-						//movement up
+						// Movement up
 						deleteRect.setAttribute('y', moveY);
 						deleteRect.setAttribute('height', (diffY*(-1)));
 						} else {
-						//movement down
+						// Movement down
 						deleteRect.setAttribute('height', diffY);
 						}
 			}
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startDelete(event) {
-			startX = event.clientX;
-			startY = event.clientY-screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-			deleteRect.setAttribute('x', startX);
-			deleteRect.setAttribute('y', startY);
-			deleteRect.setAttribute('fill', "none");
-			deleteRect.setAttribute('stroke', "red");
-			deleteRect.setAttribute('stroke-width', "1");
-			svg.appendChild(deleteRect);
-			isMousePressed = true;
+			deleteRect.setAttribute('x', startX); // Add the position x of the element
+			deleteRect.setAttribute('y', startY); // Add the position y of the element
+			deleteRect.setAttribute('fill', "none"); // Add background color to element
+			deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
+			deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
+			svg.appendChild(deleteRect); // Add element to svg
+			isMousePressed = true; // The screen-pressed touch
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveDelete(event) {
-			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
+			if(isMousePressed) { // If responsible for assigning the path element while keeping it pressed is true
+			var moveX = event.clientX; // Specifies the x-axis on the screen
+			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			var diffX = moveX - startX;
 			var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//movement left
+				// Movement left
 				deleteRect.setAttribute('x', moveX);
 				deleteRect.setAttribute('width', (diffX*(-1)));
 				} else {
-				//movement right
+				// Movement right
 				deleteRect.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				//movement up
+				// Movement up
 				deleteRect.setAttribute('y', moveY);
 				deleteRect.setAttribute('height', (diffY*(-1)));
 				} else {
-				//movement down
+				// Movement down
 				deleteRect.setAttribute('height', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Event
 		function endMoveDelete(event) {
-			isMousePressed = false;
+			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
 
-			var leftXRect = parseInt(deleteRect.getAttribute('x'));
+			var leftXRect = parseInt(deleteRect.getAttribute('x')); 
 			var leftYRect = parseInt(deleteRect.getAttribute('y'));
 			var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
 			var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
 
 			var viewElementArray = document.getElementsByClassName('viewelement');
 			var arrayOfPathToDelete = new Array();
+				// Loop responsible for removing element
 				for(h=0; h<viewElementArray.length; h++) {
+					
 					if(arrayOfPathToDelete.length!=0) {
 					arrayOfPathToDelete = new Array();
 					}
+					
 				var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
 				var yTranslation = getXandYTransformValues(viewElementArray[h]).y;
 
 				var pathArray = viewElementArray[h].getElementsByTagName('path');
-					if(pathArray.length>0){
+				
+					// Assigns the selected element to be removed
+					if(pathArray.length>0){ // Removed the pathArray element
+						// Loop responsible for remove element path
 						for(i=0; i<pathArray.length; i++) {
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						var xArray = new Array();
+						
+						var xArray = new Array(); // Stores x-axis to screen touch
+						
 							for(j=0; j<splitArray.length; j=j+2) {
 							xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
-						var yArray = new Array();
+						var yArray = new Array(); // Stores y-axis to screen touch
+						
 							for(l=1; l<splitArray.length; l=l+2) {
 							yArray.push(yTranslation*1 + parseInt(splitArray[l]));
 							}
@@ -1142,27 +1211,27 @@
 					}else{
 					var x, y;
 					var arrayDel = viewElementArray[h].getElementsByTagName('rect');
-						if(arrayDel.length==1){
+						if(arrayDel.length==1){ // Remove the rect element
 						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 						}else{
 						arrayDel = viewElementArray[h].getElementsByTagName('circle');
-							if(arrayDel.length==1){
+							if(arrayDel.length==1){ // Remove the circle element
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
 							}else{
 								arrayDel = viewElementArray[h].getElementsByTagName('line');
-								if(arrayDel.length==1){
+								if(arrayDel.length==1){ // Remove the line element
 								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
 								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
 								}else{
 									arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
-									if(arrayDel.length==1){
+									if(arrayDel.length==1){ // Remove the ellipse element
 									x = arrayDel[0].getAttribute("cx");
 									y = arrayDel[0].getAttribute("cy");
 									}else{
 										arrayDel = viewElementArray[h].getElementsByTagName('image');
-										if(arrayDel.length==1){
+										if(arrayDel.length==1){ // Remove the image element
 										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 										}
@@ -1171,7 +1240,7 @@
 							}
 						}
 						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){
-							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1)   < rightYRect) ) {
+							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('text');
 								if(text.length)
 								viewElementArray[h].removeChild(text[0]);
@@ -1181,10 +1250,10 @@
 
 					}
 				}
-				clearSVGFromUnusedViews();
+				clearSVGFromUnusedViews(); // Call function clearSVGFromUnusedViews
 				event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Function responsible for clearing rec element of the screen after performing its task
 		function clearSVGFromUnusedViews() {
 			var tempView = movementLayer.getElementsByClassName('viewelement');
 				for(i=0; i<tempView.length; i++) {
@@ -1192,38 +1261,40 @@
 					movementLayer.removeChild(tempView[i]);
 					}
 				}
-			svg.removeChild(deleteRect);
+			svg.removeChild(deleteRect); // Remove element to svg
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
 
 		function createWrite() {
+		// Function responsible for creating typed script
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 4;
+			numberOfEventListener = 4; // Pass number 4 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('click', startWrite, false);
 				svg.addEventListener('pointermove', moveWrite, false);
 				window.addEventListener('keydown', writeDown, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('click', startMultiTouchWrite, false);
 				svg.addEventListener('touchmove', moveMultiTouchWrite, false);
 				window.addEventListener('keydown', endMoveMultiTouchWrite, false);
 			}
-
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('click', startWrite, false);
 			svg.addEventListener('mousemove', moveWrite, false);
 			window.addEventListener('keydown', writeDown, false);
 		}
-
+		// Start Touch Event
 		function startMultiTouchWrite(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 
 			for(var j = 0; j < touches.length; j++) {
 				/* store touch info on touchstart */
@@ -1233,67 +1304,68 @@
 					pageY : touches[j].pageY
 				};
 
-				var sx = touches[j].pageX;
-				var sy = touches[j].pageY - screenYCorrection;
+				var sx = touches[j].pageX; // Specifies the x-axis on the screen
+				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var activateExistingText = false;
+				
 				var texts = document.getElementsByTagName('text');
-
+				// String that will cast the string to int
 				for(var i=0; i<texts.length; i++) {
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
-					activateExistingText = true;
+					activateExistingText = true; // activateExistingText get true
 					text = texts[i];
 					}
 				}
-
+				// If activateExistingText equal to false enters condition
 				if(activateExistingText == false) {
 
-				createViewElementForPath();
+				createViewElementForPath(); // Call function createViewElementForPath
 
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-				circle.setAttribute('cx', sx-3);
-				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 0);
-				circle.setAttribute('stroke', "black");
-				circle.setAttribute('stroke-width', 0.0);
-				circle.setAttribute('fill', "black");
-				circle.setAttribute('id', "c"+numberOfText);
+				circle.setAttribute('cx', sx-3); // Add the position x of the element
+				circle.setAttribute('cy', sy-3); // Add the position y of the element
+				circle.setAttribute('r', 0); // Add the position r of the element
+				circle.setAttribute('stroke', "black"); // Add color to element
+				circle.setAttribute('stroke-width', 0.0); // Add element thickness
+				circle.setAttribute('fill', "black"); // Add background color to element
+				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
 				circle.addEventListener('mouseup', endMoveWrite, false);
-				viewElementG.appendChild(circle);
+				
+				viewElementG.appendChild(circle); // Add element to svg
 
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-				text.setAttribute('x', sx);
-				text.setAttribute('y', sy);
-				text.setAttribute('font-family', font);
-				text.setAttribute('font-size', size);
-				text.setAttribute('font-style', style);
-				text.setAttribute('fill', color);
-				text.setAttribute('stroke', colorStroke);
-				text.setAttribute('text-decoration', decoration);
-				text.setAttribute('id', "tc"+numberOfText);
+				text.setAttribute('x', sx); // Add the position x of the element
+				text.setAttribute('y', sy); // Add the position y of the element
+				text.setAttribute('font-family', fontLetter); // Add letter font to element
+				text.setAttribute('font-size', sizeLetter); // Add font size to element
+				text.setAttribute('font-style', styleLetter); // Add style to the element letter
+				text.setAttribute('fill', colorBoot); // Add background color to element
+				text.setAttribute('stroke', colorStrokeLetter); // Add color to element
+				text.setAttribute('text-decoration', decorationLetter); // Add underline to element
+				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
-				viewElementG.appendChild(text);
-				numberOfText++;
+				viewElementG.appendChild(text); // Add element to svg
+				numberToText++; // Number increments by the amount of character 
 				} else {
 
 				}
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Touch Event
 		function moveMultiTouchWrite(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var sx = touches[j].clientX;
-				var sy = touches[j].clientY - screenYCorrection;
+				var sx = touches[j].clientX; // Specifies the x-axis on the screen
+				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 
-				var movementTextStartX = parseInt(circleOfTextToMove.getAttribute('cx'));
-				var movementTextStartY = parseInt(circleOfTextToMove.getAttribute('cy'));
+				var movementTextStartX = parseInt(circleTextToMove.getAttribute('cx')); // Retrieve the axis x of the element
+				var movementTextStartY = parseInt(circleTextToMove.getAttribute('cy')); // Retrieve the axis y of the element
 
 				var tempX;
 				var tempY;
@@ -1301,20 +1373,21 @@
 				tempX = (sx - movementTextStartX);
 				tempY = (sy - movementTextStartY);
 
-				gOfTextToMove.setAttribute('transform', "translate("+tempX+","+tempY+")");
+				moveToText.setAttribute('transform', "translate("+tempX+","+tempY+")"); // Move to element
 
 			}
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchWrite(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var temp = text.innerHTML;
-				var character;
+				var character;					
+					// Manages keyboard events
 					switch(event.key) {
 						case 'Shift':
 						break;
@@ -1329,65 +1402,67 @@
 							text.innerHTML = temp + event.key;
 						break;
 					}
-				pressedKey = String.fromCharCode(event.which || event.keyCode);
-				text.innerHTML = temp + pressedKey;
-				saveImage();
+				pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
+				text.innerHTML = temp + pressedKey; // The Text element receives the API
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startWrite(event) {
-			var sx = event.clientX;
-			var sy = event.clientY - screenYCorrection;
+			var sx = event.clientX; // Specifies the x-axis on the screen
+			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 			var activateExistingText = false;
 			var texts = document.getElementsByTagName('text');
+				// String that will cast the string to int
 				for(var i=0; i<texts.length; i++) {
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
-					activateExistingText = true;
+					activateExistingText = true; // activateExistingText get true
 					text = texts[i];
 					}
 				}
-
+				// If activateExistingText equal to false enters condition
 				if(activateExistingText == false) {
 
-				createViewElementForPath();
+				createViewElementForPath(); // Call function createViewElementForPath
 
 				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-				circle.setAttribute('cx', sx-3);
-				circle.setAttribute('cy', sy-3);
-				circle.setAttribute('r', 0);
-				circle.setAttribute('stroke', "black");
-				circle.setAttribute('stroke-width', 0.0);
-				circle.setAttribute('fill', "black");
-				circle.setAttribute('id', "c"+numberOfText);
+				circle.setAttribute('cx', sx-3); // Add the position x of the element
+				circle.setAttribute('cy', sy-3); // Add the position y of the element
+				circle.setAttribute('r', 0); // Add the position r of the element
+				circle.setAttribute('stroke', "black"); // Add color to element
+				circle.setAttribute('stroke-width', 0.0); // Add element thickness
+				circle.setAttribute('fill', "black"); // Add background color to element
+				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
 				circle.addEventListener('mouseup', endMoveWrite, false);
 				viewElementG.appendChild(circle);
 
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-				text.setAttribute('x', sx);
-				text.setAttribute('y', sy);
-				text.setAttribute('font-family', font);
-				text.setAttribute('font-size', size);
-				text.setAttribute('font-style', style);
-				text.setAttribute('fill', color);
-				text.setAttribute('stroke', colorStroke);
-				text.setAttribute('text-decoration', decoration);
-				text.setAttribute('id', "tc"+numberOfText);
+				text.setAttribute('x', sx); // Add the position x of the element
+				text.setAttribute('y', sy); // Add the position y of the element
+				text.setAttribute('font-family', fontLetter); // Add letter font to element
+				text.setAttribute('font-size', sizeLetter); // Add font size to element
+				text.setAttribute('font-style', styleLetter); // Add style to the element letter
+				text.setAttribute('fill', colorBoot); // Add background color to element
+				text.setAttribute('stroke', colorStrokeLetter); // Add color to element
+				text.setAttribute('text-decoration', decorationLetter); // Add underline to element
+				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
-				viewElementG.appendChild(text);
-				numberOfText++;
+				viewElementG.appendChild(text); // Add element to svg
+				numberToText++; // Number increments by the amount of character 
+				
 				}
 		}
-
+		// Move Mouse Event
 		function moveWrite(event) {
-			if(isMousePressed == true) {
-			var sx = event.clientX;
-			var sy = event.clientY - screenYCorrection;
+			if(isMousePressed == true) { 
+			var sx = event.clientX; // Specifies the x-axis on the screen
+			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 
-			var movementTextStartX = parseInt(circleOfTextToMove.getAttribute('cx'));
-			var movementTextStartY = parseInt(circleOfTextToMove.getAttribute('cy'));
+			var movementTextStartX = parseInt(circleTextToMove.getAttribute('cx')); // Retrieve the axis x of the element
+			var movementTextStartY = parseInt(circleTextToMove.getAttribute('cy')); // Retrieve the axis y of the element
 
 			var tempX;
 			var tempY;
@@ -1395,13 +1470,16 @@
 			tempX = (sx - movementTextStartX);
 			tempY = (sy - movementTextStartY);
 
-			gOfTextToMove.setAttribute('transform', "translate("+tempX+","+tempY+")");
+			moveToText.setAttribute('transform', "translate("+tempX+","+tempY+")"); // Move to element
 			}
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// WriteDown Mouse Event
 		function writeDown(event) {
 			var temp = text.innerHTML;
 			var character;
+			// Manages keyboard events
 				switch(event.key) {
 					case 'Shift':
 					break;
@@ -1416,42 +1494,37 @@
 						text.innerHTML = temp + event.key;
 					break;
 				}
-			pressedKey = String.fromCharCode(event.which || event.keyCode);
-			text.innerHTML = temp + pressedKey;
-			saveImage();
+			pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
+			text.innerHTML = temp + pressedKey; // The Text element receives the API
+			saveImage(); // Save layout
 		}
-
-		function startMoveWrite(element) {
-			isMousePressed = true;
-			circleOfTextToMove = element;
-			gOfTextToMove = element.parentNode;
-		}
-
+		
+		// End Event
 		function endMoveWrite(event) {
-			 isMousePressed = false;
+			 isMousePressed = false; // Get false
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the ponto element
 		function createPonto() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 5;
+			numberOfEventListener = 5; // Pass number 5 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startPonto, false);
 				svg.addEventListener('pointerup', endMovePonto, false);
 
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchPonto, false);
 				svg.addEventListener('touchend', endMovePonto, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startPonto, false);
 			svg.addEventListener('mouseup', endMovePonto, false);
 		}
@@ -1467,15 +1540,15 @@
 					pageY : touches[j].pageY
 				};
 
-				var sx = touches[j].pageX;
-				var sy = touches[j].pageY - screenYCorrection;
+				var sx = touches[j].pageX; // Specifies the x-axis on the screen
+				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-				ponto.setAttribute('cx', sx-3);
-				ponto.setAttribute('cy', sy-3);
-				ponto.setAttribute('r', 1);
-				ponto.setAttribute('fill', colorElement);
-				ponto.setAttribute('stroke', color);
-				ponto.setAttribute('stroke-width', width);
+				ponto.setAttribute('cx', sx-3); // Add the position x of the element
+				ponto.setAttribute('cy', sy-3); // Add the position y of the element
+				ponto.setAttribute('r', 1); // Add the position r of the element
+				ponto.setAttribute('fill', colorElement); // Add background color to element
+				ponto.setAttribute('stroke', colorBoot); // Add color to element
+				ponto.setAttribute('stroke-width', widthBoot); // Add element thickness
 				svg.appendChild(ponto);
 				isMousePressed = true;
 			}
@@ -1483,15 +1556,15 @@
 		}
 
 		function startPonto(event) {
-			var sx = event.clientX;
-			var sy = event.clientY - screenYCorrection;
+			var sx = event.clientX; // Specifies the x-axis on the screen
+			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 			ponto = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-			ponto.setAttribute('cx', sx-3);
-			ponto.setAttribute('cy', sy-3);
-			ponto.setAttribute('r', 1);
-			ponto.setAttribute('fill', colorElement);
-			ponto.setAttribute('stroke', color);
-			ponto.setAttribute('stroke-width', width);
+			ponto.setAttribute('cx', sx-3); // Add the position x of the element
+			ponto.setAttribute('cy', sy-3); // Add the position y of the element
+			ponto.setAttribute('r', 1); // Add the position r of the element
+			ponto.setAttribute('fill', colorElement); // Add background color to element
+			ponto.setAttribute('stroke', colorBoot); // Add color to element
+			ponto.setAttribute('stroke-width', widthBoot); // Add element thickness
 			svg.appendChild(ponto);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1501,33 +1574,33 @@
 			createViewElementForPath();
 			viewElementG.appendChild(ponto);
 			isMousePressed = false;
-			saveImage();
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the circle element
 		function createCircle() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 6;
+			numberOfEventListener = 6; // Pass number 6 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startCircle, false);
 				svg.addEventListener('pointermove', moveCircle, false);
 				svg.addEventListener('pointerup', endMoveCircle, false);
 
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchCircle, false);
 				svg.addEventListener('touchmove', moveMultiTouchCircle, false);
 				svg.addEventListener('touchend', endMoveMultiTouchCircle, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startCircle, false);
 			svg.addEventListener('mousemove', moveCircle, false);
 			svg.addEventListener('mouseup', endMoveCircle, false);
@@ -1544,16 +1617,16 @@
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var idTouch = touches[j].identifier;
 				circleArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-				circleArray[idTouch].setAttribute('cx', startX);
-				circleArray[idTouch].setAttribute('cy', startY);
-				circleArray[idTouch].setAttribute('fill', colorElement);
-				circleArray[idTouch].setAttribute('stroke', color);
-				circleArray[idTouch].setAttribute('stroke-width', width);
-				circleArray[idTouch].setAttribute('stroke-dasharray', tracejado);
+				circleArray[idTouch].setAttribute('cx', startX); // Add the position x of the element
+				circleArray[idTouch].setAttribute('cy', startY); // Add the position y of the element
+				circleArray[idTouch].setAttribute('fill', colorElement); // Add background color to element
+				circleArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
+				circleArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
+				circleArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 				svg.appendChild(circleArray[idTouch]);
 				isMousePressed = true;
 			}
@@ -1566,30 +1639,30 @@
 				var idTouch = touches[j].identifier;
 				/* access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
 					if(diffX <0) {
-					  //movement left
+					  //Movement left
 					  circleArray[idTouch].setAttribute('y', diffX);
 					  circleArray[idTouch].setAttribute('r', (diffX*(-1)));
 					} else {
-					  //movement right
+					  //Movement right
 					  circleArray[idTouch].setAttribute('r', diffX);
 					}
 					if(diffY <0) {
-					  //movement up
+					  //Movement up
 					  circleArray[idTouch].setAttribute('y', moveY);
 					  circleArray[idTouch].setAttribute('r', (diffY*(-1)));
 					} else {
-					  //movement down
+					  //Movement down
 					  circleArray[idTouch].setAttribute('r', diffY);
 					}
 			}
 
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -1601,21 +1674,21 @@
 				createViewElementForPath();
 				viewElementG.appendChild(circleArray[idTouch]);
 				isMousePressed = false;
-				saveImage();
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		function startCircle(event) {
-			startX = event.clientX;
-			startY = event.clientY-screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-			circle.setAttribute('cx', startX);
-			circle.setAttribute('cy', startY);
-			circle.setAttribute('fill', colorElement);
-			circle.setAttribute('stroke', color);
-			circle.setAttribute('stroke-width', width);
-			circle.setAttribute('stroke-dasharray', tracejado);
+			circle.setAttribute('cx', startX); // Add the position x of the element
+			circle.setAttribute('cy', startY); // Add the position y of the element
+			circle.setAttribute('fill', colorElement); // Add background color to element
+			circle.setAttribute('stroke', colorBoot); // Add color to element
+			circle.setAttribute('stroke-width', widthBoot); // Add element thickness
+			circle.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 			svg.appendChild(circle);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1623,25 +1696,25 @@
 
 		function moveCircle(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
+			var moveX = event.clientX; // Specifies the x-axis on the screen
+			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			var diffX = moveX - startX;
 			var diffY = moveY - startY;
 
 				if(diffX <0) {
-				  //movement left
+				  //Movement left
 				  circle.setAttribute('y', diffX);
 				  circle.setAttribute('r', (diffX*(-1)));
 				} else {
-				  //movement right
+				  //Movement right
 				  circle.setAttribute('r', diffX);
 				}
 				if(diffY <0) {
-				  //movement up
+				  //Movement up
 				  circle.setAttribute('y', diffY);
 				  circle.setAttribute('r', (diffY*(-1)));
 				} else {
-				  //movement down
+				  //Movement down
 				  circle.setAttribute('r', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1652,32 +1725,32 @@
 			createViewElementForPath();
 			viewElementG.appendChild(circle);
 			isMousePressed = false;
-			saveImage();
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the rectangle element
 		function createRectangle() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 7;
+			numberOfEventListener = 7; // Pass number 8 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startRectangle, false);
 				svg.addEventListener('pointermove', moveRectangle, false);
 				svg.addEventListener('pointerup', endMoveRectangle, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchRectangle, false);
 				svg.addEventListener('touchmove', moveMultiTouchRectangle, false);
 				svg.addEventListener('touchend', endMoveMultiTouchRectangle, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startRectangle, false);
 			svg.addEventListener('mousemove', moveRectangle, false);
 			svg.addEventListener('mouseup', endMoveRectangle, false);
@@ -1687,23 +1760,23 @@
 			var touches = event.changedTouches;
 
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
+				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var idTouch = touches[j].identifier;
 				rectangleArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rectangleArray[idTouch].setAttribute('x', startX);
-				rectangleArray[idTouch].setAttribute('y', startY);
-				rectangleArray[idTouch].setAttribute('fill', colorElement);
-				rectangleArray[idTouch].setAttribute('stroke', color);
-				rectangleArray[idTouch].setAttribute('stroke-width', width);
-				rectangleArray[idTouch].setAttribute('stroke-dasharray', tracejado);
+				rectangleArray[idTouch].setAttribute('x', startX); // Add the position x of the element
+				rectangleArray[idTouch].setAttribute('y', startY); // Add the position y of the element
+				rectangleArray[idTouch].setAttribute('fill', colorElement); // Add background color to element
+				rectangleArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
+				rectangleArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
+				rectangleArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 				svg.appendChild(rectangleArray[idTouch]);
 				isMousePressed = true;
 			}
@@ -1715,31 +1788,31 @@
 			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
 					if(diffX <0) {
-					//movement left
+					//Movement left
 					rectangleArray[idTouch].setAttribute('x', moveX);
 					rectangleArray[idTouch].setAttribute('width', (diffX*(-1)));
 					} else {
-					 //movement right
+					 //Movement right
 					rectangleArray[idTouch].setAttribute('width', diffX);
 					}
 					if(diffY <0) {
-					//movement up
+					//Movement up
 					rectangleArray[idTouch].setAttribute('y', moveY);
 					rectangleArray[idTouch].setAttribute('height', (diffY*(-1)));
 					} else {
-					//movement down
+					//Movement down
 					rectangleArray[idTouch].setAttribute('height', diffY);
 					}
 			}
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -1747,25 +1820,25 @@
 			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(rectangleArray[idTouch]);
 				isMousePressed = false;
-				saveImage();
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		function startRectangle(event) {
-			startX = event.clientX;
-			startY = event.clientY-screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-			rectangle.setAttribute('x', startX);
-			rectangle.setAttribute('y', startY);
-			rectangle.setAttribute('fill', colorElement);
-			rectangle.setAttribute('stroke', color);
-			rectangle.setAttribute('stroke-width', width);
-			rectangle.setAttribute('stroke-dasharray', tracejado);
+			rectangle.setAttribute('x', startX); // Add the position x of the element
+			rectangle.setAttribute('y', startY); // Add the position y of the element
+			rectangle.setAttribute('fill', colorElement); // Add background color to element
+			rectangle.setAttribute('stroke', colorBoot); // Add color to element
+			rectangle.setAttribute('stroke-width', widthBoot); // Add element thickness
+			rectangle.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 			svg.appendChild(rectangle);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1773,25 +1846,25 @@
 
 		function moveRectangle(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
+			var moveX = event.clientX; // Specifies the x-axis on the screen
+			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			var diffX = moveX - startX;
 			var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//movement left
+				//Movement left
 				rectangle.setAttribute('x', moveX);
 				rectangle.setAttribute('width', (diffX*(-1)));
 				} else {
-				 //movement right
+				 //Movement right
 				rectangle.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				//movement up
+				//Movement up
 				rectangle.setAttribute('y', moveY);
 				rectangle.setAttribute('height', (diffY*(-1)));
 				} else {
-				//movement down
+				//Movement down
 				rectangle.setAttribute('height', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1799,35 +1872,35 @@
 		}
 
 		function endMoveRectangle(event) {
-			createViewElementForPath();
+			createViewElementForPath(); // Get function createViewElementForPath
 			viewElementG.appendChild(rectangle);
-			isMousePressed = false;
-			saveImage();
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the ellipse element
 		function createEllipse() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 8;
-
+			numberOfEventListener = 8; // Pass number 8 in function parameter
+ 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startEllipse, false);
 				svg.addEventListener('pointermove', moveEllipse, false);
 				svg.addEventListener('pointerup', endMoveEllipse, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchEllipse, false);
 				svg.addEventListener('touchmove', moveMultiTouchEllipse, false);
 				svg.addEventListener('touchend', endMoveMultiTouchEllipse, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startEllipse, false);
 			svg.addEventListener('mousemove', moveEllipse, false);
 			svg.addEventListener('mouseup', endMoveEllipse, false);
@@ -1837,23 +1910,23 @@
 			var touches = event.changedTouches;
 
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
+				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var idTouch = touches[j].identifier;
 				ellipseArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-				ellipseArray[idTouch].setAttribute('cx', startX);
-				ellipseArray[idTouch].setAttribute('cy', startY);
-				ellipseArray[idTouch].setAttribute('fill', colorElement);
-				ellipseArray[idTouch].setAttribute('stroke', color);
-				ellipseArray[idTouch].setAttribute('stroke-width', width);
-				ellipseArray[idTouch].setAttribute('stroke-dasharray', tracejado);
+				ellipseArray[idTouch].setAttribute('cx', startX); // Add the position x of the element
+				ellipseArray[idTouch].setAttribute('cy', startY); // Add the position y of the element
+				ellipseArray[idTouch].setAttribute('fill', colorElement); // Add background color to element
+				ellipseArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
+				ellipseArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
+				ellipseArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 				svg.appendChild(ellipseArray[idTouch]);
 				isMousePressed = true;
 			}
@@ -1864,27 +1937,27 @@
 			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
 					if(diffX <0) {
-					//movement left
+					//Movement left
 					ellipseArray[idTouch].setAttribute('x', moveX);
 					ellipseArray[idTouch].setAttribute('rx', (diffX*(-1)));
 					} else {
-					//movement right
+					//Movement right
 					ellipseArray[idTouch].setAttribute('rx', diffX);
 					}
 					if(diffY <0) {
-					//movement up
+					//Movement up
 					ellipseArray[idTouch].setAttribute('y', moveY);
 					ellipseArray[idTouch].setAttribute('ry', (diffY*(-1)));
 					} else {
-					//movement down
+					//Movement down
 					ellipseArray[idTouch].setAttribute('ry', diffY);
 					}
 			}
@@ -1900,21 +1973,21 @@
 				createViewElementForPath();
 				viewElementG.appendChild(ellipseArray[idTouch]);
 				isMousePressed = false;
-				saveImage();
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		function startEllipse(event) {
-			startX = event.clientX;
-			startY = event.clientY-screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-			ellipse.setAttribute('cx', startX);
-			ellipse.setAttribute('cy', startY);
-			ellipse.setAttribute('fill', colorElement);
-			ellipse.setAttribute('stroke', color);
-			ellipse.setAttribute('stroke-width', width);
-			ellipse.setAttribute('stroke-dasharray', tracejado);
+			ellipse.setAttribute('cx', startX); // Add the position x of the element
+			ellipse.setAttribute('cy', startY); // Add the position y of the element
+			ellipse.setAttribute('fill', colorElement); // Add background color to element
+			ellipse.setAttribute('stroke', colorBoot); // Add color to element
+			ellipse.setAttribute('stroke-width', widthBoot); // Add element thickness
+			ellipse.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 			svg.appendChild(ellipse);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1928,19 +2001,19 @@
 			var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//movement left
+				//Movement left
 				ellipse.setAttribute('x', moveX);
 				ellipse.setAttribute('rx', (diffX*(-1)));
 				} else {
-				//movement right
+				//Movement right
 				ellipse.setAttribute('rx', diffX);
 				}
 				if(diffY <0) {
-				//movement up
+				//Movement up
 				ellipse.setAttribute('y', moveY);
 				ellipse.setAttribute('ry', (diffY*(-1)));
 				} else {
-				//movement down
+				//Movement down
 				ellipse.setAttribute('ry', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1948,35 +2021,35 @@
 		}
 
 		function endMoveEllipse(event) {
-			createViewElementForPath();
+			createViewElementForPath(); // Get function createViewElementForPath
 			viewElementG.appendChild(ellipse);
-			isMousePressed = false;
-			saveImage();
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the line element
 		function createLine() {
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 9;
+			numberOfEventListener = 9; // Pass number 9 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startLine, false);
 				svg.addEventListener('pointermove', moveLine, false);
 				svg.addEventListener('pointerup', endMoveLine, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchLine, false);
 				svg.addEventListener('touchmove', moveMultiTouchLine, false);
 				svg.addEventListener('touchend', endMoveMultiTouchLine, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startLine, false);
 			svg.addEventListener('mousemove', moveLine, false);
 			svg.addEventListener('mouseup', endMoveLine, false);
@@ -1989,27 +2062,27 @@
 				/* store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {
 					identifier : touches[j].identifier,
-					pageX : touches[j].pageX,
+					pageX : touches[j].pageX, 
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = startX;
 				var diffY = startY;
 
 				var idTouch = touches[j].identifier;
 				lineArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-				lineArray[idTouch].setAttribute('x1', startX);
-				lineArray[idTouch].setAttribute('x2', (diffX*(-1)));
-				lineArray[idTouch].setAttribute('x2', diffX);
-				lineArray[idTouch].setAttribute('y1', startY);
-				lineArray[idTouch].setAttribute('y2', (diffY*(-1)));
-				lineArray[idTouch].setAttribute('y2', diffY);
-				lineArray[idTouch].setAttribute('fill', colorElement);
-				lineArray[idTouch].setAttribute('stroke', color);
-				lineArray[idTouch].setAttribute('stroke-width', width);
-				lineArray[idTouch].setAttribute('stroke-dasharray', tracejado);
+				lineArray[idTouch].setAttribute('x1', startX); // Add the position x1 of the element
+				lineArray[idTouch].setAttribute('x2', (diffX*(-1))); // Add the position x2 of the element
+				lineArray[idTouch].setAttribute('x2', diffX); // Add the position x2 of the element
+				lineArray[idTouch].setAttribute('y1', startY); // Add the position y1 of the element
+				lineArray[idTouch].setAttribute('y2', (diffY*(-1))); // Add the position y2 of the element
+				lineArray[idTouch].setAttribute('y2', diffY); // Add the position y2 of the element
+				lineArray[idTouch].setAttribute('fill', colorElement); // Add background color to element
+				lineArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
+				lineArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
+				lineArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 				svg.appendChild(lineArray[idTouch]);
 				isMousePressed = true;
 			}
@@ -2022,29 +2095,29 @@
 				var idTouch = touches[j].identifier;
 				/* access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX ;
 				var diffY = moveY ;
 
 					if(diffX <0) {
-					//movement left
+					//Movement left
 					lineArray[idTouch].setAttribute('x1', startX);
 					lineArray[idTouch].setAttribute('x2', (diffX*(-1)));
 					} else {
-					//movement right
+					//Movement right
 					lineArray[idTouch].setAttribute('x2', diffX);
 					}
 					if(diffY <0) {
-					//movement up
+					//Movement up
 					lineArray[idTouch].setAttribute('y1', startY);
 					lineArray[idTouch].setAttribute('y2', (diffY*(-1)));
 					} else {
-					//movement down
+					//Movement down
 					lineArray[idTouch].setAttribute('y2', diffY);
 					}
 			}
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -2052,32 +2125,32 @@
 			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				createViewElementForPath();
 				viewElementG.appendChild(lineArray[idTouch]);
 				isMousePressed = false;
-				saveImage();
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		function startLine(event) {
-			startX = event.clientX;
-			startY = event.clientY-screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			var diffX = startX;
 			var diffY = startY;
 
 			line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-			line.setAttribute('x1', startX);
-			line.setAttribute('x2', (diffX*(-1)));
-			line.setAttribute('x2', diffX);
-			line.setAttribute('y1', startY);
-			line.setAttribute('y2', (diffY*(-1)));
-			line.setAttribute('y2', diffY);
-			line.setAttribute('fill', colorElement);
-			line.setAttribute('stroke', color);
-			line.setAttribute('stroke-width', width);
-			line.setAttribute('stroke-dasharray', tracejado);
+			line.setAttribute('x1', startX); // Add the position x1 of the element
+			line.setAttribute('x2', (diffX*(-1))); // Add the position x2 of the element
+			line.setAttribute('x2', diffX); // Add the position x2 of the element// Add the position x2 of the element
+			line.setAttribute('y1', startY); // Add the position y1 of the element
+			line.setAttribute('y2', (diffY*(-1))); // Add the position y2 of the element
+			line.setAttribute('y2', diffY); // Add the position y2 of the element
+			line.setAttribute('fill', colorElement); // Add background color to element
+			line.setAttribute('stroke', colorBoot); // Add color to element
+			line.setAttribute('stroke-width', widthBoot); // Add element thickness
+			line.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 			svg.appendChild(line);
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2091,19 +2164,19 @@
 			var diffY = moveY ;
 
 				if(diffX <0) {
-				//movement left
+				//Movement left
 				line.setAttribute('x1', startX);
 				line.setAttribute('x2', (diffX*(-1)));
 				} else {
-				//movement right
+				//Movement right
 				line.setAttribute('x2', diffX);
 				}
 				if(diffY <0) {
-				//movement up
+				//Movement up
 				line.setAttribute('y1', startY);
 				line.setAttribute('y2', (diffY*(-1)));
 				} else {
-				//movement down
+				//Movement down
 				line.setAttribute('y2', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2114,33 +2187,33 @@
 			createViewElementForPath();
 			viewElementG.appendChild(line);
 			isMousePressed = false;
-			saveImage();
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
+		// Function responsible for creating the image element
 		function readURL(event) {
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 10;
+			numberOfEventListener = 10; // Pass number 10 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startURL, false);
 				svg.addEventListener('pointermove', moveURL, false);
 				svg.addEventListener('pointerup', endMoveURL, false);
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchURL, false);
 				svg.addEventListener('touchmove', moveMultiTouchURL, false);
 				svg.addEventListener('touchend', endMoveMultiTouchURL, false);
 			}
-			//Sera usado mouse
-			//alert("Usando mouse");
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startURL, false);
 			svg.addEventListener('mousemove', moveURL, false);
 			svg.addEventListener('mouseup', endMoveURL, false);
@@ -2163,16 +2236,16 @@
 					pageY : touches[j].pageY
 				};
 
-				startX = touches[j].pageX;
-				startY = touches[j].pageY - screenYCorrection;
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var idTouch = touches[j].identifier;
 				imageArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-				imageArray[idTouch].setAttribute('x', startX);
-				imageArray[idTouch].setAttribute('y', startY);
-				imageArray[idTouch].setAttribute('fill', "none");
-				imageArray[idTouch].setAttribute('width', "200px");
-				imageArray[idTouch].setAttribute('height', "300px");
-				imageArray[idTouch].setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage);
+				imageArray[idTouch].setAttribute('x', startX); // Add the position x of the element
+				imageArray[idTouch].setAttribute('y', startY); // Add the position y of the element
+				imageArray[idTouch].setAttribute('fill', "none"); // Add background color to element
+				imageArray[idTouch].setAttribute('width', "200px"); // Add width element 
+				imageArray[idTouch].setAttribute('height', "300px"); // Add height element 
+				imageArray[idTouch].setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
 				svg.appendChild(imageArray[idTouch]);
 				isMousePressed = true;
 			}
@@ -2183,29 +2256,29 @@
 			var touches = event.changedTouches;
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
+				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
-				var moveX = touches[j].clientX;
-				var moveY = touches[j].clientY - screenYCorrection;
+				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
 					if(diffX <0) {
-					//movement left
+					//Movement left
 					imageArray[idTouch].setAttribute('width', (diffX*(-1)));
 					} else {
-					//movement right
+					//Movement right
 					imageArray[idTouch].setAttribute('width', diffX);
 					}
 					if(diffY <0) {
-					//movement up
+					//Movement up
 					imageArray[idTouch].setAttribute('height', (diffY*(-1)));
 					} else {
-					//movement down
+					//Movement down
 					imageArray[idTouch].setAttribute('height', diffY);
 					}
 			}
-			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -2217,23 +2290,23 @@
 				createViewElementForPath();
 				viewElementG.appendChild(imageArray[idTouch]);
 				isMousePressed = false;
-				saveImage();
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		function startURL(event){
-			startX = event.clientX;
-			startY = event.clientY - screenYCorrection;
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 			image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-			image.setAttribute('x', startX);
-			image.setAttribute('y', startY);
-			image.setAttribute('fill', "none");
-			image.setAttribute('width', "200px");
-			image.setAttribute('height', "300px");
-			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage);
-			svg.appendChild(image);
-			isMousePressed = true;
+			image.setAttribute('x', startX); // Add the position x of the element
+			image.setAttribute('y', startY); // Add the position y of the element
+			image.setAttribute('fill', "none"); // Add background color to element
+			image.setAttribute('width', "200px"); // Add width element 
+			image.setAttribute('height', "300px"); // Add height element 
+			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
+			svg.appendChild(image); 
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -2245,17 +2318,17 @@
 			var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//movement left
+				//Movement left
 				image.setAttribute('width', (diffX*(-1)));
 				} else {
-				//movement right
+				//Movement right
 				image.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				//movement up
+				//Movement up
 				image.setAttribute('height', (diffY*(-1)));
 				} else {
-				//movement down
+				//Movement down
 				image.setAttribute('height', diffY);
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2263,35 +2336,35 @@
 		}
 
 		function endMoveURL(event) {
-			createViewElementForPath();
+			createViewElementForPath(); // Get function createViewElementForPath
 			viewElementG.appendChild(image);
-			isMousePressed = false;
-			saveImage();
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-
-        // function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
-
+        // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
+		// Function responsible for creating the text box element
         function createBoxText(){
 	        removeEventListenerFromSVG(numberOfEventListener);
-			numberOfEventListener = 11;
+			numberOfEventListener = 11; // Pass number 11 in function parameter
 
 			if (stylusIsEnabled) {
-				//sera usado o pointer
-				//alert("Usando pointer");
+				// The pointer will be used
+				// alert ("Using pointer");
 				svg.addEventListener('pointerdown', startBoxText, false);
 				svg.addEventListener('pointerup', endMoveBoxText, false);
 
 			}
 			if (touchIsEnabled) {
-				//sera usado o touch
-				//alert("Usando multi touch");
+				// Touch will be used
+				// alert ("Using multi touch");
 				svg.addEventListener('touchstart', startMultiTouchBoxText, false);
 				svg.addEventListener('touchend', endMoveBoxText, false);
 			}
-
+			// Mouse will be used
+			// alert ("Using mouse");
 			svg.addEventListener('mousedown', startBoxText, false);
 			svg.addEventListener('mouseup', endMoveBoxText, false);
         }
@@ -2306,12 +2379,13 @@
 					pageY : touches[j].pageY
 				};
 
-				var sx = touches[j].clientX;
-				var sy = touches[j].clientY - screenYCorrection;
+				var sx = touches[j].clientX; // Specifies the x-axis on the screen
+				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 
 	            var paper = Raphael(viewElementG, 1800, 800);
-
-                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				// Rectangle to move a textbox
+				paper.rect(sx, sy); // Add the position x and y of the element
+                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
 
 				// Initialize text editing for the text element
 				paper.inlineTextEditing(text);
@@ -2334,13 +2408,13 @@
 
 		function startBoxText(event){
 
-				var sx = event.clientX;
-				var sy = event.clientY - screenYCorrection;
+				var sx = event.clientX; // Specifies the x-axis on the screen
+				var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 
 	            var paper = Raphael(viewElementG, 1800, 800);
-				// rectangle to move a textbox
-				var r = paper.rect(sx, sy);
-                var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': font, 'font-size': size, 'font-style': style, 'text-decoration': decoration, 'stroke': colorStroke, 'fill': color}).transform(['R', 0, 'S', 1, 1]);
+				// Rectangle to move a textbox
+				paper.rect(sx, sy); // Add the position x and y of the element
+                var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
 				
 				// Initialize text editing for the text element
 				paper.inlineTextEditing(text);
@@ -2355,22 +2429,22 @@
 						text.inlineTextEditing.stopEditing();
 					}, true);
 				});
-				isMousePressed = true;
+				isMousePressed = true; 
 				event.preventDefault(); // Prevents an additional event being triggered
         }
 
 		function endMoveBoxText(event) {
-			desabilitado();
-			createViewElementForPath();
-			isMousePressed = false;
-			saveImage();
+			disabledBoxText(); // Get function disabledBoxText
+			createViewElementForPath(); // Get function createViewElementForPath
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
 		}
 
 		//============================================================================
 
 		function drawLine(){
 			clearLayout();
-			if (clearG == 0) {
+			if (clearGrid == 0) {
 
 				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 				svg.appendChild(defs);
@@ -2378,7 +2452,7 @@
 				viewElementG.setAttribute('id', "grid");
 				viewElementG.appendChild(defs);
 
-				// draw Big Grid
+				// Draw Big Grid
 				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
 				pattern.setAttribute('width', "20");
 				pattern.setAttribute('height', "20");
@@ -2395,11 +2469,11 @@
 				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 				path.setAttribute('d', "M 40 0 L 0 0 0 0");
 				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', color);
+				path.setAttribute('stroke', colorBoot);
 				path.setAttribute('stroke-width', "1.0");
 				pattern.appendChild(path);
 
-				// finish
+				// Finish
 				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 				rect.setAttribute('width', "100%");
 				rect.setAttribute('height', "100%");
@@ -2407,17 +2481,17 @@
 				defs.appendChild(rect);
 				viewElementG.appendChild(rect);
 
-				clearG = 1;
+				clearGrid = 1;
  			}
-			else if (clearG == 1) {
+			else if (clearGrid == 1) {
 
 			}
-			saveImage();
+			saveImage(); // Save layout
 		}
 
 		function drawGrid(){
 			clearLayout();
-			if (clearG == 0) {
+			if (clearGrid == 0) {
 
 				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 				svg.appendChild(defs);
@@ -2425,7 +2499,7 @@
 				viewElementG.setAttribute('id', "grid");
 				viewElementG.appendChild(defs);
 
-				// draw Big Grid
+				// Draw Big Grid
 				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
 				pattern.setAttribute('width', "20");
 				pattern.setAttribute('height', "20");
@@ -2442,11 +2516,11 @@
 				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 				path.setAttribute('d', "M 0 0 L 0 0 0 40");
 				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', color);
+				path.setAttribute('stroke', colorBoot);
 				path.setAttribute('stroke-width', "1.0");
 				pattern.appendChild(path);
 
-				// finish
+				// Finish
 				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 				rect.setAttribute('width', "100%");
 				rect.setAttribute('height', "100%");
@@ -2454,17 +2528,17 @@
 				defs.appendChild(rect);
 				viewElementG.appendChild(rect);
 
-				clearG = 1;
+				clearGrid = 1;
  			}
-			else if (clearG == 1) {
+			else if (clearGrid == 1) {
 
 			}
-			saveImage();
+			saveImage(); // Save layout
 		}
 
 		function drawGridLine(){
 			clearLayout();
-			if (clearG == 0) {
+			if (clearGrid == 0) {
 
 				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 				svg.appendChild(defs);
@@ -2472,7 +2546,7 @@
 				viewElementG.setAttribute('id', "grid");
 				viewElementG.appendChild(defs);
 
-				// draw Big Grid
+				// Draw Big Grid
 				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
 				pattern.setAttribute('width', "20");
 				pattern.setAttribute('height', "20");
@@ -2489,11 +2563,11 @@
 				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 				path.setAttribute('d', "M 40 0 L 0 0 0 40");
 				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', color);
+				path.setAttribute('stroke', colorBoot);
 				path.setAttribute('stroke-width', "1.0");
 				pattern.appendChild(path);
 
-				// finish
+				// Finish
 				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 				rect.setAttribute('width', "100%");
 				rect.setAttribute('height', "100%");
@@ -2501,12 +2575,12 @@
 				defs.appendChild(rect);
 				viewElementG.appendChild(rect);
 
-				clearG = 1;
+				clearGrid = 1;
  			}
-			else if (clearG == 1) {
+			else if (clearGrid == 1) {
 
 			}
-			saveImage();
+			saveImage(); // Save layout
 		}
 
 		function drawLimetrada(){
@@ -2518,7 +2592,7 @@
             viewElementG.setAttribute('id', "grid");
             viewElementG.appendChild(defs);
 
-            // draw Small Grid
+            // Draw Small Grid
             pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
             pattern.setAttribute('width', "8");
             pattern.setAttribute('height', "8");
@@ -2530,11 +2604,11 @@
             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.setAttribute('d', "M 8 0 L 0 0 0 8");
             path.setAttribute('fill', "none");
-            path.setAttribute('stroke', color);
+            path.setAttribute('stroke', colorBoot);
             path.setAttribute('stroke-width', "0.5");
             pattern.appendChild(path);
 
-            // draw Big Grid
+            // Draw Big Grid
             pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
             pattern.setAttribute('width', "80");
             pattern.setAttribute('height', "80");
@@ -2552,11 +2626,11 @@
             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.setAttribute('d', "M 80 0 L 0 0 0 80");
             path.setAttribute('fill', "none");
-            path.setAttribute('stroke', color);
+            path.setAttribute('stroke', colorBoot);
             path.setAttribute('stroke-width', "1.0");
             pattern.appendChild(path);
 
-            // finish
+            // Finish
             rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             rect.setAttribute('width', "100%");
             rect.setAttribute('height', "100%");
@@ -2564,7 +2638,7 @@
             defs.appendChild(rect);
             viewElementG.appendChild(rect);
 
-			saveImage();
+			saveImage(); // Save layout
 
         }
 
@@ -2577,10 +2651,10 @@
 					if(tempView[i].getAttribute('id') == "grid") {
 					movementLayer.removeChild(tempView[i]);
 					}
-				clearG=0;
+				clearGrid=0;
 				}
 			}
-			saveImage();
+			saveImage(); // Save layout
 		}
 		//============================================================================
 
@@ -2646,7 +2720,7 @@
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
-			saveImage();
+			saveImage(); // Save layout
 
 			xmlString.replace("</t", "><");
 			var encoded = encodeURIComponent(xmlString);
@@ -2692,56 +2766,56 @@
 		//============================================================================
 
 		function setStrokeText() {
-			if(colorStroke != colorFill)
-			colorStroke = colorFill;
+			if(colorStrokeLetter != colorFillElement)
+			colorStrokeLetter = colorFillElement;
 			else
-			colorStroke = "none";
+			colorStrokeLetter = "none";
 		}
 
 		function setDecoration() {
-			if (decoration == "underline")
-			decoration = "none";
+			if (decorationLetter == "underline")
+			decorationLetter = "none";
 			else
-			decoration = "underline";
+			decorationLetter = "underline";
 		}
 
 		function setStyle() {
-			if (style == "italic")
-			style = "normal";
+			if (styleLetter == "italic")
+			styleLetter = "normal";
 			else
-			style = "italic";
+			styleLetter = "italic";
 		}
 
 		//============================================================================
 
 		function setFillText(val) {
-			colorFill = val;
-			if(colorStroke != "none")
-			colorStroke = colorFill;
+			colorFillElement = val;
+			if(colorStrokeLetter != "none")
+			colorStrokeLetter = colorFillElement;
 		}
 
 		//============================================================================
 
 		function setSizeText(val) {
-			size = val;
+			sizeLetter = val;
 		}
 
 		//============================================================================
 
 		function setFontText(val) {
-			font = val;
+			fontLetter = val;
 		}
 
 		//============================================================================
 
 		function setWidth(val) {
-			width = val;
+			widthBoot = val;
 		}
 
 		//============================================================================
 
 		function setColor(val) {
-			cor = val;
+			colorBootElement = val;
 			verificaCheckBordas();
 			verificaCheckFundo();
 		}
@@ -2761,7 +2835,7 @@
 
 				if (bordas[i].checked == true){
 
-					color = cor;
+					colorBoot = colorBootElement;
 
 				}
 				if (bordas[i].checked == false){
@@ -2779,7 +2853,7 @@
 
 				if (fundo[i].checked == true){
 
-					colorElement = cor;
+					colorElement = colorBootElement;
 
 				}
 				if (fundo[i].checked == false){
@@ -2798,12 +2872,12 @@
 
 				if (LinhaTrace[i].checked == true){
 
-					tracejado = '20,20';
+					dashedElement = '20,20';
 
 				}
 				if (LinhaTrace[i].checked == false){
 
-					tracejado = "none";
+					dashedElement = "none";
 
 				}
 			}
