@@ -1,21 +1,21 @@
-/*!
-Editor for multisemiotic text production, dealing with multidevice and multimodal interaction
-
-Copyright (C) see <link para equipe>
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.
-*/	
+/************************************************************************************************
+* Editor for multisemiotic text production, dealing with multidevice and multimodal interaction *
+*																							    *
+* Copyright (C) see <link para equipe>														    *
+*																							    *
+* This program is free software; you can redistribute it and/or                                 *
+* modify it under the terms of the GNU General Public License                                   *
+* as published by the Free Software Foundation; either version 2                                *
+* of the License, or (at your option) any later version.									    *
+*																						        *
+* This program is distributed in the hope that it will be useful,                               *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of                                *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                                 *
+* GNU General Public License for more details.                                                  *
+*																							  	*
+* You should have received a copy of the GNU General Public License								*
+* along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.			*
+************************************************************************************************/
 		//http://fenix.nied.unicamp.br/EditorMm/	
 		
 		var sizeLetter = "20"; // Initialization sizeLetter
@@ -32,8 +32,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		
 		var colorBoot = "black", widthBoot = 3; // Initialization of element colorBoot and widthBoot
 
-		var xArray = new Array(); // Vector initialization responsible for the X axis
-		var yArray = new Array(); // Vector initialization responsible for the Y axis
+		var xArray = new Array(); // Vector initialization responsible for the x axis
+		var yArray = new Array(); // Vector initialization responsible for the y axis
 		
 		var lineArray = new Array(); // Vector initialization responsible for lines  
 		var viewArray = new Array(); // Vector initialization responsible for view
@@ -45,10 +45,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		var touchesInAction = new Array(); // Vector initialization responsible for touchEvents
 		var pathsToMoveInDeleteRect = new Array(); // Vector initialization responsible for DeleteRect
 		
-		var clearGrid = 0; //Initialization responsible clearGrid
-		
-		var svg; //Initialization responsible svg
-		var xmlString; //Initialization responsible xmlString
+		var svg; //Initialization responsible svg attribute
+		var xmlString; //Initialization responsible xmlString attribute
 		
 		var numberToText; // Initialization numberToText attribute		
 		var moveToText; // Initialization moveToText attribute
@@ -66,7 +64,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		var startMoveX, startMoveY;
 		var screenXCorrection, screenYCorrection;
 		
-		// Initialization of function attribute
+		// Initialization of function attribute for receive parameters
 		var image, receivedImage; 
 		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs; 
 
@@ -76,40 +74,40 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		var stylusIsEnabled = false; // Boolean attribute stylusIsEnabled receives false value 
 
 		//============================================================================
-		// Generate Random ID
-		if (!id){ 
+					
+		if (!id) { // Generate Random ID
 			id = makeid();
 			id = id.replace(" ", "");
 			window.location.replace(url+"?"+id);
 		}
 		
 		//============================================================================
-		// Function resposable by burying the possible characters
-		function makeid() {
+		
+		function makeid() { // Function responsible by burying the possible characters
 			var text = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-				for( var i=0; i < 6; i++ )
+				for(var i = 0; i < 6; i++)
 				text += possible.charAt(Math.floor(Math.random() * possible.length));
 			return text;
 		}
 
 		//============================================================================		
-		// Responsible function activate background elements
-		function activeButton(element) {
+		
+		function activeButton(element) { // Function responsible activate background elements
 			element.style.background="#a2a2a2";
 		}
 
 		//============================================================================
-		// Responsible function disable background elements
-		function deactiveButton(element) {
+		
+		function deactiveButton(element) { // Function responsible disable background elements
 			if(activeButtonElement !== element) {
 			element.style.background="none";
 			}
 		}
 
 		//============================================================================
-		// Activate elements
-		function setActiveButton(element) {
+		
+		function setActiveButton(element) { // Function responsible activate elements
 			if(activeButtonElement != undefined) {
 				if(activeButtonElement !== element) {
 				activeButtonElement.style.background="none";
@@ -119,25 +117,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================
-		// Function responsible for creating the main viewElementG element that will aggregate the others
-		function createViewElementForPath() {
+		
+		function createViewElementForPath() { // Function responsible for creating the main viewElementG element that will aggregate the others
 			viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 			viewElementG.setAttribute('class', "viewelement");
 			viewElementG.setAttribute('transform', "translate(0,0)");
-
-			movementLayer.appendChild(viewElementG);
+			movementLayer.appendChild(viewElementG); // Add element to movementLayer
 		}
 		
 		//============================================================================
-		// Function responsible for disabling boxtext
-		function disabledBoxText() {
+		
+		function disabledBoxText() { // Function responsible for disabling boxtext
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 0;
 		}
 
 		//============================================================================
-		// Function responsible for managing functions related to touch on the screen
-		function device() {
+		
+		function device() { // Function responsible for managing functions related to touch on the screen
 			deviceIsStylusSensitive(); //Flame function deviceIsStylusSensitive
 			deviceIsTouchScreen(); //Flame function deviceIsTouchScreen
 			var number = numberOfEventListener;
@@ -182,36 +179,34 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 		
 		//============================================================================
-		// Function responsible for activating touchIsEnabled
-		function deviceIsTouchScreen() {
-			if (touchIsEnabled==false){ // Compare ball values for touchIsEnabled
+		
+		function deviceIsTouchScreen() { // Function responsible for activating touchIsEnabled
+			if (touchIsEnabled == false){ // Compare ball values for touchIsEnabled
 				if (window.ontouchstart !== "undefined")
-					touchIsEnabled = true;
+				touchIsEnabled = true; // get true
 
 				if ('createTouch' in window.document)
-					touchIsEnabled = true;
-
+				touchIsEnabled = true; // get true
 			}else{
-			touchIsEnabled=false;
+			touchIsEnabled = false; // get false
 			}
 			saveImage(); // Save layout
 		}		
 		//============================================================================
-		// Function responsible for activating stylusIsEnabled
-		function deviceIsStylusSensitive() {
-			if (stylusIsEnabled==false){ // Compare ball values for stylusIsEnabled
+		
+		function deviceIsStylusSensitive() { // Function responsible for activating stylusIsEnabled
+			if (stylusIsEnabled == false){ // Compare ball values for stylusIsEnabled
 				if(window.onponterstart !== "undefined")
-					stylusIsEnabled = true;
-
+					stylusIsEnabled = true; // get true
 			}else{
-			stylusIsEnabled=false;
+			stylusIsEnabled = false; // get false
 			}
 			saveImage(); // Save layout
 		}
 
 		//============================================================================
-		// Responsible function saving the screen layout
-		function saveImage() {
+		
+		function saveImage() { // Function responsible saving the screen layout
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -223,8 +218,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================
-		// Responsible function initialize svgID and layer and movement
-		function init() {
+		
+		function init() { // Function responsible initialize svgID and layer and movement
 			svg = document.getElementById('svgID'); 
 			layer = document.getElementsByClassName('layer')[0];
 			movementLayer = document.getElementById('movement');
@@ -237,12 +232,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			createDraw(); // Free drawing function as default on startup
 		}
 		//============================================================================
-		// Responsible function for bringing the data stored after the input parameter		
-		function deserializeSVGtoXML() {		
+			
+		function deserializeSVGtoXML() { // Function responsible for bringing the data stored after the input parameter			
 			// Start jquery function
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function() {
-				if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				var xmlString = xmlhttp.responseText;
 				var x;
 				
@@ -261,7 +256,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				
 					// Repeating loop that will scan all elements whose names are described in the XML paramentros
 					for(i=0; i<xmlArray.length; i++) {
-						switch(xmlArray[i].substr(0, 1)) {	// Specific elements within the "g" tag will be searched recursively
+						switch(xmlArray[i].substr(0, 1)) { // Specific elements within the "g" tag will be searched recursively
 							case "g":
 								if(xmlArray[i].indexOf('class="layer"') != -1) {
 								var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
@@ -274,6 +269,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 									var attributeValue = attributeArray[j+1];
 									layerElement.setAttribute(attributeName, attributeValue);
 									}
+									
 								} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {
 										var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 										var attributeArray = attributeString.split('"');
@@ -285,24 +281,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 											var attributeValue = attributeArray[j+1];
 											movementElement.setAttribute(attributeName, attributeValue);
 											}
-										} else  if(xmlArray[i].indexOf('class="viewelement"') != -1) {
+											
+										} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {
 												var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 												var attributeArray = attributeString.split('"');
-													if(viewElement.hasChildNodes && attributeArray.length>4) {
+												
+													if(viewElement.hasChildNodes && attributeArray.length > 4) {
 													viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 													viewElement = viewElementTemp;
-													movementElement.appendChild(viewElement);
+													movementElement.appendChild(viewElement); // Add element to movementElement
 													}
 													
 													// Repeating loop responsible for scanning attributeArray in class viewelement
-													if(attributeArray.length>4){
+													if(attributeArray.length > 4){
 														for(j=0; j<attributeArray.length-1; j=j+2) {
 														var attributeName = attributeArray[j].trim();
 														attributeName = attributeName.substring(0, attributeName.length-1);
 														var attributeValue = attributeArray[j+1];
-														viewElement.setAttribute(attributeName, attributeValue);
+														viewElement.setAttribute(attributeName, attributeValue); 
 														}
 													}
+													
 												}
 
 							break;										
@@ -310,45 +309,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 								var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									defs.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(defs);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(defs); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
-							case "p": // Search for the element with the pattern or path
-								/*if ((xmlArray[i].substr(0, 7) == "pattern")) {
-									var pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-											var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
-											var attributeArray = attributeString.split('"');
-											for(j=0; j<attributeArray.length-1; j=j+2) {
-												var attributeName = attributeArray[j].trim();
-												attributeName = attributeName.substring(0, attributeName.length-1);
-												var attributeValue = attributeArray[j+1];
-												pattern.setAttribute(attributeName, attributeValue);
-											}
-											viewElement.appendChild(pattern);
-											movementElement.appendChild(viewElement);
-
-									//viewElement.appendChild(pattern);
-									//movementElement.appendChild(viewElement);
-								}
-								else*/								
-								if ((xmlArray[i].substr(0, 4) == "path")) { // Search for the element with the path
-											var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-											var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
-											var attributeArray = attributeString.split('"');
-											for(j=0; j<attributeArray.length-1; j=j+2) {
-												var attributeName = attributeArray[j].trim();
-												attributeName = attributeName.substring(0, attributeName.length-1);
-												var attributeValue = attributeArray[j+1];
-												path.setAttribute(attributeName, attributeValue);
-											}
-											viewElement.appendChild(path);
-											movementElement.appendChild(viewElement);
+							case "p": // Search for the element with the path 				 				
+								if ((xmlArray[i].substr(0, 4) == "path")) { 
+								var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
+								var attributeArray = attributeString.split('"');
+											
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+									var attributeName = attributeArray[j].trim();
+									attributeName = attributeName.substring(0, attributeName.length-1);
+									var attributeValue = attributeArray[j+1];
+									path.setAttribute(attributeName, attributeValue);
+									}
+											
+								viewElement.appendChild(path); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 								}
 							break;
 							case "t": // Search for the element with the defs text
@@ -356,21 +342,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 								var textArray =  xmlArray[i].split(">");
 								var attributeString = textArray[0].substr(4, textArray[0].length);
-								var attributeArray = attributeString.split('"');
+								var attributeArray = attributeString.split('"');	
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									text.setAttribute(attributeName, attributeValue);
-									}
+									}							
+									
 									if ((typeof textArray[1] != 'undefined')){
 									var aux = textArray[1].substr(0, textArray[1].length -6);
 									aux = aux.replace("|", "");
 									var textNode = document.createTextNode(aux);
 									text.appendChild(textNode);
-									viewElement.appendChild(text);
-									movementElement.appendChild(viewElement);
-									}
+									viewElement.appendChild(text); // Add element to viewElement
+									movementElement.appendChild(viewElement); // Add element to movementElement
+									}				
+									
 								}
 							break;
 							case "i": // Search for the element with the defs image
@@ -379,73 +368,85 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 								var imageArray = xmlArray[i].split(">");
 								var attributeString = imageArray[0].substr(5, imageArray[0].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
+									
 										if (attributeName == 'xlink:href'){
 										image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
 										}
 										else{
 										image.setAttribute(null, attributeName, attributeValue);
 										}
+										
 									image.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(image);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(image); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 								}
 							break;
 							case "e": // Search for the element with the defs ellipse
 								var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 								var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									ellipse.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(ellipse);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(ellipse); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
 							case "c": // Search for the element with the defs circle
 								var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 								var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									circle.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(circle);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(circle); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
 							case "r": // Search for the element with the defs rect
 								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									rect.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(rect);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(rect); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
 							case "l": // Search for the element with the defs line
 								var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
+								
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									line.setAttribute(attributeName, attributeValue);
 									}
-								viewElement.appendChild(line);
-								movementElement.appendChild(viewElement);
+									
+								viewElement.appendChild(line); // Add element to viewElement
+								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
 							case "/": 
 							break;
@@ -468,11 +469,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================
-		// Responsible role to manage the removal of property events
+		// Function responsible to manage the removal of property events
 		function removeEventListenerFromSVG(listenerNumber) { // Past parameter through the different functions
 			switch (listenerNumber) { // Manage the last number in the paramenter
 				case 1 :
-					//remove Draw-Listener
+					//Remove Draw-Listener
 					svg.removeEventListener('pointerdown', startDraw, false);
 					svg.removeEventListener('pointermove', moveDraw, false);
 					svg.removeEventListener('pointerup', endMoveDraw, false);
@@ -486,7 +487,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveDraw, false);
 				break;
 				case 2 :
-					//remove Move-Listener
+					//Remove Move-Listener
 					svg.removeEventListener('pointerdown', startMoves, false);
 					svg.removeEventListener('pointermove', moveMoves, false);
 					svg.removeEventListener('pointerup', endMoveMoves, false);
@@ -500,7 +501,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveMoves, false);
 				break;
 				case 3 :
-					//remove Delete-Listener
+					//Remove Delete-Listener
 					svg.removeEventListener('pointerdown', startDelete, false);
 					svg.removeEventListener('pointermove', moveDelete, false);
 					svg.removeEventListener('pointerup', endMoveDelete, false);
@@ -514,7 +515,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveDelete, false);
 				break;
 				case 4 :
-					//remove Wite-Listener
+					//Remove Wite-Listener
 					svg.removeEventListener('click', startWrite, false);
 					svg.removeEventListener('pointermove', moveWrite, false);
 					window.removeEventListener('keydown', writeDown, false);
@@ -528,7 +529,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					window.removeEventListener('keydown', writeDown, false);
 				break;
 				case 5 :
-					//remove Ponto-Listener
+					//Remove Ponto-Listener
 					svg.removeEventListener('pointerdown', startPonto, false);
 					svg.removeEventListener('pointerup', endMovePonto, false);
 
@@ -539,7 +540,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMovePonto, false);
 				break;
 				case 6 :
-					//remove Circle-Listener
+					//Remove Circle-Listener
 					svg.removeEventListener('pointerdown', startCircle, false);
 					svg.removeEventListener('pointermove', moveCircle, false);
 					svg.removeEventListener('pointerup', endMoveCircle, false);
@@ -553,7 +554,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveCircle, false);
 				break;
 				case 7 :
-					//remove Rectangle-Listener
+					//Remove Rectangle-Listener
 					svg.removeEventListener('pointerdown', startRectangle, false);
 					svg.removeEventListener('pointermove', moveRectangle, false);
 					svg.removeEventListener('pointerup', endMoveRectangle, false);
@@ -567,7 +568,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveRectangle, false);
 				break;
 				case 8 :
-					//remove Ellipse-Listener
+					//Remove Ellipse-Listener
 					svg.removeEventListener('pointerdown', startEllipse, false);
 					svg.removeEventListener('pointermove', moveEllipse, false);
 					svg.removeEventListener('pointerup', endMoveEllipse, false);
@@ -581,7 +582,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveEllipse, false);
 				break;
 				case 9 :
-					//remove Line-Listener
+					//Remove Line-Listener
 					svg.removeEventListener('pointerdown', startLine, false);
 					svg.removeEventListener('pointermove', moveLine, false);
 					svg.removeEventListener('pointerup', endMoveLine, false);
@@ -595,7 +596,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveLine, false);
 				break;
 				case 10 :
-					//remove ReadFile-Listener
+					//Remove ReadFile-Listener
 					svg.removeEventListener('pointerdown', startURL, false);
 					svg.removeEventListener('pointermove', moveURL, false);
 					svg.removeEventListener('pointerup', endMoveURL, false);
@@ -609,7 +610,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					svg.removeEventListener('mouseup', endMoveURL, false);
 				break;
 				case 11 :
-					//remove ReadBoxText-Listener
+					//Remove ReadBoxText-Listener
 					svg.removeEventListener('pointerdown', startBoxText, false);
 					svg.removeEventListener('pointerup', endMoveBoxText, false);
 
@@ -625,8 +626,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================		
-		// Function responsible for creating the draw element
-		function createDraw() {
+		
+		function createDraw() { // Function responsible for creating the draw element
 			removeEventListenerFromSVG(numberOfEventListener); 
 			numberOfEventListener = 1; // Pass number 1 in function parameter
 
@@ -657,7 +658,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 			// Loop responsible for assigning the path element while keeping it pressed is true
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
+				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = {  /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
@@ -676,7 +677,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				pathArray[idTouch].setAttribute('stroke-width', widthBoot); // Add a thickness to the element
 				pathArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashes to element
 				svg.appendChild(pathArray[idTouch]); // Add element to svg
-				isMousePressed = true; // The screen-pressed touch 
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -685,13 +686,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(var j = 0; j < touches.length; j++) {
-					var idTouch = touches[j].identifier;
+					var idTouch = touches[j].identifier; 
 					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 					var sx = touches[j].clientX; // Specifies the x-axis on the screen
 					var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 					var dString = pathArray[idTouch].getAttribute('d');
 					dString += ' L'+sx+' '+sy;
-					pathArray[idTouch].setAttribute('d', dString);// Receive the ID in the related Array touch screen
+					pathArray[idTouch].setAttribute('d', dString); // Receive the ID in the related Array touch screen
 				}
 				/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 				event.preventDefault(); // Prevents an additional event being triggered
@@ -705,7 +706,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 					createViewElementForPath(); // Call function createViewElementForPath
 					viewElementG.appendChild(pathArray[idTouch]); // Add element to viewElementG
-					isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+					isMousePressed = false; // Get false
 					saveImage(); // Save layout
 				}
 				event.preventDefault(); // Prevents an additional event being triggered
@@ -723,7 +724,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			path.setAttribute('stroke-width', widthBoot); // Add a thickness to the element
 			path.setAttribute('stroke-dasharray', dashedElement); // Add dashes to element
 			svg.appendChild(path); // Add element to svg
-			isMousePressed = true; // The screen-pressed touch
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Move Mouse Event
@@ -741,14 +742,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		function endMoveDraw(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(path); // Add element to viewElementG
-			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for moving elements
-		function moveIt() {
+		
+		function moveIt() { // Function responsible for moving elements
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 2; // Pass number 2 in function parameter
 
@@ -778,13 +779,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
-				isMousePressed = true; // The screen-pressed touch
+				isMousePressed = true; // Get true
 				startMoveX = touches[j].pageX; // Specifies the x-axis on the screen
 				startMoveY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
@@ -804,14 +805,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var xMovement = touches[j].clientX; // Specifies the x-axis on the screen
 				var yMovement = touches[j].clientY; // Specifies the y-axis on the screen
 				// Loop responsible for moving the element to the desired area
 				for(h=0; h<viewArray.length; h++) {
 				var x, y;
 				var pathArray = viewArray[h].getElementsByTagName('path');
-				var pathIn = false;
+				var pathIn = false; // Get false
 					// Assigns the selected element to be moved
 					if(pathArray.length>0){ // Moves the pathArray element
 						// Loop responsible for moving element path
@@ -835,7 +836,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
-									pathIn = true;
+									pathIn = true; // Get true
 									}
 								}
 							}
@@ -900,7 +901,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 		// Start Mouse Event
 		function startMoves(event) {
-			isMousePressed = true; // The screen-pressed touch
+			isMousePressed = true; // Get true
 			startMoveX = event.clientX; // Specifies the x-axis on the screen
 			startMoveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
@@ -922,7 +923,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				for(h=0; h<viewArray.length; h++) {
 				var x, y;
 				var pathArray = viewArray[h].getElementsByTagName('path');
-				var pathIn = false;
+				var pathIn = false; // Get false
 					// Assigns the selected element to be moved
 					if(pathArray.length>0){ // Moves the pathArray element
 						// Loop responsible for moving element path
@@ -945,7 +946,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
-									pathIn = true;
+									pathIn = true; // Get true
 									}
 								}
 							}
@@ -960,7 +961,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 							if(arrayDel.length==1){ // Moves the circle element
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
-							movingText = true;
+							movingText = true; // Get true
 							}else{
 							arrayDel = viewArray[h].getElementsByTagName('line');
 								if(arrayDel.length==1){ // Moves the line element
@@ -1009,7 +1010,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 		// End event
 		function endMoveMoves(event) {
-			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
+			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1027,8 +1028,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================	
-		// Function responsible for deleting elements
-		function deleteIt() {
+		
+		function deleteIt() { // Function responsible for deleting elements
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 3; // Pass number 3 in function parameter
 
@@ -1057,7 +1058,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1072,7 +1073,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
 				deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
 				svg.appendChild(deleteRect); // Add element to svg
-				isMousePressed = true; // The screen-pressed touch
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}		
@@ -1081,8 +1082,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
 				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
@@ -1119,7 +1119,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
 			deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
 			svg.appendChild(deleteRect); // Add element to svg
-			isMousePressed = true; // The screen-pressed touch
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Move Mouse Event
@@ -1151,8 +1151,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 		// End Event
 		function endMoveDelete(event) {
-			isMousePressed = false; // After the element is no longer pressed on the screen the event receives the false value
-
+			isMousePressed = false; // Get false
 			var leftXRect = parseInt(deleteRect.getAttribute('x')); 
 			var leftYRect = parseInt(deleteRect.getAttribute('y'));
 			var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
@@ -1170,8 +1169,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
 				var yTranslation = getXandYTransformValues(viewElementArray[h]).y;
 
-				var pathArray = viewElementArray[h].getElementsByTagName('path');
-				
+				var pathArray = viewElementArray[h].getElementsByTagName('path');				
 					// Assigns the selected element to be removed
 					if(pathArray.length>0){ // Removed the pathArray element
 						// Loop responsible for remove element path
@@ -1191,11 +1189,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 							yArray.push(yTranslation*1 + parseInt(splitArray[l]));
 							}
 
-						var pathIn = false;
+						var pathIn = false; // Get false
+						
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
-									pathIn = true;
+									pathIn = true; // Get true
 									}
 								}
 							}
@@ -1209,6 +1208,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 						viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
 						}
 					}else{
+					
 					var x, y;
 					var arrayDel = viewElementArray[h].getElementsByTagName('rect');
 						if(arrayDel.length==1){ // Remove the rect element
@@ -1239,15 +1239,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 								}
 							}
 						}
-						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){
+						
+						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the boxtext element
+							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
+							var text = viewElementArray[h].getElementsByTagName('svg');
+								if(text.length)
+								viewElementArray[h].removeChild(text[0]);
+							}
+						}
+							
+						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the script text element
 							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('text');
 								if(text.length)
 								viewElementArray[h].removeChild(text[0]);
 								viewElementArray[h].removeChild(arrayDel[0]);
-							}
-						}
-
+								}
+						}						
 					}
 				}
 				clearSVGFromUnusedViews(); // Call function clearSVGFromUnusedViews
@@ -1258,7 +1266,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var tempView = movementLayer.getElementsByClassName('viewelement');
 				for(i=0; i<tempView.length; i++) {
 					if(tempView[i].childElementCount == 0) {
-					movementLayer.removeChild(tempView[i]);
+					movementLayer.removeChild(tempView[i]); // Remove element to movementLayer
 					}
 				}
 			svg.removeChild(deleteRect); // Remove element to svg
@@ -1266,9 +1274,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================
-
-		function createWrite() {
-		// Function responsible for creating typed script
+		
+		function createWrite() { // Function responsible for creating typed script
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 4; // Pass number 4 in function parameter
 
@@ -1297,8 +1304,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1306,7 +1313,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 				var sx = touches[j].pageX; // Specifies the x-axis on the screen
 				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
-				var activateExistingText = false;
+				var activateExistingText = false; // Get false
 				
 				var texts = document.getElementsByTagName('text');
 				// String that will cast the string to int
@@ -1314,7 +1321,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
-					activateExistingText = true; // activateExistingText get true
+					activateExistingText = true; // Get true
 					text = texts[i];
 					}
 				}
@@ -1333,7 +1340,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
 				circle.addEventListener('mouseup', endMoveWrite, false);
 				
-				viewElementG.appendChild(circle); // Add element to svg
+				viewElementG.appendChild(circle); // Add element to viewElementG
 
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 				text.setAttribute('x', sx); // Add the position x of the element
@@ -1346,7 +1353,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				text.setAttribute('text-decoration', decorationLetter); // Add underline to element
 				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
-				viewElementG.appendChild(text); // Add element to svg
+				viewElementG.appendChild(text); // Add element to viewElementG
 				numberToText++; // Number increments by the amount of character 
 				} else {
 
@@ -1359,8 +1366,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var sx = touches[j].clientX; // Specifies the x-axis on the screen
 				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 
@@ -1412,14 +1418,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		function startWrite(event) {
 			var sx = event.clientX; // Specifies the x-axis on the screen
 			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
-			var activateExistingText = false;
+			var activateExistingText = false; // Get false
 			var texts = document.getElementsByTagName('text');
 				// String that will cast the string to int
 				for(var i=0; i<texts.length; i++) {
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
-					activateExistingText = true; // activateExistingText get true
+					activateExistingText = true; // Get true
 					text = texts[i];
 					}
 				}
@@ -1437,7 +1443,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				circle.setAttribute('fill', "black"); // Add background color to element
 				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
 				circle.addEventListener('mouseup', endMoveWrite, false);
-				viewElementG.appendChild(circle);
+				viewElementG.appendChild(circle); // Add element to viewElementG
 
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 				text.setAttribute('x', sx); // Add the position x of the element
@@ -1450,7 +1456,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				text.setAttribute('text-decoration', decorationLetter); // Add underline to element
 				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
-				viewElementG.appendChild(text); // Add element to svg
+				viewElementG.appendChild(text); // Add element to viewElementG
 				numberToText++; // Number increments by the amount of character 
 				
 				}
@@ -1505,8 +1511,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 		}
 
 		//============================================================================
-		// Function responsible for creating the ponto element
-		function createPonto() {
+		
+		function createPonto() { // Function responsible for creating the ponto element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 5; // Pass number 5 in function parameter
 
@@ -1528,13 +1534,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousedown', startPonto, false);
 			svg.addEventListener('mouseup', endMovePonto, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchPonto(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1549,12 +1554,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				ponto.setAttribute('fill', colorElement); // Add background color to element
 				ponto.setAttribute('stroke', colorBoot); // Add color to element
 				ponto.setAttribute('stroke-width', widthBoot); // Add element thickness
-				svg.appendChild(ponto);
-				isMousePressed = true;
+				svg.appendChild(ponto); // Add element to svg
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startPonto(event) {
 			var sx = event.clientX; // Specifies the x-axis on the screen
 			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
@@ -1565,22 +1570,22 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			ponto.setAttribute('fill', colorElement); // Add background color to element
 			ponto.setAttribute('stroke', colorBoot); // Add color to element
 			ponto.setAttribute('stroke-width', widthBoot); // Add element thickness
-			svg.appendChild(ponto);
+			svg.appendChild(ponto); // Add element to svg
 			isMousePressed = true;
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Mouse Event
 		function endMovePonto(event) {
-			createViewElementForPath();
-			viewElementG.appendChild(ponto);
-			isMousePressed = false;
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(ponto); // Add element to viewElementG
+			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for creating the circle element
-		function createCircle() {
+		
+		function createCircle() { // Function responsible for creating the circle element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 6; // Pass number 6 in function parameter
 
@@ -1605,13 +1610,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousemove', moveCircle, false);
 			svg.addEventListener('mouseup', endMoveCircle, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchCircle(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1627,18 +1631,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				circleArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
 				circleArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
 				circleArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-				svg.appendChild(circleArray[idTouch]);
-				isMousePressed = true;
+				svg.appendChild(circleArray[idTouch]); // Add element to svg
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Touch Event
 		function moveMultiTouchCircle(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
 				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
@@ -1665,20 +1668,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchCircle(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(circleArray[idTouch]);
-				isMousePressed = false;
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(circleArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
 				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startCircle(event) {
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
@@ -1689,11 +1692,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			circle.setAttribute('stroke', colorBoot); // Add color to element
 			circle.setAttribute('stroke-width', widthBoot); // Add element thickness
 			circle.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-			svg.appendChild(circle);
-			isMousePressed = true;
+			svg.appendChild(circle); // Add element to svg
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveCircle(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX; // Specifies the x-axis on the screen
@@ -1720,18 +1723,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Mouse Event
 		function endMoveCircle(event) {
-			createViewElementForPath();
-			viewElementG.appendChild(circle);
-			isMousePressed = false;
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(circle); // Add element to viewElementG
+			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for creating the rectangle element
-		function createRectangle() {
+		
+		function createRectangle() { // Function responsible for creating the rectangle element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 7; // Pass number 8 in function parameter
 
@@ -1755,13 +1758,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousemove', moveRectangle, false);
 			svg.addEventListener('mouseup', endMoveRectangle, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchRectangle(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1777,19 +1779,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				rectangleArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
 				rectangleArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
 				rectangleArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-				svg.appendChild(rectangleArray[idTouch]);
-				isMousePressed = true;
+				svg.appendChild(rectangleArray[idTouch]); // Add element to svg
+				isMousePressed = true; // Get true
 			}
 			// Prevents an additional event being triggered
 			event.preventDefault();
-		}
-
+		}	
+		// Move Touch Event
 		function moveMultiTouchRectangle(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
 				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
@@ -1815,20 +1816,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchRectangle(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(rectangleArray[idTouch]);
-				isMousePressed = false;
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(rectangleArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
 				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startRectangle(event) {
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
@@ -1839,11 +1840,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			rectangle.setAttribute('stroke', colorBoot); // Add color to element
 			rectangle.setAttribute('stroke-width', widthBoot); // Add element thickness
 			rectangle.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-			svg.appendChild(rectangle);
-			isMousePressed = true;
+			svg.appendChild(rectangle); // Add element to svg
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveRectangle(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX; // Specifies the x-axis on the screen
@@ -1870,18 +1871,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Mouse Event
 		function endMoveRectangle(event) {
-			createViewElementForPath(); // Get function createViewElementForPath
-			viewElementG.appendChild(rectangle);
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(rectangle); // Add element to viewElementG
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for creating the ellipse element
-		function createEllipse() {
+		
+		function createEllipse() { // Function responsible for creating the ellipse element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 8; // Pass number 8 in function parameter
  
@@ -1905,13 +1906,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousemove', moveEllipse, false);
 			svg.addEventListener('mouseup', endMoveEllipse, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchEllipse(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -1927,18 +1927,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				ellipseArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
 				ellipseArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
 				ellipseArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-				svg.appendChild(ellipseArray[idTouch]);
-				isMousePressed = true;
+				svg.appendChild(ellipseArray[idTouch]); // Add element to svg
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Touch Event
 		function moveMultiTouchEllipse(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
 				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
@@ -1964,20 +1963,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchEllipse(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(ellipseArray[idTouch]);
-				isMousePressed = false;
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(ellipseArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
 				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startEllipse(event) {
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
@@ -1988,11 +1987,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			ellipse.setAttribute('stroke', colorBoot); // Add color to element
 			ellipse.setAttribute('stroke-width', widthBoot); // Add element thickness
 			ellipse.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-			svg.appendChild(ellipse);
-			isMousePressed = true;
+			svg.appendChild(ellipse); // Add element to svg
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveEllipse(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX;
@@ -2019,18 +2018,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Mouse Event
 		function endMoveEllipse(event) {
-			createViewElementForPath(); // Get function createViewElementForPath
-			viewElementG.appendChild(ellipse);
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(ellipse); // Add element to viewElementG
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for creating the line element
-		function createLine() {
+		
+		function createLine() { // Function responsible for creating the line element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 9; // Pass number 9 in function parameter
 
@@ -2054,13 +2053,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousemove', moveLine, false);
 			svg.addEventListener('mouseup', endMoveLine, false);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchLine(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX, 
 					pageY : touches[j].pageY
@@ -2083,14 +2081,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				lineArray[idTouch].setAttribute('stroke', colorBoot); // Add color to element
 				lineArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
 				lineArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-				svg.appendChild(lineArray[idTouch]);
-				isMousePressed = true;
+				svg.appendChild(lineArray[idTouch]); // Add element to svg
+				isMousePressed = true; // Get true 
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Touch Event
 		function moveMultiTouchLine(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				/* access stored touch info on touchend */
@@ -2120,20 +2118,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchLine(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(lineArray[idTouch]);
-				isMousePressed = false;
-				saveImage(); // Save layout
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(lineArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
+				saveImage(); // Save layout 
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startLine(event) {
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
@@ -2151,11 +2149,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			line.setAttribute('stroke', colorBoot); // Add color to element
 			line.setAttribute('stroke-width', widthBoot); // Add element thickness
 			line.setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
-			svg.appendChild(line);
-			isMousePressed = true;
+			svg.appendChild(line); // Add element to svg
+			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event
 		function moveLine(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX;
@@ -2182,18 +2180,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Mouse Event
 		function endMoveLine(event) {
-			createViewElementForPath();
-			viewElementG.appendChild(line);
-			isMousePressed = false;
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(line); // Add element to viewElementG
+			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-		// Function responsible for creating the image element
-		function readURL(event) {
+		
+		function readURL(event) { // Function responsible for creating the image element
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 10; // Pass number 10 in function parameter
@@ -2224,13 +2222,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 			reader.readAsDataURL(event.target.files[0]);
 		}
-
+		// Start Touch Event 
 		function startMultiTouchURL(event) {
-			var touches = event.changedTouches;
-
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -2246,18 +2243,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 				imageArray[idTouch].setAttribute('width', "200px"); // Add width element 
 				imageArray[idTouch].setAttribute('height', "300px"); // Add height element 
 				imageArray[idTouch].setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
-				svg.appendChild(imageArray[idTouch]);
-				isMousePressed = true;
+				svg.appendChild(imageArray[idTouch]); // Add element to svg
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
-		function moveMultiTouchURL(event) {
-			var touches = event.changedTouches;
-			for(var j = 0; j < touches.length; j++) {
+		// Move Touch Event
+		function moveMultiTouchURL(event) { 
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) { 
 				var idTouch = touches[j].identifier;
 				/* Access stored touch info on touchend */
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ];
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var moveX = touches[j].clientX; // Specifies the x-axis on the screen
 				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 				var diffX = moveX - startX;
@@ -2281,20 +2278,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// End Touch Event
 		function endMoveMultiTouchURL(event) {
-			var touches = event.changedTouches;
+			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
-				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* access stored touch info on touchend */
-				createViewElementForPath();
-				viewElementG.appendChild(imageArray[idTouch]);
-				isMousePressed = false;
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(imageArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
 				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Start Mouse Event
 		function startURL(event){
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
@@ -2305,11 +2302,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			image.setAttribute('width', "200px"); // Add width element 
 			image.setAttribute('height', "300px"); // Add height element 
 			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
-			svg.appendChild(image); 
+			svg.appendChild(image); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-
+		// Move Mouse Event	
 		function moveURL(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX;
@@ -2334,19 +2331,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
-
+		// End Mouse Event
 		function endMoveURL(event) {
-			createViewElementForPath(); // Get function createViewElementForPath
-			viewElementG.appendChild(image);
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(image); // Add element to viewElementG
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
 		//============================================================================
-        // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
-		// Function responsible for creating the text box element
-        function createBoxText(){
+        // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'		
+        function createBoxText(){ // Function responsible for creating the text box element
 	        removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 11; // Pass number 11 in function parameter
 
@@ -2368,12 +2364,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			svg.addEventListener('mousedown', startBoxText, false);
 			svg.addEventListener('mouseup', endMoveBoxText, false);
         }
-
+		// Start Touch Event 
 		function startMultiTouchBoxText(event){
-			var touches = event.changedTouches;
-			for(var j = 0; j < touches.length; j++) {
-				/* store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = {
+			var touches = event.changedTouches; // Get touchEvent
+				for(var j = 0; j < touches.length; j++) {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
 					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
@@ -2381,8 +2377,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 				var sx = touches[j].clientX; // Specifies the x-axis on the screen
 				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
-
-	            var paper = Raphael(viewElementG, 1800, 800);
+				
+				createViewElementForPath();	// Call function createViewElementForPath
+				
+	            var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
 				// Rectangle to move a textbox
 				paper.rect(sx, sy); // Add the position x and y of the element
                 var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
@@ -2400,197 +2398,183 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 						text.inlineTextEditing.stopEditing();
 					}, true);
 				});
-
-				isMousePressed = true;
-			}
+				isMousePressed = true; // Get true
+				}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
+		// Start Mouse Event
+		function startBoxText(event){								
+			var sx = event.clientX; // Specifies the x-axis on the screen
+			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+			
+			createViewElementForPath();	// Call function createViewElementForPath
+			
+	        var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
+			// Rectangle to move a textbox
+			paper.rect(sx, sy); // Add the position x and y of the element
+            var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
+			
+			// Initialize text editing for the text element
+			paper.inlineTextEditing(text);
 
-		function startBoxText(event){
+			// Start inline editing on click
+			text.dblclick(function(){
+			// Retrieve created <input type=text> field
+			var input = this.inlineTextEditing.startEditing();
 
-				var sx = event.clientX; // Specifies the x-axis on the screen
-				var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
-
-	            var paper = Raphael(viewElementG, 1800, 800);
-				// Rectangle to move a textbox
-				paper.rect(sx, sy); // Add the position x and y of the element
-                var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
-				
-				// Initialize text editing for the text element
-				paper.inlineTextEditing(text);
-
-				// Start inline editing on click
-				text.dblclick(function(){
-					// Retrieve created <input type=text> field
-					var input = this.inlineTextEditing.startEditing();
-
-					input.addEventListener("blur", function(e){
-						// Stop inline editing after blur on the text field
+				input.addEventListener("blur", function(e){
+					// Stop inline editing after blur on the text field
 						text.inlineTextEditing.stopEditing();
-					}, true);
-				});
-				isMousePressed = true; 
-				event.preventDefault(); // Prevents an additional event being triggered
+				}, true);
+			});			
+			isMousePressed = true; // Get true
+			event.preventDefault(); // Prevents an additional event being triggered
         }
-
+		// End Mouse Event
 		function endMoveBoxText(event) {
 			disabledBoxText(); // Get function disabledBoxText
-			createViewElementForPath(); // Get function createViewElementForPath
+			createViewElementForPath(); // Call function createViewElementForPath
 			isMousePressed = false; // Get false
-			saveImage(); // Save layout
+			saveImage(); // Save layout			
 		}
 
 		//============================================================================
 
-		function drawLine(){
-			clearLayout();
-			if (clearGrid == 0) {
+		function drawLine() { // Function responsible by vertical grid
+			clearLayout(); // Call function clearLayout			
+			
+			createViewElementForPath(); // Call function createViewElementForPath
+			
+			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+			svg.appendChild(defs); // Add element to svg
+			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
+			viewElementG.appendChild(defs); // Add element to viewElementG
 
-				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-				svg.appendChild(defs);
-				createViewElementForPath();
-				viewElementG.setAttribute('id', "grid");
-				viewElementG.appendChild(defs);
+			// Draw Big Grid
+			pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+			pattern.setAttribute('width', "20");
+			pattern.setAttribute('height', "20");
+			pattern.setAttribute('patternUnits', "userSpaceOnUse");
+			pattern.setAttribute('id', "bigGrid");
+			defs.appendChild(pattern); // Add element to defs
 
-				// Draw Big Grid
-				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-				pattern.setAttribute('width', "20");
-				pattern.setAttribute('height', "20");
-				pattern.setAttribute('patternUnits', "userSpaceOnUse");
-				pattern.setAttribute('id', "bigGrid");
-				defs.appendChild(pattern);
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "20");
+			rect.setAttribute('height', "20");
+			rect.setAttribute('fill', "none");
+			pattern.appendChild(rect); // Add element to pattern
 
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "20");
-				rect.setAttribute('height', "20");
-				rect.setAttribute('fill', "none");
-				pattern.appendChild(rect);
+			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			path.setAttribute('d', "M 40 0 L 0 0 0 0");
+			path.setAttribute('fill', "none");
+			path.setAttribute('stroke', colorBoot);
+			path.setAttribute('stroke-width', "1.0");
+			pattern.appendChild(path); // Add element to pattern
 
-				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-				path.setAttribute('d', "M 40 0 L 0 0 0 0");
-				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', colorBoot);
-				path.setAttribute('stroke-width', "1.0");
-				pattern.appendChild(path);
+			// Finish
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "100%");
+			rect.setAttribute('height', "100%");
+			rect.setAttribute('fill', "url(#bigGrid)");
+			defs.appendChild(rect); pattern.appendChild(path); // Add element to defs
+			viewElementG.appendChild(rect); // Add element to viewElementG
 
-				// Finish
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "100%");
-				rect.setAttribute('height', "100%");
-				rect.setAttribute('fill', "url(#bigGrid)");
-				defs.appendChild(rect);
-				viewElementG.appendChild(rect);
-
-				clearGrid = 1;
- 			}
-			else if (clearGrid == 1) {
-
-			}
 			saveImage(); // Save layout
 		}
 
-		function drawGrid(){
-			clearLayout();
-			if (clearGrid == 0) {
+		function drawGrid() { // Function responsible by horizontal grid
+			clearLayout(); // Call function clearLayout
+			
+			createViewElementForPath(); // Call function createViewElementForPath
+			
+			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+			svg.appendChild(defs); // Add element to svg
+			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
+			viewElementG.appendChild(defs); // Add element to viewElementG
 
-				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-				svg.appendChild(defs);
-				createViewElementForPath();
-				viewElementG.setAttribute('id', "grid");
-				viewElementG.appendChild(defs);
+			// Draw Big Grid
+			pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+			pattern.setAttribute('width', "20");
+			pattern.setAttribute('height', "20");
+			pattern.setAttribute('patternUnits', "userSpaceOnUse");
+			pattern.setAttribute('id', "bigGrid");
+			defs.appendChild(pattern); // Add element to defs
 
-				// Draw Big Grid
-				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-				pattern.setAttribute('width', "20");
-				pattern.setAttribute('height', "20");
-				pattern.setAttribute('patternUnits', "userSpaceOnUse");
-				pattern.setAttribute('id', "bigGrid");
-				defs.appendChild(pattern);
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "20");
+			rect.setAttribute('height', "20");
+			rect.setAttribute('fill', "none");
+			pattern.appendChild(rect); // Add element to pattern
 
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "20");
-				rect.setAttribute('height', "20");
-				rect.setAttribute('fill', "none");
-				pattern.appendChild(rect);
+			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			path.setAttribute('d', "M 0 0 L 0 0 0 40");
+			path.setAttribute('fill', "none");
+			path.setAttribute('stroke', colorBoot);
+			path.setAttribute('stroke-width', "1.0");
+			pattern.appendChild(path); // Add element to pattern
 
-				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-				path.setAttribute('d', "M 0 0 L 0 0 0 40");
-				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', colorBoot);
-				path.setAttribute('stroke-width', "1.0");
-				pattern.appendChild(path);
+			// Finish
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "100%");
+			rect.setAttribute('height', "100%");
+			rect.setAttribute('fill', "url(#bigGrid)");
+			defs.appendChild(rect); // Add element to defs
+			viewElementG.appendChild(rect); // Add element to viewElementG
 
-				// Finish
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "100%");
-				rect.setAttribute('height', "100%");
-				rect.setAttribute('fill', "url(#bigGrid)");
-				defs.appendChild(rect);
-				viewElementG.appendChild(rect);
-
-				clearGrid = 1;
- 			}
-			else if (clearGrid == 1) {
-
-			}
 			saveImage(); // Save layout
 		}
 
-		function drawGridLine(){
-			clearLayout();
-			if (clearGrid == 0) {
+		function drawGridLine() { // Function responsible by vertical and horizontal grid
+			clearLayout(); // Call function clearLayout		
 
-				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-				svg.appendChild(defs);
-				createViewElementForPath();
-				viewElementG.setAttribute('id', "grid");
-				viewElementG.appendChild(defs);
+			createViewElementForPath(); // Call function createViewElementForPath
+			
+			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+			svg.appendChild(defs); // Add element to svg
+			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
+			viewElementG.appendChild(defs); // Add element to viewElementG
 
-				// Draw Big Grid
-				pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-				pattern.setAttribute('width', "20");
-				pattern.setAttribute('height', "20");
-				pattern.setAttribute('patternUnits', "userSpaceOnUse");
-				pattern.setAttribute('id', "bigGrid");
-				defs.appendChild(pattern);
+			// Draw Big Grid
+			pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+			pattern.setAttribute('width', "20");
+			pattern.setAttribute('height', "20");
+			pattern.setAttribute('patternUnits', "userSpaceOnUse");
+			pattern.setAttribute('id', "bigGrid");
+			defs.appendChild(pattern); // Add element to defs
 
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "20");
-				rect.setAttribute('height', "20");
-				rect.setAttribute('fill', "none");
-				pattern.appendChild(rect);
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "20");
+			rect.setAttribute('height', "20");
+			rect.setAttribute('fill', "none");
+			pattern.appendChild(rect); // Add element to pattern
 
-				path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-				path.setAttribute('d', "M 40 0 L 0 0 0 40");
-				path.setAttribute('fill', "none");
-				path.setAttribute('stroke', colorBoot);
-				path.setAttribute('stroke-width', "1.0");
-				pattern.appendChild(path);
+			path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			path.setAttribute('d', "M 40 0 L 0 0 0 40");
+			path.setAttribute('fill', "none");
+			path.setAttribute('stroke', colorBoot);
+			path.setAttribute('stroke-width', "1.0");
+			pattern.appendChild(path); // Add element to pattern
 
-				// Finish
-				rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-				rect.setAttribute('width', "100%");
-				rect.setAttribute('height', "100%");
-				rect.setAttribute('fill', "url(#bigGrid)");
-				defs.appendChild(rect);
-				viewElementG.appendChild(rect);
-
-				clearGrid = 1;
- 			}
-			else if (clearGrid == 1) {
-
-			}
+			// Finish
+			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+			rect.setAttribute('width', "100%"); 
+			rect.setAttribute('height', "100%");
+			rect.setAttribute('fill', "url(#bigGrid)");
+			defs.appendChild(rect); // Add element to defs
+			viewElementG.appendChild(rect); // Add element to viewElementG
+ 			
 			saveImage(); // Save layout
 		}
 
-		function drawLimetrada(){
-			clearLayout();
+		function drawLimetrada() { // Function responsible by limetrada grid
+			clearLayout(); // Call function clearLayout			
+			
+            createViewElementForPath(); // Call function createViewElementForPath
 
             defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            svg.appendChild(defs);
-            createViewElementForPath();
-            viewElementG.setAttribute('id', "grid");
-            viewElementG.appendChild(defs);
+            svg.appendChild(defs); // Add element to svg
+            viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
+            viewElementG.appendChild(defs); // Add element to viewElementG
 
             // Draw Small Grid
             pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
@@ -2598,7 +2582,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
             pattern.setAttribute('height', "8");
             pattern.setAttribute('patternUnits', "userSpaceOnUse");
             pattern.setAttribute('id', "smallGrid");
-            defs.appendChild(pattern);
+            defs.appendChild(pattern); // Add element to defs
 
 
             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -2606,7 +2590,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
             path.setAttribute('fill', "none");
             path.setAttribute('stroke', colorBoot);
             path.setAttribute('stroke-width', "0.5");
-            pattern.appendChild(path);
+            pattern.appendChild(path); // Add element to pattern
 
             // Draw Big Grid
             pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
@@ -2614,13 +2598,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
             pattern.setAttribute('height', "80");
             pattern.setAttribute('patternUnits', "userSpaceOnUse");
             pattern.setAttribute('id', "bigGrid");
-            defs.appendChild(pattern);
+            defs.appendChild(pattern); // Add element to defs
 
             rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             rect.setAttribute('width', "80");
             rect.setAttribute('height', "80");
             rect.setAttribute('fill', "url(#smallGrid)");
-            pattern.appendChild(rect);
+            pattern.appendChild(rect); // Add element to pattern
 
 
             path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -2628,37 +2612,36 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
             path.setAttribute('fill', "none");
             path.setAttribute('stroke', colorBoot);
             path.setAttribute('stroke-width', "1.0");
-            pattern.appendChild(path);
+            pattern.appendChild(path); // Add element to pattern
 
             // Finish
             rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             rect.setAttribute('width', "100%");
             rect.setAttribute('height', "100%");
             rect.setAttribute('fill', "url(#bigGrid)");
-            defs.appendChild(rect);
-            viewElementG.appendChild(rect);
+            defs.appendChild(rect); // Add element to defs
+            viewElementG.appendChild(rect); // Add element to viewElementG
 
 			saveImage(); // Save layout
-
         }
-
-		// function to clear grid or lines
-
-		function clearLayout() {
-			var tempView = movementLayer.getElementsByClassName('viewelement');
+		
+		//============================================================================
+		
+		function clearLayout() { // Function responsible by clear grid or lines
+			var tempView = movementLayer.getElementsByClassName('viewelement'); // Get the class related to the viewelement element
 			for(j=0; j<=5; j++){
 				for(i=0; i<tempView.length; i++) {
-					if(tempView[i].getAttribute('id') == "grid") {
-					movementLayer.removeChild(tempView[i]);
+					if(tempView[i].getAttribute('id') === "grid") {
+					movementLayer.removeChild(tempView[i]); // Remove element to movementLayer
 					}
-				clearGrid=0;
 				}
 			}
 			saveImage(); // Save layout
 		}
+		
 		//============================================================================
 
-		function downloadIt() {
+		function downloadIt() { // Function responsible for downloading
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2679,14 +2662,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			context.fillStyle = backgroundColor;
 			context.fillRect(0,0,w,h);
 
-			var images = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-			window.location.href = images;
+			var images = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // Save the layout as image
+			window.location.href = images; 
 		}
 
 		//============================================================================
 
-		function imageIt() {
-			var serializer = new XMLSerializer();
+		function imageIt() { // Function responsible for generating the image
+			var serializer = new XMLSerializer(); 
 			var xmlString = serializer.serializeToString(layer);
 
 			canvg(document.getElementById('canvas'), xmlString);
@@ -2708,7 +2691,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 			var dataURL = canvas.toDataURL();
 
-			window.open(dataURL, "_blank");
+			window.open(dataURL, "_blank"); // Open a new window
 
 			context.clearRect(0, 0, w, h);
 			context.globalCompositeOperation = compositeOperation;
@@ -2716,7 +2699,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 		//============================================================================
 
-		function saveIt() {
+		function saveIt() { // Function responsible for saving the layout to the database
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2724,16 +2707,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 			xmlString.replace("</t", "><");
 			var encoded = encodeURIComponent(xmlString);
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST","dml/armazena.php",true);
+			xmlhttp = new XMLHttpRequest(); 
+			xmlhttp.open("POST","dml/armazena.php",true); // Call file armazena.php
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("id="+id+"&tag_svg="+encoded);
-			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id);
+			xmlhttp.send("id="+id+"&tag_svg="+encoded); // Pass the id and layout to be stored
+			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id); // Alerts the user access code
 		}
 
 		//============================================================================
 
-		function pdfIt() {
+		function pdfIt() { // Function responsible for generating the PDF
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
@@ -2759,31 +2742,31 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 			var ctx=canvas.getContext("2d");
 			ctx.clearRect(0, 0, w, h);
 			formulario.svg.value = svg;
-			formulario.action = "pdf/gerarpdf.php";
+			formulario.action = "pdf/gerarpdf.php"; // Call file gerarpdf.php
 			formulario.submit();
 		}
 
 		//============================================================================
 
-		function setStrokeText() {
+		function setStrokeText() { // Function responsible for adding color to the letters
 			if(colorStrokeLetter != colorFillElement)
-			colorStrokeLetter = colorFillElement;
+			colorStrokeLetter = colorFillElement; // Get stroke
 			else
-			colorStrokeLetter = "none";
+			colorStrokeLetter = "none"; //Without stroke
 		}
 
-		function setDecoration() {
+		function setDecoration() { // Function responsible for adding underline to the letters
 			if (decorationLetter == "underline")
-			decorationLetter = "none";
+			decorationLetter = "none"; // Without underline
 			else
-			decorationLetter = "underline";
+			decorationLetter = "underline"; // Get underline
 		}
 
-		function setStyle() {
+		function setStyle() { // Function responsible for adding style to the letters
 			if (styleLetter == "italic")
-			styleLetter = "normal";
+			styleLetter = "normal";  // Without italic
 			else
-			styleLetter = "italic";
+			styleLetter = "italic"; // Get italic
 		}
 
 		//============================================================================
@@ -2796,89 +2779,72 @@ along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html
 
 		//============================================================================
 
-		function setSizeText(val) {
-			sizeLetter = val;
+		function setSizeText(val) { // Function responsible for initializing element size
+			sizeLetter = val; // Get size
 		}
 
 		//============================================================================
 
-		function setFontText(val) {
-			fontLetter = val;
+		function setFontText(val) { // Function responsible for initializing element font
+			fontLetter = val; // Get font
 		}
 
 		//============================================================================
 
-		function setWidth(val) {
-			widthBoot = val;
+		function setWidth(val) { // Function responsible for initializing element width
+			widthBoot = val; // Get width
 		}
 
 		//============================================================================
 
-		function setColor(val) {
-			colorBootElement = val;
-			verificaCheckBordas();
-			verificaCheckFundo();
+		function setColor(val) { // Function responsible for managing borders and background
+			colorBootElement = val; // Get color
+			verificaCheckBordas(); // Call function verificaCheckBordas
+			verificaCheckFundo(); // Call function verificaCheckFundo
 		}
 
-		function setColorElement() {
-			verificaCheckBordas();
-			verificaCheckFundo();
+		function setColorElement() { // Function responsible for managing borders and background
+			verificaCheckBordas(); // Call function verificaCheckBordas
+			verificaCheckFundo(); // Call function verificaCheckFundo
 		}
 
 		//============================================================================
 
-		function verificaCheckBordas() {
-
-		var bordas = document.getElementsByName("bordas");
-
-			for (var i=0;i<bordas.length;i++){
-
-				if (bordas[i].checked == true){
-
-					colorBoot = colorBootElement;
+		function verificaCheckBordas() { // Function responsible for coloring the edges of the elements
+		var bordas = document.getElementsByName("bordas"); // Get the parameters border
+			// Tie responsible for coloring the entire border
+			for (var i=0; i<bordas.length; i++){
+				if (bordas[i].checked == true){ // If checkbox is selected
+					colorBoot = colorBootElement; // Get color
+				}
+				if (bordas[i].checked == false){ // if checkbox is not selected
 
 				}
-				if (bordas[i].checked == false){
-
-
-				}
-			}
+			}			
 		}
 
-		function verificaCheckFundo() {
-
-		var fundo = document.getElementsByName("fundo");
-
+		function verificaCheckFundo() { // Function responsible for coloring the backgrounds of the elements
+		var fundo = document.getElementsByName("fundo"); // Get the parameters background
+			// Tie responsible for coloring the entire background 
 			for (var i=0;i<fundo.length;i++){
-
-				if (fundo[i].checked == true){
-
-					colorElement = colorBootElement;
-
+				if (fundo[i].checked == true){ // If checkbox is selected
+					colorElement = colorBootElement; // Get color
 				}
-				if (fundo[i].checked == false){
-
+				if (fundo[i].checked == false){ // if checkbox is not selected
 					colorElement = "none";
-
-				}
-			}
+				}				
+			}			
 		}
 
-		function verificaCheckTracejado() {
-
-		var LinhaTrace = document.getElementsByName("tracejado");
-
-			for (var i=0;i<LinhaTrace.length;i++){
-
-				if (LinhaTrace[i].checked == true){
-
-					dashedElement = '20,20';
-
+		function verificaCheckTracejado() { // Function responsible for plotting the elements
+		var LinhaTrace = document.getElementsByName("tracejado"); // Get the parameters tracejado
+			// Tie responsible for tracing the element
+			for (var i=0;i<LinhaTrace.length;i++){			
+				if (LinhaTrace[i].checked == true){ // If checkbox is selected
+					dashedElement = '20,20'; // Space between the traces 20
 				}
-				if (LinhaTrace[i].checked == false){
-
-					dashedElement = "none";
-
-				}
-			}
+				if (LinhaTrace[i].checked == false){ // if checkbox is not selected
+					dashedElement = "none"; // Without Space between the traces
+				}				
+			}			
 		}
