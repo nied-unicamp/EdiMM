@@ -27,7 +27,7 @@
 	$id = $_REQUEST["id"];
 	$servername = "localhost";
 	$username = "root";
-	$password = ""; 
+	$password = "Myfen80n"; 
 	$dbname = "EditorMm";
 
 	// Create connection
