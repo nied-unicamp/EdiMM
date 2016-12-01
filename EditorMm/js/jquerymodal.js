@@ -16,73 +16,73 @@
 * You should have received a copy of the GNU General Public License								*
 * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.			*
 ************************************************************************************************/
-		//http://fenix.nied.unicamp.br/EditorMm/	
-		
+		//http://fenix.nied.unicamp.br/EditorMm/
+
 		var sizeLetter = "20"; // Initialization sizeLetter
 		var fontLetter = "Arial"; // Initialization fontLetter
 
 		var styleLetter  = "normal"; // Initialization styleLetter
 		var decorationLetter = "none"; // Initialization decorationLetter
 		var colorStrokeLetter = "none"; // Initialization colorStrokeLetter
-		
-		var colorElement = "none"; // Initialization colorElement			
+
+		var colorElement = "none"; // Initialization colorElement
 		var dashedElement = "none"; // Initialization dashedElement
-		var colorFillElement = "black"; // Initialization colorFillElement		
-		var colorBootElement = "black"; // Initialization colorBootElement		
-		
+		var colorFillElement = "black"; // Initialization colorFillElement
+		var colorBootElement = "black"; // Initialization colorBootElement
+
 		var colorBoot = "black", widthBoot = 3; // Initialization of element colorBoot and widthBoot
 
 		var xArray = new Array(); // Vector initialization responsible for the x axis
 		var yArray = new Array(); // Vector initialization responsible for the y axis
-		
-		var lineArray = new Array(); // Vector initialization responsible for lines  
+
+		var lineArray = new Array(); // Vector initialization responsible for lines
 		var viewArray = new Array(); // Vector initialization responsible for view
-		var pathArray = new Array(); // Vector initialization responsible for path		
-		var imageArray = new Array(); // Vector initialization responsible for image		
+		var pathArray = new Array(); // Vector initialization responsible for path
+		var imageArray = new Array(); // Vector initialization responsible for image
 		var circleArray = new Array(); // Vector initialization responsible for circle
-		var ellipseArray = new Array(); // Vector initialization responsible for ellipse		
-		var rectangleArray = new Array(); // Vector initialization responsible for rectangle		
+		var ellipseArray = new Array(); // Vector initialization responsible for ellipse
+		var rectangleArray = new Array(); // Vector initialization responsible for rectangle
 		var touchesInAction = new Array(); // Vector initialization responsible for touchEvents
 		var pathsToMoveInDeleteRect = new Array(); // Vector initialization responsible for DeleteRect
-		
+
 		var svg; //Initialization responsible svg attribute
 		var xmlString; //Initialization responsible xmlString attribute
-		
-		var numberToText; // Initialization numberToText attribute		
+
+		var numberToText; // Initialization numberToText attribute
 		var moveToText; // Initialization moveToText attribute
 		var circleTextToMove; // Initialization circleTextToMove attribute
-		
+
 		var viewElementG; // Initialization viewElementG attribute
 		var movementLayer; // Initialization movementLayer attribute
 		var activeButtonElement; // Initialization activeButtonElement attribute
-		
-		var url = location.href; // Initialization url attribute 
+
+		var url = location.href; // Initialization url attribute
 		var id = location.search; // Initialization id attribute
-				
+
 		// Initialization of function attribute responsible for the x-axis and y-axis
-		var numberOfEventListener;		
+		var numberOfEventListener;
 		var startMoveX, startMoveY;
 		var screenXCorrection, screenYCorrection;
-		
-		// Initialization of function attribute for receive parameters
-		var image, receivedImage; 
-		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs; 
 
-		var movingText = false;	// Boolean attribute movingText receives false value 
-		var touchIsEnabled = false; // Boolean attribute touchIsEnabled receives false value 
-		var isMousePressed = false; // Boolean attribute isMousePressed receives false value 
-		var stylusIsEnabled = false; // Boolean attribute stylusIsEnabled receives false value 
+		// Initialization of function attribute for receive parameters
+		var image, receivedImage;
+		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs;
+
+		var movingText = false;	// Boolean attribute movingText receives false value
+		var touchIsEnabled = false; // Boolean attribute touchIsEnabled receives false value
+		var isMousePressed = false; // Boolean attribute isMousePressed receives false value
+		var stylusIsEnabled = false; // Boolean attribute stylusIsEnabled receives false value
 
 		//============================================================================
-					
+
 		if (!id) { // Generate Random ID
 			id = makeid();
 			id = id.replace(" ", "");
 			window.location.replace(url+"?"+id);
 		}
-		
+
 		//============================================================================
-		
+
 		function makeid() { // Function responsible by burying the possible characters
 			var text = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -91,14 +91,14 @@
 			return text;
 		}
 
-		//============================================================================		
-		
+		//============================================================================
+
 		function activeButton(element) { // Function responsible activate background elements
 			element.style.background="#a2a2a2";
 		}
 
 		//============================================================================
-		
+
 		function deactiveButton(element) { // Function responsible disable background elements
 			if(activeButtonElement !== element) {
 			element.style.background="none";
@@ -106,7 +106,7 @@
 		}
 
 		//============================================================================
-		
+
 		function setActiveButton(element) { // Function responsible activate elements
 			if(activeButtonElement != undefined) {
 				if(activeButtonElement !== element) {
@@ -117,23 +117,23 @@
 		}
 
 		//============================================================================
-		
+
 		function createViewElementForPath() { // Function responsible for creating the main viewElementG element that will aggregate the others
 			viewElementG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 			viewElementG.setAttribute('class', "viewelement");
 			viewElementG.setAttribute('transform', "translate(0,0)");
 			movementLayer.appendChild(viewElementG); // Add element to movementLayer
 		}
-		
+
 		//============================================================================
-		
+
 		function disabledBoxText() { // Function responsible for disabling boxtext
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 0;
 		}
 
 		//============================================================================
-		
+
 		function device() { // Function responsible for managing functions related to touch on the screen
 			deviceIsStylusSensitive(); //Flame function deviceIsStylusSensitive
 			deviceIsTouchScreen(); //Flame function deviceIsTouchScreen
@@ -177,9 +177,9 @@
 					break;
 				}
 		}
-		
+
 		//============================================================================
-		
+
 		function deviceIsTouchScreen() { // Function responsible for activating touchIsEnabled
 			if (touchIsEnabled == false){ // Compare ball values for touchIsEnabled
 				if (window.ontouchstart !== "undefined")
@@ -191,9 +191,9 @@
 			touchIsEnabled = false; // get false
 			}
 			saveImage(); // Save layout
-		}		
+		}
 		//============================================================================
-		
+
 		function deviceIsStylusSensitive() { // Function responsible for activating stylusIsEnabled
 			if (stylusIsEnabled == false){ // Compare ball values for stylusIsEnabled
 				if(window.onponterstart !== "undefined")
@@ -205,7 +205,7 @@
 		}
 
 		//============================================================================
-		
+
 		function saveImage() { // Function responsible saving the screen layout
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
@@ -218,9 +218,9 @@
 		}
 
 		//============================================================================
-		
+
 		function init() { // Function responsible initialize svgID and layer and movement
-			svg = document.getElementById('svgID'); 
+			svg = document.getElementById('svgID');
 			layer = document.getElementsByClassName('layer')[0];
 			movementLayer = document.getElementById('movement');
 
@@ -228,19 +228,25 @@
 			screenYCorrection = screen.height * 0.0; //Points the angle y of the touch on the screen
 
 			id = id.replace("?", ""); // ID will receive the input paramera after ?
+
+			// Set a canvas with relative width and height
+	  		var canvas = document.getElementById("canvas");
+			canvas.setAttribute("width", window.innerWidth );
+			canvas.setAttribute("height", window.innerHeight );
+
 			deserializeSVGtoXML(); // Responsible function for bringing the data after the input parameter through the URL
 			createDraw(); // Free drawing function as default on startup
 		}
 		//============================================================================
-			
-		function deserializeSVGtoXML() { // Function responsible for bringing the data stored after the input parameter			
+
+		function deserializeSVGtoXML() { // Function responsible for bringing the data stored after the input parameter
 			// Start jquery function
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function() {
 				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				var xmlString = xmlhttp.responseText;
 				var x;
-				
+
 				// Attributes that will transform HTML tags into XML
 				xmlString = xmlString.replace("<html>", "");
 				xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
@@ -248,12 +254,12 @@
 				xmlString = xmlString.trim();
 				xmlString = xmlString.substring(1, xmlString.length);
 				xmlArray = xmlString.split("><");
-				
+
 				// Attributes receive the element g from the layout
 				var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 				var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 				var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-				
+
 					// Repeating loop that will scan all elements whose names are described in the XML paramentros
 					for(i=0; i<xmlArray.length; i++) {
 						switch(xmlArray[i].substr(0, 1)) { // Specific elements within the "g" tag will be searched recursively
@@ -261,7 +267,7 @@
 								if(xmlArray[i].indexOf('class="layer"') != -1) {
 								var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									// Repeating loop responsible for scanning attributeArray in class layer
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
@@ -269,11 +275,11 @@
 									var attributeValue = attributeArray[j+1];
 									layerElement.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {
 										var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 										var attributeArray = attributeString.split('"');
-										
+
 											// Repeating loop responsible for scanning attributeArray in class movementClass
 											for(j=0; j<attributeArray.length-1; j=j+2) {
 											var attributeName = attributeArray[j].trim();
@@ -281,58 +287,58 @@
 											var attributeValue = attributeArray[j+1];
 											movementElement.setAttribute(attributeName, attributeValue);
 											}
-											
+
 										} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {
 												var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
 												var attributeArray = attributeString.split('"');
-												
+
 													if(viewElement.hasChildNodes && attributeArray.length > 4) {
 													viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 													viewElement = viewElementTemp;
 													movementElement.appendChild(viewElement); // Add element to movementElement
 													}
-													
+
 													// Repeating loop responsible for scanning attributeArray in class viewelement
 													if(attributeArray.length > 4){
 														for(j=0; j<attributeArray.length-1; j=j+2) {
 														var attributeName = attributeArray[j].trim();
 														attributeName = attributeName.substring(0, attributeName.length-1);
 														var attributeValue = attributeArray[j+1];
-														viewElement.setAttribute(attributeName, attributeValue); 
+														viewElement.setAttribute(attributeName, attributeValue);
 														}
 													}
-													
+
 												}
 
-							break;										
+							break;
 							case "d": // Search for the element with the defs tag
 								var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									defs.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(defs); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
-							case "p": // Search for the element with the path 				 				
-								if ((xmlArray[i].substr(0, 4) == "path")) { 
+							case "p": // Search for the element with the path
+								if ((xmlArray[i].substr(0, 4) == "path")) {
 								var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-											
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									path.setAttribute(attributeName, attributeValue);
 									}
-											
+
 								viewElement.appendChild(path); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 								}
@@ -342,15 +348,15 @@
 								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 								var textArray =  xmlArray[i].split(">");
 								var attributeString = textArray[0].substr(4, textArray[0].length);
-								var attributeArray = attributeString.split('"');	
-								
+								var attributeArray = attributeString.split('"');
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									text.setAttribute(attributeName, attributeValue);
-									}							
-									
+									}
+
 									if ((typeof textArray[1] != 'undefined')){
 									var aux = textArray[1].substr(0, textArray[1].length -6);
 									aux = aux.replace("|", "");
@@ -358,8 +364,8 @@
 									text.appendChild(textNode);
 									viewElement.appendChild(text); // Add element to viewElement
 									movementElement.appendChild(viewElement); // Add element to movementElement
-									}				
-									
+									}
+
 								}
 							break;
 							case "i": // Search for the element with the defs image
@@ -368,22 +374,22 @@
 								var imageArray = xmlArray[i].split(">");
 								var attributeString = imageArray[0].substr(5, imageArray[0].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
-									
+
 										if (attributeName == 'xlink:href'){
 										image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
 										}
 										else{
 										image.setAttribute(null, attributeName, attributeValue);
 										}
-										
+
 									image.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(image); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 								}
@@ -392,14 +398,14 @@
 								var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
 								var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									ellipse.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(ellipse); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
@@ -407,14 +413,14 @@
 								var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 								var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									circle.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(circle); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
@@ -422,14 +428,14 @@
 								var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									rect.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(rect); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
@@ -437,18 +443,18 @@
 								var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
-								
+
 									for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									line.setAttribute(attributeName, attributeValue);
 									}
-									
+
 								viewElement.appendChild(line); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
-							case "/": 
+							case "/":
 							break;
 							default:
 							saveImage(); // Save layout
@@ -625,10 +631,10 @@
 			}
 		}
 
-		//============================================================================		
-		
+		//============================================================================
+
 		function createDraw() { // Function responsible for creating the draw element
-			removeEventListenerFromSVG(numberOfEventListener); 
+			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 1; // Pass number 1 in function parameter
 
 			if (stylusIsEnabled) {
@@ -653,7 +659,7 @@
 			svg.addEventListener('mousemove', moveDraw, false);
 			svg.addEventListener('mouseup', endMoveDraw, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchDraw(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			// Loop responsible for assigning the path element while keeping it pressed is true
@@ -668,7 +674,7 @@
 				var sx = touches[j].pageX; // Specifies the x-axis on the screen
 				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var startPosition = "M"+sx+" "+sy; // Receives the parameters responsible for the position of the elemen
-				var idTouch = touches[j].identifier; // Array to store multitouch 
+				var idTouch = touches[j].identifier; // Array to store multitouch
 				pathArray[idTouch] = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 				pathArray[idTouch].setAttribute('id', 'pathID'); // Add an ID to the element
 				pathArray[idTouch].setAttribute('d', startPosition); // Add the position of the element
@@ -681,12 +687,12 @@
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Touch Event 
+		// Move Touch Event
 		function moveMultiTouchDraw(event) {
 			var touches = event.changedTouches; // Get touchEvent
 				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(var j = 0; j < touches.length; j++) {
-					var idTouch = touches[j].identifier; 
+					var idTouch = touches[j].identifier;
 					var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 					var sx = touches[j].clientX; // Specifies the x-axis on the screen
 					var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
@@ -697,7 +703,7 @@
 				/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 				event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// End Touch Event 
+		// End Touch Event
 		function endMoveMultiTouchDraw(event) {
 			var touches = event.changedTouches; // Get touchEvent
 				// Loop responsible for assigning the path element while keeping it pressed is true
@@ -748,7 +754,7 @@
 		}
 
 		//============================================================================
-		
+
 		function moveIt() { // Function responsible for moving elements
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 2; // Pass number 2 in function parameter
@@ -774,7 +780,7 @@
 			svg.addEventListener('mousemove', moveMoves, false);
 			svg.addEventListener('mouseup', endMoveMoves, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startTouchMoves(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -789,7 +795,7 @@
 				startMoveX = touches[j].pageX; // Specifies the x-axis on the screen
 				startMoveY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
-					
+
 					// Loop responsible for assigning the path element while keeping it pressed is true
 					for(h=0; h<viewArray.length; h++) {
 					xArray[h] = getXandYTransformValues(viewArray[h]).x;
@@ -798,7 +804,7 @@
 			}
 			event.preventDefault();// Prevents an additional event being triggered
 		}
-		// Move Touch Event 
+		// Move Touch Event
 		function moveTouchMoves(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			// Loop responsible for moving element
@@ -817,12 +823,12 @@
 					if(pathArray.length>0){ // Moves the pathArray element
 						// Loop responsible for moving element path
 						for(i=0; i<pathArray.length; i++) {
-						
+
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						
+
 						var xMoveArray = new Array(); // Stores x-axis to screen touch
-						
+
 							for(j=0; j<splitArray.length; j=j+2) {
 							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
@@ -873,7 +879,7 @@
 							}
 						}
 					}
-						if(viewArray[h].getAttribute('id') != "grid"){ 
+						if(viewArray[h].getAttribute('id') != "grid"){
 							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
 								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
 								//Translation right and down
@@ -905,7 +911,7 @@
 			startMoveX = event.clientX; // Specifies the x-axis on the screen
 			startMoveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
-	
+
 				// Loop responsible for assigning the path element while keeping it pressed is true
 				for(h=0; h<viewArray.length; h++) {
 				xArray[h] = getXandYTransformValues(viewArray[h]).x;
@@ -913,7 +919,7 @@
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Mouse Event 
+		// Move Mouse Event
 		function moveMoves(event) {
 			// It will be redirected while the element is pressed
 			if(isMousePressed) {
@@ -930,9 +936,9 @@
 						for(i=0; i<pathArray.length; i++) {
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						
+
 						var xMoveArray = new Array(); // Stores x-axis to screen touch
-						
+
 							for(j=0; j<splitArray.length; j=j+2) {
 							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
@@ -1027,8 +1033,8 @@
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
-		//============================================================================	
-		
+		//============================================================================
+
 		function deleteIt() { // Function responsible for deleting elements
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 3; // Pass number 3 in function parameter
@@ -1076,7 +1082,7 @@
 				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
-		}		
+		}
 		// Move Touch Event
 		function moveTouchDelete(event) {
 			var touches = event.changedTouches; // Get touchEvent
@@ -1152,7 +1158,7 @@
 		// End Event
 		function endMoveDelete(event) {
 			isMousePressed = false; // Get false
-			var leftXRect = parseInt(deleteRect.getAttribute('x')); 
+			var leftXRect = parseInt(deleteRect.getAttribute('x'));
 			var leftYRect = parseInt(deleteRect.getAttribute('y'));
 			var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
 			var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
@@ -1161,36 +1167,36 @@
 			var arrayOfPathToDelete = new Array();
 				// Loop responsible for removing element
 				for(h=0; h<viewElementArray.length; h++) {
-					
+
 					if(arrayOfPathToDelete.length!=0) {
 					arrayOfPathToDelete = new Array();
 					}
-					
+
 				var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
 				var yTranslation = getXandYTransformValues(viewElementArray[h]).y;
 
-				var pathArray = viewElementArray[h].getElementsByTagName('path');				
+				var pathArray = viewElementArray[h].getElementsByTagName('path');
 					// Assigns the selected element to be removed
 					if(pathArray.length>0){ // Removed the pathArray element
 						// Loop responsible for remove element path
 						for(i=0; i<pathArray.length; i++) {
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-						
+
 						var xArray = new Array(); // Stores x-axis to screen touch
-						
+
 							for(j=0; j<splitArray.length; j=j+2) {
 							xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
 						var yArray = new Array(); // Stores y-axis to screen touch
-						
+
 							for(l=1; l<splitArray.length; l=l+2) {
 							yArray.push(yTranslation*1 + parseInt(splitArray[l]));
 							}
 
 						var pathIn = false; // Get false
-						
+
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
@@ -1208,7 +1214,7 @@
 						viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
 						}
 					}else{
-					
+
 					var x, y;
 					var arrayDel = viewElementArray[h].getElementsByTagName('rect');
 						if(arrayDel.length==1){ // Remove the rect element
@@ -1239,7 +1245,7 @@
 								}
 							}
 						}
-						
+
 						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the boxtext element
 							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('svg');
@@ -1247,7 +1253,7 @@
 								viewElementArray[h].removeChild(text[0]);
 							}
 						}
-							
+
 						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the script text element
 							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('text');
@@ -1255,7 +1261,7 @@
 								viewElementArray[h].removeChild(text[0]);
 								viewElementArray[h].removeChild(arrayDel[0]);
 								}
-						}						
+						}
 					}
 				}
 				clearSVGFromUnusedViews(); // Call function clearSVGFromUnusedViews
@@ -1274,7 +1280,7 @@
 		}
 
 		//============================================================================
-		
+
 		function createWrite() { // Function responsible for creating typed script
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 4; // Pass number 4 in function parameter
@@ -1314,7 +1320,7 @@
 				var sx = touches[j].pageX; // Specifies the x-axis on the screen
 				var sy = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				var activateExistingText = false; // Get false
-				
+
 				var texts = document.getElementsByTagName('text');
 				// String that will cast the string to int
 				for(var i=0; i<texts.length; i++) {
@@ -1339,7 +1345,7 @@
 				circle.setAttribute('fill', "black"); // Add background color to element
 				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
 				circle.addEventListener('mouseup', endMoveWrite, false);
-				
+
 				viewElementG.appendChild(circle); // Add element to viewElementG
 
 				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -1354,7 +1360,7 @@
 				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
 				viewElementG.appendChild(text); // Add element to viewElementG
-				numberToText++; // Number increments by the amount of character 
+				numberToText++; // Number increments by the amount of character
 				} else {
 
 				}
@@ -1392,7 +1398,7 @@
 				var idTouch = touches[j].identifier;
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var temp = text.innerHTML;
-				var character;					
+				var character;
 					// Manages keyboard events
 					switch(event.key) {
 						case 'Shift':
@@ -1457,13 +1463,13 @@
 				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
 				viewElementG.appendChild(text); // Add element to viewElementG
-				numberToText++; // Number increments by the amount of character 
-				
+				numberToText++; // Number increments by the amount of character
+
 				}
 		}
 		// Move Mouse Event
 		function moveWrite(event) {
-			if(isMousePressed == true) { 
+			if(isMousePressed == true) {
 			var sx = event.clientX; // Specifies the x-axis on the screen
 			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 
@@ -1504,14 +1510,14 @@
 			text.innerHTML = temp + pressedKey; // The Text element receives the API
 			saveImage(); // Save layout
 		}
-		
+
 		// End Event
 		function endMoveWrite(event) {
 			 isMousePressed = false; // Get false
 		}
 
 		//============================================================================
-		
+
 		function createPonto() { // Function responsible for creating the ponto element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 5; // Pass number 5 in function parameter
@@ -1534,7 +1540,7 @@
 			svg.addEventListener('mousedown', startPonto, false);
 			svg.addEventListener('mouseup', endMovePonto, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchPonto(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -1584,7 +1590,7 @@
 		}
 
 		//============================================================================
-		
+
 		function createCircle() { // Function responsible for creating the circle element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 6; // Pass number 6 in function parameter
@@ -1610,7 +1616,7 @@
 			svg.addEventListener('mousemove', moveCircle, false);
 			svg.addEventListener('mouseup', endMoveCircle, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchCircle(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -1733,7 +1739,7 @@
 		}
 
 		//============================================================================
-		
+
 		function createRectangle() { // Function responsible for creating the rectangle element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 7; // Pass number 8 in function parameter
@@ -1758,7 +1764,7 @@
 			svg.addEventListener('mousemove', moveRectangle, false);
 			svg.addEventListener('mouseup', endMoveRectangle, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchRectangle(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -1784,7 +1790,7 @@
 			}
 			// Prevents an additional event being triggered
 			event.preventDefault();
-		}	
+		}
 		// Move Touch Event
 		function moveMultiTouchRectangle(event) {
 			var touches = event.changedTouches; // Get touchEvent
@@ -1881,11 +1887,11 @@
 		}
 
 		//============================================================================
-		
+
 		function createEllipse() { // Function responsible for creating the ellipse element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 8; // Pass number 8 in function parameter
- 
+
 			if (stylusIsEnabled) {
 				// The pointer will be used
 				// alert ("Using pointer");
@@ -1906,7 +1912,7 @@
 			svg.addEventListener('mousemove', moveEllipse, false);
 			svg.addEventListener('mouseup', endMoveEllipse, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchEllipse(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -2028,7 +2034,7 @@
 		}
 
 		//============================================================================
-		
+
 		function createLine() { // Function responsible for creating the line element
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 9; // Pass number 9 in function parameter
@@ -2053,14 +2059,14 @@
 			svg.addEventListener('mousemove', moveLine, false);
 			svg.addEventListener('mouseup', endMoveLine, false);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchLine(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
 					identifier : touches[j].identifier,
-					pageX : touches[j].pageX, 
+					pageX : touches[j].pageX,
 					pageY : touches[j].pageY
 				};
 
@@ -2082,7 +2088,7 @@
 				lineArray[idTouch].setAttribute('stroke-width', widthBoot); // Add element thickness
 				lineArray[idTouch].setAttribute('stroke-dasharray', dashedElement); // Add dashed line to element
 				svg.appendChild(lineArray[idTouch]); // Add element to svg
-				isMousePressed = true; // Get true 
+				isMousePressed = true; // Get true
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -2127,7 +2133,7 @@
 				createViewElementForPath(); // Call function createViewElementForPath
 				viewElementG.appendChild(lineArray[idTouch]); // Add element to viewElementG
 				isMousePressed = false; // Get false
-				saveImage(); // Save layout 
+				saveImage(); // Save layout
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -2190,7 +2196,7 @@
 		}
 
 		//============================================================================
-		
+
 		function readURL(event) { // Function responsible for creating the image element
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
@@ -2222,7 +2228,7 @@
 
 			reader.readAsDataURL(event.target.files[0]);
 		}
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchURL(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -2240,8 +2246,8 @@
 				imageArray[idTouch].setAttribute('x', startX); // Add the position x of the element
 				imageArray[idTouch].setAttribute('y', startY); // Add the position y of the element
 				imageArray[idTouch].setAttribute('fill', "none"); // Add background color to element
-				imageArray[idTouch].setAttribute('width', "200px"); // Add width element 
-				imageArray[idTouch].setAttribute('height', "300px"); // Add height element 
+				imageArray[idTouch].setAttribute('width', "200px"); // Add width element
+				imageArray[idTouch].setAttribute('height', "300px"); // Add height element
 				imageArray[idTouch].setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
 				svg.appendChild(imageArray[idTouch]); // Add element to svg
 				isMousePressed = true; // Get true
@@ -2249,9 +2255,9 @@
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Move Touch Event
-		function moveMultiTouchURL(event) { 
+		function moveMultiTouchURL(event) {
 			var touches = event.changedTouches; // Get touchEvent
-			for(var j = 0; j < touches.length; j++) { 
+			for(var j = 0; j < touches.length; j++) {
 				var idTouch = touches[j].identifier;
 				/* Access stored touch info on touchend */
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
@@ -2299,14 +2305,14 @@
 			image.setAttribute('x', startX); // Add the position x of the element
 			image.setAttribute('y', startY); // Add the position y of the element
 			image.setAttribute('fill', "none"); // Add background color to element
-			image.setAttribute('width', "200px"); // Add width element 
-			image.setAttribute('height', "300px"); // Add height element 
+			image.setAttribute('width', "200px"); // Add width element
+			image.setAttribute('height', "300px"); // Add height element
 			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
 			svg.appendChild(image); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Mouse Event	
+		// Move Mouse Event
 		function moveURL(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX;
@@ -2341,7 +2347,7 @@
 		}
 
 		//============================================================================
-        // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'		
+        // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
         function createBoxText(){ // Function responsible for creating the text box element
 	        removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 11; // Pass number 11 in function parameter
@@ -2364,7 +2370,7 @@
 			svg.addEventListener('mousedown', startBoxText, false);
 			svg.addEventListener('mouseup', endMoveBoxText, false);
         }
-		// Start Touch Event 
+		// Start Touch Event
 		function startMultiTouchBoxText(event){
 			var touches = event.changedTouches; // Get touchEvent
 				for(var j = 0; j < touches.length; j++) {
@@ -2377,9 +2383,9 @@
 
 				var sx = touches[j].clientX; // Specifies the x-axis on the screen
 				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
-				
+
 				createViewElementForPath();	// Call function createViewElementForPath
-				
+
 	            var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
 				// Rectangle to move a textbox
 				paper.rect(sx, sy); // Add the position x and y of the element
@@ -2403,17 +2409,20 @@
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Start Mouse Event
-		function startBoxText(event){								
+		function startBoxText(event){
 			var sx = event.clientX; // Specifies the x-axis on the screen
 			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
-			
+
 			createViewElementForPath();	// Call function createViewElementForPath
-			
+
 	        var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
 			// Rectangle to move a textbox
 			paper.rect(sx, sy); // Add the position x and y of the element
-            var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
-			
+            var text = paper.text(sx, sy, 'Click to edit').attr(
+				{'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter,
+				 'text-decoration': decorationLetter,'stroke': colorStrokeLetter,
+				 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
+
 			// Initialize text editing for the text element
 			paper.inlineTextEditing(text);
 
@@ -2426,7 +2435,7 @@
 					// Stop inline editing after blur on the text field
 						text.inlineTextEditing.stopEditing();
 				}, true);
-			});			
+			});
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
         }
@@ -2435,16 +2444,16 @@
 			disabledBoxText(); // Get function disabledBoxText
 			createViewElementForPath(); // Call function createViewElementForPath
 			isMousePressed = false; // Get false
-			saveImage(); // Save layout			
+			saveImage(); // Save layout
 		}
 
 		//============================================================================
 
 		function drawLine() { // Function responsible by vertical grid
-			clearLayout(); // Call function clearLayout			
-			
+			clearLayout(); // Call function clearLayout
+
 			createViewElementForPath(); // Call function createViewElementForPath
-			
+
 			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 			svg.appendChild(defs); // Add element to svg
 			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
@@ -2484,9 +2493,9 @@
 
 		function drawGrid() { // Function responsible by horizontal grid
 			clearLayout(); // Call function clearLayout
-			
+
 			createViewElementForPath(); // Call function createViewElementForPath
-			
+
 			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 			svg.appendChild(defs); // Add element to svg
 			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
@@ -2525,10 +2534,10 @@
 		}
 
 		function drawGridLine() { // Function responsible by vertical and horizontal grid
-			clearLayout(); // Call function clearLayout		
+			clearLayout(); // Call function clearLayout
 
 			createViewElementForPath(); // Call function createViewElementForPath
-			
+
 			defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 			svg.appendChild(defs); // Add element to svg
 			viewElementG.setAttribute('id', "grid"); // Add element to viewElementG
@@ -2557,18 +2566,18 @@
 
 			// Finish
 			rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-			rect.setAttribute('width', "100%"); 
+			rect.setAttribute('width', "100%");
 			rect.setAttribute('height', "100%");
 			rect.setAttribute('fill', "url(#bigGrid)");
 			defs.appendChild(rect); // Add element to defs
 			viewElementG.appendChild(rect); // Add element to viewElementG
- 			
+
 			saveImage(); // Save layout
 		}
 
 		function drawLimetrada() { // Function responsible by limetrada grid
-			clearLayout(); // Call function clearLayout			
-			
+			clearLayout(); // Call function clearLayout
+
             createViewElementForPath(); // Call function createViewElementForPath
 
             defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
@@ -2624,9 +2633,9 @@
 
 			saveImage(); // Save layout
         }
-		
+
 		//============================================================================
-		
+
 		function clearLayout() { // Function responsible by clear grid or lines
 			var tempView = movementLayer.getElementsByClassName('viewelement'); // Get the class related to the viewelement element
 			for(j=0; j<=5; j++){
@@ -2638,7 +2647,7 @@
 			}
 			saveImage(); // Save layout
 		}
-		
+
 		//============================================================================
 
 		function downloadIt() { // Function responsible for downloading
@@ -2663,13 +2672,13 @@
 			context.fillRect(0,0,w,h);
 
 			var images = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // Save the layout as image
-			window.location.href = images; 
+			window.location.href = images;
 		}
 
 		//============================================================================
 
 		function imageIt() { // Function responsible for generating the image
-			var serializer = new XMLSerializer(); 
+			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
 
 			canvg(document.getElementById('canvas'), xmlString);
@@ -2707,7 +2716,7 @@
 
 			xmlString.replace("</t", "><");
 			var encoded = encodeURIComponent(xmlString);
-			xmlhttp = new XMLHttpRequest(); 
+			xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("POST","dml/armazena.php",true); // Call file armazena.php
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.send("id="+id+"&tag_svg="+encoded); // Pass the id and layout to be stored
@@ -2820,31 +2829,31 @@
 				if (bordas[i].checked == false){ // if checkbox is not selected
 
 				}
-			}			
+			}
 		}
 
 		function verificaCheckFundo() { // Function responsible for coloring the backgrounds of the elements
 		var fundo = document.getElementsByName("fundo"); // Get the parameters background
-			// Tie responsible for coloring the entire background 
+			// Tie responsible for coloring the entire background
 			for (var i=0;i<fundo.length;i++){
 				if (fundo[i].checked == true){ // If checkbox is selected
 					colorElement = colorBootElement; // Get color
 				}
 				if (fundo[i].checked == false){ // if checkbox is not selected
 					colorElement = "none";
-				}				
-			}			
+				}
+			}
 		}
 
 		function verificaCheckTracejado() { // Function responsible for plotting the elements
 		var LinhaTrace = document.getElementsByName("tracejado"); // Get the parameters tracejado
 			// Tie responsible for tracing the element
-			for (var i=0;i<LinhaTrace.length;i++){			
+			for (var i=0;i<LinhaTrace.length;i++){
 				if (LinhaTrace[i].checked == true){ // If checkbox is selected
 					dashedElement = '20,20'; // Space between the traces 20
 				}
 				if (LinhaTrace[i].checked == false){ // if checkbox is not selected
 					dashedElement = "none"; // Without Space between the traces
-				}				
-			}			
+				}
+			}
 		}

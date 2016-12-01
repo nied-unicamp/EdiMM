@@ -174,7 +174,8 @@
 				this.input.setAttribute("style", sStyles);
 				this.input.setAttribute("rows", 4);
 				this.input.setAttribute("cols", 30);
-				this.input.addEventListener('keyup', this._handleKeyDown.bind(this));
+				this.input.setAttribute("id", 'keybox');
+				this.input.addEventListener('keydown', this._handleKeyDown.bind(this));
 
 				// Add the input in the container and apply focus on it
 				container.appendChild(this.input);
