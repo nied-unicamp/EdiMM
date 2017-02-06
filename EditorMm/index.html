@@ -21,9 +21,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Editor Multimodal</title>
+<title>EdiMM</title>
 	<!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">-->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<!--Favicon-->
+	<link rel="shortcut icon" href="images/edimm.png" />
 
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -43,7 +46,7 @@
 	<script type="text/javascript" src="js/jquerymodal.js"></script>
 
 </head>
-<body onload="init()">
+<body onload="init()" >
 
 	<div id="wrapper">
 
@@ -71,14 +74,14 @@
 					<li>
 						<fieldset class="scheduler-border" id ="habOpcao">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Selecionado')" onmouseout="UnTip()" ><span id="selecionado"></span></a></li>
+						<li><a class="buttonToolbar" title="Selecionado"><span id="selecionado"></span></a></li>
 						</fieldset>
 					</li>
 
 					<li>
 						<fieldset class="scheduler-border" id ="habEspessSpan">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Espessura Utilizada')" onmouseout="UnTip()" ><span id="linha"></span></a></li>
+						<li><a class="buttonToolbar" title="Espessura Utilizada"><span id="linha"></span></a></li>
 						</fieldset>
 					</li>
 
@@ -86,15 +89,15 @@
 						<fieldset class="scheduler-border" id="habEstilo">
 						<legend class="scheduler-border"></legend>
 						<li>
-						<a class="buttonToolbar" onmouseover="Tip('Negrito')" onmouseout="UnTip()" id="negrito"><img src="images/1bold.png" width="10"></a>
-						<a class="buttonToolbar" onmouseover="Tip('Sublinhado')" onmouseout="UnTip()" id="sublinhado"><img src="images/1underline.png" width="10"></a>
-						<a class="buttonToolbar" onmouseover="Tip('Itálico')" onmouseout="UnTip()" id="italico"><img src="images/1italic.png" width="10"></a>
+						<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.png" width="10"></a>
+						<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.png" width="10"></a>
+						<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.png" width="10"></a>
 						</li>
 						</fieldset>
 					</li>
 
 					<li>
-						<li><a data-toggle="dropdown"  onmouseover="Tip('Escolher Medida')" onmouseout="UnTip()" id="habMedida"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setSizeText(10);" id="tamanho10">10</a></li>
 								<li><a href="javascript:setSizeText(12);" id="tamanho12">12</a></li>
@@ -123,13 +126,13 @@
 					<li>
 						<fieldset class="scheduler-border" id ="habMedidaSpan">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Medida Utilizada')" onmouseout="UnTip()" ><span id="medida" class="font"></span></a></li>
+						<li><a class="buttonToolbar" title="Medida Utilizada"><span id="medida" class="font"></span></a></li>
 						</fieldset>
 					</li>
 
 
 					<li>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Fonte')" onmouseout="UnTip()" id="habFont"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setFontText('arial');" id="arial">Arial</a></li>
 								<li><a href="javascript:setFontText('comicsans');" id="comicsans">Comic Sans</a></li>
@@ -156,12 +159,12 @@
 					<li>
 						<fieldset class="scheduler-border" id ="habFontSpan">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" onmouseover="Tip('Fonte Utilizada')" onmouseout="UnTip()" ><span id="font" class="font"></span></a></li>
+						<li><a class="buttonToolbar" title="Fonte Utilizada" ><span id="font" class="font"></span></a></li>
 						</fieldset>
 					</li>
 
 					<li>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Escolher Espessura')" onmouseout="UnTip()" id="habEspess"><img src="images/3linewidth.png" width="25"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"><img src="images/3linewidth.png" width="25"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:setWidth(1);" id="line01"><img src="images/line1.png" width="24"></a></li>
 								<li><a href="javascript:setWidth(2);" id="line02"><img src="images/line2.png" width="24"></a></li>
@@ -178,17 +181,17 @@
 						</li>
 					</li>
 
-					<li><a onmouseover="Tip('Paleta de Cores')" onmouseout="UnTip()"><input type="color" onchange="setColor(this.value);" id="paletaCores"></a></li>
+					<li><a title="Paleta de Cores"><input type="color" onchange="setColor(this.value);" id="paletaCores"></a></li>
 
 					<li><a></a></li>
 
-					<li><a onmouseover="Tip('Mover Componente')" onmouseout="UnTip()" id="move"><img src="images/3move.png" width="22"></a></li>
+					<li><a title="Mover Componente"id="move"><img src="images/3move.png" width="22"></a></li>
 
-					<li><a onmouseover="Tip('Excluir Componente')" onmouseout="UnTip()" id="delete"><img src="images/3delete.png" width="22"></a></li>
+					<li><a title="Excluir Componente" id="delete"><img src="images/3delete.png" width="22"></a></li>
 
 
-					<li><a href="javascript:saveIt();" onmouseover="Tip('Salvar Layout')" onmouseout="UnTip()"><img src="images/5salvararquivo.png" width="22"></a>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Opções')" onmouseout="UnTip()" id="display"><span class="caret"></span></a>
+					<li><a href="javascript:saveIt();" title="Salvar Layout"><img src="images/5salvararquivo.png" width="22"></a>
+						<li><a data-toggle="dropdown" title="Opções" id="display"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.png" width="22"> Salvar em PNG </a></li>
 								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.png" width="22"> Salvar em PDF </a></li>
@@ -198,7 +201,7 @@
 					</li>
 
 					<li>
-						<li><a data-toggle="dropdown" onmouseover="Tip('Configuração')" onmouseout="UnTip()"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
+						<li><a data-toggle="dropdown" title="Configuração"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 
 								<li><a tabindex="-1" href="#" id="menu-toggle" class="fontnormal"><img src="images/3team.png" width="22"> Sobre </a></li>
@@ -230,7 +233,7 @@
 						</li>
 					</li>
 
-					<li><a onmouseover="Tip('Touchscreen')" onmouseout="UnTip()" id="touch"><img src="images/3touchScreen.png" width="22"></a></li>
+					<li><a title="Touchscreen" id="touch"><img src="images/3touchScreen.png" width="22"></a></li>
 
 				</ul>
 			</div>
@@ -274,21 +277,31 @@
 							<div class="container">
 								<div id="nav">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a class="buttonToolbar" onmouseover="Tip('Escrever Texto')" onmouseout="UnTip()" id="keyboard"><img src="images/6text.png" width="20"></a></li>
-										<li><a class="buttonToolbar" onmouseover="Tip('Caixa de Texto')" onmouseout="UnTip()" id="keybox"><img src="images/6boxtext.png" width="20"></a></li>
-										<li><a class="buttonToolbar" onmouseover="Tip('Desenho Livre')" onmouseout="UnTip()" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Formas Geometricas')" onmouseout="UnTip()"><img src="images/6geometric.png" width="20"><span class="caret"></span></a>
+										<li><a class="buttonToolbar" title="Escrever Texto" id="keyboard"><img src="images/6text.png" width="20"></a></li>
+										<li><a class="buttonToolbar" title="Caixa de Texto" id="keybox"><img src="images/6boxtext.png" width="20"></a></li>
+										<li><a class="buttonToolbar" title="Desenho Livre" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Formas Geometricas"><img src="images/6geometric.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">
-												<li><a onmouseover="Tip('Pontos')" onmouseout="UnTip()" id="drop"><img src="images/2drop.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Circulo')" onmouseout="UnTip()" id="circle"><img src="images/2circle.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Retangulo')" onmouseout="UnTip()" id="square"><img src="images/2square.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Ellipse')" onmouseout="UnTip()" id="ellipse"><img src="images/2ellipse.png" width="15"></a></li>
-												<li><a onmouseover="Tip('Linha')" onmouseout="UnTip()" id="line"><img src="images/2line.png" width="15"></a></li>
+												<li><a title="Pontos" id="drop"><img src="images/2drop.png" width="15"></a></li>
+												<li><a title="Circulo" id="circle"><img src="images/2circle.png" width="15"></a></li>
+												<li><a title="Retangulo" id="square"><img src="images/2square.png" width="15"></a></li>
+												<li><a title="Ellipse" id="ellipse"><img src="images/2ellipse.png" width="15"></a></li>
+												<li><a title="Linha" id="line"><img src="images/2line.png" width="15"></a></li>
 											</ul>
 										</li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" onmouseover="Tip('Importar Fotos')" onmouseout="UnTip()"><img src="images/6photos.png" width="20"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Fotos"><img src="images/6photos.png" width="20"><span class="caret"></span></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURL(event);" id="inputFile"></a></li>
+											</ul>
+										</li>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Audio"><img src="images/audio.png" width="20"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="#"><input type="file" name="filename" onchange="readURLAudio(event);" id="inputFile"></a></li>
+											</ul>
+										</li>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Vídeo"><img src="images/video.png" width="20"><span class="caret"></span></a>
+											<ul class="dropdown-menu">
+												<li><a href="#"><input type="file" name="filename" onchange="readURLVideo(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
 									</ul>
@@ -296,14 +309,12 @@
 							</div>
 
 							<div id="svgDiv">
-
-								<svg width="100%" height="100%" id="svgID" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-								<g id="layer" class="layer">
-								<g id="movement" class="movementClass">
-								</g>
-								</g>
+								 <svg width="100%" height="100%" id="svgID" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+									<g id="layer" class="layer">
+										<g id="movement" class="movementClass">
+										</g>
+									</g>
 								</svg>
-
 							</div>
 
 							<div class="hidden">
@@ -312,7 +323,7 @@
 								<input type='text' name='svg' />
 								</form>
 
-								<canvas id="canvas"></canvas>
+								<canvas id="canvas" height="1000" width="1000"></canvas>
 
 							</div>
 						</div>
@@ -323,7 +334,7 @@
     </div>
 
 	<!-- JS -->
-	<script type="text/javascript" src="js/jquerytooltip.js"></script>
+	<!--<script type="text/javascript" src="js/jquerytooltip.js"></script>-->
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jqueryready.js"></script>
 	<script type="text/javascript" src="js/jqueryraphaelmin.js"></script>

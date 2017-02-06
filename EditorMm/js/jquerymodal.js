@@ -65,7 +65,7 @@
 		var screenXCorrection, screenYCorrection;
 
 		// Initialization of function attribute for receive parameters
-		var image, receivedImage;
+		var image, receivedImage,audio,receivedAudio,video,receivedVideo,bod,swit,fobject,contrls;
 		var startX, startY, line, rectangle, circle, ellipse, ponto, path, deleteRect, text, pattern, defs;
 
 		var movingText = false;	// Boolean attribute movingText receives false value
@@ -127,11 +127,10 @@
 
 		//============================================================================
 
-		function disabledBoxText() { // Function responsible for disabling boxtext
+		function disabledEvent() { // Function responsible for disabling boxtext
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 0;
 		}
-
 		//============================================================================
 
 		function device() { // Function responsible for managing functions related to touch on the screen
@@ -171,6 +170,12 @@
 					break;
 					case 11 :
 					createBoxText();
+					break;
+					case 12 :
+					readURLAudio(event);
+					break;
+					case 13 :
+					readURLVideo(event);
 					break;
 					default:
 					createDraw();
@@ -625,6 +630,34 @@
 
 					svg.removeEventListener('mousedown', startBoxText, false);
 					svg.removeEventListener('mouseup', endMoveBoxText, false);
+				break;
+				case 12 :
+					//Remove ReadFile-Listener
+					svg.removeEventListener('pointerdown', startURLAudio, false);
+					//svg.removeEventListener('pointermove', moveURLAudio, false);
+					svg.removeEventListener('pointerup', endMoveURLAudio, false);
+
+					svg.removeEventListener('touchstart', startMultiTouchURLAudio, false);
+					//svg.removeEventListener('touchmove', moveMultiTouchURLAudio, false);
+					svg.removeEventListener('touchend', endMoveMultiTouchURLAudio, false);
+
+					svg.removeEventListener('mousedown', startURLAudio, false);
+					//svg.removeEventListener('mousemove', moveURLAudio, false);
+					svg.removeEventListener('mouseup', endMoveURLAudio, false);
+				break;
+				case 13 :
+					//Remove ReadFile-Listener
+					svg.removeEventListener('pointerdown', startURLVideo, false);
+					//svg.removeEventListener('pointermove', moveURLVideo, false);
+					svg.removeEventListener('pointerup', endMoveURLVideo, false);
+
+					svg.removeEventListener('touchstart', startMultiTouchURLVideo, false);
+					//svg.removeEventListener('touchmove', moveMultiTouchURLVideo, false);
+					svg.removeEventListener('touchend', endMoveMultiTouchURLVideo, false);
+
+					svg.removeEventListener('mousedown', startURLVideo, false);
+					//svg.removeEventListener('mousemove', moveURLVideo, false);
+					svg.removeEventListener('mouseup', endMoveURLVideo, false);
 				break;
 				default:
 				break;
@@ -2254,7 +2287,7 @@
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Touch Event
+		// Move Touch Event   -- Remodelar
 		function moveMultiTouchURL(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -2301,18 +2334,20 @@
 		function startURL(event){
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+			
 			image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+			
 			image.setAttribute('x', startX); // Add the position x of the element
 			image.setAttribute('y', startY); // Add the position y of the element
 			image.setAttribute('fill', "none"); // Add background color to element
-			image.setAttribute('width', "200px"); // Add width element
+			image.setAttribute('width', "500px"); // Add width element
 			image.setAttribute('height', "300px"); // Add height element
 			image.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
 			svg.appendChild(image); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Mouse Event
+		// Move Mouse Event   -- Remodelar
 		function moveURL(event) {
 			if(isMousePressed) {
 			var moveX = event.clientX;
@@ -2339,13 +2374,389 @@
 		}
 		// End Mouse Event
 		function endMoveURL(event) {
+			disabledEvent();
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(image); // Add element to viewElementG
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
+		
+		//============================================================================
+		//audio
+		
+		function readURLAudio(event) { // Function responsible for creating the image element
+			var reader = new FileReader();
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 12; // Pass number 12 in function parameter
 
+			if (stylusIsEnabled) {
+				// The pointer will be used
+				// alert ("Using pointer");
+				svg.addEventListener('pointerdown', startURLAudio, false);
+				//svg.addEventListener('pointermove', moveURLAudio, false);
+				svg.addEventListener('pointerup', endMoveURLAudio, false);
+			}
+			if (touchIsEnabled) {
+				// Touch will be used
+				// alert ("Using multi touch");
+				svg.addEventListener('touchstart', startMultiTouchURLAudio, false);
+				//svg.addEventListener('touchmove', moveMultiTouchURLAudio, false);
+				svg.addEventListener('touchend', endMoveMultiTouchURLAudio, false);
+			}
+			// Mouse will be used
+			// alert ("Using mouse");
+			svg.addEventListener('mousedown', startURLAudio, false);
+			//svg.addEventListener('mousemove', moveURLAudio, false);
+			svg.addEventListener('mouseup', endMoveURLAudio, false);
+
+			reader.onloadend = function() {
+			receivedAudio = reader.result;
+			}
+
+			reader.readAsDataURL(event.target.files[0]);
+		}
+		// Start Touch Event
+		function startMultiTouchURLAudio(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
+					identifier : touches[j].identifier,
+					pageX : touches[j].pageX,
+					pageY : touches[j].pageY
+				};
+
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
+				swit = document.createElementNS('http://www.w3.org/2000/svg', 'switch');
+				svg.appendChild(swit); // Add element to svg
+				
+				fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+				fobject.setAttribute('x', startX); // Add the position x of the element
+				fobject.setAttribute('y', startY); // Add the position y of the element
+				fobject.setAttribute('width', "300px"); // Add width element
+				fobject.setAttribute('height', "30px"); // Add height element
+				swit.appendChild(fobject); // Add element to swit
+				
+				bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
+				bod.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+				fobject.appendChild(bod); // Add element to fobject
+				
+				audio = document.createElementNS('http://www.w3.org/1999/xhtml', 'audio');
+				audio.setAttribute('controls','controls');
+				bod.appendChild(audio); // Add element to body
+				
+				contrls = document.createElementNS('http://www.w3.org/1999/xhtml', 'source');
+				contrls.setAttribute('src',receivedAudio);
+				var types = receivedAudio.split("/");
+				var types2 = types[1].split(";"); //para encontrar o tipo do arquivo inserido
+				contrls.setAttribute('type',"audio/"+types2[0]);
+				audio.appendChild(contrls); // Add element to audio
+				isMousePressed = true; // Get true
+			}
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Move Touch Event   -- Remodelar
+		/*function moveMultiTouchURLAudio(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;
+				/* Access stored touch info on touchend */
+				/*var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				/*var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
+
+					if(diffX <0) {
+					//Movement left
+					imageArray[idTouch].setAttribute('width', (diffX*(-1)));
+					} else {
+					//Movement right
+					imageArray[idTouch].setAttribute('width', diffX);
+					}
+					if(diffY <0) {
+					//Movement up
+					imageArray[idTouch].setAttribute('height', (diffY*(-1)));
+					} else {
+					//Movement down
+					imageArray[idTouch].setAttribute('height', diffY);
+					}
+			}
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			//event.preventDefault(); // Prevents an additional event being triggered
+		//}
+		// End Touch Event
+		function endMoveMultiTouchURLAudio(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(imageArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
+				saveImage(); // Save layout
+			}
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Start Mouse Event
+		function startURLAudio(event){
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+			
+			swit = document.createElementNS('http://www.w3.org/2000/svg', 'switch');
+			svg.appendChild(swit); // Add element to svg
+			
+			fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+			fobject.setAttribute('x', startX); // Add the position x of the element
+			fobject.setAttribute('y', startY); // Add the position y of the element
+			fobject.setAttribute('width', "300px"); // Add width element
+			fobject.setAttribute('height', "30px"); // Add height element
+			swit.appendChild(fobject); // Add element to swit
+			
+			bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
+			bod.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+			fobject.appendChild(bod); // Add element to fobject
+			
+			audio = document.createElementNS('http://www.w3.org/1999/xhtml', 'audio');
+			audio.setAttribute('controls','controls');
+			bod.appendChild(audio); // Add element to body
+			
+			contrls = document.createElementNS('http://www.w3.org/1999/xhtml', 'source');
+			contrls.setAttribute('src',receivedAudio);
+			var types = receivedAudio.split("/");
+			var types2 = types[1].split(";"); //para encontrar o tipo do arquivo inserido
+			contrls.setAttribute('type',"audio/"+types2[0]);
+			audio.appendChild(contrls); // Add element to audio
+			
+			isMousePressed = true; // Get true
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Move Mouse Event  -- Remodelar
+		/*function moveURLAudio(event) {
+			if(isMousePressed) {
+			var moveX = event.clientX;
+			var moveY = event.clientY-screenYCorrection;
+			var diffX = moveX - startX;
+			var diffY = moveY - startY;
+
+				if(diffX <0) {
+				//Movement left
+				audio.setAttribute('width', (diffX*(-1)));
+				} else {
+				//Movement right
+				audio.setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+				//Movement up
+				audio.setAttribute('height', (diffY*(-1)));
+				} else {
+				//Movement down
+				audio.setAttribute('height', diffY);
+				}
+			event.preventDefault(); // Prevents an additional event being triggered
+			}
+		}*/
+		// End Mouse Event
+		function endMoveURLAudio(event) {
+			disabledEvent();
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(swit); // Add element to viewElementG
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		
+		//============================================================================
+		//video
+		
+		function readURLVideo(event) { // Function responsible for creating the image element
+			var reader = new FileReader();
+			removeEventListenerFromSVG(numberOfEventListener);
+			numberOfEventListener = 13; // Pass number 13 in function parameter
+
+			if (stylusIsEnabled) {
+				// The pointer will be used
+				// alert ("Using pointer");
+				svg.addEventListener('pointerdown', startURLVideo, false);
+				//svg.addEventListener('pointermove', moveURLVideo, false);
+				svg.addEventListener('pointerup', endMoveURLVideo, false);
+			}
+			if (touchIsEnabled) {
+				// Touch will be used
+				// alert ("Using multi touch");
+				svg.addEventListener('touchstart', startMultiTouchURLVideo, false);
+				//svg.addEventListener('touchmove', moveMultiTouchURLVideo, false);
+				svg.addEventListener('touchend', endMoveMultiTouchURLVideo, false);
+			}
+			// Mouse will be used
+			// alert ("Using mouse");
+			svg.addEventListener('mousedown', startURLVideo, false);
+			//svg.addEventListener('mousemove', moveURLVideo, false);
+			svg.addEventListener('mouseup', endMoveURLVideo, false);
+
+			reader.onloadend = function() {
+			receivedVideo = reader.result;
+			}
+
+			reader.readAsDataURL(event.target.files[0]);
+		}
+		// Start Touch Event
+		function startMultiTouchURLVideo(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				/* Store touch info on touchstart */
+				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
+					identifier : touches[j].identifier,
+					pageX : touches[j].pageX,
+					pageY : touches[j].pageY
+				};
+
+				startX = touches[j].pageX; // Specifies the x-axis on the screen
+				startY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
+				
+				swit = document.createElementNS('http://www.w3.org/2000/svg', 'switch');
+				svg.appendChild(swit); // Add element to svg
+				
+				fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+				//fobject.setAttribute('x', startX); // Add the position x of the element
+				//fobject.setAttribute('y', startY); // Add the position y of the element
+				fobject.setAttribute('width', "320px"); // Add width element
+				fobject.setAttribute('height', "240px"); // Add height element
+				swit.appendChild(fobject); // Add element to swit
+				
+				bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
+				bod.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+				fobject.appendChild(bod); // Add element to fobject
+				
+				video = document.createElementNS('http://www.w3.org/1999/xhtml', 'video');
+				video.setAttribute('style',"margin: "+startY+"px 0 0 "+startX+"px;");
+				video.setAttribute('controls','controls');
+				bod.appendChild(video); // Add element to body
+				
+				contrls = document.createElementNS('http://www.w3.org/1999/xhtml', 'source');
+				contrls.setAttribute('src',receivedVideo);
+				var types = receivedVideo.split("/");
+				var types2 = types[1].split(";");
+				contrls.setAttribute('type','video/'+types2[0]);
+				video.appendChild(contrls); // Add element to video// Add element to svg
+				isMousePressed = true; // Get true
+			}
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Move Touch Event  -- Remodelar
+		/*function moveMultiTouchURLVideo(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;
+				/* Access stored touch info on touchend */
+				//var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				/*var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
+
+					if(diffX <0) {
+					//Movement left
+					imageArray[idTouch].setAttribute('width', (diffX*(-1)));
+					} else {
+					//Movement right
+					imageArray[idTouch].setAttribute('width', diffX);
+					}
+					if(diffY <0) {
+					//Movement up
+					imageArray[idTouch].setAttribute('height', (diffY*(-1)));
+					} else {
+					//Movement down
+					imageArray[idTouch].setAttribute('height', diffY);
+					}
+			}
+			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
+			//event.preventDefault(); // Prevents an additional event being triggered
+		//}
+		// End Touch Event
+		function endMoveMultiTouchURLVideo(event) {
+			var touches = event.changedTouches; // Get touchEvent
+			for(var j = 0; j < touches.length; j++) {
+				var idTouch = touches[j].identifier;
+				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+				createViewElementForPath(); // Call function createViewElementForPath
+				viewElementG.appendChild(imageArray[idTouch]); // Add element to viewElementG
+				isMousePressed = false; // Get false
+				saveImage(); // Save layout
+			}
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Start Mouse Event
+		function startURLVideo(event){
+			startX = event.clientX; // Specifies the x-axis on the screen
+			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+			
+			swit = document.createElementNS('http://www.w3.org/2000/svg', 'switch');
+			svg.appendChild(swit); // Add element to svg
+			
+			fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+			//fobject.setAttribute('x', startX); // Add the position x of the element
+			//fobject.setAttribute('y', startY); // Add the position y of the element
+			fobject.setAttribute('width', "320px"); // Add width element
+			fobject.setAttribute('height', "240px"); // Add height element
+			swit.appendChild(fobject); // Add element to swit
+			
+			bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
+			bod.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+			fobject.appendChild(bod); // Add element to fobject
+			
+			video = document.createElementNS('http://www.w3.org/1999/xhtml', 'video');
+			video.setAttribute('style',"margin: "+startY+"px 0 0 "+startX+"px;");
+			video.setAttribute('controls','controls');
+			bod.appendChild(video); // Add element to body
+			
+			contrls = document.createElementNS('http://www.w3.org/1999/xhtml', 'source');
+			contrls.setAttribute('src',receivedVideo);
+			var types = receivedVideo.split("/");
+			var types2 = types[1].split(";");
+			contrls.setAttribute('type','video/'+types2[0]);
+			video.appendChild(contrls); // Add element to video
+			
+			isMousePressed = true; // Get true
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		// Move Mouse Event -- Remodelar
+		/*function moveURLVideo(event) {
+			if(isMousePressed) {
+			var moveX = event.clientX;
+			var moveY = event.clientY-screenYCorrection;
+			var diffX = moveX - startX;
+			var diffY = moveY - startY;
+
+				if(diffX <0) {
+				//Movement left
+				image.setAttribute('width', (diffX*(-1)));
+				} else {
+				//Movement right
+				image.setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+				//Movement up
+				image.setAttribute('height', (diffY*(-1)));
+				} else {
+				//Movement down
+				image.setAttribute('height', diffY);
+				}
+			event.preventDefault(); // Prevents an additional event being triggered
+			}
+		}*/
+		// End Mouse Event
+		function endMoveURLVideo(event) {
+			disabledEvent();
+			createViewElementForPath(); // Call function createViewElementForPath
+			viewElementG.appendChild(swit); // Add element to viewElementG
+			isMousePressed = false; // Get false
+			saveImage(); // Save layout
+			event.preventDefault(); // Prevents an additional event being triggered
+		}
+		
 		//============================================================================
         // Function uses jqueryraphaelmin.js to create a text box, this a call of the function 'jqueryinlinetext.js'
         function createBoxText(){ // Function responsible for creating the text box element
@@ -2441,7 +2852,7 @@
         }
 		// End Mouse Event
 		function endMoveBoxText(event) {
-			disabledBoxText(); // Get function disabledBoxText
+			disabledEvent(); // Get function disabledBoxText
 			createViewElementForPath(); // Call function createViewElementForPath
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
