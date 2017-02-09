@@ -2690,6 +2690,25 @@
 		}
 		// Start Mouse Event
 		function startURLVideo(event){
+		
+			// Opera 8.0+
+			//var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+			// Safari 3.0+ "[object HTMLElementConstructor]" 
+			//var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+
+			// Internet Explorer 6-11
+			//var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+			// Edge 20+
+			//var isEdge = !isIE && !!window.StyleMedia;
+
+			// Chrome 1+
+			//var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+			// Blink engine detection
+			//var isBlink = (isChrome || isOpera) && !!window.CSS;
+
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 			
@@ -2697,8 +2716,14 @@
 			svg.appendChild(swit); // Add element to svg
 			
 			fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-			//fobject.setAttribute('x', startX); // Add the position x of the element
-			//fobject.setAttribute('y', startY); // Add the position y of the element
+
+			// Firefox 1.0+
+			var isFirefox = typeof InstallTrigger !== 'undefined';			
+			if(isFirefox){
+				fobject.setAttribute('x', startX); // Add the position x of the element
+				fobject.setAttribute('y', startY); // Add the position y of the element
+			}
+			
 			fobject.setAttribute('width', "320px"); // Add width element
 			fobject.setAttribute('height', "240px"); // Add height element
 			swit.appendChild(fobject); // Add element to swit
@@ -2708,7 +2733,9 @@
 			fobject.appendChild(bod); // Add element to fobject
 			
 			video = document.createElementNS('http://www.w3.org/1999/xhtml', 'video');
-			video.setAttribute('style',"margin: "+startY+"px 0 0 "+startX+"px;");
+			if(!isFirefox){
+				video.setAttribute('style',"margin: "+startY+"px 0 0 "+startX+"px;");
+			}
 			video.setAttribute('controls','controls');
 			bod.appendChild(video); // Add element to body
 			
