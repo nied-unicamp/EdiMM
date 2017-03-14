@@ -16,7 +16,7 @@
 * You should have received a copy of the GNU General Public License								*
 * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.			*
 ************************************************************************************************/
-		//http://fenix.nied.unicamp.br/EditorMm/
+		//http://fenix.nied.unicamp.br/EdiMM/
 
 		var sizeLetter = "20"; // Initialization sizeLetter
 		var fontLetter = "Arial"; // Initialization fontLetter
@@ -87,7 +87,7 @@
 			var text = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 				for(var i = 0; i < 6; i++)
-				text += possible.charAt(Math.floor(Math.random() * possible.length));
+					text += possible.charAt(Math.floor(Math.random() * possible.length));
 			return text;
 		}
 
@@ -101,7 +101,7 @@
 
 		function deactiveButton(element) { // Function responsible disable background elements
 			if(activeButtonElement !== element) {
-			element.style.background="none";
+				element.style.background="none";
 			}
 		}
 
@@ -110,7 +110,7 @@
 		function setActiveButton(element) { // Function responsible activate elements
 			if(activeButtonElement != undefined) {
 				if(activeButtonElement !== element) {
-				activeButtonElement.style.background="none";
+					activeButtonElement.style.background="none";
 				}
 			}
 			activeButtonElement = element;
@@ -139,47 +139,47 @@
 			var number = numberOfEventListener;
 				switch (number) {
 					case 1 :
-					createDraw();
-					break;
+						createDraw();
+						break;
 					case 2 :
-					moveIt();
-					break;
+						moveIt();
+						break;
 					case 3 :
-					deleteIt();
-					break;
+						deleteIt();
+						break;
 					case 4 :
-					createWrite();
-					break;
+						createWrite();
+						break;
 					case 5 :
-					createPonto();
-					break;
+						createPonto();
+						break;
 					case 6 :
-					createCircle();
-					break;
+						createCircle();
+						break;
 					case 7 :
-					createRectangle();
-					break;
+						createRectangle();
+						break;
 					case 8 :
-					createEllipse();
-					break;
+						createEllipse();
+						break;
 					case 9 :
-					createLine();
-					break;
+						createLine();
+						break;
 					case 10 :
-					readURL(event);
-					break;
+						readURL(event);
+						break;
 					case 11 :
-					createBoxText();
-					break;
+						createBoxText();
+						break;
 					case 12 :
-					readURLAudio(event);
-					break;
+						readURLAudio(event);
+						break;
 					case 13 :
-					readURLVideo(event);
-					break;
+						readURLVideo(event);
+						break;
 					default:
-					createDraw();
-					break;
+						createDraw();
+						break;
 				}
 		}
 
@@ -188,12 +188,12 @@
 		function deviceIsTouchScreen() { // Function responsible for activating touchIsEnabled
 			if (touchIsEnabled == false){ // Compare ball values for touchIsEnabled
 				if (window.ontouchstart !== "undefined")
-				touchIsEnabled = true; // get true
+					touchIsEnabled = true; // get true
 
 				if ('createTouch' in window.document)
-				touchIsEnabled = true; // get true
+					touchIsEnabled = true; // get true
 			}else{
-			touchIsEnabled = false; // get false
+				touchIsEnabled = false; // get false
 			}
 			saveImage(); // Save layout
 		}
@@ -204,7 +204,7 @@
 				if(window.onponterstart !== "undefined")
 					stylusIsEnabled = true; // get true
 			}else{
-			stylusIsEnabled = false; // get false
+				stylusIsEnabled = false; // get false
 			}
 			saveImage(); // Save layout
 		}
@@ -249,71 +249,71 @@
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange=function() {
 				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				var xmlString = xmlhttp.responseText;
-				var x;
+					var xmlString = xmlhttp.responseText;
+					var x;
 
-				// Attributes that will transform HTML tags into XML
-				xmlString = xmlString.replace("<html>", "");
-				xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
-				xmlString = xmlString.replace("</head> <body>", "");
-				xmlString = xmlString.trim();
-				xmlString = xmlString.substring(1, xmlString.length);
-				xmlArray = xmlString.split("><");
+					// Attributes that will transform HTML tags into XML
+					xmlString = xmlString.replace("<html>", "");
+					xmlString = xmlString.replace("<head><title>Conexao EditorMm</title>", "");
+					xmlString = xmlString.replace("</head> <body>", "");
+					xmlString = xmlString.trim();
+					xmlString = xmlString.substring(1, xmlString.length);
+					xmlArray = xmlString.split("><");
 
-				// Attributes receive the element g from the layout
-				var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-				var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-				var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+					// Attributes receive the element g from the layout
+					var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+					var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+					var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
 					// Repeating loop that will scan all elements whose names are described in the XML paramentros
 					for(i=0; i<xmlArray.length; i++) {
 						switch(xmlArray[i].substr(0, 1)) { // Specific elements within the "g" tag will be searched recursively
 							case "g":
 								if(xmlArray[i].indexOf('class="layer"') != -1) {
-								var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-								var attributeArray = attributeString.split('"');
+									var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+									var attributeArray = attributeString.split('"');
 
 									// Repeating loop responsible for scanning attributeArray in class layer
 									for(j=0; j<attributeArray.length-1; j=j+2) {
-									var attributeName = attributeArray[j].trim();
-									attributeName = attributeName.substring(0, attributeName.length-1);
-									var attributeValue = attributeArray[j+1];
-									layerElement.setAttribute(attributeName, attributeValue);
+										var attributeName = attributeArray[j].trim();
+										attributeName = attributeName.substring(0, attributeName.length-1);
+										var attributeValue = attributeArray[j+1];
+										layerElement.setAttribute(attributeName, attributeValue);
 									}
 
 								} else if(xmlArray[i].indexOf('class="movementClass"') != -1) {
-										var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-										var attributeArray = attributeString.split('"');
+									var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+									var attributeArray = attributeString.split('"');
 
-											// Repeating loop responsible for scanning attributeArray in class movementClass
-											for(j=0; j<attributeArray.length-1; j=j+2) {
+									// Repeating loop responsible for scanning attributeArray in class movementClass
+									for(j=0; j<attributeArray.length-1; j=j+2) {
+										var attributeName = attributeArray[j].trim();
+										attributeName = attributeName.substring(0, attributeName.length-1);
+										var attributeValue = attributeArray[j+1];
+										movementElement.setAttribute(attributeName, attributeValue);
+									}
+
+								} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {
+									var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
+									var attributeArray = attributeString.split('"');
+
+									if(viewElement.hasChildNodes && attributeArray.length > 4) {
+										viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+										viewElement = viewElementTemp;
+										movementElement.appendChild(viewElement); // Add element to movementElement
+									}
+
+									// Repeating loop responsible for scanning attributeArray in class viewelement
+									if(attributeArray.length > 4){
+										for(j=0; j<attributeArray.length-1; j=j+2) {
 											var attributeName = attributeArray[j].trim();
 											attributeName = attributeName.substring(0, attributeName.length-1);
 											var attributeValue = attributeArray[j+1];
-											movementElement.setAttribute(attributeName, attributeValue);
-											}
+											viewElement.setAttribute(attributeName, attributeValue);
+										}
+									}
 
-										} else if(xmlArray[i].indexOf('class="viewelement"') != -1) {
-												var attributeString = xmlArray[i].substr(1, xmlArray[i].length);
-												var attributeArray = attributeString.split('"');
-
-													if(viewElement.hasChildNodes && attributeArray.length > 4) {
-													viewElementTemp = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-													viewElement = viewElementTemp;
-													movementElement.appendChild(viewElement); // Add element to movementElement
-													}
-
-													// Repeating loop responsible for scanning attributeArray in class viewelement
-													if(attributeArray.length > 4){
-														for(j=0; j<attributeArray.length-1; j=j+2) {
-														var attributeName = attributeArray[j].trim();
-														attributeName = attributeName.substring(0, attributeName.length-1);
-														var attributeValue = attributeArray[j+1];
-														viewElement.setAttribute(attributeName, attributeValue);
-														}
-													}
-
-												}
+								}
 
 							break;
 							case "d": // Search for the element with the defs tag
@@ -321,82 +321,82 @@
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
 
-									for(j=0; j<attributeArray.length-1; j=j+2) {
+								for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									defs.setAttribute(attributeName, attributeValue);
-									}
+								}
 
 								viewElement.appendChild(defs); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
 							break;
 							case "p": // Search for the element with the path
 								if ((xmlArray[i].substr(0, 4) == "path")) {
-								var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
-								var attributeArray = attributeString.split('"');
+									var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+									var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
+									var attributeArray = attributeString.split('"');
 
 									for(j=0; j<attributeArray.length-1; j=j+2) {
-									var attributeName = attributeArray[j].trim();
-									attributeName = attributeName.substring(0, attributeName.length-1);
-									var attributeValue = attributeArray[j+1];
-									path.setAttribute(attributeName, attributeValue);
+										var attributeName = attributeArray[j].trim();
+										attributeName = attributeName.substring(0, attributeName.length-1);
+										var attributeValue = attributeArray[j+1];
+										path.setAttribute(attributeName, attributeValue);
 									}
 
-								viewElement.appendChild(path); // Add element to viewElement
-								movementElement.appendChild(viewElement); // Add element to movementElement
+									viewElement.appendChild(path); // Add element to viewElement
+									movementElement.appendChild(viewElement); // Add element to movementElement
 								}
 							break;
 							case "t": // Search for the element with the defs text
 								if ((xmlArray[i].substr(0, 4) == "text")){
-								var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-								var textArray =  xmlArray[i].split(">");
-								var attributeString = textArray[0].substr(4, textArray[0].length);
-								var attributeArray = attributeString.split('"');
+									var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+									var textArray =  xmlArray[i].split(">");
+									var attributeString = textArray[0].substr(4, textArray[0].length);
+									var attributeArray = attributeString.split('"');
 
 									for(j=0; j<attributeArray.length-1; j=j+2) {
-									var attributeName = attributeArray[j].trim();
-									attributeName = attributeName.substring(0, attributeName.length-1);
-									var attributeValue = attributeArray[j+1];
-									text.setAttribute(attributeName, attributeValue);
+										var attributeName = attributeArray[j].trim();
+										attributeName = attributeName.substring(0, attributeName.length-1);
+										var attributeValue = attributeArray[j+1];
+										text.setAttribute(attributeName, attributeValue);
 									}
 
 									if ((typeof textArray[1] != 'undefined')){
-									var aux = textArray[1].substr(0, textArray[1].length -6);
-									aux = aux.replace("|", "");
-									var textNode = document.createTextNode(aux);
-									text.appendChild(textNode);
-									viewElement.appendChild(text); // Add element to viewElement
-									movementElement.appendChild(viewElement); // Add element to movementElement
+										var aux = textArray[1].substr(0, textArray[1].length -6);
+										aux = aux.replace("|", "");
+										var textNode = document.createTextNode(aux);
+										text.appendChild(textNode);
+										viewElement.appendChild(text); // Add element to viewElement
+										movementElement.appendChild(viewElement); // Add element to movementElement
 									}
 
 								}
 							break;
 							case "i": // Search for the element with the defs image
 								if ((xmlArray[i].substr(0, 5) == "image")){
-								var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-								var imageArray = xmlArray[i].split(">");
-								var attributeString = imageArray[0].substr(5, imageArray[0].length);
-								var attributeArray = attributeString.split('"');
+									var image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+									var imageArray = xmlArray[i].split(">");
+									var attributeString = imageArray[0].substr(5, imageArray[0].length);
+									var attributeArray = attributeString.split('"');
 
 									for(j=0; j<attributeArray.length-1; j=j+2) {
-									var attributeName = attributeArray[j].trim();
-									attributeName = attributeName.substring(0, attributeName.length-1);
-									var attributeValue = attributeArray[j+1];
+										var attributeName = attributeArray[j].trim();
+										attributeName = attributeName.substring(0, attributeName.length-1);
+										var attributeValue = attributeArray[j+1];
 
 										if (attributeName == 'xlink:href'){
-										image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
+											image.setAttributeNS('http://www.w3.org/1999/xlink', attributeName, attributeValue);
 										}
 										else{
-										image.setAttribute(null, attributeName, attributeValue);
+											image.setAttribute(null, attributeName, attributeValue);
 										}
 
-									image.setAttribute(attributeName, attributeValue);
+										image.setAttribute(attributeName, attributeValue);
 									}
 
-								viewElement.appendChild(image); // Add element to viewElement
-								movementElement.appendChild(viewElement); // Add element to movementElement
+									viewElement.appendChild(image); // Add element to viewElement
+									movementElement.appendChild(viewElement); // Add element to movementElement
 								}
 							break;
 							case "e": // Search for the element with the defs ellipse
@@ -404,12 +404,12 @@
 								var attributeString = xmlArray[i].substr(7, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
 
-									for(j=0; j<attributeArray.length-1; j=j+2) {
+								for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									ellipse.setAttribute(attributeName, attributeValue);
-									}
+								}
 
 								viewElement.appendChild(ellipse); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
@@ -419,12 +419,12 @@
 								var attributeString = xmlArray[i].substr(6, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
 
-									for(j=0; j<attributeArray.length-1; j=j+2) {
+								for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									circle.setAttribute(attributeName, attributeValue);
-									}
+								}
 
 								viewElement.appendChild(circle); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
@@ -434,12 +434,12 @@
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
 
-									for(j=0; j<attributeArray.length-1; j=j+2) {
+								for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									rect.setAttribute(attributeName, attributeValue);
-									}
+								}
 
 								viewElement.appendChild(rect); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
@@ -449,12 +449,12 @@
 								var attributeString = xmlArray[i].substr(4, xmlArray[i].length);
 								var attributeArray = attributeString.split('"');
 
-									for(j=0; j<attributeArray.length-1; j=j+2) {
+								for(j=0; j<attributeArray.length-1; j=j+2) {
 									var attributeName = attributeArray[j].trim();
 									attributeName = attributeName.substring(0, attributeName.length-1);
 									var attributeValue = attributeArray[j+1];
 									line.setAttribute(attributeName, attributeValue);
-									}
+								}
 
 								viewElement.appendChild(line); // Add element to viewElement
 								movementElement.appendChild(viewElement); // Add element to movementElement
@@ -467,10 +467,10 @@
 						}
 					}
 					if (viewElement){
-					layerElement.appendChild(movementElement); // layerElement receives the movementElement
-					svg.replaceChild(layerElement, layer); // layer receives the layerElement and layer
-					layer = layerElement; // layer receives the layerElement
-					movementLayer = movementElement; // movementLayer receives the movementElement
+						layerElement.appendChild(movementElement); // layerElement receives the movementElement
+						svg.replaceChild(layerElement, layer); // layer receives the layerElement and layer
+						layer = layerElement; // layer receives the layerElement
+						movementLayer = movementElement; // movementLayer receives the movementElement
 					}
 				}
 			}
@@ -769,12 +769,12 @@
 		// Move Mouse Event
 		function moveDraw(event) {
 			if(isMousePressed) { // If responsible for assigning the path element while keeping it pressed is true
-            var sx = event.clientX; // Specifies the x-axis on the screen
-            var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
-            var dString = path.getAttribute('d');
-            dString += ' L'+sx+' '+sy;
-            path.setAttribute('d', dString); // Draw the element in svg
-			event.preventDefault(); // Prevents an additional event being triggered
+				var sx = event.clientX; // Specifies the x-axis on the screen
+				var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+				var dString = path.getAttribute('d');
+				dString += ' L'+sx+' '+sy;
+				path.setAttribute('d', dString); // Draw the element in svg
+				event.preventDefault(); // Prevents an additional event being triggered
             }
 		}
 		// End Mouse Event
@@ -829,11 +829,11 @@
 				startMoveY = touches[j].pageY - screenYCorrection; // Specifies the y-axis on the screen
 				viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
 
-					// Loop responsible for assigning the path element while keeping it pressed is true
-					for(h=0; h<viewArray.length; h++) {
+				// Loop responsible for assigning the path element while keeping it pressed is true
+				for(h=0; h<viewArray.length; h++) {
 					xArray[h] = getXandYTransformValues(viewArray[h]).x;
 					yArray[h] = getXandYTransformValues(viewArray[h]).y;
-					}
+				}
 			}
 			event.preventDefault();// Prevents an additional event being triggered
 		}
@@ -849,90 +849,88 @@
 				var yMovement = touches[j].clientY; // Specifies the y-axis on the screen
 				// Loop responsible for moving the element to the desired area
 				for(h=0; h<viewArray.length; h++) {
-				var x, y;
-				var pathArray = viewArray[h].getElementsByTagName('path');
-				var pathIn = false; // Get false
+					var x, y;
+					var pathArray = viewArray[h].getElementsByTagName('path');
+					var pathIn = false; // Get false
 					// Assigns the selected element to be moved
 					if(pathArray.length>0){ // Moves the pathArray element
 						// Loop responsible for moving element path
 						for(i=0; i<pathArray.length; i++) {
 
-						var dAttributeString = pathArray[i].getAttribute('d');
-						var splitArray = dAttributeString.split(" ");
-
-						var xMoveArray = new Array(); // Stores x-axis to screen touch
+							var dAttributeString = pathArray[i].getAttribute('d');
+							var splitArray = dAttributeString.split(" ");
+							var yMoveArray = new Array(); // Stores y-axis to screen touch
+							var xMoveArray = new Array(); // Stores x-axis to screen touch
 
 							for(j=0; j<splitArray.length; j=j+2) {
-							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
+								xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
-						var yMoveArray = new Array(); // Stores y-axis to screen touch
-
 							for(l=1; l<splitArray.length; l=l+2) {
-							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
+								yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
 							}
 
 							for(g=0; g<xArray.length; g++) {
 								if(pathIn == false) {
 									if( ((startMoveX-50)  < (xMoveArray[g]*1)) && ((xMoveArray[g]*1)  < (startMoveX +50)) && ((startMoveY-50) < (yMoveArray[g]*1) ) && ((yMoveArray[g]*1) < (startMoveY+50)) ) {
-									pathIn = true; // Get true
+										pathIn = true; // Get true
 									}
 								}
 							}
 						}
 					}else{
-					var arrayDel = viewArray[h].getElementsByTagName('rect');
+						var arrayDel = viewArray[h].getElementsByTagName('rect');
 						if(arrayDel.length==1){ // Moves the rect element
-						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
-						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+							x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+							y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 						}else{
-						arrayDel = viewArray[h].getElementsByTagName('circle'); // Moves the circle element
+							arrayDel = viewArray[h].getElementsByTagName('circle'); // Moves the circle element
 							if(arrayDel.length==1){
-							x = arrayDel[0].getAttribute("cx");
-							y = arrayDel[0].getAttribute("cy");
-							movingText = true;
+								x = arrayDel[0].getAttribute("cx");
+								y = arrayDel[0].getAttribute("cy");
+								movingText = true;
 							}else{
-							arrayDel = viewArray[h].getElementsByTagName('line'); // Moves the line element
+								arrayDel = viewArray[h].getElementsByTagName('line'); // Moves the line element
 								if(arrayDel.length==1){
-								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
-								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
+									x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
+									y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
 								}else{
-								arrayDel = viewArray[h].getElementsByTagName('ellipse'); // Moves the ellipse element
+									arrayDel = viewArray[h].getElementsByTagName('ellipse'); // Moves the ellipse element
 									if(arrayDel.length==1){
-									x = arrayDel[0].getAttribute("cx");
-									y = arrayDel[0].getAttribute("cy");
+										x = arrayDel[0].getAttribute("cx");
+										y = arrayDel[0].getAttribute("cy");
 									}else{
-									arrayDel = viewArray[h].getElementsByTagName('image'); // Moves the image element
+										arrayDel = viewArray[h].getElementsByTagName('image'); // Moves the image element
 										if(arrayDel.length==1){
-										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
-										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+											x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+											y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 										}
 									}
 								}
 							}
 						}
 					}
-						if(viewArray[h].getAttribute('id') != "grid"){
-							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
-								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
+					if(viewArray[h].getAttribute('id') != "grid"){
+						if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
+							if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
 								//Translation right and down
 								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 								viewArray[h].setAttribute('transform', transformString);
-								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
-										//Translation left and down
-										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
-										viewArray[h].setAttribute('transform', transformString);
-										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
-												//Translation left and up
-												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												} else {
-												//Translation right and up
-												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												}
+							} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
+								//Translation left and down
+								var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
+							} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
+								//Translation left and up
+								var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
+							} else {
+								//Translation right and up
+								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
 							}
 						}
+					}
 				}
 			}
 			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
@@ -945,41 +943,41 @@
 			startMoveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
 			viewArray = document.getElementsByClassName('viewelement'); // Get viewelement
 
-				// Loop responsible for assigning the path element while keeping it pressed is true
-				for(h=0; h<viewArray.length; h++) {
-				xArray[h] = getXandYTransformValues(viewArray[h]).x;
-				yArray[h] = getXandYTransformValues(viewArray[h]).y;
-				}
+			// Loop responsible for assigning the path element while keeping it pressed is true
+			for(h=0; h<viewArray.length; h++) {
+			xArray[h] = getXandYTransformValues(viewArray[h]).x;
+			yArray[h] = getXandYTransformValues(viewArray[h]).y;
+			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Move Mouse Event
 		function moveMoves(event) {
 			// It will be redirected while the element is pressed
 			if(isMousePressed) {
-			var xMovement = event.clientX; // Specifies the x-axis on the screen
-			var yMovement = event.clientY; // Specifies the y-axis on the screen
+				var xMovement = event.clientX; // Specifies the x-axis on the screen
+				var yMovement = event.clientY; // Specifies the y-axis on the screen
 				// Loop responsible for moving the element to the desired area
 				for(h=0; h<viewArray.length; h++) {
-				var x, y;
-				var pathArray = viewArray[h].getElementsByTagName('path');
-				var pathIn = false; // Get false
+					var x, y;
+					var pathArray = viewArray[h].getElementsByTagName('path');
+					var pathIn = false; // Get false
 					// Assigns the selected element to be moved
 					if(pathArray.length>0){ // Moves the pathArray element
 						// Loop responsible for moving element path
 						for(i=0; i<pathArray.length; i++) {
-						var dAttributeString = pathArray[i].getAttribute('d');
-						var splitArray = dAttributeString.split(" ");
+							var dAttributeString = pathArray[i].getAttribute('d');
+							var splitArray = dAttributeString.split(" ");
 
-						var xMoveArray = new Array(); // Stores x-axis to screen touch
+							var xMoveArray = new Array(); // Stores x-axis to screen touch
 
 							for(j=0; j<splitArray.length; j=j+2) {
-							xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
+								xMoveArray.push(xArray[h]*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
 							}
 
-						var yMoveArray = new Array(); // Stores y-axis to screen touch
+							var yMoveArray = new Array(); // Stores y-axis to screen touch
 
 							for(l=1; l<splitArray.length; l=l+2) {
-							yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
+								yMoveArray.push(yArray[h]*1 + parseInt(splitArray[l]));
 							}
 
 							for(g=0; g<xArray.length; g++) {
@@ -991,58 +989,64 @@
 							}
 						}
 					}else{
-					var arrayDel = viewArray[h].getElementsByTagName('rect');
+						var arrayDel = viewArray[h].getElementsByTagName('rect');
 						if(arrayDel.length==1){ // Moves the rect element
-						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
-						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+							x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+							y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 						}else{
-						arrayDel = viewArray[h].getElementsByTagName('circle');
+							arrayDel = viewArray[h].getElementsByTagName('circle');
 							if(arrayDel.length==1){ // Moves the circle element
-							x = arrayDel[0].getAttribute("cx");
-							y = arrayDel[0].getAttribute("cy");
-							movingText = true; // Get true
+								x = arrayDel[0].getAttribute("cx");
+								y = arrayDel[0].getAttribute("cy");
+								movingText = true; // Get true
 							}else{
-							arrayDel = viewArray[h].getElementsByTagName('line');
+								arrayDel = viewArray[h].getElementsByTagName('line');
 								if(arrayDel.length==1){ // Moves the line element
-								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
-								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
+									x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
+									y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
 								}else{
-								arrayDel = viewArray[h].getElementsByTagName('ellipse');
+									arrayDel = viewArray[h].getElementsByTagName('ellipse');
 									if(arrayDel.length==1){ // Moves the ellipse element
-									x = arrayDel[0].getAttribute("cx");
-									y = arrayDel[0].getAttribute("cy");
+										x = arrayDel[0].getAttribute("cx");
+										y = arrayDel[0].getAttribute("cy");
 									}else{
-									arrayDel = viewArray[h].getElementsByTagName('image');
+										arrayDel = viewArray[h].getElementsByTagName('image');
 										if(arrayDel.length==1){ // Moves the image element
-										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
-										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+											x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+											y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+										}else{
+											arrayDel = viewArray[h].getElementsByTagName('foreignObject');
+											if(arrayDel.length==1){ // Moves the fobject element
+												x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+												y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+											}
 										}
 									}
 								}
 							}
 						}
 					}
-						if(viewArray[h].getAttribute('id') != "grid"){
-							if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
-								if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
+					if(viewArray[h].getAttribute('id') != "grid"){
+						if(((startMoveX <=(1*x+50+1*xArray[h])) &&(startMoveX >=(1*x-50+1*xArray[h])))&&((startMoveY <=(1*y+50+1*yArray[h])) && (startMoveY >=(1*y-50+1*yArray[h])))||pathIn){
+							if( (xMovement >=  startMoveX) && (yMovement >= startMoveY)) {
 								//Translation right and down
 								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
 								viewArray[h].setAttribute('transform', transformString);
-								} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
-										//Translation left and down
-										var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
-										viewArray[h].setAttribute('transform', transformString);
-										} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
-												//Translation left and up
-												var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												} else {
-												//Translation right and up
-												var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
-												viewArray[h].setAttribute('transform', transformString);
-												}
+							} else if( (xMovement < startMoveX) && (yMovement >= startMoveY) ) {
+								//Translation left and down
+								var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]+(yMovement-startMoveY-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
+							} else if( (xMovement < startMoveX) && (yMovement < startMoveY) ) {
+								//Translation left and up
+								var transformString = "translate("+(xArray[h]-(startMoveX-xMovement)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
+							} else {
+								//Translation right and up
+								var transformString = "translate("+(xArray[h]+(xMovement-startMoveX)).toString()+","+(yArray[h]-(startMoveY-yMovement-screenYCorrection)).toString()+")";
+								viewArray[h].setAttribute('transform', transformString);
 							}
 						}
+					}
 				}
 				event.preventDefault();	// Prevents an additional event being triggered
 			}
@@ -1062,7 +1066,7 @@
 			return {
 					x: parseInt(pointArray[0]),
 					y: parseInt(pointArray[1])
-				   };
+			};
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -1127,22 +1131,22 @@
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
-						if(diffX <0) {
-						// Movement left
-						deleteRect.setAttribute('x', moveX);
-						deleteRect.setAttribute('width', (diffX*(-1)));
-						} else {
-						// Movement right
-						deleteRect.setAttribute('width', diffX);
-						}
-						if(diffY <0) {
-						// Movement up
-						deleteRect.setAttribute('y', moveY);
-						deleteRect.setAttribute('height', (diffY*(-1)));
-						} else {
-						// Movement down
-						deleteRect.setAttribute('height', diffY);
-						}
+				if(diffX <0) {
+					// Movement left
+					deleteRect.setAttribute('x', moveX);
+					deleteRect.setAttribute('width', (diffX*(-1)));
+				} else {
+					// Movement right
+					deleteRect.setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+					// Movement up
+					deleteRect.setAttribute('y', moveY);
+					deleteRect.setAttribute('height', (diffY*(-1)));
+				} else {
+					// Movement down
+					deleteRect.setAttribute('height', diffY);
+				}
 			}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1164,28 +1168,28 @@
 		// Move Mouse Event
 		function moveDelete(event) {
 			if(isMousePressed) { // If responsible for assigning the path element while keeping it pressed is true
-			var moveX = event.clientX; // Specifies the x-axis on the screen
-			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX; // Specifies the x-axis on the screen
+				var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
-				// Movement left
-				deleteRect.setAttribute('x', moveX);
-				deleteRect.setAttribute('width', (diffX*(-1)));
+					// Movement left
+					deleteRect.setAttribute('x', moveX);
+					deleteRect.setAttribute('width', (diffX*(-1)));
 				} else {
-				// Movement right
-				deleteRect.setAttribute('width', diffX);
+					// Movement right
+					deleteRect.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				// Movement up
-				deleteRect.setAttribute('y', moveY);
-				deleteRect.setAttribute('height', (diffY*(-1)));
+					// Movement up
+					deleteRect.setAttribute('y', moveY);
+					deleteRect.setAttribute('height', (diffY*(-1)));
 				} else {
-				// Movement down
-				deleteRect.setAttribute('height', diffY);
+					// Movement down
+					deleteRect.setAttribute('height', diffY);
 				}
-			event.preventDefault(); // Prevents an additional event being triggered
+				event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
 		// End Event
@@ -1195,119 +1199,125 @@
 			var leftYRect = parseInt(deleteRect.getAttribute('y'));
 			var rightXRect = parseInt(deleteRect.getAttribute('width')) + leftXRect;
 			var rightYRect = parseInt(deleteRect.getAttribute('height')) + leftYRect;
-
 			var viewElementArray = document.getElementsByClassName('viewelement');
 			var arrayOfPathToDelete = new Array();
-				// Loop responsible for removing element
-				for(h=0; h<viewElementArray.length; h++) {
 
-					if(arrayOfPathToDelete.length!=0) {
+			// Loop responsible for removing element
+			for(h=0; h<viewElementArray.length; h++) {
+
+				if(arrayOfPathToDelete.length!=0) {
 					arrayOfPathToDelete = new Array();
-					}
+				}
 
 				var xTranslation = getXandYTransformValues(viewElementArray[h]).x;
 				var yTranslation = getXandYTransformValues(viewElementArray[h]).y;
-
 				var pathArray = viewElementArray[h].getElementsByTagName('path');
-					// Assigns the selected element to be removed
-					if(pathArray.length>0){ // Removed the pathArray element
-						// Loop responsible for remove element path
-						for(i=0; i<pathArray.length; i++) {
+				// Assigns the selected element to be removed
+				if(pathArray.length>0){ // Removed the pathArray element
+					// Loop responsible for remove element path
+					for(i=0; i<pathArray.length; i++) {
 						var dAttributeString = pathArray[i].getAttribute('d');
 						var splitArray = dAttributeString.split(" ");
-
 						var xArray = new Array(); // Stores x-axis to screen touch
 
-							for(j=0; j<splitArray.length; j=j+2) {
+						for(j=0; j<splitArray.length; j=j+2) {
 							xArray.push(xTranslation*1 + parseInt(splitArray[j].substr(1,splitArray[j].length)));
-							}
+						}
 
 						var yArray = new Array(); // Stores y-axis to screen touch
 
-							for(l=1; l<splitArray.length; l=l+2) {
+						for(l=1; l<splitArray.length; l=l+2) {
 							yArray.push(yTranslation*1 + parseInt(splitArray[l]));
-							}
+						}
 
 						var pathIn = false; // Get false
 
-							for(g=0; g<xArray.length; g++) {
-								if(pathIn == false) {
-									if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
+						for(g=0; g<xArray.length; g++) {
+							if(pathIn == false) {
+								if( (leftXRect  < (xArray[g]*1)) && ((xArray[g]*1)  < rightXRect) && (leftYRect  < (yArray[g]*1) ) && ((yArray[g]*1) < rightYRect) ) {
 									pathIn = true; // Get true
-									}
 								}
 							}
+						}
 
-							if(pathIn == true) {
+						if(pathIn == true) {
 							arrayOfPathToDelete.push(pathArray[i]);
-							}
 						}
+					}
 
-						for(b=0; b<arrayOfPathToDelete.length; b++) {
+					for(b=0; b<arrayOfPathToDelete.length; b++) {
 						viewElementArray[h].removeChild(arrayOfPathToDelete[b]);
-						}
-					}else{
+					}
+				}else{
 
 					var x, y;
 					var arrayDel = viewElementArray[h].getElementsByTagName('rect');
-						if(arrayDel.length==1){ // Remove the rect element
+					if(arrayDel.length==1){ // Remove the rect element
 						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
-						}else{
+					}else{
 						arrayDel = viewElementArray[h].getElementsByTagName('circle');
-							if(arrayDel.length==1){ // Remove the circle element
+						if(arrayDel.length==1){ // Remove the circle element
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
-							}else{
-								arrayDel = viewElementArray[h].getElementsByTagName('line');
-								if(arrayDel.length==1){ // Remove the line element
+						}else{
+							arrayDel = viewElementArray[h].getElementsByTagName('line');
+							if(arrayDel.length==1){ // Remove the line element
 								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
 								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
-								}else{
-									arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
-									if(arrayDel.length==1){ // Remove the ellipse element
+							}else{
+								arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
+								if(arrayDel.length==1){ // Remove the ellipse element
 									x = arrayDel[0].getAttribute("cx");
 									y = arrayDel[0].getAttribute("cy");
-									}else{
-										arrayDel = viewElementArray[h].getElementsByTagName('image');
-										if(arrayDel.length==1){ // Remove the image element
+								}else{
+									arrayDel = viewElementArray[h].getElementsByTagName('image');
+									if(arrayDel.length==1){ // Remove the image element
 										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
+									}else{
+										arrayDel = viewElementArray[h].getElementsByTagName('foreignObject');
+										if(arrayDel.length==1){ // Remove the fobject element
+											x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
+											y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
 										}
 									}
 								}
 							}
 						}
+					}
 
-						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the boxtext element
-							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
+					if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the boxtext element
+						if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('svg');
-								if(text.length)
+							if(text.length){
 								viewElementArray[h].removeChild(text[0]);
 							}
 						}
+					}
 
-						if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the script text element
-							if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
+					if(arrayDel.length==1 && viewElementArray[h].getAttribute('id') != "grid"){ // Remove the script text element
+						if( (leftXRect < (x*1+xTranslation*1)) && ((x*1+xTranslation*1)  < rightXRect) && (leftYRect  < (y*1+yTranslation*1) ) && ((y*1+yTranslation*1) < rightYRect) ) {
 							var text = viewElementArray[h].getElementsByTagName('text');
-								if(text.length)
-								viewElementArray[h].removeChild(text[0]);
-								viewElementArray[h].removeChild(arrayDel[0]);
-								}
+							/* PROBABLY BUG */
+							if(text.length)
+							viewElementArray[h].removeChild(text[0]);
+							viewElementArray[h].removeChild(arrayDel[0]);
 						}
 					}
 				}
-				clearSVGFromUnusedViews(); // Call function clearSVGFromUnusedViews
-				event.preventDefault(); // Prevents an additional event being triggered
+			}
+			clearSVGFromUnusedViews(); // Call function clearSVGFromUnusedViews
+			event.preventDefault(); // Prevents an additional event being triggered
 		}
 		// Function responsible for clearing rec element of the screen after performing its task
 		function clearSVGFromUnusedViews() {
 			var tempView = movementLayer.getElementsByClassName('viewelement');
-				for(i=0; i<tempView.length; i++) {
-					if(tempView[i].childElementCount == 0) {
+			for(i=0; i<tempView.length; i++) {
+				if(tempView[i].childElementCount == 0) {
 					movementLayer.removeChild(tempView[i]); // Remove element to movementLayer
-					}
 				}
+			}
 			svg.removeChild(deleteRect); // Remove element to svg
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -1357,45 +1367,45 @@
 				var texts = document.getElementsByTagName('text');
 				// String that will cast the string to int
 				for(var i=0; i<texts.length; i++) {
-				var tx = parseInt(texts[i].getAttribute('x'));
-				var ty = parseInt(texts[i].getAttribute('y'));
+					var tx = parseInt(texts[i].getAttribute('x'));
+					var ty = parseInt(texts[i].getAttribute('y'));
 					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
-					activateExistingText = true; // Get true
-					text = texts[i];
+						activateExistingText = true; // Get true
+						text = texts[i];
 					}
 				}
 				// If activateExistingText equal to false enters condition
 				if(activateExistingText == false) {
 
-				createViewElementForPath(); // Call function createViewElementForPath
+					createViewElementForPath(); // Call function createViewElementForPath
 
-				var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-				circle.setAttribute('cx', sx-3); // Add the position x of the element
-				circle.setAttribute('cy', sy-3); // Add the position y of the element
-				circle.setAttribute('r', 0); // Add the position r of the element
-				circle.setAttribute('stroke', "black"); // Add color to element
-				circle.setAttribute('stroke-width', 0.0); // Add element thickness
-				circle.setAttribute('fill', "black"); // Add background color to element
-				circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
-				circle.addEventListener('mouseup', endMoveWrite, false);
+					var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+					circle.setAttribute('cx', sx-3); // Add the position x of the element
+					circle.setAttribute('cy', sy-3); // Add the position y of the element
+					circle.setAttribute('r', 0); // Add the position r of the element
+					circle.setAttribute('stroke', "black"); // Add color to element
+					circle.setAttribute('stroke-width', 0.0); // Add element thickness
+					circle.setAttribute('fill', "black"); // Add background color to element
+					circle.setAttribute('id', "c"+numberToText); // Add ID increment to element
+					circle.addEventListener('mouseup', endMoveWrite, false);
 
-				viewElementG.appendChild(circle); // Add element to viewElementG
+					viewElementG.appendChild(circle); // Add element to viewElementG
 
-				text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-				text.setAttribute('x', sx); // Add the position x of the element
-				text.setAttribute('y', sy); // Add the position y of the element
-				text.setAttribute('font-family', fontLetter); // Add letter font to element
-				text.setAttribute('font-size', sizeLetter); // Add font size to element
-				text.setAttribute('font-style', styleLetter); // Add style to the element letter
-				text.setAttribute('fill', colorBoot); // Add background color to element
-				text.setAttribute('stroke', colorStrokeLetter); // Add color to element
-				text.setAttribute('text-decoration', decorationLetter); // Add underline to element
-				text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
+					text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+					text.setAttribute('x', sx); // Add the position x of the element
+					text.setAttribute('y', sy); // Add the position y of the element
+					text.setAttribute('font-family', fontLetter); // Add letter font to element
+					text.setAttribute('font-size', sizeLetter); // Add font size to element
+					text.setAttribute('font-style', styleLetter); // Add style to the element letter
+					text.setAttribute('fill', colorBoot); // Add background color to element
+					text.setAttribute('stroke', colorStrokeLetter); // Add color to element
+					text.setAttribute('text-decoration', decorationLetter); // Add underline to element
+					text.setAttribute('id', "tc"+numberToText); // Add ID increment to element
 
-				viewElementG.appendChild(text); // Add element to viewElementG
-				numberToText++; // Number increments by the amount of character
+					viewElementG.appendChild(text); // Add element to viewElementG
+					numberToText++; // Number increments by the amount of character
 				} else {
-
+					/* TODO */
 				}
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1432,21 +1442,21 @@
 				var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
 				var temp = text.innerHTML;
 				var character;
-					// Manages keyboard events
-					switch(event.key) {
-						case 'Shift':
-						break;
-						case 'Backspace':
-							temp = temp.slice(0,-2);
-							text.innerHTML = temp;
-						break;
-						case 'Enter':
+				// Manages keyboard events
+				switch(event.key) {
+					case 'Shift':
+					break;
+					case 'Backspace':
+						temp = temp.slice(0,-2);
+						text.innerHTML = temp;
+					break;
+					case 'Enter':
 
-						break;
-						default:
-							text.innerHTML = temp + event.key;
-						break;
-					}
+					break;
+					default:
+						text.innerHTML = temp + event.key;
+					break;
+				}
 				pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
 				text.innerHTML = temp + pressedKey; // The Text element receives the API
 				saveImage(); // Save layout
@@ -1459,17 +1469,17 @@
 			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 			var activateExistingText = false; // Get false
 			var texts = document.getElementsByTagName('text');
-				// String that will cast the string to int
-				for(var i=0; i<texts.length; i++) {
+			// String that will cast the string to int
+			for(var i=0; i<texts.length; i++) {
 				var tx = parseInt(texts[i].getAttribute('x'));
 				var ty = parseInt(texts[i].getAttribute('y'));
-					if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
+				if( ((tx-10) < sx) && (sx < tx) && (ty < sy) && (sy < (ty+10)) ) {
 					activateExistingText = true; // Get true
 					text = texts[i];
-					}
 				}
-				// If activateExistingText equal to false enters condition
-				if(activateExistingText == false) {
+			}
+			// If activateExistingText equal to false enters condition
+			if(activateExistingText == false) {
 
 				createViewElementForPath(); // Call function createViewElementForPath
 
@@ -1498,24 +1508,24 @@
 				viewElementG.appendChild(text); // Add element to viewElementG
 				numberToText++; // Number increments by the amount of character
 
-				}
+			}
 		}
 		// Move Mouse Event
 		function moveWrite(event) {
 			if(isMousePressed == true) {
-			var sx = event.clientX; // Specifies the x-axis on the screen
-			var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
+				var sx = event.clientX; // Specifies the x-axis on the screen
+				var sy = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
 
-			var movementTextStartX = parseInt(circleTextToMove.getAttribute('cx')); // Retrieve the axis x of the element
-			var movementTextStartY = parseInt(circleTextToMove.getAttribute('cy')); // Retrieve the axis y of the element
+				var movementTextStartX = parseInt(circleTextToMove.getAttribute('cx')); // Retrieve the axis x of the element
+				var movementTextStartY = parseInt(circleTextToMove.getAttribute('cy')); // Retrieve the axis y of the element
 
-			var tempX;
-			var tempY;
+				var tempX;
+				var tempY;
 
-			tempX = (sx - movementTextStartX);
-			tempY = (sy - movementTextStartY);
+				tempX = (sx - movementTextStartX);
+				tempY = (sy - movementTextStartY);
 
-			moveToText.setAttribute('transform', "translate("+tempX+","+tempY+")"); // Move to element
+				moveToText.setAttribute('transform', "translate("+tempX+","+tempY+")"); // Move to element
 			}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1525,20 +1535,20 @@
 			var temp = text.innerHTML;
 			var character;
 			// Manages keyboard events
-				switch(event.key) {
-					case 'Shift':
-					break;
-					case 'Backspace':
-						temp = temp.slice(0,-2);
-						text.innerHTML = temp;
-					break;
-					case 'Enter':
+			switch(event.key) {
+				case 'Shift':
+				break;
+				case 'Backspace':
+					temp = temp.slice(0,-2);
+					text.innerHTML = temp;
+				break;
+				case 'Enter':
 
-					break;
-					default:
-						text.innerHTML = temp + event.key;
-					break;
-				}
+				break;
+				default:
+					text.innerHTML = temp + event.key;
+				break;
+			}
 			pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
 			text.innerHTML = temp + pressedKey; // The Text element receives the API
 			saveImage(); // Save layout
@@ -1686,22 +1696,22 @@
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
-					if(diffX <0) {
-					  //Movement left
-					  circleArray[idTouch].setAttribute('y', diffX);
-					  circleArray[idTouch].setAttribute('r', (diffX*(-1)));
-					} else {
-					  //Movement right
-					  circleArray[idTouch].setAttribute('r', diffX);
-					}
-					if(diffY <0) {
-					  //Movement up
-					  circleArray[idTouch].setAttribute('y', moveY);
-					  circleArray[idTouch].setAttribute('r', (diffY*(-1)));
-					} else {
-					  //Movement down
-					  circleArray[idTouch].setAttribute('r', diffY);
-					}
+				if(diffX <0) {
+					//Movement left
+					circleArray[idTouch].setAttribute('y', diffX);
+					circleArray[idTouch].setAttribute('r', (diffX*(-1)));
+				} else {
+					//Movement right
+					circleArray[idTouch].setAttribute('r', diffX);
+				}
+				if(diffY <0) {
+					//Movement up
+					circleArray[idTouch].setAttribute('y', moveY);
+					circleArray[idTouch].setAttribute('r', (diffY*(-1)));
+				} else {
+					//Movement down
+					circleArray[idTouch].setAttribute('r', diffY);
+				}
 			}
 
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
@@ -1738,10 +1748,10 @@
 		// Move Mouse Event
 		function moveCircle(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX; // Specifies the x-axis on the screen
-			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX; // Specifies the x-axis on the screen
+				var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
 				  //Movement left
@@ -1835,22 +1845,22 @@
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
-					if(diffX <0) {
-					//Movement left
-					rectangleArray[idTouch].setAttribute('x', moveX);
-					rectangleArray[idTouch].setAttribute('width', (diffX*(-1)));
-					} else {
-					 //Movement right
-					rectangleArray[idTouch].setAttribute('width', diffX);
-					}
-					if(diffY <0) {
-					//Movement up
-					rectangleArray[idTouch].setAttribute('y', moveY);
-					rectangleArray[idTouch].setAttribute('height', (diffY*(-1)));
-					} else {
-					//Movement down
-					rectangleArray[idTouch].setAttribute('height', diffY);
-					}
+				if(diffX <0) {
+				//Movement left
+				rectangleArray[idTouch].setAttribute('x', moveX);
+				rectangleArray[idTouch].setAttribute('width', (diffX*(-1)));
+				} else {
+					//Movement right
+				rectangleArray[idTouch].setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+				//Movement up
+				rectangleArray[idTouch].setAttribute('y', moveY);
+				rectangleArray[idTouch].setAttribute('height', (diffY*(-1)));
+				} else {
+				//Movement down
+				rectangleArray[idTouch].setAttribute('height', diffY);
+				}
 			}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1886,10 +1896,10 @@
 		// Move Mouse Event
 		function moveRectangle(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX; // Specifies the x-axis on the screen
-			var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX; // Specifies the x-axis on the screen
+				var moveY = event.clientY-screenYCorrection; // Specifies the y-axis on the screen
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
 				//Movement left
@@ -1907,7 +1917,7 @@
 				//Movement down
 				rectangle.setAttribute('height', diffY);
 				}
-			event.preventDefault(); // Prevents an additional event being triggered
+				event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
 		// End Mouse Event
@@ -1982,22 +1992,22 @@
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
-					if(diffX <0) {
+				if(diffX <0) {
 					//Movement left
 					ellipseArray[idTouch].setAttribute('x', moveX);
 					ellipseArray[idTouch].setAttribute('rx', (diffX*(-1)));
-					} else {
+				} else {
 					//Movement right
 					ellipseArray[idTouch].setAttribute('rx', diffX);
-					}
-					if(diffY <0) {
+				}
+				if(diffY <0) {
 					//Movement up
 					ellipseArray[idTouch].setAttribute('y', moveY);
 					ellipseArray[idTouch].setAttribute('ry', (diffY*(-1)));
-					} else {
+				} else {
 					//Movement down
 					ellipseArray[idTouch].setAttribute('ry', diffY);
-					}
+				}
 			}
 			/* determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2033,28 +2043,28 @@
 		// Move Mouse Event
 		function moveEllipse(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX;
+				var moveY = event.clientY-screenYCorrection;
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//Movement left
-				ellipse.setAttribute('x', moveX);
-				ellipse.setAttribute('rx', (diffX*(-1)));
+					//Movement left
+					ellipse.setAttribute('x', moveX);
+					ellipse.setAttribute('rx', (diffX*(-1)));
 				} else {
-				//Movement right
-				ellipse.setAttribute('rx', diffX);
+					//Movement right
+					ellipse.setAttribute('rx', diffX);
 				}
 				if(diffY <0) {
-				//Movement up
-				ellipse.setAttribute('y', moveY);
-				ellipse.setAttribute('ry', (diffY*(-1)));
+					//Movement up
+					ellipse.setAttribute('y', moveY);
+					ellipse.setAttribute('ry', (diffY*(-1)));
 				} else {
-				//Movement down
-				ellipse.setAttribute('ry', diffY);
+					//Movement down
+					ellipse.setAttribute('ry', diffY);
 				}
-			event.preventDefault(); // Prevents an additional event being triggered
+				event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
 		// End Mouse Event
@@ -2137,22 +2147,22 @@
 				var diffX = moveX ;
 				var diffY = moveY ;
 
-					if(diffX <0) {
+				if(diffX <0) {
 					//Movement left
 					lineArray[idTouch].setAttribute('x1', startX);
 					lineArray[idTouch].setAttribute('x2', (diffX*(-1)));
-					} else {
+				} else {
 					//Movement right
 					lineArray[idTouch].setAttribute('x2', diffX);
-					}
-					if(diffY <0) {
+				}
+				if(diffY <0) {
 					//Movement up
 					lineArray[idTouch].setAttribute('y1', startY);
 					lineArray[idTouch].setAttribute('y2', (diffY*(-1)));
-					} else {
+				} else {
 					//Movement down
 					lineArray[idTouch].setAttribute('y2', diffY);
-					}
+				}
 			}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2195,28 +2205,28 @@
 		// Move Mouse Event
 		function moveLine(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
-			var diffX = moveX ;
-			var diffY = moveY ;
+				var moveX = event.clientX;
+				var moveY = event.clientY-screenYCorrection;
+				var diffX = moveX ;
+				var diffY = moveY ;
 
 				if(diffX <0) {
-				//Movement left
-				line.setAttribute('x1', startX);
-				line.setAttribute('x2', (diffX*(-1)));
+					//Movement left
+					line.setAttribute('x1', startX);
+					line.setAttribute('x2', (diffX*(-1)));
 				} else {
-				//Movement right
-				line.setAttribute('x2', diffX);
+					//Movement right
+					line.setAttribute('x2', diffX);
 				}
 				if(diffY <0) {
-				//Movement up
-				line.setAttribute('y1', startY);
-				line.setAttribute('y2', (diffY*(-1)));
+					//Movement up
+					line.setAttribute('y1', startY);
+					line.setAttribute('y2', (diffY*(-1)));
 				} else {
-				//Movement down
-				line.setAttribute('y2', diffY);
+					//Movement down
+					line.setAttribute('y2', diffY);
 				}
-			event.preventDefault(); // Prevents an additional event being triggered
+				event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
 		// End Mouse Event
@@ -2256,7 +2266,7 @@
 			svg.addEventListener('mouseup', endMoveURL, false);
 
 			reader.onloadend = function() {
-			receivedImage = reader.result;
+				receivedImage = reader.result;
 			}
 
 			reader.readAsDataURL(event.target.files[0]);
@@ -2299,20 +2309,20 @@
 				var diffX = moveX - startX;
 				var diffY = moveY - startY;
 
-					if(diffX <0) {
-					//Movement left
-					imageArray[idTouch].setAttribute('width', (diffX*(-1)));
-					} else {
-					//Movement right
-					imageArray[idTouch].setAttribute('width', diffX);
-					}
-					if(diffY <0) {
-					//Movement up
-					imageArray[idTouch].setAttribute('height', (diffY*(-1)));
-					} else {
-					//Movement down
-					imageArray[idTouch].setAttribute('height', diffY);
-					}
+				if(diffX <0) {
+				//Movement left
+				imageArray[idTouch].setAttribute('width', (diffX*(-1)));
+				} else {
+				//Movement right
+				imageArray[idTouch].setAttribute('width', diffX);
+				}
+				if(diffY <0) {
+				//Movement up
+				imageArray[idTouch].setAttribute('height', (diffY*(-1)));
+				} else {
+				//Movement down
+				imageArray[idTouch].setAttribute('height', diffY);
+				}
 			}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2350,26 +2360,26 @@
 		// Move Mouse Event   -- Remodelar
 		function moveURL(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX;
+				var moveY = event.clientY-screenYCorrection;
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
-				//Movement left
-				image.setAttribute('width', (diffX*(-1)));
+					//Movement left
+					image.setAttribute('width', (diffX*(-1)));
 				} else {
-				//Movement right
-				image.setAttribute('width', diffX);
+					//Movement right
+					image.setAttribute('width', diffX);
 				}
 				if(diffY <0) {
-				//Movement up
-				image.setAttribute('height', (diffY*(-1)));
+					//Movement up
+					image.setAttribute('height', (diffY*(-1)));
 				} else {
-				//Movement down
-				image.setAttribute('height', diffY);
+					//Movement down
+					image.setAttribute('height', diffY);
 				}
-			event.preventDefault(); // Prevents an additional event being triggered
+				event.preventDefault(); // Prevents an additional event being triggered
 			}
 		}
 		// End Mouse Event
@@ -2411,7 +2421,7 @@
 			svg.addEventListener('mouseup', endMoveURLAudio, false);
 
 			reader.onloadend = function() {
-			receivedAudio = reader.result;
+				receivedAudio = reader.result;
 			}
 
 			reader.readAsDataURL(event.target.files[0]);
@@ -2457,37 +2467,38 @@
 			}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Touch Event   -- Remodelar
-		/*function moveMultiTouchURLAudio(event) {
-			var touches = event.changedTouches; // Get touchEvent
-			for(var j = 0; j < touches.length; j++) {
-				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				/*var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
-				/*var moveX = touches[j].clientX; // Specifies the x-axis on the screen
-				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
-				var diffX = moveX - startX;
-				var diffY = moveY - startY;
+		// Move Touch Event   -- Refact
+		// function moveMultiTouchURLAudio(event) {
+		// 	var touches = event.changedTouches; // Get touchEvent
+		// 	for(var j = 0; j < touches.length; j++) {
+		// 		var idTouch = touches[j].identifier;
+		// 		/* Access stored touch info on touchend */
+		// 		var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+		// 		var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+		// 		var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
+		// 		var diffX = moveX - startX;
+		// 		var diffY = moveY - startY;
 
-					if(diffX <0) {
-					//Movement left
-					imageArray[idTouch].setAttribute('width', (diffX*(-1)));
-					} else {
-					//Movement right
-					imageArray[idTouch].setAttribute('width', diffX);
-					}
-					if(diffY <0) {
-					//Movement up
-					imageArray[idTouch].setAttribute('height', (diffY*(-1)));
-					} else {
-					//Movement down
-					imageArray[idTouch].setAttribute('height', diffY);
-					}
-			}
+		// 			if(diffX <0) {
+		// 			//Movement left
+		// 			imageArray[idTouch].setAttribute('width', (diffX*(-1)));
+		// 			} else {
+		// 			//Movement right
+		// 			imageArray[idTouch].setAttribute('width', diffX);
+		// 			}
+		// 			if(diffY <0) {
+		// 			//Movement up
+		// 			imageArray[idTouch].setAttribute('height', (diffY*(-1)));
+		// 			} else {
+		// 			//Movement down
+		// 			imageArray[idTouch].setAttribute('height', diffY);
+		// 			}
+		// 	}
 			/* Determine what gesture was performed, based on dx and dy (tap, swipe, one or two fingers etc. */
-			//event.preventDefault(); // Prevents an additional event being triggered
-		//}
+		// 	event.preventDefault(); // Prevents an additional event being triggered
+		// }
 		// End Touch Event
+
 		function endMoveMultiTouchURLAudio(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
@@ -2533,13 +2544,13 @@
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
-		// Move Mouse Event  -- Remodelar
+		// Move Mouse Event  -- Refact
 		/*function moveURLAudio(event) {
 			if(isMousePressed) {
-			var moveX = event.clientX;
-			var moveY = event.clientY-screenYCorrection;
-			var diffX = moveX - startX;
-			var diffY = moveY - startY;
+				var moveX = event.clientX;
+				var moveY = event.clientY-screenYCorrection;
+				var diffX = moveX - startX;
+				var diffY = moveY - startY;
 
 				if(diffX <0) {
 				//Movement left
@@ -2597,7 +2608,7 @@
 			svg.addEventListener('mouseup', endMoveURLVideo, false);
 
 			reader.onloadend = function() {
-			receivedVideo = reader.result;
+				receivedVideo = reader.result;
 			}
 
 			reader.readAsDataURL(event.target.files[0]);
@@ -2649,13 +2660,13 @@
 		/*function moveMultiTouchURLVideo(event) {
 			var touches = event.changedTouches; // Get touchEvent
 			for(var j = 0; j < touches.length; j++) {
-				var idTouch = touches[j].identifier;
-				/* Access stored touch info on touchend */
-				//var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
-				/*var moveX = touches[j].clientX; // Specifies the x-axis on the screen
-				var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
-				var diffX = moveX - startX;
-				var diffY = moveY - startY;
+					var idTouch = touches[j].identifier;
+					/* Access stored touch info on touchend */
+					//var theTouchInfo = touchesInAction[ "$" + touches[j].identifier ]; /* Access stored touch info on touchend */
+					/*var moveX = touches[j].clientX; // Specifies the x-axis on the screen
+					var moveY = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
+					var diffX = moveX - startX;
+					var diffY = moveY - startY;
 
 					if(diffX <0) {
 					//Movement left
@@ -2812,37 +2823,37 @@
 		function startMultiTouchBoxText(event){
 			var touches = event.changedTouches; // Get touchEvent
 				for(var j = 0; j < touches.length; j++) {
-				/* Store touch info on touchstart */
-				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
-					identifier : touches[j].identifier,
-					pageX : touches[j].pageX,
-					pageY : touches[j].pageY
-				};
+					/* Store touch info on touchstart */
+					touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
+						identifier : touches[j].identifier,
+						pageX : touches[j].pageX,
+						pageY : touches[j].pageY
+					};
 
-				var sx = touches[j].clientX; // Specifies the x-axis on the screen
-				var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
+					var sx = touches[j].clientX; // Specifies the x-axis on the screen
+					var sy = touches[j].clientY - screenYCorrection; // Specifies the y-axis on the screen
 
-				createViewElementForPath();	// Call function createViewElementForPath
+					createViewElementForPath();	// Call function createViewElementForPath
 
-	            var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
-				// Rectangle to move a textbox
-				paper.rect(sx, sy); // Add the position x and y of the element
-                var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
+					var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
+					// Rectangle to move a textbox
+					paper.rect(sx, sy); // Add the position x and y of the element
+					var text = paper.text(sx, sy, 'Click to write').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter, 'text-decoration': decorationLetter, 'stroke': colorStrokeLetter, 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
 
-				// Initialize text editing for the text element
-				paper.inlineTextEditing(text);
+					// Initialize text editing for the text element
+					paper.inlineTextEditing(text);
 
-				// Start inline editing on click
-				text.click(function(){
-					// Retrieve created <input type=text> field
-					var input = this.inlineTextEditing.startEditing();
+					// Start inline editing on click
+					text.click(function(){
+						// Retrieve created <input type=text> field
+						var input = this.inlineTextEditing.startEditing();
 
-					input.addEventListener("blur", function(e){
-						// Stop inline editing after blur on the text field
-						text.inlineTextEditing.stopEditing();
-					}, true);
-				});
-				isMousePressed = true; // Get true
+						input.addEventListener("blur", function(e){
+							// Stop inline editing after blur on the text field
+							text.inlineTextEditing.stopEditing();
+						}, true);
+					});
+					isMousePressed = true; // Get true
 				}
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
@@ -2856,11 +2867,8 @@
 	        var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
 			// Rectangle to move a textbox
 			paper.rect(sx, sy); // Add the position x and y of the element
-            var text = paper.text(sx, sy, 'Click to edit').attr(
-				{'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter,
-				 'text-decoration': decorationLetter,'stroke': colorStrokeLetter,
-				 'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
-
+            var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter,'text-decoration': decorationLetter,'stroke': colorStrokeLetter,'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
+			
 			// Initialize text editing for the text element
 			paper.inlineTextEditing(text);
 
@@ -3079,7 +3087,7 @@
 			for(j=0; j<=5; j++){
 				for(i=0; i<tempView.length; i++) {
 					if(tempView[i].getAttribute('id') === "grid") {
-					movementLayer.removeChild(tempView[i]); // Remove element to movementLayer
+						movementLayer.removeChild(tempView[i]); // Remove element to movementLayer
 					}
 				}
 			}
@@ -3197,23 +3205,23 @@
 
 		function setStrokeText() { // Function responsible for adding color to the letters
 			if(colorStrokeLetter != colorFillElement)
-			colorStrokeLetter = colorFillElement; // Get stroke
+				colorStrokeLetter = colorFillElement; // Get stroke
 			else
-			colorStrokeLetter = "none"; //Without stroke
+				colorStrokeLetter = "none"; //Without stroke
 		}
 
 		function setDecoration() { // Function responsible for adding underline to the letters
 			if (decorationLetter == "underline")
-			decorationLetter = "none"; // Without underline
+				decorationLetter = "none"; // Without underline
 			else
-			decorationLetter = "underline"; // Get underline
+				decorationLetter = "underline"; // Get underline
 		}
 
 		function setStyle() { // Function responsible for adding style to the letters
 			if (styleLetter == "italic")
-			styleLetter = "normal";  // Without italic
+				styleLetter = "normal";  // Without italic
 			else
-			styleLetter = "italic"; // Get italic
+				styleLetter = "italic"; // Get italic
 		}
 
 		//============================================================================
@@ -3221,7 +3229,7 @@
 		function setFillText(val) {
 			colorFillElement = val;
 			if(colorStrokeLetter != "none")
-			colorStrokeLetter = colorFillElement;
+				colorStrokeLetter = colorFillElement;
 		}
 
 		//============================================================================

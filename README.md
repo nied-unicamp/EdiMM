@@ -1,2 +1,2 @@
-# EditorMm
+# EdiMM
 Editor Multimodal
