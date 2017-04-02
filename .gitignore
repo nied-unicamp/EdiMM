@@ -1,0 +1,8 @@
+# editor confs
+
+#empty dirs
+env/
+docs/
+tests/
+scripts/
+
