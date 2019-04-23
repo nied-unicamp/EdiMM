@@ -1,0 +1,10 @@
+<svg id="_6boxtext" data-name="6boxtext" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="Caminho_26" data-name="Caminho 26" d="M0,0H24V24H0Z" fill="none"/>
+  <g id="Retângulo_2" data-name="Retângulo 2" transform="translate(0 3)" fill="none" stroke="#000" stroke-width="2">
+    <rect width="24" height="18" rx="3" stroke="none"/>
+    <rect x="1" y="1" width="22" height="16" rx="2" fill="none"/>
+  </g>
+  <path id="Caminho_27" data-name="Caminho 27" d="M5,5.383c0,.709.427,1.453.957,1.453H8.209V12.1c0,.5.64.9,1.256.9s1.209-.4,1.209-.9V6.836h2.3C13.5,6.836,14,6.092,14,5.383S13.5,4,12.973,4H5.957C5.427,4,5,4.674,5,5.383Z" transform="translate(-1 4)"/>
+  <line id="Linha_1" data-name="Linha 1" x1="2" y2="2" transform="translate(18.5 15.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+  <line id="Linha_2" data-name="Linha 2" x1="5" y2="5" transform="translate(15.5 12.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+</svg>

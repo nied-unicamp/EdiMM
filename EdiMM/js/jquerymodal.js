@@ -789,6 +789,7 @@
 		//============================================================================
 
 		function moveIt() { // Function responsible for moving elements
+			//move
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 2; // Pass number 2 in function parameter
 
@@ -1115,6 +1116,7 @@
 				deleteRect.setAttribute('fill', "none"); // Add background color to element
 				deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
 				deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
+				deleteRect.setAttribute('stroke-dasharray', "10");
 				svg.appendChild(deleteRect); // Add element to svg
 				isMousePressed = true; // Get true
 			}
@@ -1161,6 +1163,7 @@
 			deleteRect.setAttribute('fill', "none"); // Add background color to element
 			deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
 			deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
+			deleteRect.setAttribute('stroke-dasharray', "10");
 			svg.appendChild(deleteRect); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1327,7 +1330,8 @@
 		function createWrite() { // Function responsible for creating typed script
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 4; // Pass number 4 in function parameter
-
+			// canvas = document.getElementById("svgDiv");
+			// canvas.style.cursor = "text";
 			if (stylusIsEnabled) {
 				// The pointer will be used
 				// alert ("Using pointer");
@@ -1351,7 +1355,7 @@
 		// Start Touch Event
 		function startMultiTouchWrite(event) {
 			var touches = event.changedTouches; // Get touchEvent
-
+			
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
@@ -1376,7 +1380,6 @@
 				}
 				// If activateExistingText equal to false enters condition
 				if(activateExistingText == false) {
-
 					createViewElementForPath(); // Call function createViewElementForPath
 
 					var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -1451,10 +1454,10 @@
 						text.innerHTML = temp;
 					break;
 					case 'Enter':
-
+						text.innerHTML = 'batata';
 					break;
 					default:
-						text.innerHTML = temp + event.key;
+						text.innerHTML = temp + 'a';
 					break;
 				}
 				pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
@@ -1537,13 +1540,14 @@
 			// Manages keyboard events
 			switch(event.key) {
 				case 'Shift':
+					text.innerHTML = '';
 				break;
 				case 'Backspace':
 					temp = temp.slice(0,-2);
 					text.innerHTML = temp;
 				break;
 				case 'Enter':
-
+					text.innerHTML = '';
 				break;
 				default:
 					text.innerHTML = temp + event.key;
@@ -2241,6 +2245,8 @@
 		//============================================================================
 
 		function readURL(event) { // Function responsible for creating the image element
+			//nwse-resize
+			document.getElementById("svgDiv").style.cursor = "nwse-resize";
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 10; // Pass number 10 in function parameter
@@ -2289,8 +2295,8 @@
 				imageArray[idTouch].setAttribute('x', startX); // Add the position x of the element
 				imageArray[idTouch].setAttribute('y', startY); // Add the position y of the element
 				imageArray[idTouch].setAttribute('fill', "none"); // Add background color to element
-				imageArray[idTouch].setAttribute('width', "200px"); // Add width element
-				imageArray[idTouch].setAttribute('height', "300px"); // Add height element
+				imageArray[idTouch].setAttribute('width', 0); // Add width element
+				imageArray[idTouch].setAttribute('height: 55px'); // Add height element
 				imageArray[idTouch].setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', receivedImage); // Add to receivedImage
 				svg.appendChild(imageArray[idTouch]); // Add element to svg
 				isMousePressed = true; // Get true
@@ -2344,7 +2350,7 @@
 		function startURL(event){
 			startX = event.clientX; // Specifies the x-axis on the screen
 			startY = event.clientY - screenYCorrection; // Specifies the y-axis on the screen
-			
+			defaultCursor();
 			image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
 			
 			image.setAttribute('x', startX); // Add the position x of the element
@@ -2397,6 +2403,7 @@
 		
 		function readURLAudio(event) { // Function responsible for creating the image element
 			var reader = new FileReader();
+			document.getElementById("svgDiv").style.cursor = "url('images/audio.svg') 15 15, auto";
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 12; // Pass number 12 in function parameter
 
@@ -2446,7 +2453,7 @@
 				fobject.setAttribute('x', startX); // Add the position x of the element
 				fobject.setAttribute('y', startY); // Add the position y of the element
 				fobject.setAttribute('width', "300px"); // Add width element
-				fobject.setAttribute('height', "30px"); // Add height element
+				fobject.setAttribute('height', "55px"); // Add height element
 				swit.appendChild(fobject); // Add element to swit
 				
 				bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
@@ -2523,7 +2530,7 @@
 			fobject.setAttribute('x', startX); // Add the position x of the element
 			fobject.setAttribute('y', startY); // Add the position y of the element
 			fobject.setAttribute('width', "300px"); // Add width element
-			fobject.setAttribute('height', "30px"); // Add height element
+			fobject.setAttribute('height', "55px"); // Add height element
 			swit.appendChild(fobject); // Add element to swit
 			
 			bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
@@ -2577,12 +2584,14 @@
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
+			defaultCursor();
 		}
 		
 		//============================================================================
 		//video
 		
 		function readURLVideo(event) { // Function responsible for creating the image element
+			document.getElementById("svgDiv").style.cursor = "url('images/video.svg'), auto";
 			var reader = new FileReader();
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 13; // Pass number 13 in function parameter
@@ -2633,8 +2642,8 @@
 				fobject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
 				//fobject.setAttribute('x', startX); // Add the position x of the element
 				//fobject.setAttribute('y', startY); // Add the position y of the element
-				fobject.setAttribute('width', "320px"); // Add width element
-				fobject.setAttribute('height', "240px"); // Add height element
+				fobject.setAttribute('width', "620px"); // Add width element
+				fobject.setAttribute('height', "540px"); // Add height element
 				swit.appendChild(fobject); // Add element to swit
 				
 				bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
@@ -2735,8 +2744,8 @@
 				fobject.setAttribute('y', startY); // Add the position y of the element
 			}
 			
-			fobject.setAttribute('width', "320px"); // Add width element
-			fobject.setAttribute('height', "240px"); // Add height element
+			fobject.setAttribute('width', "620px"); // Add width element
+			fobject.setAttribute('height', "540px"); // Add height element
 			swit.appendChild(fobject); // Add element to swit
 			
 			bod = document.createElementNS('http://www.w3.org/1999/xhtml', 'body');
@@ -2747,7 +2756,11 @@
 			if(!isFirefox){
 				video.setAttribute('style',"margin: "+startY+"px 0 0 "+startX+"px;");
 			}
-			video.setAttribute('controls','controls');
+			video.setAttribute('controls','');
+			video.setAttribute('autoplay','');
+			video.setAttribute('loop','');
+			video.style.zIndex = "99999";
+			
 			bod.appendChild(video); // Add element to body
 			
 			contrls = document.createElementNS('http://www.w3.org/1999/xhtml', 'source');
@@ -2793,6 +2806,7 @@
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
+			defaultCursor();
 		}
 		
 		//============================================================================
@@ -2867,13 +2881,13 @@
 	        var paper = Raphael(viewElementG, 1800, 800); // Add element to viewElementG
 			// Rectangle to move a textbox
 			paper.rect(sx, sy); // Add the position x and y of the element
-            var text = paper.text(sx, sy, 'Click to edit').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter,'text-decoration': decorationLetter,'stroke': colorStrokeLetter,'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
+            var text = paper.text(sx, sy, 'Clique para editar.').attr({'text-finally': fontLetter, 'font-size': sizeLetter, 'font-style': styleLetter,'text-decoration': decorationLetter,'stroke': colorStrokeLetter,'fill': colorBoot}).transform(['R', 0, 'S', 1, 1]);
 			
 			// Initialize text editing for the text element
 			paper.inlineTextEditing(text);
 
 			// Start inline editing on click
-			text.dblclick(function(){
+			text.click(function(){
 			// Retrieve created <input type=text> field
 			var input = this.inlineTextEditing.startEditing();
 
@@ -3157,6 +3171,7 @@
 		function saveIt() { // Function responsible for saving the layout to the database
 			var serializer = new XMLSerializer();
 			var xmlString = serializer.serializeToString(layer);
+			var saveAlert = document.getElementById('save-alert');
 
 			saveImage(); // Save layout
 
@@ -3166,9 +3181,9 @@
 			xmlhttp.open("POST","dml/armazena.php",true); // Call file armazena.php
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.send("id="+id+"&tag_svg="+encoded); // Pass the id and layout to be stored
-			alert('Salvo com sucesso.\n\nCodigo de Acesso: '+id); // Alerts the user access code
+			// Alerts the user access code
+			saveAlert.innerHTML = '<div class="alert save-alert alert-dismissible" role="alert" id="save-alert"> <p>Salvo com sucesso. <a href="https://zephyrus.nied.unicamp.br/BackupAllEdiMM/EdiMM/?'+id+'" target="_blank">Clique aqui para acessar.</a></p><p>Código: '+id+'</p><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div>';
 		}
-
 		//============================================================================
 
 		function pdfIt() { // Function responsible for generating the PDF
@@ -3236,18 +3251,21 @@
 
 		function setSizeText(val) { // Function responsible for initializing element size
 			sizeLetter = val; // Get size
+			document.getElementById("medida").innerHTML = val;
 		}
 
 		//============================================================================
 
-		function setFontText(val) { // Function responsible for initializing element font
+		function setFontText(val,font) { // Function responsible for initializing element font
 			fontLetter = val; // Get font
+			document.getElementById("font").innerHTML = font;
 		}
 
 		//============================================================================
 
 		function setWidth(val) { // Function responsible for initializing element width
 			widthBoot = val; // Get width
+			document.getElementById("linha").innerHTML = "<div class='line' style='height: "+val+"px;' id='linhaspan'></div>";
 		}
 
 		//============================================================================
