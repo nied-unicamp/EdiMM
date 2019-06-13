@@ -21,57 +21,7 @@ html, body{
   height: 100%;
   font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;
 }
-.save-alert{
-    background: hsl(0, 0%, 100%);
-    color: black;
-}
-.fixed-bar{
-    float: right;
-}
-.navbar-nav{
-    height: 55px;
-}
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
-    border-color: #e7e7e700;
-}
-.buttonToolbar.a-color-picker{
-    margin-left: 0;
-    padding-bottom: 2.5px;
-}
-a.a-color-picker{
-    cursor: default;
-}
-.color-picker{
-    margin-top: 4px;
-    padding: 0;
-    border-radius: 50% 50% 50% 20%;
-    transform: rotate(135deg);
-    width: 17px;
-    height: 17px;
-    cursor: pointer;
-}
-.color-picker::-webkit-color-swatch-wrapper {
-    border: none;
-    padding: 0;
-    border-radius: 50% 50% 50% 0;
-}
-.color-picker::-webkit-color-swatch {
-    border: none;
-    border-radius: 50% 50% 50% 0;
-}
-.color-picker:focus{
-    outline: none;
-}
-.buttonToolbar.li-label{
-    cursor: default;
-}
-.li a.buttonToolbar:hover{
-    color: #000
-}
-#habMedida,#habFont{
-    cursor: pointer;
-    color: black;
-}
+
 div#svgDiv{
   top: 0%;
   bottom: 0%;
@@ -95,32 +45,7 @@ div#nav {
     top: 0%;
     bottom: 0;	
 }
-.btn-default{
-    background:  rgb(161, 161, 161);
-}
-.buttonToolbar:hover{
-    background:  rgb(161, 161, 161);
-}
-.btn-default:hover, .btn-default:focus{
-    background:  rgb(161, 161, 161) !important;
-}
-div#nav li:first-of-type{
-    margin-top: 0;
-}
-div#nav li{
-    margin: -1px;
-}
-div#nav li a{
-    border-radius: 0 10px 10px 0;
-}
-.line{
-    background: #000;
-    vertical-align: middle;
-    width: 24px;
-    margin: 8px 0;
-    border-radius: 2px;
-    min-height: 1px;
-}
+
 .desabilitado{
 	
 }
@@ -154,15 +79,6 @@ a.buttonToolbar{
 	color: #333;
     background-color: #fff;
     border-color: #ccc; 
-}
-a.buttonToolbar:hover{
-    background-color: rgb(161, 161, 161);
-}
-li.buttonToolbar:hover{
-    background-color:  rgb(161, 161, 161);
-}
-.btn.btn-default:hover{
-    background-color:  rgb(175, 175, 175);
 }
 .buttonToolbar {
     display: inline-block;
@@ -200,62 +116,4 @@ legend.scheduler-border {
     font-size: 0.8em !important;
     font-weight: bold !important;
     text-align: center !important;
-}
-
-/* Sidebar Styles */
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 360px;
-    margin: 0;
-    padding: 0;
-}
-.sidebar-nav li {
-    text-indent: 5px;
-}
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #fff;
-}
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 20px;
-    line-height: 60px;
-}
-.sidebar-nav > .sidebar-brand a {
-    color: #fff;
-
-}
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
-@media(min-width:768px) {
-    #wrapper {
-        padding-left: 0;
-    }
-    #wrapper.toggled {
-        padding-left: 380px;
-    }
-    #sidebar-wrapper {
-        width: 0;
-		height: 100%;
-    }
-    #wrapper.toggled #sidebar-wrapper {
-        width: 380px;
-    }
-    #page-content-wrapper {
-        padding: 0px;
-        position: fixed;	
-		margin-bottom: 0;
-    }
-    #wrapper.toggled #page-content-wrapper {
-        position: fixed;
-        margin-right: 0;
-    }
 }
