@@ -3256,9 +3256,9 @@
 
 		//============================================================================
 
-		function setFontText(val,fontName) { // Function responsible for initializing element font
+		function setFontText(val,font) { // Function responsible for initializing element font
 			fontLetter = val; // Get font
-			document.getElementById("font").innerHTML = fontName;
+			document.getElementById("font").innerHTML = font;
 		}
 
 		//============================================================================

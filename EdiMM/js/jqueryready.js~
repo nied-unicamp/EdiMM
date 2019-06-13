@@ -106,6 +106,7 @@
 				liA.setAttribute("href", "javascript:setFontText('"+font.id+"','"+font.name+"');");
 				liA.setAttribute("id", font.id);
 				liA.innerHTML = font.name;
+				console.log(font.name)	
 				li.appendChild(liA);
 				ulFonts.appendChild(li);
 			});

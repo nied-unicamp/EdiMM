@@ -38,9 +38,6 @@ html, body{
     margin-left: 0;
     padding-bottom: 2.5px;
 }
-.btn-default:hover{
-    background: none;
-}
 a.a-color-picker{
     cursor: default;
 }
@@ -99,10 +96,13 @@ div#nav {
     bottom: 0;	
 }
 .btn-default{
-    background:  linear-gradient(to right bottom, rgb(161, 161, 161),rgb(223, 223, 223));
+    background:  rgb(161, 161, 161);
 }
-.btn-default:hover{
-    background: linear-gradient(to right bottom, rgb(187, 187, 187),rgb(223, 223, 223));
+.buttonToolbar:hover{
+    background:  rgb(161, 161, 161);
+}
+.btn-default:hover, .btn-default:focus{
+    background:  rgb(161, 161, 161) !important;
 }
 div#nav li:first-of-type{
     margin-top: 0;
@@ -112,9 +112,6 @@ div#nav li{
 }
 div#nav li a{
     border-radius: 0 10px 10px 0;
-}
-div#nav li a:hover{
-    background:  linear-gradient(to right bottom, rgb(187, 187, 187),rgb(223, 223, 223));
 }
 .line{
     background: #000;
@@ -157,6 +154,15 @@ a.buttonToolbar{
 	color: #333;
     background-color: #fff;
     border-color: #ccc; 
+}
+a.buttonToolbar:hover{
+    background-color: rgb(161, 161, 161);
+}
+li.buttonToolbar:hover{
+    background-color:  rgb(161, 161, 161);
+}
+.btn.btn-default:hover{
+    background-color:  rgb(175, 175, 175);
 }
 .buttonToolbar {
     display: inline-block;
