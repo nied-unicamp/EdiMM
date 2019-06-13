@@ -27,39 +27,31 @@
 	
 	<!--Favicon-->
 	<link rel="shortcut icon" href="images/edimm.png" />
-
+	
 	<!-- Bootstrap CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 
-	<script>
-		var enderecoServidor= <?php echo ("\"" . $_SERVER['SERVER_ADDR'] ."\""); ?>;
-	</script>
-	
 	 <!-- Bootstrap JS -->
-	<script type="text/javascript" src="bootstrap/js/bootstrap.js">
-	</script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
 	<!-- CSS -->
 	<link href="css/styleedit.css" rel="stylesheet">
-    <link href="css/stylesidebar.css" rel="stylesheet">
 
 	<!-- JS -->
 	<script type="text/javascript" src="js/jquerystackblur.js"></script>
 	<script type="text/javascript" src="js/jqueryrgbcolor.js"></script>
 	<script type="text/javascript" src="js/jquerycanvg.js"></script>
-	<script type="text/javascript" src="http://<?php echo ($_SERVER['SERVER_ADDR']); ?>:5001/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="js/jquerymodal.js"></script>
-	
+	<script type="text/javascript" src="js/jquery.js"></script>
 
 </head>
 <body onload="init()" >
-
 	<div id="wrapper">
 
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
-
-		<div class="container" class="col-xs-5 selectContainer">
+		<div id="save-alert"></div>
+		<div class="container nav-header" class="col-xs-5 selectContainer">
 			<!-- Collapsed navigation -->
 			<div class="navbar-header">
 				<!-- Expander button -->
@@ -71,211 +63,130 @@
 				</button>
 
 			</div>
-
 			<!-- Expanded navigation -->
 			<div class="navbar-collapse collapse" aria-expanded="false">
 			<!-- Main navigation -->
-
 				<ul class="nav navbar-nav">
-
 					<li>
-						<fieldset class="scheduler-border" id ="habOpcao">
-						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" title="Selecionado"><span id="selecionado"></span></a></li>
+						<fieldset class="scheduler-border">
+						<legend class="scheduler-border"></legend>	
+						<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida" class="buttonToolbar"><span id="medida"></span><span class="caret"></span></a>
+							<ul class="dropdown-menu" id="text-size" role="menu">
+								<!-- Gera o tamanho do texto no JS -->
+							</ul>
+						</li>
 						</fieldset>
-					</li>
-
-					<li>
+						</li>
+						<li>
+							<fieldset class="scheduler-border">
+							<legend class="scheduler-border"></legend>
+							<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont" class="buttonToolbar"><span id="font"></span><span class="caret"></span></a>
+								<ul class="dropdown-menu" id="font-family">
+									<!-- Gera a fonte do texto no JS -->
+								</ul>
+							</li>
+							</fieldset>	
+						</li>
+						<!-- Espessura -->
+						<li>
+							<fieldset class="scheduler-border">
+							<legend class="scheduler-border"></legend>	
+							<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess" class="buttonToolbar"><img src="images/3lineweight.svg"><span class="caret"></span></a>
+								<ul class="dropdown-menu sizing" id="line-weight">
+										<!-- Gera a espessura da linha no JS -->
+								</ul>
+							</li>
+							</fieldset>
+						<li>
 						<fieldset class="scheduler-border" id ="habEspessSpan">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" title="Espessura Utilizada"><span id="linha"></span></a></li>
+						<li class="buttonToolbar li-label" title="Espessura"><span id="linha"></span></li>
 						</fieldset>
 					</li>
-
 					<li>
 						<fieldset class="scheduler-border" id="habEstilo">
 						<legend class="scheduler-border"></legend>
 						<li>
-						<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.png" width="10"></a>
-						<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.png" width="10"></a>
-						<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.png" width="10"></a>
+							<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.svg" width="90%"></a>
+							<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.svg" width="90%"></a>
+							<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.svg" width="90%"></a>
 						</li>
 						</fieldset>
-					</li>
-
+					</li>	
 					<li>
-						<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida"><img src="images/3measuretext.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:setSizeText(10);" id="tamanho10">10</a></li>
-								<li><a href="javascript:setSizeText(12);" id="tamanho12">12</a></li>
-								<li><a href="javascript:setSizeText(14);" id="tamanho14">14</a></li>
-								<li><a href="javascript:setSizeText(16);" id="tamanho16">16</a></li>
-								<li><a href="javascript:setSizeText(18);" id="tamanho18">18</a></li>
-								<li><a href="javascript:setSizeText(20);" id="tamanho20">20</a></li>
-								<li><a href="javascript:setSizeText(22);" id="tamanho22">22</a></li>
-								<li><a href="javascript:setSizeText(24);" id="tamanho24">24</a></li>
-								<li><a href="javascript:setSizeText(26);" id="tamanho26">26</a></li>
-								<li><a href="javascript:setSizeText(28);" id="tamanho28">28</a></li>
-								<li><a href="javascript:setSizeText(30);" id="tamanho30">30</a></li>
-								<li><a href="javascript:setSizeText(32);" id="tamanho32">32</a></li>
-								<li><a href="javascript:setSizeText(34);" id="tamanho34">34</a></li>
-								<li><a href="javascript:setSizeText(36);" id="tamanho36">36</a></li>
-								<li><a href="javascript:setSizeText(38);" id="tamanho38">38</a></li>
-								<li><a href="javascript:setSizeText(40);" id="tamanho40">40</a></li>
-								<li><a href="javascript:setSizeText(42);" id="tamanho42">42</a></li>
-								<li><a href="javascript:setSizeText(44);" id="tamanho44">44</a></li>
-								<li><a href="javascript:setSizeText(46);" id="tamanho46">46</a></li>
-								<li><a href="javascript:setSizeText(48);" id="tamanho48">48</a></li>
-							</ul>
-						</li>
-					</li>
-
-					<li>
-						<fieldset class="scheduler-border" id ="habMedidaSpan">
+						<fieldset class="scheduler-border" id="paletaCores">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" title="Medida Utilizada"><span id="medida" class="font"></span></a></li>
+						<li id="colorSelect"><a title="Paleta de Cores" class="buttonToolbar a-color-picker"><input type="color" onchange="setColor(this.value);" class="color-picker"></a>
 						</fieldset>
 					</li>
-
-
-					<li>
-						<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont"><img src="images/3stylestext.png" width="22"><span class="caret"></span></a>
+				</ul>
+				<ul class="nav navbar-nav fixed-bar">
+						<li>
+							<fieldset class="scheduler-border" id ="habEspessSpan">
+							<legend class="scheduler-border"></legend>
+							<a title="Mover Componente" id="move" class="buttonToolbar"><img src="images/3move.svg" width="22"></a>
+							</fieldset>
+						</li>
+						<li>
+							<fieldset class="scheduler-border">
+							<legend class="scheduler-border"></legend>
+							<a title="Excluir Componente" id="delete" class="buttonToolbar"><img src="images/3delete.png" width="22"></a>
+							</fieldset>
+						</li>
+						<li>
+							<fieldset class="scheduler-border">
+							<legend class="scheduler-border"></legend>
+							<a data-toggle="dropdown" title="Opções" id="display" class="buttonToolbar"><img src="images/5salvararquivo.svg" width="22"><span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="javascript:setFontText('arial');" id="arial">Arial</a></li>
-								<li><a href="javascript:setFontText('comicsans');" id="comicsans">Comic Sans</a></li>
-								<li><a href="javascript:setFontText('georgia');" id="georgia">Georgia</a></li>
-								<li><a href="javascript:setFontText('impact');" id="impact">Impact</a></li>
-								<li><a href="javascript:setFontText('lucida');" id="lucida">Lucida</a></li>
-								<li><a href="javascript:setFontText('lucidasans');" id="lucidasans">Lucidasans</a></li>
-								<li><a href="javascript:setFontText('monospace');" id="monospace">Monospace</a></li>
-								<li><a href="javascript:setFontText('opendyslexic');" id="opendyslexic">Opendys Lexic</a></li>
-								<li><a href="javascript:setFontText('palatino');" id="palatino">Palatino</a></li>
-								<li><a href="javascript:setFontText('sansserif');" id="sansserif">Sansserif</a></li>
-								<li><a href="javascript:setFontText('serif');" id="serif">Serif</a></li>
-								<li><a href="javascript:setFontText('symbol');" id="symbol">Symbol</a></li>
-								<li><a href="javascript:setFontText('tahoma');" id="tahoma">Tahoma</a></li>
-								<li><a href="javascript:setFontText('timesnewroman');" id="timesnewroman">Times New Roman</a></li>
-								<li><a href="javascript:setFontText('trebuchet');" id="trebuchet">Trebuchet</a></li>
-								<li><a href="javascript:setFontText('verdana');" id="verdana">Verdana</a></li>
-								<li><a href="javascript:setFontText('webdings');" id="webdings">Webdings</a></li>
-								<li><a href="javascript:setFontText('wingdings');" id="wingdings">Wingdings</a></li>
+								<li><a href="javascript:saveIt();" class="fontnormal"><img src="images/link.svg" width="22">Salvar link</a>
+								<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.svg" width="22"> Salvar em PNG</a>
+								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.svg" width="22"> Salvar em PDF</a>
 							</ul>
+							</fieldset>
+						<li>
+							<fieldset class="scheduler-border">
+							<legend class="scheduler-border"></legend>
+							<a data-toggle="dropdown" title="Configuração" class="buttonToolbar"><img src="images/3conf.svg" width="22"><span class="caret"></span></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+							<li><a tabindex="-1" href="javascript:window.location.href='index.html';" class="fontnormal" target="_blank"><img src="images/4newfile.svg" width="22"> Novo Arquivo </a></li>
+							<li class="divider"></li>
+							<li class="dropdown-submenu">
+							<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3color.svg" width="22"> Cores </a>
+							<ul class="dropdown-menu">
+								<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="bordas" value="bordas" onchange="setColorElement();" checked> Cores de Linha </a></li>
+								<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="fundo" value="fundo" onchange="setColorElement();"> Cores de Fundo </a></li>
+								<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="tracejado" value="tracejado" onchange="verificaCheckTracejado();"> Linhas Tracejadas </a></li>
+							</ul>
+							<li class="divider"></li>
+							<li class="dropdown-submenu">
+								<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3layout.svg" width="22"> Grade </a>
+								<ul class="dropdown-menu">
+									<li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img src="images/4drawgrid.svg" width="22"> Linha Vertical </a></li>
+									<li><a tabindex="-1" href="javascript:drawLine();" class="fontnormal"><img src="images/4drawline.svg" width="22"> Linha Horizontal </a></li>
+									<li><a tabindex="-1" href="javascript:drawGridLine();" class="fontnormal"><img src="images/4drawgridline.svg" width="22"> Gerar Grade </a></li>
+									<li><a tabindex="-1" href="javascript:drawLimetrada();" class="fontnormal"><img src="images/4drawlimetrada.svg" width="22"> Grade Milimetrada </a></li>
+									<li><a tabindex="-1" href="javascript:clearLayout();" class="fontnormal"><img src="images/4cleargrid.svg" width="22"> Limpar Layout </a></li>
+								</ul>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a tabindex="-1" href="https://www.nied.unicamp.br/projeto/edimm/" target="_blank" class="fontnormal" class="buttonToolbar"><img src="images/3team.svg" width="22"> Sobre </a></li>
+							</li>
+						</ul>
+						</fieldset>
 						</li>
 					</li>
-
 					<li>
-						<fieldset class="scheduler-border" id ="habFontSpan">
+						<fieldset class="scheduler-border">
 						<legend class="scheduler-border"></legend>
-						<li><a class="buttonToolbar" title="Fonte Utilizada" ><span id="font" class="font"></span></a></li>
+						<a title="Touchscreen" id="touch" class="buttonToolbar"><img src="images/3touchscreen.svg" width="22"></a></li>
 						</fieldset>
 					</li>
-
-					<li>
-						<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"><img src="images/3linewidth.png" width="25"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:setWidth(1);" id="line01"><img src="images/line1.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(2);" id="line02"><img src="images/line2.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(3);" id="line03"><img src="images/line3.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(3);" id="line03"><img src="images/line3.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(4);" id="line04"><img src="images/line4.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(5);" id="line05"><img src="images/line5.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(6);" id="line06"><img src="images/line6.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(7);" id="line07"><img src="images/line7.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(8);" id="line08"><img src="images/line8.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(9);" id="line09"><img src="images/line9.png" width="24"></a></li>
-								<li><a href="javascript:setWidth(10);" id="line10"><img src="images/line10.png" width="24"></a></li>
-							</ul>
-						</li>
-					</li>
-
-					<li><a title="Paleta de Cores"><input type="color" onchange="setColor(this.value);" id="paletaCores"></a></li>
-
-					<li><a></a></li>
-
-					<li><a title="Mover Componente"id="move"><img src="images/3move.png" width="22"></a></li>
-
-					<li><a title="Excluir Componente" id="delete"><img src="images/3delete.png" width="22"></a></li>
-
-
-					<li><a href="javascript:saveIt();" title="Salvar Layout"><img src="images/5salvararquivo.png" width="22"></a>
-						<li><a data-toggle="dropdown" title="Opções" id="display"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.png" width="22"> Salvar em PNG </a></li>
-								<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.png" width="22"> Salvar em PDF </a></li>
-								<li><a href="javascript:downloadIt();" class="fontnormal"><img src="images/5download.png" width="22"> Download </a></li>
-							</ul>
-						</li>
-					</li>
-
-					<li>
-						<li><a data-toggle="dropdown" title="Configuração"><img src="images/3conf.png" width="22"><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-
-								<li><a tabindex="-1" href="#" id="menu-toggle" class="fontnormal"><img src="images/3team.png" width="22"> Sobre </a></li>
-								<li><a tabindex="-1" href="javascript:window.location.href='index.html';" class="fontnormal"><img src="images/4newfile.png" width="22"> Novo Arquivo </a></li>
-
-								<li class="divider"></li>
-								<li class="dropdown-submenu">
-									<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3color.png" width="22"> Cores </a>
-									<ul class="dropdown-menu">
-										<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="bordas" value="bordas" onchange="setColorElement();" checked> Cores de Linha </a></li>
-										<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="fundo" value="fundo" onchange="setColorElement();"> Cores de Fundo </a></li>
-										<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="tracejado" value="tracejado" onchange="verificaCheckTracejado();"> Linhas Tracejadas </a></li>
-									</ul>
-								</li>
-
-								<li class="divider"></li>
-								<li class="dropdown-submenu">
-									<a tabindex="-1" href="#"  class="fontnormal"><img src="images/3layout.png" width="22"> Layout </a>
-									<ul class="dropdown-menu">
-										<li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img src="images/4drawgrid.png" width="22"> Linha Vertical </a></li>
-										<li><a tabindex="-1" href="javascript:drawLine();" class="fontnormal"><img src="images/4drawline.png" width="22"> Linha Horizontal </a></li>
-										<li><a tabindex="-1" href="javascript:drawGridLine();" class="fontnormal"><img src="images/4drawlimetrada.png" width="22"> Gerar Grade </a></li>
-										<li><a tabindex="-1" href="javascript:drawLimetrada();" class="fontnormal"><img src="images/4drawgridline.png" width="22"> Grade Milimetrada </a></li>
-										<li><a tabindex="-1" href="javascript:clearLayout();" class="fontnormal"><img src="images/4cleargrid.png" width="22"> Limpar Layout </a></li>
-									</ul>
-								</li>
-
-							</ul>
-						</li>
-					</li>
-
-					<li><a title="Touchscreen" id="touch"><img src="images/3touchScreen.png" width="22"></a></li>
-
 				</ul>
 			</div>
 		</div>
 		</div>
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-				<li><a class="font" target="janela">André Constantino da Silva, researcher (2015-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), andre.constantino@gmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Fernanda Maria Pereira Freire, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ffreire@unicamp.br </a></li>
-				<p>
-				<li><a class="font" target="janela">Flávia Linhalis Arantes, researcher (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), farantes@unicamp.br</a></li>
-				<p>
-				<li><a class="font" target="janela">Jan Breuer, researcher and developer (2015), Siegen University (SIEGEN, Germany), jan.breuer@uni-siegen.de</a></li>
-				<p>
-				<li><a class="font" target="janela">Giovani Oliveira Coutinho, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), giocoutinho26@gmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Giullianna Ferreira, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), gi.ferreiracontato@gmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Josénilton Santos de Jesus, developer and tester (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), josephnewton001@gmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Lucas Eduardo de Lima Vascon, web designer and tester (2015-current), Universidade Estadual de Campinas (UNICAMP, Brazil), lucasvascon@outlook.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Paulo Sérgio Pereira Junior, web designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), paulosergio.pjr@hotmail.com </a></li>
-				<p>
-				<li><a class="font" target="janela">Renato Oliveira, developer (2015), Universidade Estadual de Campinas (UNICAMP, Brazil), renato.oliveira2808@gmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Ricardo Vicente, visual designer (2016-current), Universidade Estadual de Campinas (UNICAMP, Brazil), ricardo_9_s@hotmail.com</a></li>
-				<p>
-				<li><a class="font" target="janela">Samuel Gomes de Lima, developer and committer (2016-current), Instituto Federal de São Paulo - campus Hortolândia (IFSP, Brazil), samuel_smgl@hotmail.com</a></li>
-			</ul>
-        </div>
-        <!-- sidebar-wrapper -->
-        <!--   Page Content  -->
+		<!--   Page Content  -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
@@ -284,29 +195,29 @@
 							<div class="container">
 								<div id="nav">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a class="buttonToolbar" title="Escrever Texto" id="keyboard"><img src="images/6text.png" width="20"></a></li>
-										<li><a class="buttonToolbar" title="Caixa de Texto" id="keybox"><img src="images/6boxtext.png" width="20"></a></li>
-										<li><a class="buttonToolbar" title="Desenho Livre" id="draw"><img src="images/6thicknessdrawing.png" width="20"></a></li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Formas Geometricas"><img src="images/6geometric.png" width="20"><span class="caret"></span></a>
+										<li><a class="buttonToolbar" title="Escrever Texto" id="keyboard"><img src="images/6text.svg" width="20"></a></li>
+										<li><a class="buttonToolbar" title="Caixa de Texto" id="keybox"><img src="images/6boxtext.svg" width="20"></a></li>
+										<li><a class="buttonToolbar" title="Desenho Livre" id="draw"><img src="images/6thicknessdrawing.svg" width="20"></a></li>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Formas Geometricas" id="formasUl"><span id="selecionado"><img src="images/6geometric.svg" width="20"></span><span class="caret"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">
-												<li><a title="Pontos" id="drop"><img src="images/2drop.png" width="15"></a></li>
-												<li><a title="Circulo" id="circle"><img src="images/2circle.png" width="15"></a></li>
-												<li><a title="Retangulo" id="square"><img src="images/2square.png" width="15"></a></li>
-												<li><a title="Ellipse" id="ellipse"><img src="images/2ellipse.png" width="15"></a></li>
-												<li><a title="Linha" id="line"><img src="images/2line.png" width="15"></a></li>
+												<li><a title="Pontos" id="drop"><img src="images/2drop.svg" width="15"></a></li>
+												<li><a title="Circulo" id="circle"><img src="images/2circle.svg" width="15"></a></li>
+												<li><a title="Retangulo" id="square"><img src="images/2square.svg" width="15"></a></li>
+												<li><a title="Elipse" id="ellipse"><img src="images/2ellipse.svg" width="15"></a></li>
+												<li><a title="Linha" id="line"><img src="images/2line.svg" width="15"></a></li>
 											</ul>
 										</li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Fotos"><img src="images/6photos.png" width="20"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Fotos"><img src="images/6photos.svg" width="20"></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURL(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Audio"><img src="images/audio.png" width="20"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Audio"><img src="images/audio.svg" width="20"></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURLAudio(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Vídeo"><img src="images/video.png" width="20"><span class="caret"></span></a>
+										<li><a data-toggle="dropdown" href="#" class="buttonToolbar" title="Importar Vídeo (MP4)"><img src="images/video.svg" width="20"></a>
 											<ul class="dropdown-menu">
 												<li><a href="#"><input type="file" name="filename" onchange="readURLVideo(event);" id="inputFile"></a></li>
 											</ul>
@@ -314,7 +225,7 @@
 									</ul>
 								</div>
 							</div>
-
+							
 							<div id="svgDiv">
 								 <svg width="100%" height="100%" id="svgID" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 									<g id="layer" class="layer">
@@ -337,8 +248,10 @@
 					</div>
 				</div>
             </div>
-        </div>
-    </div>
+		</div>
+		
+	</div>
+	
 
 	<!-- JS -->
 	<!--<script type="text/javascript" src="js/jquerytooltip.js"></script>-->
