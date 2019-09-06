@@ -24,7 +24,8 @@
 		var del=false;
 
 		var touch=false;
-
+		var w = window.innerWidth;
+		
 		var negrito=false;
 		var sublinhado=false;
 		var italico=false;
@@ -287,17 +288,25 @@
 
 			$("#touch").click(function(){
 				if(touch==false){
-					changeBtnClicked(document.getElementById("touch"));
-					document.getElementById("touch").href = "javascript:device();";
+					changeBtnClicked(document.getElementById(this.id));
+					document.getElementById(this.id).href = "javascript:device();";
 					touch=true;
 				}else{
-					changeBtnNotClicked(document.getElementById("touch"));
+					changeBtnNotClicked(document.getElementById(this.id));
 					touch=false;
 				}
 			});
-
 	//======================================================================================
-
+			if(w<790){
+				if(touch==false){
+					changeBtnClicked(document.getElementById(this.id));
+					document.getElementById(this.id).href = "javascript:device();";
+					touch=true;
+				}else{
+					changeBtnNotClicked(document.getElementById(this.id));
+					touch=false;
+				}
+			}
 			$("#keyboard").click(function(){
 
 				$("#habFont").show("slow");   	   

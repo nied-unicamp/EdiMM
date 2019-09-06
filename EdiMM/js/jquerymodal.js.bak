@@ -263,7 +263,6 @@
 					// Attributes receive the element g from the layout
 					var layerElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 					var movementElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-					movementElement.id = "movement";
 					var viewElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
 					// Repeating loop that will scan all elements whose names are described in the XML paramentros
@@ -782,11 +781,6 @@
 		function endMoveDraw(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(path); // Add element to viewElementG
-			try {
-				sendTagToServer(path.parentElement.parentElement);
-			}catch(e) {
-				
-			}
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1264,61 +1258,31 @@
 					if(arrayDel.length==1){ // Remove the rect element
 						x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 						y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
-						try {
-							sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-						}catch(e) {
-							
-						}
 					}else{
 						arrayDel = viewElementArray[h].getElementsByTagName('circle');
 						if(arrayDel.length==1){ // Remove the circle element
 							x = arrayDel[0].getAttribute("cx");
 							y = arrayDel[0].getAttribute("cy");
-							try {
-								sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-							}catch(e) {
-								
-							}
 						}else{
 							arrayDel = viewElementArray[h].getElementsByTagName('line');
 							if(arrayDel.length==1){ // Remove the line element
 								x = 1*arrayDel[0].getAttribute("x1") + ((1*arrayDel[0].getAttribute("x2") - 1*arrayDel[0].getAttribute("x1"))/2);
 								y = 1*arrayDel[0].getAttribute("y1") + ((1*arrayDel[0].getAttribute("y2") - 1*arrayDel[0].getAttribute("y1"))/2);
-								try {
-									sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-								}catch(e) {
-									
-								}
 							}else{
 								arrayDel = viewElementArray[h].getElementsByTagName('ellipse');
 								if(arrayDel.length==1){ // Remove the ellipse element
 									x = arrayDel[0].getAttribute("cx");
 									y = arrayDel[0].getAttribute("cy");
-									try {
-										sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-									}catch(e) {
-										
-									}
 								}else{
 									arrayDel = viewElementArray[h].getElementsByTagName('image');
 									if(arrayDel.length==1){ // Remove the image element
 										x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 										y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
-										try {
-											sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-										}catch(e) {
-											
-										}
 									}else{
 										arrayDel = viewElementArray[h].getElementsByTagName('foreignObject');
 										if(arrayDel.length==1){ // Remove the fobject element
 											x = 1*arrayDel[0].getAttribute("x") + 1*(arrayDel[0].getAttribute("width")/2);
 											y = 1*arrayDel[0].getAttribute("y") + 1*(arrayDel[0].getAttribute("height")/2);
-										}
-										try {
-											sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-										}catch(e) {
-											
 										}
 									}
 								}
@@ -1332,12 +1296,6 @@
 							if(text.length){
 								viewElementArray[h].removeChild(text[0]);
 							}
-
-							try {
-								sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-							}catch(e) {
-								
-							}
 						}
 					}
 
@@ -1348,12 +1306,6 @@
 							if(text.length)
 							viewElementArray[h].removeChild(text[0]);
 							viewElementArray[h].removeChild(arrayDel[0]);
-
-							try {
-								sendTagToServer(viewElementArray[h].parentElement.parentElement); 
-							}catch(e) {
-								
-							}
 						}
 					}
 				}
@@ -1370,13 +1322,6 @@
 				}
 			}
 			svg.removeChild(deleteRect); // Remove element to svg
-			try {
-				sendTagToServer(movementLayer.parentElement.parentElement); // Aponta o elemento apagado e envia para os clientess
-			}catch(e) {
-				
-			}
-			
-
 			event.preventDefault(); // Prevents an additional event being triggered
 		}
 
@@ -1385,7 +1330,8 @@
 		function createWrite() { // Function responsible for creating typed script
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 4; // Pass number 4 in function parameter
-
+			// canvas = document.getElementById("svgDiv");
+			// canvas.style.cursor = "text";
 			if (stylusIsEnabled) {
 				// The pointer will be used
 				// alert ("Using pointer");
@@ -1409,7 +1355,7 @@
 		// Start Touch Event
 		function startMultiTouchWrite(event) {
 			var touches = event.changedTouches; // Get touchEvent
-
+			
 			for(var j = 0; j < touches.length; j++) {
 				/* Store touch info on touchstart */
 				touchesInAction[ "$" + touches[j].identifier ] = { /* Access stored touch info on touchend */
@@ -1508,10 +1454,10 @@
 						text.innerHTML = temp;
 					break;
 					case 'Enter':
-
+						text.innerHTML = 'batata';
 					break;
 					default:
-						text.innerHTML = temp + event.key;
+						text.innerHTML = temp + 'a';
 					break;
 				}
 				pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
@@ -1594,13 +1540,14 @@
 			// Manages keyboard events
 			switch(event.key) {
 				case 'Shift':
+					text.innerHTML = '';
 				break;
 				case 'Backspace':
 					temp = temp.slice(0,-2);
 					text.innerHTML = temp;
 				break;
 				case 'Enter':
-
+					text.innerHTML = '';
 				break;
 				default:
 					text.innerHTML = temp + event.key;
@@ -1608,14 +1555,6 @@
 			}
 			pressedKey = String.fromCharCode(event.which || event.keyCode); // Use API to recognize keyboard characters
 			text.innerHTML = temp + pressedKey; // The Text element receives the API
-
-			try {
-				sendTagToServer(text.parentElement.parentElement); // envio por websocket
-			}catch(e) {
-				
-			}
-			
-
 			saveImage(); // Save layout
 		}
 
@@ -1692,12 +1631,6 @@
 		function endMovePonto(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(ponto); // Add element to viewElementG
-			try {
-				sendTagToServer(ponto.parentElement.parentElement); // Envia o ponto para todos os clientes
-			}catch(e) {
-				
-			}
-			
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -1847,12 +1780,6 @@
 		function endMoveCircle(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(circle); // Add element to viewElementG
-			try {
-				sendTagToServer(circle.parentElement.parentElement); // Envia o circulo para todos os clientes
-			}catch(e) {
-				
-			}
-			
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2001,12 +1928,6 @@
 		function endMoveRectangle(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(rectangle); // Add element to viewElementG
-			try {
-				sendTagToServer(rectangle.parentElement.parentElement); // Envia o circulo para todos os clientes
-			}catch(e) {
-				
-			}
-			
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2154,12 +2075,6 @@
 		function endMoveEllipse(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(ellipse); // Add element to viewElementG
-			try {
-				sendTagToServer(ellipse.parentElement.parentElement); // Envia o elipse para todos os clientes
-			}catch(e) {
-				
-			}
-			
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -2322,11 +2237,6 @@
 		function endMoveLine(event) {
 			createViewElementForPath(); // Call function createViewElementForPath
 			viewElementG.appendChild(line); // Add element to viewElementG
-			try {
-				sendTagToServer(line.parentElement.parentElement); // Envia o linha para todos os clientes
-			}catch(e) {
-				
-			}
 			isMousePressed = false; // Get false
 			saveImage(); // Save layout
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -3410,40 +3320,4 @@
 					dashedElement = "none"; // Without Space between the traces
 				}
 			}
-		}
-		try{
-			function getEdimmSessionId() {
-				var sessionId = window.location.href; 
-				sessionId = sessionId.substring(sessionId.length - 6, sessionId.length);
-				console.log(sessionId)
-				return sessionId;
-			}
-			try{
-				var socket = new WebSocket("ws://" + window.location.hostname + ":5001");
-				socket.onopen = function() {
-					sessionId = getEdimmSessionId();
-					socket.send(JSON.stringify({
-						type: "name",
-						data: name,
-						sessionId: sessionId
-					}));
-				}
-			
-			socket.onmessage = function(event) { 
-				var json = JSON.parse(event.data);
-				var tagInserir = json.data;
-				$("#movement").html(tagInserir);
-			}
-			}catch(e){
-				console.warn('Conexão com o servidor não foi estabelecida. Operando EdiMM offline.');
-			}
-			function sendTagToServer(htmlObject) {
-				socket.send(JSON.stringify({
-					type: "message",
-					data: $(htmlObject).html(),
-					sessionId: getEdimmSessionId()
-				}));
-			}
-		}catch(e){
-			console.log(e);
 		}

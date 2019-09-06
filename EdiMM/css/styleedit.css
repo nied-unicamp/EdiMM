@@ -28,6 +28,18 @@ html, body{
 .fixed-bar{
     float: right;
 }
+.edimm-logo{
+    width: 80px;
+    left: 20px;
+    margin-top: 10px;
+    position: absolute;
+    clear: both;
+}
+.navbar{
+    padding-bottom: 4px;
+    background: none;
+    box-shadow: none;
+}
 .navbar-nav{
     height: 55px;
 }
