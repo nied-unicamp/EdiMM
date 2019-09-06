@@ -25,7 +25,7 @@
 	<title>EdiMM</title>
 	<!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">-->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 	<!--Favicon-->
 	<link rel="shortcut icon" href="images/edimm.png" />
 
@@ -129,20 +129,6 @@
 					</ul>
 					<ul class="nav navbar-nav fixed-bar">
 						<li>
-							<fieldset class="scheduler-border" id="habEspessSpan">
-								<legend class="scheduler-border"></legend>
-								<a title="Mover Componente" id="move" class="buttonToolbar"><img src="images/3move.svg"
-										width="22"></a>
-							</fieldset>
-						</li>
-						<li>
-							<fieldset class="scheduler-border">
-								<legend class="scheduler-border"></legend>
-								<a title="Excluir Componente" id="delete" class="buttonToolbar"><img
-										src="images/3delete.png" width="22"></a>
-							</fieldset>
-						</li>
-						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
 								<a data-toggle="dropdown" title="Opções" id="display" class="buttonToolbar"><img
@@ -233,47 +219,50 @@
 							<div class="container">
 								<div id="nav">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a class="buttonToolbar" title="Escrever título" id="keyboard"><img
-													src="images/6text.svg" width="20"></a></li>
-										<li><a class="buttonToolbar" title="Caixa de texto" id="keybox"><img
-													src="images/6boxtext.svg" width="20"></a></li>
 										<li><a class="buttonToolbar" title="Desenho livre" id="draw"><img
-													src="images/6thicknessdrawing.svg" width="20"></a></li>
-										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
+													src="images/6thicknessdrawing.svg" width="30"></a></li>
+										<li><a title="Excluir Componente" id="delete" class="buttonToolbar"><img
+													src="images/3delete.png" width="30" height="30"></a></li>
+										<li><a title="Mover Componente" id="move" class="buttonToolbar"><img 
+													src="images/3move.svg" width="30"></a></li>						
+										<li class="outer"><a class="buttonToolbar" title="Escrever título" id="keyboard"><img
+													src="images/6text.svg" width="30"></a></li>
+										<li><a class="buttonToolbar" title="Caixa de texto" id="keybox"><img
+													src="images/6boxtext.svg" width="30"></a></li>
+										<li id="selected"><a data-toggle="dropdown" href="#" class="buttonToolbar"
 												title="Formas geometricas" id="formasUl"><span id="selecionado"><img
-														src="images/6geometric.svg" width="20"></span><span
-													class="caret"></span></a>
+														src="images/6geometric.svg" width="30"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">
-												<li><a title="Ponto" id="drop"><img src="images/2drop.svg"
+												<li class="dropdown-li"><a title="Ponto" id="drop"><img src="images/2drop.svg"
 															width="15"></a></li>
-												<li><a title="Círculo" id="circle"><img src="images/2circle.svg"
+												<li class="dropdown-li"><a title="Círculo" id="circle"><img src="images/2circle.svg"
 															width="15"></a></li>
-												<li><a title="Retangulo" id="square"><img src="images/2square.svg"
+												<li class="dropdown-li"><a title="Retangulo" id="square"><img src="images/2square.svg"
 															width="15"></a></li>
-												<li><a title="Elipse" id="ellipse"><img src="images/2ellipse.svg"
+												<li class="dropdown-li"><a title="Elipse" id="ellipse"><img src="images/2ellipse.svg"
 															width="15"></a></li>
-												<li><a title="Linha" id="line"><img src="images/2line.svg"
+												<li class="dropdown-li"><a title="Linha" id="line"><img src="images/2line.svg"
 															width="15"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
-												title="Importar imagem"><img src="images/6photos.svg" width="20"></a>
+												title="Importar imagem"><img src="images/6photos.svg" width="30"></a>
 											<ul class="dropdown-menu">
-												<li><a href="#"><input type="file" name="filename"
+												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
 															onchange="readURL(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
-												title="Importar audio"><img src="images/audio.svg" width="20"></a>
+												title="Importar audio"><img src="images/audio.svg" width="30"></a>
 											<ul class="dropdown-menu">
-												<li><a href="#"><input type="file" name="filename"
+												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
 															onchange="readURLAudio(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
-												title="Importar vídeo (MP4)"><img src="images/video.svg" width="20"></a>
+												title="Importar vídeo (MP4)"><img src="images/video.svg" width="30"></a>
 											<ul class="dropdown-menu">
-												<li><a href="#"><input type="file" name="filename"
+												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
 															onchange="readURLVideo(event);" id="inputFile"></a></li>
 											</ul>
 										</li>

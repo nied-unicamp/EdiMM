@@ -3341,14 +3341,16 @@
 
 		function setSizeText(val) { // Function responsible for initializing element size
 			sizeLetter = val; // Get size
-			document.getElementById("medida").innerHTML = val;
+			document.getElementById("medida").innerHTML = val+" ";
 		}
 
 		//============================================================================
 
-		function setFontText(val,fontName) { // Function responsible for initializing element font
+		function setFontText(val, name) { // Function responsible for initializing element font
 			fontLetter = val; // Get font
-			document.getElementById("font").innerHTML = fontName;
+			document.getElementById("font").innerHTML = name+" ";
+			if(val != "wingdings"  && val !=  "webdings" && val !=  "symbol")
+				document.getElementById("font").style.fontFamily = '"'+name+'"';
 		}
 
 		//============================================================================

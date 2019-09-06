@@ -35,6 +35,10 @@
 				id: "arial"
 			},
 			{
+				name: "Quicksand",
+				id: "quicksand"
+			},
+			{
 				name: "Comic Sans",
 				id: "comicsans"
 			},
@@ -106,6 +110,8 @@
 				var liA = document.createElement("a");
 				liA.setAttribute("href", "javascript:setFontText('"+font.id+"','"+font.name+"');");
 				liA.setAttribute("id", font.id);
+				if(font.id != "wingdings"  && font.id !=  "webdings" && font.id !=  "symbol")
+					liA.style.fontFamily = '"'+font.name+'"';
 				liA.innerHTML = font.name;
 				li.appendChild(liA);
 				ulFonts.appendChild(li);
@@ -151,7 +157,7 @@
 			}
 		})();
 		changeShapeImg = function(){
-			document.getElementById('selecionado').innerHTML = '<img src="images/6geometric.svg" width="20">';
+			document.getElementById('selecionado').innerHTML = '<img src="images/6geometric.svg" width="30">';
 		};
 		changeBtnClicked= function (element){
 			element.className = "btn btn-default";
@@ -173,9 +179,9 @@
 
 			$("#linha").html($("#line03"));
 
-			$("#medida").html("20");
+			$("#medida").html("20 ");
 
-			$("#font").html("Arial");
+			$("#font").html("Arial ");
 
 			changeBtnClicked(document.getElementById("draw"));
 			document.getElementById("svgDiv").style.cursor = "url('images/drawingcursor.svg') 6 20, auto";
@@ -352,8 +358,7 @@
 				$("#habEspessSpan").hide("slow");  
 				$("#habEspess").hide("slow"); 	   
 				$("#habOpcao").hide("slow");  
-				changeShapeImg();	   
-
+				changeShapeImg();	  
 				changeBtnNotClicked(document.getElementById("keyboard"));
 				key=false;
 				changeBtnNotClicked(document.getElementById("draw"));
@@ -362,8 +367,9 @@
 				move=false;
 				changeBtnNotClicked(document.getElementById("delete"));
 				del=false;
-
+				//changeBtnClicked(document.getElementById("keybox"));
 				document.getElementById("keybox").href = "javascript:createBoxText();";
+				
 				document.getElementById("svgDiv").style.cursor = "text";
 
 			});
@@ -417,6 +423,7 @@
 
 			$("#drop").click(function(){
 				var img = $(this).find("img").clone();
+				img.width(30);
 				$("#selecionado").html(img);
 				document.getElementById("svgDiv").style.cursor = "url('images/2drop.svg') 15 15, auto";
 
@@ -436,6 +443,7 @@
 
 			$("#circle").click(function(){
 				var img = $(this).find("img").clone();
+				img.width(30);
 				$("#selecionado").html(img);
 
 				document.getElementById("circle").href = "javascript:createCircle();";
@@ -455,6 +463,7 @@
 
 			$("#square").click(function(){
 				var img = $(this).find("img").clone();
+				img.width(30);
 				$("#selecionado").html(img);
 
 				document.getElementById("square").href = "javascript:createRectangle();";
@@ -474,6 +483,7 @@
 
 			$("#ellipse").click(function(){
 				var img = $(this).find("img").clone();
+				img.width(30);
 				$("#selecionado").html(img);
 
 				document.getElementById("ellipse").href = "javascript:createEllipse();";
@@ -493,6 +503,7 @@
 
 			$("#line").click(function(){
 				var img = $(this).find("img").clone();
+				img.width(30);
 				$("#selecionado").html(img);
 
 				document.getElementById("line").href = "javascript:createLine();";
