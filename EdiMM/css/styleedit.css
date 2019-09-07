@@ -296,6 +296,18 @@ legend.scheduler-border {
     color: #fff;
     background: none;
 }
+.navbar{
+    margin-bottom: 0;
+}
+@media (max-width:790px){
+    div#nav .nav-pills.nav-stacked li{
+        margin-top: 0;  
+    }
+    div#nav .nav-pills.nav-stacked li a.btn.btn-default,div#nav .nav-pills.nav-stacked li a.selected {
+        margin-top: 0;
+        border-radius: 0 0 12px 12px;
+    }
+}
 @media(min-width:768px) {
     #wrapper {
         padding-left: 0;

@@ -1119,10 +1119,7 @@
 				deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 				deleteRect.setAttribute('x', startX); // Add the position x of the element
 				deleteRect.setAttribute('y', startY); // Add the position y of the element
-				deleteRect.setAttribute('fill', "none"); // Add background color to element
-				deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
-				deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
-				deleteRect.setAttribute('stroke-dasharray', "10");
+				deleteRect.setAttribute('fill', "rgba(255,0,0,0.3"); // Add background color to element
 				svg.appendChild(deleteRect); // Add element to svg
 				isMousePressed = true; // Get true
 			}
@@ -1166,10 +1163,8 @@
 			deleteRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 			deleteRect.setAttribute('x', startX); // Add the position x of the element
 			deleteRect.setAttribute('y', startY); // Add the position y of the element
-			deleteRect.setAttribute('fill', "none"); // Add background color to element
-			deleteRect.setAttribute('stroke', "red"); // Add a red color to the element
-			deleteRect.setAttribute('stroke-width', "1"); // Add a thickness to the element
-			deleteRect.setAttribute('stroke-dasharray', "10");
+			deleteRect.setAttribute('fill', "rgba(255,0,0,0.3"); // Add background color to element
+			console.log(deleteRect);
 			svg.appendChild(deleteRect); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
