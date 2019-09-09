@@ -21,6 +21,9 @@ html, body{
   height: 100%;
   font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;
 }
+a:hover{
+    text-decoration: none;
+}
 .save-alert{
     background: hsl(0, 0%, 100%);
     color: black;
@@ -37,8 +40,8 @@ html, body{
 }
 .navbar{
     padding-bottom: 4px;
-    background: white;
     box-shadow: none;
+    border-bottom: 0;
 }
 .navbar-nav{
     height: 55px;
@@ -76,6 +79,9 @@ a.a-color-picker{
 }
 .color-picker:focus{
     outline: none;
+}
+.buttonToolbar.li-label[title="Espessura"]:hover{
+    background: none;
 }
 .buttonToolbar.li-label{
     cursor: default;
@@ -122,7 +128,7 @@ div#nav {
     background:  rgb(161, 161, 161) !important;
 }
 div#nav .nav-pills.nav-stacked li{
-    margin-top: -38px;
+    margin-top: -38px;/* -38px */
     transition: .2s all;
     margin-left: 5px;
 }
@@ -131,7 +137,7 @@ div#nav .nav-pills.nav-stacked li:hover, div#nav .nav-pills.nav-stacked li a.btn
     margin-top: 0px;
 }
 div#nav .nav-pills.nav-stacked li a.btn.btn-default,div#nav .nav-pills.nav-stacked li a.selected {
-    margin-top: 38px;
+    margin-top: 37px;
     border-radius: 0 0 12px 12px;
     transition: all .3s;
 }
@@ -139,16 +145,17 @@ div#nav .nav-pills.nav-stacked li a.buttonToolbar{
     border-radius: 0 0 10px 10px;
     border: none;
     background: #E50304;
+    padding-bottom: 20px;
 }
 div#nav .nav-pills.nav-stacked li:nth-child(2) a:not(#circle){
     background: #E55603;
 }
 div#nav .nav-pills.nav-stacked li:nth-child(3) a:not(#circle):not(#square){
     background: #FF8B00;
+    margin-right: 30px;
 }
 div#nav .nav-pills.nav-stacked li:nth-child(4) a:not(#square):not(#ellipse){
-    background: #FFEE02;
-    margin-left: 20px;
+    background: #f0d64e;
 }
 div#nav .nav-pills.nav-stacked li:nth-child(5) a:not(#line){
     background: #028128;
@@ -175,7 +182,7 @@ div#nav .nav-pills.nav-stacked li a.selected{
     background: none;
 }
 .line{
-    background: #000;
+    background: #fff;
     vertical-align: middle;
     width: 24px;
     margin: 8px 0;
@@ -276,6 +283,21 @@ legend.scheduler-border {
     text-decoration: none;
     color: #fff;
 }
+legend{
+    border-bottom: none;
+}
+#line-weight{
+    background: #262626;
+}
+#geometricshapes{
+    background: #028178;
+}
+#geometricshapes li a:hover{
+    background: #0ea198;
+}
+#line-weight li a:hover{
+    background: #494949;
+}
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
@@ -287,7 +309,6 @@ legend.scheduler-border {
 }
 .sidebar-nav > .sidebar-brand a {
     color: #fff;
-
 }
 .carret{
     background: white;
@@ -299,6 +320,29 @@ legend.scheduler-border {
 .navbar{
     margin-bottom: 0;
 }
+@media (max-width:625px){
+    .fixed-bar{
+        display: none;
+    }
+    div#nav{
+        width: 65px;
+	    height: 100%;
+    }
+    div#nav .nav-pills.nav-stacked li a{
+        border-radius: 0 12px 12px 0 !important;
+        padding: 15px !important;
+    }
+    div#nav .nav-pills.nav-stacked li a.btn.btn-default{
+        margin: -1px;
+    }
+    div#nav .nav-pills.nav-stacked li {
+        margin-left: 0;
+    }
+    .embed-responsive {
+        overflow: visible;
+    }
+    
+}
 @media (max-width:790px){
     div#nav .nav-pills.nav-stacked li{
         margin-top: 0;  
@@ -306,6 +350,10 @@ legend.scheduler-border {
     div#nav .nav-pills.nav-stacked li a.btn.btn-default,div#nav .nav-pills.nav-stacked li a.selected {
         margin-top: 0;
         border-radius: 0 0 12px 12px;
+        padding: 20px 15px 30px 15px;
+    }
+    div#nav .nav-pills.nav-stacked li a.btn.btn-default,div#nav .nav-pills.nav-stacked li a.selected {
+        margin-top: -1px;
     }
 }
 @media(min-width:768px) {
@@ -330,5 +378,13 @@ legend.scheduler-border {
     #wrapper.toggled #page-content-wrapper {
         position: fixed;
         margin-right: 0;
+    }
+}
+@keyframes rotate {
+    from {
+        transform: translate(35%,-25%) rotate(0);
+    }
+    to {
+        transform: translate(35%,-25%) rotate(360deg);
     }
 }

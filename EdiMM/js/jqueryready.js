@@ -16,6 +16,7 @@
 * You should have received a copy of the GNU General Public License								*
 * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-2.0.html>.			*
 ************************************************************************************************/
+		//document.addEventListener('contextmenu', event => event.preventDefault());
 		var key=false;
 		var keybox=false;
 		var draw=false;
@@ -125,16 +126,12 @@
 				var liDiv = document.createElement("div");
 				liA.setAttribute("href", "javascript:setWidth("+i+");");
 				liA.setAttribute("title", ""+i+"px");
-				if(i<10){
-					liA.setAttribute("id", "line0"+i);
-					liDiv.setAttribute("class", "line");
-					liDiv.style.height = i+"px";
-				}
-				else{
-					liA.setAttribute("id", "line"+i)
-					liDiv.setAttribute("class", "line");
-					liDiv.style.height = i+"px";
-				}
+				if(i==10)
+					liA.setAttribute("id", "line"+i);
+				else
+					liA.setAttribute("id", "line0"+i)
+				liDiv.setAttribute("class", "line");
+				liDiv.style.height = i+"px";
 				liA.appendChild(liDiv);
 				li.appendChild(liA); 
 				lineWeightDropdown.appendChild(li);
@@ -156,7 +153,7 @@
 			}
 		})();
 		changeShapeImg = function(){
-			document.getElementById('selecionado').innerHTML = '<img src="images/6geometric.svg" width="30">';
+			document.getElementById('selecionado').innerHTML = '';
 		};
 		changeBtnClicked= function (element){
 			element.className = "btn btn-default";
@@ -176,7 +173,7 @@
 			$("#habMedidaSpan").hide("slow"); 
 			$("#habFontSpan").hide("slow");
 
-			$("#linha").html($("#line03"));
+			$("#linha").html($("<div class='line' style='height: 3px;' id='linhaspan' title='3px'></div><p>3px</p>"));
 
 			$("#medida").html("20 ");
 
@@ -262,10 +259,7 @@
 					document.getElementById("delete").href = "javascript:deleteIt();";
 					document.getElementById("svgDiv").style.cursor = "url('images/3deletecursor.svg'), auto";
 					del=true;
-				}else{
-					changeBtnNotClicked(document.getElementById("delete"));
-					defaultCursor();
-					del=false;
+					document.getElementById("delete").style.background = "#E55603";
 				}
 
 				$("#paletaCores").hide("slow");    
@@ -282,8 +276,11 @@
 				move=false;
 				changeBtnNotClicked(document.getElementById("keyboard"));
 				key=false;
+				changeBtnNotClicked(document.getElementById("keybox"));
+				keybox=false;
 				changeBtnNotClicked(document.getElementById("draw"));
 				draw=false;
+				document.getElementById("delete").style.background = "#E55603";
 			});
 
 			$("#menu-toggle").click(function(e) {
@@ -312,7 +309,7 @@
 					touch=false;
 				}
 			}
-			$("#keyboard").click(function(){
+			$("#keybox").click(function(){
 
 				$("#habFont").show("slow");   	   
 				$("#habEstilo").show("slow"); 	   
@@ -326,8 +323,8 @@
 				changeShapeImg();	   
 
 				if(key==false){
-					changeBtnClicked(document.getElementById("keyboard"));
-					document.getElementById("keyboard").href = "javascript:createWrite();";
+					changeBtnClicked(document.getElementById("keybox"));
+					document.getElementById("keybox").href = "javascript:createBoxText();";
 					document.getElementById("svgDiv").style.cursor = "text";
 					key=true;
 				}else{
@@ -336,7 +333,7 @@
 					key=false;
 				}
 
-				changeBtnNotClicked(document.getElementById("keybox"));
+				changeBtnNotClicked(document.getElementById("keyboard"));
 				keybox=false;
 				changeBtnNotClicked(document.getElementById("draw"));
 				draw=false;
@@ -346,7 +343,7 @@
 				del=false;
 			});
 
-			$("#keybox").click(function(){
+			$("#keyboard").click(function(){
 
 				$("#habFont").show("slow");   	   
 				$("#habEstilo").show("slow"); 	   
@@ -357,8 +354,18 @@
 				$("#habEspessSpan").hide("slow");  
 				$("#habEspess").hide("slow"); 	   
 				$("#habOpcao").hide("slow");  
-				changeShapeImg();	  
-				changeBtnNotClicked(document.getElementById("keyboard"));
+				
+				if(key==false){
+					changeBtnClicked(document.getElementById("keyboard"));
+					document.getElementById("keyboard").href = "javascript:createWrite();";
+					document.getElementById("svgDiv").style.cursor = "text";
+					key=true;
+				}else{
+					changeBtnNotClicked(document.getElementById("keyboard"));
+					defaultCursor();
+					key=false;
+				}	  
+				changeBtnNotClicked(document.getElementById("keybox"));
 				key=false;
 				changeBtnNotClicked(document.getElementById("draw"));
 				draw=false;
@@ -366,13 +373,12 @@
 				move=false;
 				changeBtnNotClicked(document.getElementById("delete"));
 				del=false;
-				//changeBtnClicked(document.getElementById("keybox"));
-				document.getElementById("keybox").href = "javascript:createBoxText();";
+				//changeBtnClicked(document.getElementById("keybox")); BoxText();";
 				
 				document.getElementById("svgDiv").style.cursor = "text";
 
 			});
-
+			document.getElementById("draw").style.background = "#E50304";
 			$("#draw").click(function(){
 				$("#habFont").hide("slow");   	   
 				$("#habEstilo").hide("slow"); 	   
@@ -388,12 +394,12 @@
 				if(draw==false){
 					changeBtnClicked(document.getElementById("draw"));
 					document.getElementById("draw").href = "javascript:createDraw();";
+					
 					document.getElementById("svgDiv").style.cursor = "url('images/drawingcursor.svg') 6 20, auto";
 					draw=true;
+					document.getElementById("draw").style.background = "#E50304";
 				}else{
-					changeBtnNotClicked(document.getElementById("draw"));
-					defaultCursor();
-					draw=false;
+					document.getElementById("draw").style.background = "#E50304";
 				}
 
 				changeBtnNotClicked(document.getElementById("keyboard"));
@@ -404,7 +410,7 @@
 				move=false;
 				changeBtnNotClicked(document.getElementById("delete"));
 				del=false;
-
+				document.getElementById("draw").style.background = "#E50304";
 			});
 
 			$("#geometricshapes").click(function(){
@@ -422,8 +428,9 @@
 
 			$("#drop").click(function(){
 				var img = $(this).find("img").clone();
-				img.width(30);
+				img.width(20);
 				$("#selecionado").html(img);
+				
 				document.getElementById("svgDiv").style.cursor = "url('images/2drop.svg') 15 15, auto";
 
 				document.getElementById("drop").href = "javascript:createPonto();";
@@ -442,7 +449,7 @@
 
 			$("#circle").click(function(){
 				var img = $(this).find("img").clone();
-				img.width(30);
+				img.width(20);
 				$("#selecionado").html(img);
 
 				document.getElementById("circle").href = "javascript:createCircle();";
@@ -462,7 +469,7 @@
 
 			$("#square").click(function(){
 				var img = $(this).find("img").clone();
-				img.width(30);
+				img.width(20);
 				$("#selecionado").html(img);
 
 				document.getElementById("square").href = "javascript:createRectangle();";
@@ -482,7 +489,7 @@
 
 			$("#ellipse").click(function(){
 				var img = $(this).find("img").clone();
-				img.width(30);
+				img.width(20);
 				$("#selecionado").html(img);
 
 				document.getElementById("ellipse").href = "javascript:createEllipse();";
@@ -502,7 +509,7 @@
 
 			$("#line").click(function(){
 				var img = $(this).find("img").clone();
-				img.width(30);
+				img.width(20);
 				$("#selecionado").html(img);
 
 				document.getElementById("line").href = "javascript:createLine();";

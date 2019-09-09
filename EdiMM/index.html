@@ -51,13 +51,13 @@
 <body onload="init()">
 	<div id="wrapper">
 
-		<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
 			<div id="save-alert"></div>
 			<div class="container nav-header" class="col-xs-5 selectContainer">
 
 				<!-- Collapsed navigation -->
 				<div class="navbar-header">
-					<img src="images/logo.png" alt="EdiMM" class="edimm-logo">
+					<img src="images/logo-white.png" alt="EdiMM" class="edimm-logo">
 					<!-- Expander button -->
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -74,57 +74,64 @@
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-						<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida" class="buttonToolbar"><span
+							<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida" class="buttonToolbar"><span
 									id="medida"></span><span class="caret"></span></a>
 							<ul class="dropdown-menu" id="text-size" role="menu">
 								<!-- Gera o tamanho do texto no JS -->
 							</ul>
-						</li>
+							</li>
 						</fieldset>
 						</li>
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-						<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont" class="buttonToolbar"><span
+							<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont" class="buttonToolbar"><span
 									id="font"></span><span class="caret"></span></a>
 							<ul class="dropdown-menu" id="font-family">
 								<!-- Gera a fonte do texto no JS -->
 							</ul>
+							</li>
+							</fieldset>
 						</li>
-						</fieldset>
-						</li>
+						<li>
+								<fieldset class="scheduler-border" id="habEstilo">
+									<legend class="scheduler-border"></legend>
+								<li>
+									<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.svg" width="90%"></a>
+									<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.svg" width="90%"></a>
+									<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.svg" width="90%"></a>
+								</li>
+								</fieldset>
+							</li>
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-						<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"
+							<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"
 								class="buttonToolbar"><img src="images/3lineweight.svg"><span class="caret"></span></a>
-							<ul class="dropdown-menu sizing" id="line-weight">
+								<ul class="dropdown-menu sizing" id="line-weight">
 								<!-- Gera a espessura da linha no JS -->
-							</ul>
-						</li>
-						</fieldset>
+								</ul>
+							</li>
+							</fieldset>
 						<li>
 							<fieldset class="scheduler-border" id="habEspessSpan">
 								<legend class="scheduler-border"></legend>
-						<li class="buttonToolbar li-label" title="Espessura"><span id="linha"></span></li>
-						</fieldset>
-						</li>
-						<li>
-							<fieldset class="scheduler-border" id="habEstilo">
-								<legend class="scheduler-border"></legend>
-						<li>
-							<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.svg" width="90%"></a>
-							<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.svg" width="90%"></a>
-							<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.svg" width="90%"></a>
-						</li>
-						</fieldset>
+							<li class="buttonToolbar li-label" title="Espessura"><span id="linha"></span></li>
+							</fieldset>
 						</li>
 						<li>
 							<fieldset class="scheduler-border" id="paletaCores">
 								<legend class="scheduler-border"></legend>
-						<li id="colorSelect"><a title="Paleta de Cores" class="buttonToolbar a-color-picker"><input
+								<li id="colorSelect"><a title="Paleta de Cores" class="buttonToolbar a-color-picker"><input
 									type="color" onchange="setColor(this.value);" class="color-picker"></a>
 							</fieldset>
+						</li>
+						<li>
+							<fieldset class="scheduler-border">
+								<legend class="scheduler-border"></legend>
+							<li class="buttonToolbar li-label" title="Espessura"><span id="selecionado"></span></li>
+							</fieldset>
+						</a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav fixed-bar">
@@ -157,14 +164,13 @@
 												width="22"> Cores </a>
 										<ul class="dropdown-menu">
 											<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="bordas"
-														value="bordas" onchange="setColorElement();" checked> Cores de
-													Linha </a></li>
+														value="bordas" onchange="setColorElement();" checked> Cores de linha</a></li>
 											<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="fundo"
-														value="fundo" onchange="setColorElement();"> Cores de Fundo </a>
+														value="fundo" onchange="setColorElement();"> Cores de fundo</a>
 											</li>
 											<li><a tabindex="-1" class="fontnormal"><input type="checkbox"
 														name="tracejado" value="tracejado"
-														onchange="verificaCheckTracejado();"> Linhas Tracejadas </a>
+														onchange="verificaCheckTracejado();"> Linhas tracejadas</a>
 											</li>
 										</ul>
 									<li class="divider"></li>
@@ -222,27 +228,27 @@
 										<li><a class="buttonToolbar" title="Desenho livre" id="draw"><img
 													src="images/6thicknessdrawing.svg" width="30"></a></li>
 										<li><a title="Excluir Componente" id="delete" class="buttonToolbar"><img
-													src="images/3delete.png" width="30" height="30"></a></li>
+													src="images/3delete.svg" width="30" height="30"></a></li>
 										<li><a title="Mover Componente" id="move" class="buttonToolbar"><img 
-													src="images/3move.svg" width="30"></a></li>						
+													src="images/3move.svg" width="30"></a></li>		
 										<li class="outer"><a class="buttonToolbar" title="Escrever título" id="keyboard"><img
 													src="images/6text.svg" width="30"></a></li>
 										<li><a class="buttonToolbar" title="Caixa de texto" id="keybox"><img
 													src="images/6boxtext.svg" width="30"></a></li>
 										<li id="selected"><a data-toggle="dropdown" href="#" class="buttonToolbar"
-												title="Formas geometricas" id="formasUl"><span id="selecionado"><img
+												title="Formas geometricas" id="formasUl"><span><img
 														src="images/6geometric.svg" width="30"></span></a>
 											<ul class="dropdown-menu" id="geometricshapes">
 												<li class="dropdown-li"><a title="Ponto" id="drop"><img src="images/2drop.svg"
-															width="15"></a></li>
+															width="25"></a></li>
 												<li class="dropdown-li"><a title="Círculo" id="circle"><img src="images/2circle.svg"
-															width="15"></a></li>
+															width="25"></a></li>
 												<li class="dropdown-li"><a title="Retangulo" id="square"><img src="images/2square.svg"
-															width="15"></a></li>
+															width="25"></a></li>
 												<li class="dropdown-li"><a title="Elipse" id="ellipse"><img src="images/2ellipse.svg"
-															width="15"></a></li>
+															width="25"></a></li>
 												<li class="dropdown-li"><a title="Linha" id="line"><img src="images/2line.svg"
-															width="15"></a></li>
+															width="25"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"

@@ -1164,7 +1164,6 @@
 			deleteRect.setAttribute('x', startX); // Add the position x of the element
 			deleteRect.setAttribute('y', startY); // Add the position y of the element
 			deleteRect.setAttribute('fill', "rgba(255,0,0,0.3"); // Add background color to element
-			console.log(deleteRect);
 			svg.appendChild(deleteRect); // Add element to svg
 			isMousePressed = true; // Get true
 			event.preventDefault(); // Prevents an additional event being triggered
@@ -3352,7 +3351,8 @@
 
 		function setWidth(val) { // Function responsible for initializing element width
 			widthBoot = val; // Get width
-			document.getElementById("linha").innerHTML = "<div class='line' style='height: "+val+"px;' id='linhaspan'></div>";
+			document.getElementById("linha").setAttribute('title',val)
+			document.getElementById("linha").innerHTML = "<div class='line' style='height: "+val+"px;' id='linhaspan' title='"+val+"px'></div><p>"+val+"px</p>";
 		}
 
 		//============================================================================
