@@ -3352,7 +3352,7 @@
 		function setWidth(val) { // Function responsible for initializing element width
 			widthBoot = val; // Get width
 			document.getElementById("linha").setAttribute('title',val)
-			document.getElementById("linha").innerHTML = "<div class='line' style='height: "+val+"px;' id='linhaspan' title='"+val+"px'></div><p>"+val+"px</p>";
+			document.getElementById("linha").innerHTML = "<div class='line' style='height: "+val+"px;' id='linhaspan' title='"+val+"px'></div>";
 		}
 
 		//============================================================================

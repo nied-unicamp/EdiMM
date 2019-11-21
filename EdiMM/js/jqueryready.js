@@ -173,7 +173,7 @@
 			$("#habMedidaSpan").hide("slow"); 
 			$("#habFontSpan").hide("slow");
 
-			$("#linha").html($("<div class='line' style='height: 3px;' id='linhaspan' title='3px'></div><p>3px</p>"));
+			$("#linha").html($("#line03"));
 
 			$("#medida").html("20 ");
 

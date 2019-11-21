@@ -74,45 +74,35 @@
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-							<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida" class="buttonToolbar"><span
+						<li><a data-toggle="dropdown" title="Escolher Medida" id="habMedida" class="buttonToolbar"><span
 									id="medida"></span><span class="caret"></span></a>
 							<ul class="dropdown-menu" id="text-size" role="menu">
 								<!-- Gera o tamanho do texto no JS -->
 							</ul>
-							</li>
+						</li>
 						</fieldset>
 						</li>
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-							<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont" class="buttonToolbar"><span
+						<li><a data-toggle="dropdown" title="Escolher Fonte" id="habFont" class="buttonToolbar"><span
 									id="font"></span><span class="caret"></span></a>
 							<ul class="dropdown-menu" id="font-family">
 								<!-- Gera a fonte do texto no JS -->
 							</ul>
-							</li>
-							</fieldset>
 						</li>
-						<li>
-								<fieldset class="scheduler-border" id="habEstilo">
-									<legend class="scheduler-border"></legend>
-								<li>
-									<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.svg" width="90%"></a>
-									<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.svg" width="90%"></a>
-									<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.svg" width="90%"></a>
-								</li>
-								</fieldset>
-							</li>
+						</fieldset>
+						</li>
 						<li>
 							<fieldset class="scheduler-border">
 								<legend class="scheduler-border"></legend>
-							<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"
+						<li><a data-toggle="dropdown" title="Escolher Espessura" id="habEspess"
 								class="buttonToolbar"><img src="images/3lineweight.svg"><span class="caret"></span></a>
-								<ul class="dropdown-menu sizing" id="line-weight">
+							<ul class="dropdown-menu upper-dropdown" id="line-weight">
 								<!-- Gera a espessura da linha no JS -->
-								</ul>
-							</li>
-							</fieldset>
+							</ul>
+						</li>
+						</fieldset>
 						<li>
 							<fieldset class="scheduler-border" id="habEspessSpan">
 								<legend class="scheduler-border"></legend>
@@ -120,9 +110,19 @@
 							</fieldset>
 						</li>
 						<li>
+							<fieldset class="scheduler-border" id="habEstilo">
+								<legend class="scheduler-border"></legend>
+						<li>
+							<a class="buttonToolbar" title="Negrito" id="negrito"><img src="images/1bold.svg" width="90%"></a>
+							<a class="buttonToolbar" title="Sublinhado" id="sublinhado"><img src="images/1underline.svg" width="90%"></a>
+							<a class="buttonToolbar" title="Itálico" id="italico"><img src="images/1italic.svg" width="90%"></a>
+						</li>
+						</fieldset>
+						</li>
+						<li>
 							<fieldset class="scheduler-border" id="paletaCores">
 								<legend class="scheduler-border"></legend>
-								<li id="colorSelect"><a title="Paleta de Cores" class="buttonToolbar a-color-picker"><input
+						<li id="colorSelect"><a title="Paleta de Cores" class="buttonToolbar a-color-picker"><input
 									type="color" onchange="setColor(this.value);" class="color-picker"></a>
 							</fieldset>
 						</li>
@@ -140,9 +140,9 @@
 								<legend class="scheduler-border"></legend>
 								<a data-toggle="dropdown" title="Opções" id="display" class="buttonToolbar"><img
 										src="images/5salvararquivo.svg" width="22"><span class="caret"></span></a>
-								<ul class="dropdown-menu">
+								<ul class="dropdown-menu upper-dropdown">
 									<li><a href="javascript:saveIt();" class="fontnormal"><img src="images/link.svg"
-												width="22">Salvar link</a>
+												width="22"> Salvar link</a>
 									<li><a href="javascript:imageIt();" class="fontnormal"><img src="images/5image.svg"
 												width="22"> Salvar em PNG</a>
 									<li><a href="javascript:pdfIt();" class="fontnormal"><img src="images/5pdf.svg"
@@ -154,7 +154,7 @@
 								<legend class="scheduler-border"></legend>
 								<a data-toggle="dropdown" title="Configuração" class="buttonToolbar"><img
 										src="images/3conf.svg" width="22"><span class="caret"></span></a>
-								<ul class="dropdown-menu dropdown-menu-right">
+								<ul class="dropdown-menu dropdown-menu-right upper-dropdown">
 									<li><a tabindex="-1" href="javascript:window.location.href='index.html';"
 											class="fontnormal" target="_blank"><img src="images/4newfile.svg"
 												width="22"> Novo Arquivo </a></li>
@@ -162,7 +162,7 @@
 									<li class="dropdown-submenu">
 										<a tabindex="-1" href="#" class="fontnormal"><img src="images/3color.svg"
 												width="22"> Cores </a>
-										<ul class="dropdown-menu">
+										<ul class="dropdown-menu upper-dropdown">
 											<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="bordas"
 														value="bordas" onchange="setColorElement();" checked> Cores de linha</a></li>
 											<li><a tabindex="-1" class="fontnormal"><input type="checkbox" name="fundo"
@@ -177,7 +177,7 @@
 									<li class="dropdown-submenu">
 										<a tabindex="-1" href="#" class="fontnormal"><img src="images/3layout.svg"
 												width="22"> Grade </a>
-										<ul class="dropdown-menu">
+										<ul class="dropdown-menu upper-dropdown">
 											<li><a tabindex="-1" href="javascript:drawGrid();" class="fontnormal"><img
 														src="images/4drawgrid.svg" width="22"> Linha Vertical </a></li>
 											<li><a tabindex="-1" href="javascript:drawLine();" class="fontnormal"><img
@@ -209,8 +209,22 @@
 							<legend class="scheduler-border"></legend>
 							<a title="Touchscreen" id="touch" class="buttonToolbar"><img src="images/3touchscreen.svg"
 									width="22"></a>
+						</fieldset>
 					</li>
-					</fieldset>
+					<!-- <li>
+						<fieldset class="scheduler-border undo">
+							<legend class="scheduler-border"></legend>
+							<a title="Undo" id="undo" class="buttonToolbar"><img src="images/undo.svg"
+									width="22"></a>
+						</fieldset>
+					</li>
+					<li>
+						<fieldset class="scheduler-border redo">
+							<legend class="scheduler-border"></legend>
+							<a title="Redo" id="redo" class="buttonToolbar"><img src="images/redo.svg"
+									width="22"></a>
+						</fieldset>
+					</li> -->
 					</li>
 					</ul>
 				</div>
@@ -231,7 +245,7 @@
 													src="images/3delete.svg" width="30" height="30"></a></li>
 										<li><a title="Mover Componente" id="move" class="buttonToolbar"><img 
 													src="images/3move.svg" width="30"></a></li>		
-										<li class="outer"><a class="buttonToolbar" title="Escrever título" id="keyboard"><img
+										<li><a class="buttonToolbar" title="Escrever título" id="keyboard"><img
 													src="images/6text.svg" width="30"></a></li>
 										<li><a class="buttonToolbar" title="Caixa de texto" id="keybox"><img
 													src="images/6boxtext.svg" width="30"></a></li>
@@ -252,26 +266,28 @@
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
-												title="Importar imagem"><img src="images/6photos.svg" width="30"></a>
-											<ul class="dropdown-menu">
-												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
+												title="Importar imagem" ><img src="images/6photos.svg" width="30"></a>
+											<ul class="dropdown-menu sidebar-dropdown">
+												<li class="dropdown-li "><a href="#" class="input-dropdown"><input type="file" name="filename"
 															onchange="readURL(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
 												title="Importar audio"><img src="images/audio.svg" width="30"></a>
 											<ul class="dropdown-menu">
-												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
+												<li class="dropdown-li"><a href="#" class="input-dropdown"><input type="file" name="filename"
 															onchange="readURLAudio(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
 										<li><a data-toggle="dropdown" href="#" class="buttonToolbar"
 												title="Importar vídeo (MP4)"><img src="images/video.svg" width="30"></a>
 											<ul class="dropdown-menu">
-												<li class="dropdown-li"><a href="#"><input type="file" name="filename"
+												<li class="dropdown-li"><a href="#" class="input-dropdown"><input type="file" name="filename"
 															onchange="readURLVideo(event);" id="inputFile"></a></li>
 											</ul>
 										</li>
+										</ul>
+									</li>
 									</ul>
 								</div>
 							</div>
