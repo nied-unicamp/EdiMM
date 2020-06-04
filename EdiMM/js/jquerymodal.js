@@ -667,6 +667,7 @@
 		//============================================================================
 
 		function createDraw() { // Function responsible for creating the draw element
+			alert("teste");
 			removeEventListenerFromSVG(numberOfEventListener);
 			numberOfEventListener = 1; // Pass number 1 in function parameter
 
